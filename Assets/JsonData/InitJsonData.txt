@@ -1,0 +1,16 @@
+{
+    "title": "Test",
+    "description": "This is a REST interface test application",
+    "author": {
+        "name": "Chroma Developer",
+        "contact": "www.razerzone.com"
+    },
+    "device_supported": [
+        "keyboard",
+        "mouse",
+        "headset",
+        "mousepad",
+        "keypad",
+        "chromalink"],
+    "category": "application"
+}
