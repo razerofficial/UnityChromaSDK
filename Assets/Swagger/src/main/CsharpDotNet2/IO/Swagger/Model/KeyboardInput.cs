@@ -13,9 +13,9 @@ namespace IO.Swagger.Model {
   [DataContract]
   public class KeyboardInput {
     /// <summary>
-    /// Effect type
+    /// Chroma generic effects. Note that not all devices supported the listed effects
     /// </summary>
-    /// <value>Effect type</value>
+    /// <value>Chroma generic effects. Note that not all devices supported the listed effects</value>
     [DataMember(Name="effect", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "effect")]
     public string Effect { get; set; }
