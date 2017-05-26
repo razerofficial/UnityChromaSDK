@@ -1,5 +1,5 @@
 ﻿using IO.Swagger.Api;
-using IO.Swagger.Model;
+using IO.Swagger.chromasdk.model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -67,8 +67,8 @@ public class TestSwaggerClient : MonoBehaviour
         try
         {
             var input = new KeyboardInput();
-            input.Effect = "CHROMA_NONE";
-            InlineResponseDefault result = _mApiInstance.PutKeyboard(input);
+            input.Effect = EffectType.CHROMA_NONE;
+            KeyboardResponse result = _mApiInstance.PutKeyboard(input);
             Debug.Log(result);
         }
         catch (Exception e)
@@ -82,10 +82,9 @@ public class TestSwaggerClient : MonoBehaviour
         try
         {
             var input = new KeyboardInput();
-            input.Effect = "CHROMA_STATIC";
-            input.Param = new KeyboardParam();
-            input.Param.Color = color;
-            InlineResponseDefault result = _mApiInstance.PutKeyboard(input);
+            input.Effect = EffectType.CHROMA_STATIC;
+            input.Param = new KeyboardInputParam(color);
+            KeyboardResponse result = _mApiInstance.PutKeyboard(input);
             Debug.Log(result);
         }
         catch (Exception e)

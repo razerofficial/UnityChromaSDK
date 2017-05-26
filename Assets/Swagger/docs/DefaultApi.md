@@ -1,6 +1,6 @@
-# IO.Swagger..DefaultApi
+# IO.Swagger.chromasdk.DefaultApi
 
-All URIs are relative to *http://localhost:80/chromasdk*
+All URIs are relative to *http://localhost:62030/chromasdk*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -23,7 +23,7 @@ using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
 using IO.Swagger.Client;
-using IO.Swagger.Model;
+using chromasdk.model;
 
 namespace Example
 {
@@ -67,7 +67,7 @@ No authorization required
 
 <a name="postkeyboard"></a>
 # **PostKeyboard**
-> InlineResponseDefault1 PostKeyboard (KeyboardInput1 keyboardInput)
+> KeyboardResponseId PostKeyboard (KeyboardInput keyboardInput)
 
 
 
@@ -79,7 +79,7 @@ using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
 using IO.Swagger.Client;
-using IO.Swagger.Model;
+using chromasdk.model;
 
 namespace Example
 {
@@ -89,11 +89,11 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var keyboardInput = new KeyboardInput1(); // KeyboardInput1 |  (optional) 
+            var keyboardInput = new KeyboardInput(); // KeyboardInput |  (optional) 
 
             try
             {
-                InlineResponseDefault1 result = apiInstance.PostKeyboard(keyboardInput);
+                KeyboardResponseId result = apiInstance.PostKeyboard(keyboardInput);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -109,11 +109,11 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **keyboardInput** | [**KeyboardInput1**](KeyboardInput1.md)|  | [optional] 
+ **keyboardInput** | [**KeyboardInput**](KeyboardInput.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponseDefault1**](InlineResponseDefault1.md)
+[**KeyboardResponseId**](KeyboardResponseId.md)
 
 ### Authorization
 
@@ -128,7 +128,7 @@ No authorization required
 
 <a name="putkeyboard"></a>
 # **PutKeyboard**
-> InlineResponseDefault PutKeyboard (KeyboardInput keyboardInput)
+> KeyboardResponse PutKeyboard (KeyboardInput keyboardInput)
 
 
 
@@ -140,7 +140,7 @@ using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
 using IO.Swagger.Client;
-using IO.Swagger.Model;
+using chromasdk.model;
 
 namespace Example
 {
@@ -154,7 +154,7 @@ namespace Example
 
             try
             {
-                InlineResponseDefault result = apiInstance.PutKeyboard(keyboardInput);
+                KeyboardResponse result = apiInstance.PutKeyboard(keyboardInput);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponseDefault**](InlineResponseDefault.md)
+[**KeyboardResponse**](KeyboardResponse.md)
 
 ### Authorization
 

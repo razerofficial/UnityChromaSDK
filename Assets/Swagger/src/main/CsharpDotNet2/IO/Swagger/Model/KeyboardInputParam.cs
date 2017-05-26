@@ -23,47 +23,27 @@ using Newtonsoft.Json.Converters;
 namespace IO.Swagger.chromasdk.model
 {
     /// <summary>
-    /// JSON Data
+    /// Effect definition
     /// </summary>
     [DataContract]
-    public partial class KeyboardInput : IEquatable<KeyboardInput>
+    public partial class KeyboardInputParam : IEquatable<KeyboardInputParam>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardInput" /> class.
+        /// Initializes a new instance of the <see cref="KeyboardInputParam" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected KeyboardInput() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardInput" /> class.
-        /// </summary>
-        /// <param name="Effect">Effect (required).</param>
-        /// <param name="Param">Param.</param>
-        public KeyboardInput(EffectType Effect = default(EffectType), KeyboardInputParam Param = default(KeyboardInputParam))
+        /// <param name="Color">Color value in BGR format.</param>
+        public KeyboardInputParam(int? Color = default(int?))
         {
-            // to ensure "Effect" is required (not null)
-            if (Effect == null)
-            {
-                throw new InvalidDataException("Effect is a required property for KeyboardInput and cannot be null");
-            }
-            else
-            {
-                this.Effect = Effect;
-            }
-            this.Param = Param;
+            this.Color = Color;
         }
 
         /// <summary>
-        /// Gets or Sets Effect
+        /// Color value in BGR format
         /// </summary>
-        [DataMember(Name = "effect", EmitDefaultValue = false)]
-        [JsonProperty(PropertyName = "effect")]
-        public EffectType Effect { get; set; }
-        /// <summary>
-        /// Gets or Sets Param
-        /// </summary>
-        [DataMember(Name = "param", EmitDefaultValue = false)]
-        [JsonProperty(PropertyName = "param")]
-        public KeyboardInputParam Param { get; set; }
+        /// <value>Color value in BGR format</value>
+        [DataMember(Name = "color", EmitDefaultValue = false)]
+        [JsonProperty(PropertyName = "color")]
+        public int? Color { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -71,9 +51,8 @@ namespace IO.Swagger.chromasdk.model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class KeyboardInput {\n");
-            sb.Append("  Effect: ").Append(Effect).Append("\n");
-            sb.Append("  Param: ").Append(Param).Append("\n");
+            sb.Append("class KeyboardInputParam {\n");
+            sb.Append("  Color: ").Append(Color).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -95,15 +74,15 @@ namespace IO.Swagger.chromasdk.model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as KeyboardInput);
+            return this.Equals(obj as KeyboardInputParam);
         }
 
         /// <summary>
-        /// Returns true if KeyboardInput instances are equal
+        /// Returns true if KeyboardInputParam instances are equal
         /// </summary>
-        /// <param name="other">Instance of KeyboardInput to be compared</param>
+        /// <param name="other">Instance of KeyboardInputParam to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(KeyboardInput other)
+        public bool Equals(KeyboardInputParam other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
@@ -111,14 +90,9 @@ namespace IO.Swagger.chromasdk.model
 
             return
                 (
-                    this.Effect == other.Effect ||
-                    this.Effect != null &&
-                    this.Effect.Equals(other.Effect)
-                ) &&
-                (
-                    this.Param == other.Param ||
-                    this.Param != null &&
-                    this.Param.Equals(other.Param)
+                    this.Color == other.Color ||
+                    this.Color != null &&
+                    this.Color.Equals(other.Color)
                 );
         }
 
@@ -133,10 +107,8 @@ namespace IO.Swagger.chromasdk.model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.Effect != null)
-                    hash = hash * 59 + this.Effect.GetHashCode();
-                if (this.Param != null)
-                    hash = hash * 59 + this.Param.GetHashCode();
+                if (this.Color != null)
+                    hash = hash * 59 + this.Color.GetHashCode();
                 return hash;
             }
         }

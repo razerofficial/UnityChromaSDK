@@ -1,10 +1,9 @@
-# IO.Swagger.Model.InlineResponseDefault1
+# IO.Swagger.Model.KeyboardInputParam
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | [optional] [default to null]
-**Result** | **double?** |  | [default to null]
+**Color** | **int?** | Color value in BGR format | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
