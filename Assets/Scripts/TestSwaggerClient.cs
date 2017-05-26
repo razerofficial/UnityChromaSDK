@@ -1,5 +1,4 @@
 ﻿using IO.Swagger.Api;
-using IO.Swagger.Client;
 using IO.Swagger.Model;
 using System;
 using System.Collections;
@@ -24,8 +23,6 @@ public class TestSwaggerClient : MonoBehaviour
     private int _mPort = 80;
 
     private DefaultApi _mApiInstance;
-
-    private List<Action> _mUpdateActions = new List<Action>();
 
     class SessionData
     {
@@ -110,34 +107,22 @@ public class TestSwaggerClient : MonoBehaviour
 
         _mButtonRed.onClick.AddListener(() =>
         {
-            _mUpdateActions.Add(() =>
-            {
-                SetStaticColor(255);
-            });
+            SetStaticColor(255);
         });
 
         _mButtonGreen.onClick.AddListener(() =>
         {
-            _mUpdateActions.Add(() =>
-            {
-                SetStaticColor(65280);
-            });
+            SetStaticColor(65280);
         });
 
         _mButtonBlue.onClick.AddListener(() =>
         {
-            _mUpdateActions.Add(() =>
-            {
-                SetStaticColor(16711680);
-            });
+            SetStaticColor(16711680);
         });
 
         _mButtonClear.onClick.AddListener(() =>
         {
-            _mUpdateActions.Add(() =>
-            {
-                ClearEffect();
-            });
+            ClearEffect();
         });
 
     }
@@ -145,15 +130,5 @@ public class TestSwaggerClient : MonoBehaviour
     private void OnApplicationQuit()
     {
         ClearEffect();
-    }
-
-    private void Update()
-    {
-        if (_mUpdateActions.Count > 0)
-        {
-            Action action = _mUpdateActions[0];
-            _mUpdateActions.RemoveAt(0);
-            action.Invoke();
-        }
     }
 }
