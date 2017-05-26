@@ -18,7 +18,7 @@ namespace IO.Swagger.Model {
     /// <value>Color value in BGR format</value>
     [DataMember(Name="color", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "color")]
-    public double? Color { get; set; }
+    public int? Color { get; set; }
 
 
     /// <summary>

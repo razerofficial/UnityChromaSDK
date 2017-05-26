@@ -12,22 +12,22 @@ namespace IO.Swagger.Api
     public interface IDefaultApi
     {
         /// <summary>
+        ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
+        /// </summary>
+        /// <returns></returns>
+        void Heartbeat ();
+        /// <summary>
         ///  Creating effects on Keyboards by sending POST to the URI. POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="keyboardInput"></param>
         /// <returns>InlineResponseDefault1</returns>
-        InlineResponseDefault1 PostKeyboardInput (KeyboardInput1 keyboardInput);
-        /// <summary>
-        ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
-        /// </summary>
-        /// <returns></returns>
-        void PutHeartbeat ();
+        InlineResponseDefault1 PostKeyboard (KeyboardInput1 keyboardInput);
         /// <summary>
         ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="keyboardInput"></param>
         /// <returns>InlineResponseDefault</returns>
-        InlineResponseDefault PutKeyboardInput (KeyboardInput keyboardInput);
+        InlineResponseDefault PutKeyboard (KeyboardInput keyboardInput);
     }
   
     /// <summary>
@@ -84,46 +84,10 @@ namespace IO.Swagger.Api
         public ApiClient ApiClient {get; set;}
     
         /// <summary>
-        ///  Creating effects on Keyboards by sending POST to the URI. POST will return an effect id. To turn off effect use CHROMA_NONE.
-        /// </summary>
-        /// <param name="keyboardInput"></param> 
-        /// <returns>InlineResponseDefault1</returns>            
-        public InlineResponseDefault1 PostKeyboardInput (KeyboardInput1 keyboardInput)
-        {
-            
-    
-            var path = "/keyboard";
-            path = path.Replace("{format}", "json");
-                
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
-    
-                                                postBody = ApiClient.Serialize(keyboardInput); // http body (model) parameter
-
-			postBody = postBody.Replace(".0}", "}");
-    
-            // authentication setting, if any
-            String[] authSettings = new String[] {  };
-    
-            // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling PostKeyboardInput: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling PostKeyboardInput: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (InlineResponseDefault1) ApiClient.Deserialize(response.Content, typeof(InlineResponseDefault1), response.Headers);
-        }
-    
-        /// <summary>
         ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <returns></returns>            
-        public void PutHeartbeat ()
+        public void Heartbeat ()
         {
             
     
@@ -144,19 +108,19 @@ namespace IO.Swagger.Api
             IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling PutHeartbeat: " + response.Content, response.Content);
+                throw new ApiException ((int)response.StatusCode, "Error calling Heartbeat: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling PutHeartbeat: " + response.ErrorMessage, response.ErrorMessage);
+                throw new ApiException ((int)response.StatusCode, "Error calling Heartbeat: " + response.ErrorMessage, response.ErrorMessage);
     
             return;
         }
     
         /// <summary>
-        ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
+        ///  Creating effects on Keyboards by sending POST to the URI. POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="keyboardInput"></param> 
-        /// <returns>InlineResponseDefault</returns>            
-        public InlineResponseDefault PutKeyboardInput (KeyboardInput keyboardInput)
+        /// <returns>InlineResponseDefault1</returns>            
+        public InlineResponseDefault1 PostKeyboard (KeyboardInput1 keyboardInput)
         {
             
     
@@ -170,7 +134,40 @@ namespace IO.Swagger.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(keyboardInput); // http body (model) parameter
-			postBody = postBody.Replace(".0}", "}");
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeyboard: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeyboard: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (InlineResponseDefault1) ApiClient.Deserialize(response.Content, typeof(InlineResponseDefault1), response.Headers);
+        }
+    
+        /// <summary>
+        ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
+        /// </summary>
+        /// <param name="keyboardInput"></param> 
+        /// <returns>InlineResponseDefault</returns>            
+        public InlineResponseDefault PutKeyboard (KeyboardInput keyboardInput)
+        {
+            
+    
+            var path = "/keyboard";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(keyboardInput); // http body (model) parameter
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -179,9 +176,9 @@ namespace IO.Swagger.Api
             IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboardInput: " + response.Content, response.Content);
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboard: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboardInput: " + response.ErrorMessage, response.ErrorMessage);
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboard: " + response.ErrorMessage, response.ErrorMessage);
     
             return (InlineResponseDefault) ApiClient.Deserialize(response.Content, typeof(InlineResponseDefault), response.Headers);
         }

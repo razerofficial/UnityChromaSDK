@@ -68,7 +68,7 @@ public class TestSwaggerClient : MonoBehaviour
         {
             var input = new KeyboardInput();
             input.Effect = "CHROMA_NONE";
-            InlineResponseDefault result = _mApiInstance.PutKeyboardInput(input);
+            InlineResponseDefault result = _mApiInstance.PutKeyboard(input);
             Debug.Log(result);
         }
         catch (Exception e)
@@ -77,7 +77,7 @@ public class TestSwaggerClient : MonoBehaviour
         }
     }
 
-    void SetStaticColor(double color)
+    void SetStaticColor(int color)
     {
         try
         {
@@ -85,7 +85,7 @@ public class TestSwaggerClient : MonoBehaviour
             input.Effect = "CHROMA_STATIC";
             input.Param = new KeyboardParam();
             input.Param.Color = color;
-            InlineResponseDefault result = _mApiInstance.PutKeyboardInput(input);
+            InlineResponseDefault result = _mApiInstance.PutKeyboard(input);
             Debug.Log(result);
         }
         catch (Exception e)
@@ -99,7 +99,7 @@ public class TestSwaggerClient : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            _mApiInstance.PutHeartbeat();
+            _mApiInstance.Heartbeat();
         }
     }
 

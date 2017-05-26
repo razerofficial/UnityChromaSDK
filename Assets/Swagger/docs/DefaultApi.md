@@ -4,14 +4,70 @@ All URIs are relative to *http://localhost:80/chromasdk*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostKeyboardInput**](DefaultApi.md#postkeyboardinput) | **POST** /keyboard | 
-[**PutHeartbeat**](DefaultApi.md#putheartbeat) | **PUT** /heartbeat | 
-[**PutKeyboardInput**](DefaultApi.md#putkeyboardinput) | **PUT** /keyboard | 
+[**Heartbeat**](DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
+[**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /keyboard | 
+[**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
 
 
-<a name="postkeyboardinput"></a>
-# **PostKeyboardInput**
-> InlineResponseDefault1 PostKeyboardInput (KeyboardInput1 keyboardInput)
+<a name="heartbeat"></a>
+# **Heartbeat**
+> void Heartbeat ()
+
+
+
+Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class HeartbeatExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                apiInstance.Heartbeat();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.Heartbeat: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="postkeyboard"></a>
+# **PostKeyboard**
+> InlineResponseDefault1 PostKeyboard (KeyboardInput1 keyboardInput)
 
 
 
@@ -27,7 +83,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class PostKeyboardInputExample
+    public class PostKeyboardExample
     {
         public void main()
         {
@@ -37,12 +93,12 @@ namespace Example
 
             try
             {
-                InlineResponseDefault1 result = apiInstance.PostKeyboardInput(keyboardInput);
+                InlineResponseDefault1 result = apiInstance.PostKeyboard(keyboardInput);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeyboardInput: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.PostKeyboard: " + e.Message );
             }
         }
     }
@@ -70,9 +126,9 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="putheartbeat"></a>
-# **PutHeartbeat**
-> void PutHeartbeat ()
+<a name="putkeyboard"></a>
+# **PutKeyboard**
+> InlineResponseDefault PutKeyboard (KeyboardInput keyboardInput)
 
 
 
@@ -88,63 +144,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class PutHeartbeatExample
-    {
-        public void main()
-        {
-            
-            var apiInstance = new DefaultApi();
-
-            try
-            {
-                apiInstance.PutHeartbeat();
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling DefaultApi.PutHeartbeat: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a name="putkeyboardinput"></a>
-# **PutKeyboardInput**
-> InlineResponseDefault PutKeyboardInput (KeyboardInput keyboardInput)
-
-
-
-Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class PutKeyboardInputExample
+    public class PutKeyboardExample
     {
         public void main()
         {
@@ -154,12 +154,12 @@ namespace Example
 
             try
             {
-                InlineResponseDefault result = apiInstance.PutKeyboardInput(keyboardInput);
+                InlineResponseDefault result = apiInstance.PutKeyboard(keyboardInput);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutKeyboardInput: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.PutKeyboard: " + e.Message );
             }
         }
     }
