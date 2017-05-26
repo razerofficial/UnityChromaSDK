@@ -24,7 +24,7 @@ namespace IO.Swagger.Client
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath="http://localhost:52664/chromasdk")
+        public ApiClient(String basePath="http://localhost:80/chromasdk")
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);
@@ -92,10 +92,7 @@ namespace IO.Swagger.Client
                 request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentType);
 
             if (postBody != null) // http body (model) parameter
-            {
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
-                UnityEngine.Debug.Log(postBody);
-            }
 
             return (Object)RestClient.Execute(request);
 
@@ -220,7 +217,7 @@ namespace IO.Swagger.Client
         {
             try
             {
-                return obj != null ? JsonConvert.SerializeObject(obj, Formatting.None, DecimalJsonConverter.Instance) : null;
+                return obj != null ? JsonConvert.SerializeObject(obj) : null;
             }
             catch (Exception e)
             {

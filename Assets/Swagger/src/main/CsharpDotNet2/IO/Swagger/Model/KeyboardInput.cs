@@ -8,17 +8,24 @@ using Newtonsoft.Json;
 namespace IO.Swagger.Model {
 
   /// <summary>
-  /// Effect definition
+  /// JSON Data
   /// </summary>
   [DataContract]
-  public class KeyboardParam {
+  public class KeyboardInput {
     /// <summary>
-    /// Color value in BGR format
+    /// Effect type
     /// </summary>
-    /// <value>Color value in BGR format</value>
-    [DataMember(Name="color", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "color")]
-    public double? Color { get; set; }
+    /// <value>Effect type</value>
+    [DataMember(Name="effect", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "effect")]
+    public string Effect { get; set; }
+
+    /// <summary>
+    /// Gets or Sets Param
+    /// </summary>
+    [DataMember(Name="param", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "param")]
+    public KeyboardParam Param { get; set; }
 
 
     /// <summary>
@@ -27,8 +34,9 @@ namespace IO.Swagger.Model {
     /// <returns>String presentation of the object</returns>
     public override string ToString()  {
       var sb = new StringBuilder();
-      sb.Append("class KeyboardParam {\n");
-      sb.Append("  Color: ").Append(Color).Append("\n");
+      sb.Append("class KeyboardInput {\n");
+      sb.Append("  Effect: ").Append(Effect).Append("\n");
+      sb.Append("  Param: ").Append(Param).Append("\n");
       sb.Append("}\n");
       return sb.ToString();
     }
