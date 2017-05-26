@@ -66,7 +66,7 @@ public class TestSwaggerClient : MonoBehaviour
     {
         try
         {
-            var input = new PutKeyboardInput();
+            var input = new KeyboardInput();
             input.Effect = "CHROMA_NONE";
             InlineResponseDefault result = _mApiInstance.PutKeyboardInput(input);
             Debug.Log(result);
@@ -81,7 +81,7 @@ public class TestSwaggerClient : MonoBehaviour
     {
         try
         {
-            var input = new PutKeyboardInput();
+            var input = new KeyboardInput();
             input.Effect = "CHROMA_STATIC";
             input.Param = new KeyboardParam();
             input.Param.Color = color;
@@ -91,6 +91,15 @@ public class TestSwaggerClient : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log("Exception when calling DefaultApi.PutKeyboardInput: " + e.Message);
+        }
+    }
+
+    IEnumerator HeartBeat()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            _mApiInstance.PutHeartbeat();
         }
     }
 
@@ -104,6 +113,8 @@ public class TestSwaggerClient : MonoBehaviour
         string url = string.Format("http://localhost:{0}/chromasdk", _mPort);
         _mApiInstance = new DefaultApi(url);
         Debug.Log(_mApiInstance.ApiClient.BasePath);
+
+        StartCoroutine(HeartBeat());
 
         _mButtonRed.onClick.AddListener(() =>
         {

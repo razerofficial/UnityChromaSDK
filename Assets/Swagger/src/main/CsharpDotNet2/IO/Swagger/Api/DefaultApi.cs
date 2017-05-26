@@ -14,15 +14,20 @@ namespace IO.Swagger.Api
         /// <summary>
         ///  Creating effects on Keyboards by sending POST to the URI. POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
-        /// <param name="postKeyboardInput"></param>
+        /// <param name="keyboardInput"></param>
         /// <returns>InlineResponseDefault1</returns>
-        InlineResponseDefault1 PostKeyboardInput (PostKeyboardInput postKeyboardInput);
+        InlineResponseDefault1 PostKeyboardInput (KeyboardInput1 keyboardInput);
         /// <summary>
         ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
         /// </summary>
-        /// <param name="putKeyboardInput"></param>
+        /// <returns></returns>
+        void PutHeartbeat ();
+        /// <summary>
+        ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
+        /// </summary>
+        /// <param name="keyboardInput"></param>
         /// <returns>InlineResponseDefault</returns>
-        InlineResponseDefault PutKeyboardInput (PutKeyboardInput putKeyboardInput);
+        InlineResponseDefault PutKeyboardInput (KeyboardInput keyboardInput);
     }
   
     /// <summary>
@@ -81,9 +86,9 @@ namespace IO.Swagger.Api
         /// <summary>
         ///  Creating effects on Keyboards by sending POST to the URI. POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
-        /// <param name="postKeyboardInput"></param> 
+        /// <param name="keyboardInput"></param> 
         /// <returns>InlineResponseDefault1</returns>            
-        public InlineResponseDefault1 PostKeyboardInput (PostKeyboardInput postKeyboardInput)
+        public InlineResponseDefault1 PostKeyboardInput (KeyboardInput1 keyboardInput)
         {
             
     
@@ -96,7 +101,9 @@ namespace IO.Swagger.Api
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
     
-                                                postBody = ApiClient.Serialize(postKeyboardInput); // http body (model) parameter
+                                                postBody = ApiClient.Serialize(keyboardInput); // http body (model) parameter
+
+			postBody = postBody.Replace(".0}", "}");
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -115,9 +122,41 @@ namespace IO.Swagger.Api
         /// <summary>
         ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
         /// </summary>
-        /// <param name="putKeyboardInput"></param> 
+        /// <returns></returns>            
+        public void PutHeartbeat ()
+        {
+            
+    
+            var path = "/heartbeat";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutHeartbeat: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutHeartbeat: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return;
+        }
+    
+        /// <summary>
+        ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
+        /// </summary>
+        /// <param name="keyboardInput"></param> 
         /// <returns>InlineResponseDefault</returns>            
-        public InlineResponseDefault PutKeyboardInput (PutKeyboardInput putKeyboardInput)
+        public InlineResponseDefault PutKeyboardInput (KeyboardInput keyboardInput)
         {
             
     
@@ -130,9 +169,8 @@ namespace IO.Swagger.Api
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
     
-                                                postBody = ApiClient.Serialize(putKeyboardInput); // http body (model) parameter
-
-            postBody = postBody.Replace(".0}", "}");
+                                                postBody = ApiClient.Serialize(keyboardInput); // http body (model) parameter
+			postBody = postBody.Replace(".0}", "}");
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
