@@ -69,14 +69,16 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
+            var keyboardInput = new KeyboardInput(); // KeyboardInput |  (optional) 
 
             try
             {
-                apiInstance.Heartbeat();
+                KeyboardResponseId result = apiInstance.PostKeyboard(keyboardInput);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.Heartbeat: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.PostKeyboard: " + e.Message );
             }
         }
     }
@@ -90,7 +92,6 @@ All URIs are relative to *http://localhost:80/chromasdk*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**Heartbeat**](docs/DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
 *DefaultApi* | [**PostKeyboard**](docs/DefaultApi.md#postkeyboard) | **POST** /keyboard | 
 *DefaultApi* | [**PutKeyboard**](docs/DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
 
@@ -100,7 +101,6 @@ Class | Method | HTTP request | Description
 
  - [CustomChromaPackage.Model.EffectType](docs/EffectType.md)
  - [CustomChromaPackage.Model.KeyboardInput](docs/KeyboardInput.md)
- - [CustomChromaPackage.Model.KeyboardInputParam](docs/KeyboardInputParam.md)
  - [CustomChromaPackage.Model.KeyboardResponse](docs/KeyboardResponse.md)
  - [CustomChromaPackage.Model.KeyboardResponseId](docs/KeyboardResponseId.md)
 

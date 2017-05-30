@@ -18,6 +18,8 @@ public class TestSwaggerClient : MonoBehaviour
 
     public Button _mButtonBlue;
 
+    public Button _mButtonCustom;
+
     public Button _mButtonClear;
 
     private int _mPort = 80;
@@ -133,6 +135,22 @@ public class TestSwaggerClient : MonoBehaviour
         _mButtonBlue.onClick.AddListener(() =>
         {
             SetStaticColor(16711680);
+        });
+
+        _mButtonCustom.onClick.AddListener(() =>
+        {
+            var rows = new List<List<int?>>();
+            for (int i = 0; i < 6; ++i)
+            {
+                var row = new List<int?>();
+                for (int j = 0; j < 22; ++j)
+                {
+                    row.Add(UnityEngine.Random.Range(0, 16777215));
+                }
+                rows.Add(row);
+            }
+            var input = new CustomChromaSDK.CustomChromaPackage.Model.KeyboardInput(CustomChromaSDK.CustomChromaPackage.Model.EffectType.CHROMA_CUSTOM, rows);
+            _mApiCustomInstance.PutKeyboard(input);
         });
 
         _mButtonClear.onClick.AddListener(() =>

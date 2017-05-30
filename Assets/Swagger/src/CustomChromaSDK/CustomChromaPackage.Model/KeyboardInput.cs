@@ -37,8 +37,8 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         /// Initializes a new instance of the <see cref="KeyboardInput" /> class.
         /// </summary>
         /// <param name="Effect">Effect (required).</param>
-        /// <param name="Param">Param.</param>
-        public KeyboardInput(EffectType Effect = default(EffectType), KeyboardInputParam Param = default(KeyboardInputParam))
+        /// <param name="Param">2 dimensional array of size 6 rows by 22 columns. Each cell contains the color value in BGR format.</param>
+        public KeyboardInput(EffectType Effect = default(EffectType), List<List<int?>> Param = default(List<List<int?>>))
         {
             // to ensure "Effect" is required (not null)
             if (Effect == null)
@@ -59,11 +59,12 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
 		[JsonProperty(PropertyName = "effect")]
         public EffectType Effect { get; set; }
         /// <summary>
-        /// Gets or Sets Param
+        /// 2 dimensional array of size 6 rows by 22 columns. Each cell contains the color value in BGR format
         /// </summary>
+        /// <value>2 dimensional array of size 6 rows by 22 columns. Each cell contains the color value in BGR format</value>
         [DataMember(Name="param")]
 		[JsonProperty(PropertyName = "param")]
-        public KeyboardInputParam Param { get; set; }
+        public List<List<int?>> Param { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -118,7 +119,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
                 (
                     this.Param == other.Param ||
                     this.Param != null &&
-                    this.Param.Equals(other.Param)
+                    this.Param.SequenceEqual(other.Param)
                 );
         }
 
