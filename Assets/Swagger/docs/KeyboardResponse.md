@@ -1,4 +1,4 @@
-# IO.Swagger.Model.KeyboardResponse
+# ChromaSDK.ChromaPackage.Model.KeyboardResponse
 ## Properties
 
 Name | Type | Description | Notes

@@ -1,4 +1,4 @@
-# IO.Swagger.Model.EffectType
+# ChromaSDK.ChromaPackage.Model.EffectType
 ## Properties
 
 Name | Type | Description | Notes

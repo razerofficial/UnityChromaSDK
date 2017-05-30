@@ -1,4 +1,4 @@
-# IO.Swagger.Model.KeyboardInput
+# ChromaSDK.ChromaPackage.Model.KeyboardInput
 ## Properties
 
 Name | Type | Description | Notes

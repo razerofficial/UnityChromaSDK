@@ -1,15 +1,15 @@
-﻿using IO.Swagger.Api;
-using IO.Swagger.chromasdk.model;
+﻿using ChromaSDK.ChromaPackage.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using ChromaApi = ChromaSDK.Api.DefaultApi;
+using ChromaCustomApi = CustomChromaSDK.Api.DefaultApi;
 
 public class TestSwaggerClient : MonoBehaviour
 {
-
     public TextAsset _mJsonData;
 
     public Button _mButtonRed;
@@ -22,7 +22,8 @@ public class TestSwaggerClient : MonoBehaviour
 
     private int _mPort = 80;
 
-    private DefaultApi _mApiInstance;
+    private ChromaApi _mApiInstance;
+    private ChromaCustomApi _mApiCustomInstance;
 
     class SessionData
     {
@@ -98,6 +99,9 @@ public class TestSwaggerClient : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
+
+            // only one heartbeat is needed
+            // since the custom api hits the same port
             _mApiInstance.Heartbeat();
         }
     }
@@ -110,7 +114,8 @@ public class TestSwaggerClient : MonoBehaviour
         Debug.LogFormat("Ready for Port: {0}!", _mPort);
 
         string url = string.Format("http://localhost:{0}/chromasdk", _mPort);
-        _mApiInstance = new DefaultApi(url);
+        _mApiInstance = new ChromaApi(url);
+        _mApiCustomInstance = new ChromaCustomApi(url);
         Debug.Log(_mApiInstance.ApiClient.BasePath);
 
         StartCoroutine(HeartBeat());

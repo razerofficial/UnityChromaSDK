@@ -1,6 +1,6 @@
-# IO.Swagger.chromasdk.DefaultApi
+# ChromaSDK.ChromaPackage.DefaultApi
 
-All URIs are relative to *http://localhost:62030/chromasdk*
+All URIs are relative to *http://localhost:80/chromasdk*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,9 +21,9 @@ Creating effects on Keyboards by sending PUT to the URI. To turn off effect use 
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using chromasdk.model;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
 
 namespace Example
 {
@@ -67,7 +67,7 @@ No authorization required
 
 <a name="postkeyboard"></a>
 # **PostKeyboard**
-> KeyboardResponseId PostKeyboard (KeyboardInput keyboardInput)
+> KeyboardResponseId PostKeyboard (KeyboardInput keyboardInput = null)
 
 
 
@@ -77,9 +77,9 @@ Creating effects on Keyboards by sending POST to the URI. POST will return an ef
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using chromasdk.model;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
 
 namespace Example
 {
@@ -128,7 +128,7 @@ No authorization required
 
 <a name="putkeyboard"></a>
 # **PutKeyboard**
-> KeyboardResponse PutKeyboard (KeyboardInput keyboardInput)
+> KeyboardResponse PutKeyboard (KeyboardInput keyboardInput = null)
 
 
 
@@ -138,9 +138,9 @@ Creating effects on Keyboards by sending PUT to the URI. To turn off effect use 
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using chromasdk.model;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
 
 namespace Example
 {
