@@ -32,7 +32,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         /// Initializes a new instance of the <see cref="KeyboardResponse" /> class.
         /// </summary>
         /// <param name="Result">Result.</param>
-        public KeyboardResponse(decimal? Result = default(decimal?))
+        public KeyboardResponse(int? Result = default(int?))
         {
             this.Result = Result;
         }
@@ -42,7 +42,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         /// </summary>
         [DataMember(Name="result")]
 		[JsonProperty(PropertyName = "result")]
-        public decimal? Result { get; set; }
+        public int? Result { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>

@@ -38,7 +38,7 @@ namespace ChromaSDK.ChromaPackage.Model
         /// </summary>
         /// <param name="Id">Id.</param>
         /// <param name="Result">Result (required).</param>
-        public KeyboardResponseId(string Id = default(string), decimal? Result = default(decimal?))
+        public KeyboardResponseId(string Id = default(string), int? Result = default(int?))
         {
             // to ensure "Result" is required (not null)
             if (Result == null)
@@ -63,7 +63,7 @@ namespace ChromaSDK.ChromaPackage.Model
         /// </summary>
         [DataMember(Name="result")]
 		[JsonProperty(PropertyName = "result")]
-        public decimal? Result { get; set; }
+        public int? Result { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>

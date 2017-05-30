@@ -37,7 +37,7 @@ namespace ChromaSDK.ChromaPackage.Model
         /// Initializes a new instance of the <see cref="KeyboardResponse" /> class.
         /// </summary>
         /// <param name="Result">Result (required).</param>
-        public KeyboardResponse(decimal? Result = default(decimal?))
+        public KeyboardResponse(int? Result = default(int?))
         {
             // to ensure "Result" is required (not null)
             if (Result == null)
@@ -55,7 +55,7 @@ namespace ChromaSDK.ChromaPackage.Model
         /// </summary>
         [DataMember(Name="result")]
 		[JsonProperty(PropertyName = "result")]
-        public decimal? Result { get; set; }
+        public int? Result { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>

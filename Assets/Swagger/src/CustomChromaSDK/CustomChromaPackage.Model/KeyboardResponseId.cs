@@ -34,7 +34,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         /// <param name="Id">Id.</param>
         /// <param name="Result">Result.</param>
         /// <param name="Results">Results.</param>
-        public KeyboardResponseId(string Id = default(string), decimal? Result = default(decimal?), List<KeyboardResponseItemId> Results = default(List<KeyboardResponseItemId>))
+        public KeyboardResponseId(string Id = default(string), int? Result = default(int?), List<KeyboardResponseItemId> Results = default(List<KeyboardResponseItemId>))
         {
             this.Id = Id;
             this.Result = Result;
@@ -52,7 +52,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         /// </summary>
         [DataMember(Name="result")]
 		[JsonProperty(PropertyName = "result")]
-        public decimal? Result { get; set; }
+        public int? Result { get; set; }
         /// <summary>
         /// Gets or Sets Results
         /// </summary>
