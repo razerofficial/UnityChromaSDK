@@ -7,32 +7,70 @@ using UnityEngine;
 using UnityEngine.UI;
 using ChromaApi = ChromaSDK.Api.DefaultApi;
 using ChromaCustomApi = CustomChromaSDK.Api.DefaultApi;
+using CustomEffectType = CustomChromaSDK.CustomChromaPackage.Model.EffectType;
+using CustomKeyboardInput = CustomChromaSDK.CustomChromaPackage.Model.KeyboardInput;
 
 public class TestSwaggerClient : MonoBehaviour
 {
+    /// <summary>
+    /// Meta reference to the app json information
+    /// </summary>
     public TextAsset _mJsonData;
 
+    /// <summary>
+    /// Meta reference to a ui button
+    /// </summary>
     public Button _mButtonRed;
 
+    /// <summary>
+    /// Meta reference to a ui button
+    /// </summary>
     public Button _mButtonGreen;
 
+    /// <summary>
+    /// Meta reference to a ui button
+    /// </summary>
     public Button _mButtonBlue;
 
+    /// <summary>
+    /// Meta reference to a ui button
+    /// </summary>
     public Button _mButtonCustom;
 
+    /// <summary>
+    /// Meta reference to a ui button
+    /// </summary>
     public Button _mButtonClear;
 
+    /// <summary>
+    /// Default REST port
+    /// </summary>
     private int _mPort = 80;
 
+    /// <summary>
+    /// Instance of the API
+    /// </summary>
     private ChromaApi _mApiInstance;
+
+    /// <summary>
+    /// Instance of the custom API
+    /// </summary>
     private ChromaCustomApi _mApiCustomInstance;
 
+    /// <summary>
+    /// Structure of session data
+    /// </summary>
     class SessionData
     {
         public int sessionid;
         public string uri;
     }
 
+    /// <summary>
+    /// Parse the port from the session response
+    /// </summary>
+    /// <param name="jsonData"></param>
+    /// <returns></returns>
     int ParsePort(string jsonData)
     {
         //Debug.Log(jsonData);
@@ -44,6 +82,10 @@ public class TestSwaggerClient : MonoBehaviour
         return uri.Port;
     }
 
+    /// <summary>
+    /// Initialize Chroma by hitting the REST server and set the API port
+    /// </summary>
+    /// <returns></returns>
     IEnumerator InitChroma()
     {
         string postUrl = string.Format("http://localhost:{0}/razer/chromasdk", _mPort);
@@ -65,6 +107,9 @@ public class TestSwaggerClient : MonoBehaviour
         request.Dispose();
     }
 
+    /// <summary>
+    /// Use API to set the CHROMA_NONE effect
+    /// </summary>
     void ClearEffect()
     {
         try
@@ -80,6 +125,10 @@ public class TestSwaggerClient : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Use the API to set the CHROMA_STATIC effect
+    /// </summary>
+    /// <param name="color"></param>
     void SetStaticColor(int color)
     {
         try
@@ -96,6 +145,10 @@ public class TestSwaggerClient : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Use heartbeat to keep the REST API listening after initialization
+    /// </summary>
+    /// <returns></returns>
     IEnumerator HeartBeat()
     {
         while (true)
@@ -120,23 +173,28 @@ public class TestSwaggerClient : MonoBehaviour
         _mApiCustomInstance = new ChromaCustomApi(url);
         Debug.Log(_mApiInstance.ApiClient.BasePath);
 
+        // use heartbeat to keep the REST API alive
         StartCoroutine(HeartBeat());
 
+        // subscribe to ui click events
         _mButtonRed.onClick.AddListener(() =>
         {
             SetStaticColor(255);
         });
 
+        // subscribe to ui click events
         _mButtonGreen.onClick.AddListener(() =>
         {
             SetStaticColor(65280);
         });
 
+        // subscribe to ui click events
         _mButtonBlue.onClick.AddListener(() =>
         {
             SetStaticColor(16711680);
         });
 
+        // subscribe to ui click events
         _mButtonCustom.onClick.AddListener(() =>
         {
             var rows = new List<List<int?>>();
@@ -149,10 +207,11 @@ public class TestSwaggerClient : MonoBehaviour
                 }
                 rows.Add(row);
             }
-            var input = new CustomChromaSDK.CustomChromaPackage.Model.KeyboardInput(CustomChromaSDK.CustomChromaPackage.Model.EffectType.CHROMA_CUSTOM, rows);
+            var input = new CustomKeyboardInput(CustomEffectType.CHROMA_CUSTOM, rows);
             _mApiCustomInstance.PutKeyboard(input);
         });
 
+        // subscribe to ui click events
         _mButtonClear.onClick.AddListener(() =>
         {
             ClearEffect();
@@ -160,6 +219,9 @@ public class TestSwaggerClient : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Clear the active effect on quit
+    /// </summary>
     private void OnApplicationQuit()
     {
         ClearEffect();
