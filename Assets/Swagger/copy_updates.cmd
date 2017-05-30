@@ -12,10 +12,11 @@ cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\src" .
 rm -r -f "src\ChromaSDK.Test"
 
 SET VER=custom_chromasdk_csharp
+rm -r -f "custom"
+mkdir "custom"
 cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\src" .
-cp -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\README.md" README_custom.md
-rm -r -f "docs_custom"
-cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\docs" "docs_custom"
+cp -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\README.md" "custom"
+cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\docs" "custom"
 rm -r -f "src\CustomChromaSDK.Test"
 rm -f "src\ChromaSDK\Properties\AssemblyInfo.cs"
 
