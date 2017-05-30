@@ -23,20 +23,28 @@ using Newtonsoft.Json.Converters;
 namespace CustomChromaSDK.CustomChromaPackage.Model
 {
     /// <summary>
-    /// KeyboardResponse
+    /// KeyboardResponseItemId
     /// </summary>
     [DataContract]
-    public partial class KeyboardResponse :  IEquatable<KeyboardResponse>
+    public partial class KeyboardResponseItemId :  IEquatable<KeyboardResponseItemId>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardResponse" /> class.
+        /// Initializes a new instance of the <see cref="KeyboardResponseItemId" /> class.
         /// </summary>
+        /// <param name="Id">Id.</param>
         /// <param name="Result">Result.</param>
-        public KeyboardResponse(decimal? Result = default(decimal?))
+        public KeyboardResponseItemId(string Id = default(string), decimal? Result = default(decimal?))
         {
+            this.Id = Id;
             this.Result = Result;
         }
         
+        /// <summary>
+        /// Gets or Sets Id
+        /// </summary>
+        [DataMember(Name="id")]
+		[JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
         /// <summary>
         /// Gets or Sets Result
         /// </summary>
@@ -50,7 +58,8 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class KeyboardResponse {\n");
+            sb.Append("class KeyboardResponseItemId {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Result: ").Append(Result).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -73,21 +82,26 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as KeyboardResponse);
+            return this.Equals(obj as KeyboardResponseItemId);
         }
 
         /// <summary>
-        /// Returns true if KeyboardResponse instances are equal
+        /// Returns true if KeyboardResponseItemId instances are equal
         /// </summary>
-        /// <param name="other">Instance of KeyboardResponse to be compared</param>
+        /// <param name="other">Instance of KeyboardResponseItemId to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(KeyboardResponse other)
+        public bool Equals(KeyboardResponseItemId other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
                 return false;
 
             return 
+                (
+                    this.Id == other.Id ||
+                    this.Id != null &&
+                    this.Id.Equals(other.Id)
+                ) && 
                 (
                     this.Result == other.Result ||
                     this.Result != null &&
@@ -106,6 +120,8 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
+                if (this.Id != null)
+                    hash = hash * 59 + this.Id.GetHashCode();
                 if (this.Result != null)
                     hash = hash * 59 + this.Result.GetHashCode();
                 return hash;

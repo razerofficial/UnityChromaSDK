@@ -31,25 +31,14 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardResponseId" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected KeyboardResponseId() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardResponseId" /> class.
-        /// </summary>
         /// <param name="Id">Id.</param>
-        /// <param name="Result">Result (required).</param>
-        public KeyboardResponseId(string Id = default(string), decimal? Result = default(decimal?))
+        /// <param name="Result">Result.</param>
+        /// <param name="Results">Results.</param>
+        public KeyboardResponseId(string Id = default(string), decimal? Result = default(decimal?), List<KeyboardResponseItemId> Results = default(List<KeyboardResponseItemId>))
         {
-            // to ensure "Result" is required (not null)
-            if (Result == null)
-            {
-                throw new InvalidDataException("Result is a required property for KeyboardResponseId and cannot be null");
-            }
-            else
-            {
-                this.Result = Result;
-            }
             this.Id = Id;
+            this.Result = Result;
+            this.Results = Results;
         }
         
         /// <summary>
@@ -65,6 +54,12 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
 		[JsonProperty(PropertyName = "result")]
         public decimal? Result { get; set; }
         /// <summary>
+        /// Gets or Sets Results
+        /// </summary>
+        [DataMember(Name="results")]
+		[JsonProperty(PropertyName = "results")]
+        public List<KeyboardResponseItemId> Results { get; set; }
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -74,6 +69,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
             sb.Append("class KeyboardResponseId {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Result: ").Append(Result).Append("\n");
+            sb.Append("  Results: ").Append(Results).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -119,6 +115,11 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
                     this.Result == other.Result ||
                     this.Result != null &&
                     this.Result.Equals(other.Result)
+                ) && 
+                (
+                    this.Results == other.Results ||
+                    this.Results != null &&
+                    this.Results.SequenceEqual(other.Results)
                 );
         }
 
@@ -137,6 +138,8 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
                     hash = hash * 59 + this.Id.GetHashCode();
                 if (this.Result != null)
                     hash = hash * 59 + this.Result.GetHashCode();
+                if (this.Results != null)
+                    hash = hash * 59 + this.Results.GetHashCode();
                 return hash;
             }
         }

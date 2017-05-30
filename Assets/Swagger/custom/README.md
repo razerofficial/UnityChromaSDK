@@ -103,6 +103,7 @@ Class | Method | HTTP request | Description
  - [CustomChromaPackage.Model.KeyboardInput](docs/KeyboardInput.md)
  - [CustomChromaPackage.Model.KeyboardResponse](docs/KeyboardResponse.md)
  - [CustomChromaPackage.Model.KeyboardResponseId](docs/KeyboardResponseId.md)
+ - [CustomChromaPackage.Model.KeyboardResponseItemId](docs/KeyboardResponseItemId.md)
 
 
 <a name="documentation-for-authorization"></a>

@@ -38,7 +38,9 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         /// </summary>
         /// <param name="Effect">Effect (required).</param>
         /// <param name="Param">2 dimensional array of size 6 rows by 22 columns. Each cell contains the color value in BGR format.</param>
-        public KeyboardInput(EffectType Effect = default(EffectType), List<List<int?>> Param = default(List<List<int?>>))
+        /// <param name="Color">6 by 22 columns of array containing the value of color in BGR format.</param>
+        /// <param name="Key">6 by 22 columns of array containing the value of color on the specific key at the location in BGR format. Specify a bit mask of 0x01000000 with the color value for each keys that has an effect..</param>
+        public KeyboardInput(EffectType Effect = default(EffectType), List<List<int?>> Param = default(List<List<int?>>), List<int?> Color = default(List<int?>), List<int?> Key = default(List<int?>))
         {
             // to ensure "Effect" is required (not null)
             if (Effect == null)
@@ -50,6 +52,8 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
                 this.Effect = Effect;
             }
             this.Param = Param;
+            this.Color = Color;
+            this.Key = Key;
         }
         
         /// <summary>
@@ -66,6 +70,20 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
 		[JsonProperty(PropertyName = "param")]
         public List<List<int?>> Param { get; set; }
         /// <summary>
+        /// 6 by 22 columns of array containing the value of color in BGR format
+        /// </summary>
+        /// <value>6 by 22 columns of array containing the value of color in BGR format</value>
+        [DataMember(Name="color")]
+		[JsonProperty(PropertyName = "color")]
+        public List<int?> Color { get; set; }
+        /// <summary>
+        /// 6 by 22 columns of array containing the value of color on the specific key at the location in BGR format. Specify a bit mask of 0x01000000 with the color value for each keys that has an effect.
+        /// </summary>
+        /// <value>6 by 22 columns of array containing the value of color on the specific key at the location in BGR format. Specify a bit mask of 0x01000000 with the color value for each keys that has an effect.</value>
+        [DataMember(Name="key")]
+		[JsonProperty(PropertyName = "key")]
+        public List<int?> Key { get; set; }
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -75,6 +93,8 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
             sb.Append("class KeyboardInput {\n");
             sb.Append("  Effect: ").Append(Effect).Append("\n");
             sb.Append("  Param: ").Append(Param).Append("\n");
+            sb.Append("  Color: ").Append(Color).Append("\n");
+            sb.Append("  Key: ").Append(Key).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -120,6 +140,16 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
                     this.Param == other.Param ||
                     this.Param != null &&
                     this.Param.SequenceEqual(other.Param)
+                ) && 
+                (
+                    this.Color == other.Color ||
+                    this.Color != null &&
+                    this.Color.SequenceEqual(other.Color)
+                ) && 
+                (
+                    this.Key == other.Key ||
+                    this.Key != null &&
+                    this.Key.SequenceEqual(other.Key)
                 );
         }
 
@@ -138,6 +168,10 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
                     hash = hash * 59 + this.Effect.GetHashCode();
                 if (this.Param != null)
                     hash = hash * 59 + this.Param.GetHashCode();
+                if (this.Color != null)
+                    hash = hash * 59 + this.Color.GetHashCode();
+                if (this.Key != null)
+                    hash = hash * 59 + this.Key.GetHashCode();
                 return hash;
             }
         }
