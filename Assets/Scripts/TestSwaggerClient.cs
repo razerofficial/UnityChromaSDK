@@ -84,7 +84,7 @@ public class TestSwaggerClient : MonoBehaviour
             ChromaSdkResponse result = _mApiRazerInstance.Chromasdk(input);
             Debug.Log(result);
 
-            // should have just needed to do this
+            // setup the api instances with the session uri
             _mApiInstance = new ChromaApi(result.Uri);
             _mApiCustomInstance = new ChromaCustomApi(result.Uri);
         }
