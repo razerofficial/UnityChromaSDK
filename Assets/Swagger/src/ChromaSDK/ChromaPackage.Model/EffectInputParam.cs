@@ -26,13 +26,13 @@ namespace ChromaSDK.ChromaPackage.Model
     /// Effect definition
     /// </summary>
     [DataContract]
-    public partial class KeyboardInputParam :  IEquatable<KeyboardInputParam>
+    public partial class EffectInputParam :  IEquatable<EffectInputParam>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardInputParam" /> class.
+        /// Initializes a new instance of the <see cref="EffectInputParam" /> class.
         /// </summary>
         /// <param name="Color">Color value in BGR format.</param>
-        public KeyboardInputParam(int? Color = default(int?))
+        public EffectInputParam(int? Color = default(int?))
         {
             this.Color = Color;
         }
@@ -51,7 +51,7 @@ namespace ChromaSDK.ChromaPackage.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class KeyboardInputParam {\n");
+            sb.Append("class EffectInputParam {\n");
             sb.Append("  Color: ").Append(Color).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -74,15 +74,15 @@ namespace ChromaSDK.ChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as KeyboardInputParam);
+            return this.Equals(obj as EffectInputParam);
         }
 
         /// <summary>
-        /// Returns true if KeyboardInputParam instances are equal
+        /// Returns true if EffectInputParam instances are equal
         /// </summary>
-        /// <param name="other">Instance of KeyboardInputParam to be compared</param>
+        /// <param name="other">Instance of EffectInputParam to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(KeyboardInputParam other)
+        public bool Equals(EffectInputParam other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)

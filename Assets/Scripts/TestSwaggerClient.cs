@@ -3,6 +3,7 @@ using RazerSDK.RazerPackage.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ using ChromaCustomApi = CustomChromaSDK.Api.DefaultApi;
 using RazerApi = RazerSDK.Api.DefaultApi;
 using CustomEffectType = CustomChromaSDK.CustomChromaPackage.Model.EffectType;
 using CustomKeyboardInput = CustomChromaSDK.CustomChromaPackage.Model.KeyboardInput;
+using Random = System.Random;
 
 public class TestSwaggerClient : MonoBehaviour
 {
@@ -65,6 +67,11 @@ public class TestSwaggerClient : MonoBehaviour
     private ChromaCustomApi _mApiCustomInstance;
 
     /// <summary>
+    /// Thread safe random object
+    /// </summary>
+    Random _mRandom = new System.Random(123);
+
+    /// <summary>
     /// Initialize Chroma by hitting the REST server and set the API port
     /// </summary>
     /// <returns></returns>
@@ -105,21 +112,73 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Use API to set the CHROMA_NONE effect
+    /// Avoid blocking the UI thread
     /// </summary>
-    void ClearEffect()
+    /// <param name="action"></param>
+    void RunOnThread(Action action)
     {
+        Thread thread = new Thread(new ThreadStart(() => {
+            action.Invoke();
+        }));
+        thread.Start();
+    }
+
+    /// <summary>
+    /// Get Effect: CHROMA_NONE
+    /// </summary>
+    /// <returns></returns>
+    EffectInput GetChromaNoneEffect()
+    {
+        var input = new EffectInput();
+        input.Effect = EffectType.CHROMA_NONE;
+        return input;
+    }
+
+    /// <summary>
+    /// Delegate method for setting effects
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    delegate EffectResponse SetEffectMethod(EffectInput data);
+
+    /// <summary>
+    /// Set effect on all devices
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    List<EffectResponse> SetEffectOnAll(EffectInput input)
+    {
+        List<EffectResponse> results = new List<EffectResponse>();
         try
         {
-            var input = new KeyboardInput();
-            input.Effect = EffectType.CHROMA_NONE;
-            KeyboardResponse result = _mApiInstance.PutKeyboard(input);
-            Debug.Log(result);
+            List<SetEffectMethod> methods = new List<SetEffectMethod>();
+            methods.Add(_mApiInstance.PutChromaLink);
+            methods.Add(_mApiInstance.PutHeadset);
+            methods.Add(_mApiInstance.PutKeyboard);
+            methods.Add(_mApiInstance.PutKeypad);
+            methods.Add(_mApiInstance.PutMouse);
+            methods.Add(_mApiInstance.PutMousepad);
+            foreach (SetEffectMethod method in methods)
+            {
+                EffectResponse result = method.Invoke(input);
+                Debug.Log(result);
+                results.Add(result);
+            }
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Exception when calling ChromaApi.PutKeyboard: {0}", e);
+            Debug.LogFormat("Exception when setting affect on all devices: {0}", e);
         }
+        return results;
+
+    }
+
+    EffectInput GetStaticColor(int color)
+    {
+        var input = new EffectInput();
+        input.Effect = EffectType.CHROMA_STATIC;
+        input.Param = new EffectInputParam(color);
+        return input;
     }
 
     /// <summary>
@@ -130,10 +189,8 @@ public class TestSwaggerClient : MonoBehaviour
     {
         try
         {
-            var input = new KeyboardInput();
-            input.Effect = EffectType.CHROMA_STATIC;
-            input.Param = new KeyboardInputParam(color);
-            KeyboardResponse result = _mApiInstance.PutKeyboard(input);
+            var input = GetStaticColor(color);
+            EffectResponse result = _mApiInstance.PutKeyboard(input);
             Debug.Log(result);
         }
         catch (Exception e)
@@ -145,7 +202,7 @@ public class TestSwaggerClient : MonoBehaviour
     /// <summary>
     /// Use the API to set the CHROMA_CUSTOM effect
     /// </summary>
-    void SetCustomEffect()
+    void SetKeyboardCustomEffect()
     {
         var rows = new List<List<int?>>();
         for (int i = 0; i < 6; ++i)
@@ -153,7 +210,7 @@ public class TestSwaggerClient : MonoBehaviour
             var row = new List<int?>();
             for (int j = 0; j < 22; ++j)
             {
-                row.Add(UnityEngine.Random.Range(0, 16777215));
+                row.Add(_mRandom.Next(16777215));
             }
             rows.Add(row);
         }
@@ -195,43 +252,77 @@ public class TestSwaggerClient : MonoBehaviour
         // subscribe to ui click events
         _mButtonAllBlue.onClick.AddListener(() =>
         {
-            SetStaticColor(16711680);
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetStaticColor(16711680);
+                SetEffectOnAll(input);
+            });
         });
 
         // subscribe to ui click events
         _mButtonAllGreen.onClick.AddListener(() =>
         {
-            SetStaticColor(65280);
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetStaticColor(65280);
+                SetEffectOnAll(input);
+            });
         });
 
         // subscribe to ui click events
         _mButtonAllRed.onClick.AddListener(() =>
         {
-            SetStaticColor(255);
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetStaticColor(255);
+                SetEffectOnAll(input);
+            });
         });
 
         // subscribe to ui click events
         _mButtonAllOrange.onClick.AddListener(() =>
         {
-            SetStaticColor(35071);
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetStaticColor(65535);
+                SetEffectOnAll(input);
+            });
         });
 
         // subscribe to ui click events
         _mButtonAllWhite.onClick.AddListener(() =>
         {
-            SetStaticColor(16777215);
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetStaticColor(16777215);
+                SetEffectOnAll(input);
+            });
         });
 
         // subscribe to ui click events
         _mButtonCustom.onClick.AddListener(() =>
         {
-            SetCustomEffect();
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetKeyboardCustomEffect();
+            });
         });
 
         // subscribe to ui click events
         _mButtonAllClear.onClick.AddListener(() =>
         {
-            ClearEffect();
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                var input = GetChromaNoneEffect();
+                SetEffectOnAll(input);
+            });
         });
 
     }
@@ -241,6 +332,11 @@ public class TestSwaggerClient : MonoBehaviour
     /// </summary>
     private void OnApplicationQuit()
     {
-        ClearEffect();
+        // avoid blocking the UI thread
+        RunOnThread(() =>
+        {
+            var input = GetChromaNoneEffect();
+            SetEffectOnAll(input);
+        });
     }
 }

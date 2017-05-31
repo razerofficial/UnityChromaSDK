@@ -23,26 +23,26 @@ using Newtonsoft.Json.Converters;
 namespace ChromaSDK.ChromaPackage.Model
 {
     /// <summary>
-    /// KeyboardResponse
+    /// EffectResponse
     /// </summary>
     [DataContract]
-    public partial class KeyboardResponse :  IEquatable<KeyboardResponse>
+    public partial class EffectResponse :  IEquatable<EffectResponse>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardResponse" /> class.
+        /// Initializes a new instance of the <see cref="EffectResponse" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected KeyboardResponse() { }
+        protected EffectResponse() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardResponse" /> class.
+        /// Initializes a new instance of the <see cref="EffectResponse" /> class.
         /// </summary>
         /// <param name="Result">Result (required).</param>
-        public KeyboardResponse(int? Result = default(int?))
+        public EffectResponse(int? Result = default(int?))
         {
             // to ensure "Result" is required (not null)
             if (Result == null)
             {
-                throw new InvalidDataException("Result is a required property for KeyboardResponse and cannot be null");
+                throw new InvalidDataException("Result is a required property for EffectResponse and cannot be null");
             }
             else
             {
@@ -63,7 +63,7 @@ namespace ChromaSDK.ChromaPackage.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class KeyboardResponse {\n");
+            sb.Append("class EffectResponse {\n");
             sb.Append("  Result: ").Append(Result).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -86,15 +86,15 @@ namespace ChromaSDK.ChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as KeyboardResponse);
+            return this.Equals(obj as EffectResponse);
         }
 
         /// <summary>
-        /// Returns true if KeyboardResponse instances are equal
+        /// Returns true if EffectResponse instances are equal
         /// </summary>
-        /// <param name="other">Instance of KeyboardResponse to be compared</param>
+        /// <param name="other">Instance of EffectResponse to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(KeyboardResponse other)
+        public bool Equals(EffectResponse other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)

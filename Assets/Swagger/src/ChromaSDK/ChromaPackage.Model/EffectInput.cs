@@ -23,47 +23,47 @@ using Newtonsoft.Json.Converters;
 namespace ChromaSDK.ChromaPackage.Model
 {
     /// <summary>
-    /// KeyboardResponseId
+    /// JSON Data
     /// </summary>
     [DataContract]
-    public partial class KeyboardResponseId :  IEquatable<KeyboardResponseId>
+    public partial class EffectInput :  IEquatable<EffectInput>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardResponseId" /> class.
+        /// Initializes a new instance of the <see cref="EffectInput" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected KeyboardResponseId() { }
+        protected EffectInput() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardResponseId" /> class.
+        /// Initializes a new instance of the <see cref="EffectInput" /> class.
         /// </summary>
-        /// <param name="Id">Id.</param>
-        /// <param name="Result">Result (required).</param>
-        public KeyboardResponseId(string Id = default(string), int? Result = default(int?))
+        /// <param name="Effect">Effect (required).</param>
+        /// <param name="Param">Param.</param>
+        public EffectInput(EffectType Effect = default(EffectType), EffectInputParam Param = default(EffectInputParam))
         {
-            // to ensure "Result" is required (not null)
-            if (Result == null)
+            // to ensure "Effect" is required (not null)
+            if (Effect == null)
             {
-                throw new InvalidDataException("Result is a required property for KeyboardResponseId and cannot be null");
+                throw new InvalidDataException("Effect is a required property for EffectInput and cannot be null");
             }
             else
             {
-                this.Result = Result;
+                this.Effect = Effect;
             }
-            this.Id = Id;
+            this.Param = Param;
         }
         
         /// <summary>
-        /// Gets or Sets Id
+        /// Gets or Sets Effect
         /// </summary>
-        [DataMember(Name="id")]
-		[JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
+        [DataMember(Name="effect")]
+		[JsonProperty(PropertyName = "effect")]
+        public EffectType Effect { get; set; }
         /// <summary>
-        /// Gets or Sets Result
+        /// Gets or Sets Param
         /// </summary>
-        [DataMember(Name="result")]
-		[JsonProperty(PropertyName = "result")]
-        public int? Result { get; set; }
+        [DataMember(Name="param")]
+		[JsonProperty(PropertyName = "param")]
+        public EffectInputParam Param { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -71,9 +71,9 @@ namespace ChromaSDK.ChromaPackage.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class KeyboardResponseId {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Result: ").Append(Result).Append("\n");
+            sb.Append("class EffectInput {\n");
+            sb.Append("  Effect: ").Append(Effect).Append("\n");
+            sb.Append("  Param: ").Append(Param).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -95,15 +95,15 @@ namespace ChromaSDK.ChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as KeyboardResponseId);
+            return this.Equals(obj as EffectInput);
         }
 
         /// <summary>
-        /// Returns true if KeyboardResponseId instances are equal
+        /// Returns true if EffectInput instances are equal
         /// </summary>
-        /// <param name="other">Instance of KeyboardResponseId to be compared</param>
+        /// <param name="other">Instance of EffectInput to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(KeyboardResponseId other)
+        public bool Equals(EffectInput other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
@@ -111,14 +111,14 @@ namespace ChromaSDK.ChromaPackage.Model
 
             return 
                 (
-                    this.Id == other.Id ||
-                    this.Id != null &&
-                    this.Id.Equals(other.Id)
+                    this.Effect == other.Effect ||
+                    this.Effect != null &&
+                    this.Effect.Equals(other.Effect)
                 ) && 
                 (
-                    this.Result == other.Result ||
-                    this.Result != null &&
-                    this.Result.Equals(other.Result)
+                    this.Param == other.Param ||
+                    this.Param != null &&
+                    this.Param.Equals(other.Param)
                 );
         }
 
@@ -133,10 +133,10 @@ namespace ChromaSDK.ChromaPackage.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.Id != null)
-                    hash = hash * 59 + this.Id.GetHashCode();
-                if (this.Result != null)
-                    hash = hash * 59 + this.Result.GetHashCode();
+                if (this.Effect != null)
+                    hash = hash * 59 + this.Effect.GetHashCode();
+                if (this.Param != null)
+                    hash = hash * 59 + this.Param.GetHashCode();
                 return hash;
             }
         }
