@@ -69,14 +69,16 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
+            var baseInput = new BaseInput(); // BaseInput |  (optional) 
 
             try
             {
-                apiInstance.Heartbeat();
+                SessionResponse result = apiInstance.CallBase(baseInput);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.Heartbeat: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.CallBase: " + e.Message );
             }
         }
     }
@@ -90,6 +92,7 @@ All URIs are relative to *http://localhost:80/chromasdk*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**CallBase**](docs/DefaultApi.md#callbase) | **POST** / | 
 *DefaultApi* | [**Heartbeat**](docs/DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
 *DefaultApi* | [**PostKeyboard**](docs/DefaultApi.md#postkeyboard) | **POST** /keyboard | 
 *DefaultApi* | [**PutKeyboard**](docs/DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
@@ -98,11 +101,14 @@ Class | Method | HTTP request | Description
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [ChromaPackage.Model.BaseInput](docs/BaseInput.md)
+ - [ChromaPackage.Model.BaseInputAuthor](docs/BaseInputAuthor.md)
  - [ChromaPackage.Model.EffectType](docs/EffectType.md)
  - [ChromaPackage.Model.KeyboardInput](docs/KeyboardInput.md)
  - [ChromaPackage.Model.KeyboardInputParam](docs/KeyboardInputParam.md)
  - [ChromaPackage.Model.KeyboardResponse](docs/KeyboardResponse.md)
  - [ChromaPackage.Model.KeyboardResponseId](docs/KeyboardResponseId.md)
+ - [ChromaPackage.Model.SessionResponse](docs/SessionResponse.md)
 
 
 <a name="documentation-for-authorization"></a>

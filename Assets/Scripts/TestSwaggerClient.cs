@@ -43,11 +43,6 @@ public class TestSwaggerClient : MonoBehaviour
     public Button _mButtonClear;
 
     /// <summary>
-    /// Default REST port
-    /// </summary>
-    private int _mPort = 80;
-
-    /// <summary>
     /// Instance of the API
     /// </summary>
     private ChromaApi _mApiInstance;
@@ -58,53 +53,46 @@ public class TestSwaggerClient : MonoBehaviour
     private ChromaCustomApi _mApiCustomInstance;
 
     /// <summary>
-    /// Structure of session data
-    /// </summary>
-    class SessionData
-    {
-        public int sessionid;
-        public string uri;
-    }
-
-    /// <summary>
-    /// Parse the port from the session response
-    /// </summary>
-    /// <param name="jsonData"></param>
-    /// <returns></returns>
-    int ParsePort(string jsonData)
-    {
-        //Debug.Log(jsonData);
-
-        SessionData session = JsonUtility.FromJson<SessionData>(jsonData);
-        System.Uri uri = new System.Uri(session.uri);
-        //Debug.Log(uri.Port);
-
-        return uri.Port;
-    }
-
-    /// <summary>
     /// Initialize Chroma by hitting the REST server and set the API port
     /// </summary>
     /// <returns></returns>
-    IEnumerator InitChroma()
+    void InitChroma()
     {
-        string postUrl = string.Format("http://localhost:{0}/razer/chromasdk", _mPort);
+        try
+        {
+            //_mApiInstance = new ChromaApi(); //should use this
+            _mApiInstance = new ChromaApi("http://localhost/razer/chromasdk"); //this needs to move to a different client or endpoint on the same base
 
-        var postHeader = new Dictionary<string, string>();
+            var input = new BaseInput();
+            input.Title = "Test";
+            input.Description = "This is a REST interface test application";
+            input.Author = new BaseInputAuthor();
+            input.Author.Name = "Chroma Developer";
+            input.Author.Contact = "www.razerzone.com";
+            input.DeviceSupported = new List<string> 
+            {
+                "keyboard",
+                "mouse",
+                "headset",
+                "mousepad",
+                "keypad",
+                "chromalink",
+            };
+            input.Category = "application";
+            SessionResponse result = _mApiInstance.CallBase(input);
+            Debug.Log(result);
 
-        string jsonData = _mJsonData.text;
-        //Debug.Log("jsonString: " + jsonData);
+            // this code should is needed because result url was blank
+            result.Url = string.Format("http://localhost:{0}/chromasdk", result.Sessionid);
 
-        postHeader.Add("Content-Type", "application/json");
-        postHeader.Add("Content-Length", jsonData.Length.ToString());
-
-        var request = new WWW(postUrl, UTF8Encoding.UTF8.GetBytes(jsonData), postHeader);
-
-        yield return request;
-
-        _mPort = ParsePort(request.text);
-
-        request.Dispose();
+            // should have just needed to do this
+            _mApiInstance = new ChromaApi(result.Url);
+            _mApiCustomInstance = new ChromaCustomApi(result.Url);
+        }
+        catch (Exception e)
+        {
+            Debug.LogFormat("Exception when calling DefaultApi.CallBase: {0}", e);
+        }
     }
 
     /// <summary>
@@ -121,7 +109,7 @@ public class TestSwaggerClient : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("Exception when calling DefaultApi.PutKeyboardInput: " + e.Message);
+            Debug.LogFormat("Exception when calling DefaultApi.PutKeyboardInput: {0}", e);
         }
     }
 
@@ -141,7 +129,7 @@ public class TestSwaggerClient : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("Exception when calling DefaultApi.PutKeyboardInput: " + e.Message);
+            Debug.LogFormat("Exception when calling DefaultApi.PutKeyboardInput: {0}", e);
         }
     }
 
@@ -162,15 +150,10 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     // Use this for initialization
-    IEnumerator Start()
+    void Start()
     {
-        yield return InitChroma();
+        InitChroma();
 
-        Debug.LogFormat("Ready for Port: {0}!", _mPort);
-
-        string url = string.Format("http://localhost:{0}/chromasdk", _mPort);
-        _mApiInstance = new ChromaApi(url);
-        _mApiCustomInstance = new ChromaCustomApi(url);
         Debug.Log(_mApiInstance.ApiClient.BasePath);
 
         // use heartbeat to keep the REST API alive
