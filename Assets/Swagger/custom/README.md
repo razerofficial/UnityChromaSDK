@@ -88,12 +88,12 @@ namespace Example
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:80/chromasdk*
+All URIs are relative to *http://localhost:80*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**PostKeyboard**](docs/DefaultApi.md#postkeyboard) | **POST** /keyboard | 
-*DefaultApi* | [**PutKeyboard**](docs/DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
+*DefaultApi* | [**PostKeyboard**](docs/DefaultApi.md#postkeyboard) | **POST** /chromasdk/keyboard | 
+*DefaultApi* | [**PutKeyboard**](docs/DefaultApi.md#putkeyboard) | **PUT** /chromasdk/keyboard | 
 
 
 <a name="documentation-for-models"></a>

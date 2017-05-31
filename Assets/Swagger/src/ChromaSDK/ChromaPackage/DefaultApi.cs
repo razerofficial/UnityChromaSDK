@@ -98,7 +98,7 @@ namespace ChromaSDK.Api
         {
             
     
-            var path = "/";
+            var path = "/razer/chromasdk";
             path = path.Replace("{format}", "json");
                 
             var queryParams = new Dictionary<String, String>();
@@ -132,7 +132,7 @@ namespace ChromaSDK.Api
         {
             
     
-            var path = "/heartbeat";
+            var path = "/chromasdk/heartbeat";
             path = path.Replace("{format}", "json");
                 
             var queryParams = new Dictionary<String, String>();
@@ -165,7 +165,7 @@ namespace ChromaSDK.Api
         {
             
     
-            var path = "/keyboard";
+            var path = "/chromasdk/keyboard";
             path = path.Replace("{format}", "json");
                 
             var queryParams = new Dictionary<String, String>();
@@ -200,7 +200,7 @@ namespace ChromaSDK.Api
         {
             
     
-            var path = "/keyboard";
+            var path = "/chromasdk/keyboard";
             path = path.Replace("{format}", "json");
                 
             var queryParams = new Dictionary<String, String>();

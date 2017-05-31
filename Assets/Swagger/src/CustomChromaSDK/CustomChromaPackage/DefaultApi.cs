@@ -87,7 +87,7 @@ namespace CustomChromaSDK.Api
         {
             
     
-            var path = "/keyboard";
+            var path = "/chromasdk/keyboard";
             path = path.Replace("{format}", "json");
                 
             var queryParams = new Dictionary<String, String>();
@@ -122,7 +122,7 @@ namespace CustomChromaSDK.Api
         {
             
     
-            var path = "/keyboard";
+            var path = "/chromasdk/keyboard";
             path = path.Replace("{format}", "json");
                 
             var queryParams = new Dictionary<String, String>();

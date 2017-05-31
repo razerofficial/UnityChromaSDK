@@ -1,13 +1,13 @@
 # ChromaSDK.ChromaPackage.DefaultApi
 
-All URIs are relative to *http://localhost:80/chromasdk*
+All URIs are relative to *http://localhost:80*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CallBase**](DefaultApi.md#callbase) | **POST** / | 
-[**Heartbeat**](DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
-[**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /keyboard | 
-[**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
+[**CallBase**](DefaultApi.md#callbase) | **POST** /razer/chromasdk | 
+[**Heartbeat**](DefaultApi.md#heartbeat) | **PUT** /chromasdk/heartbeat | 
+[**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /chromasdk/keyboard | 
+[**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /chromasdk/keyboard | 
 
 
 <a name="callbase"></a>

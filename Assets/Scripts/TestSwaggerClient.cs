@@ -13,11 +13,6 @@ using CustomKeyboardInput = CustomChromaSDK.CustomChromaPackage.Model.KeyboardIn
 public class TestSwaggerClient : MonoBehaviour
 {
     /// <summary>
-    /// Meta reference to the app json information
-    /// </summary>
-    public TextAsset _mJsonData;
-
-    /// <summary>
     /// Meta reference to a ui button
     /// </summary>
     public Button _mButtonRed;
@@ -60,8 +55,8 @@ public class TestSwaggerClient : MonoBehaviour
     {
         try
         {
-            //_mApiInstance = new ChromaApi(); //should use this
-            _mApiInstance = new ChromaApi("http://localhost/razer/chromasdk"); //this needs to move to a different client or endpoint on the same base
+            // use the default basepath to get the session
+            _mApiInstance = new ChromaApi();
 
             var input = new BaseInput();
             input.Title = "Test";
@@ -83,7 +78,7 @@ public class TestSwaggerClient : MonoBehaviour
             Debug.Log(result);
 
             // this code should is needed because result url was blank
-            result.Url = string.Format("http://localhost:{0}/chromasdk", result.Sessionid);
+            result.Url = string.Format("http://localhost:{0}", result.Sessionid);
 
             // should have just needed to do this
             _mApiInstance = new ChromaApi(result.Url);
