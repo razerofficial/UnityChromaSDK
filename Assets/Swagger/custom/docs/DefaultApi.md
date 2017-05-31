@@ -1,6 +1,6 @@
 # CustomChromaSDK.CustomChromaPackage.DefaultApi
 
-All URIs are relative to *http://localhost:80*
+All URIs are relative to *http://localhost:54235*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

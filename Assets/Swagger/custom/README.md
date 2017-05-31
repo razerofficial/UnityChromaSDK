@@ -88,7 +88,7 @@ namespace Example
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:80*
+All URIs are relative to *http://localhost:54235*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
