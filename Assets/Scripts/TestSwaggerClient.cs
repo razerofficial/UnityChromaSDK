@@ -17,17 +17,27 @@ public class TestSwaggerClient : MonoBehaviour
     /// <summary>
     /// Meta reference to a ui button
     /// </summary>
-    public Button _mButtonRed;
+    public Button _mButtonAllBlue;
 
     /// <summary>
     /// Meta reference to a ui button
     /// </summary>
-    public Button _mButtonGreen;
+    public Button _mButtonAllGreen;
 
     /// <summary>
     /// Meta reference to a ui button
     /// </summary>
-    public Button _mButtonBlue;
+    public Button _mButtonAllRed;
+
+    /// <summary>
+    /// Meta reference to a ui button
+    /// </summary>
+    public Button _mButtonAllOrange;
+
+    /// <summary>
+    /// Meta reference to a ui button
+    /// </summary>
+    public Button _mButtonAllWhite;
 
     /// <summary>
     /// Meta reference to a ui button
@@ -37,7 +47,7 @@ public class TestSwaggerClient : MonoBehaviour
     /// <summary>
     /// Meta reference to a ui button
     /// </summary>
-    public Button _mButtonClear;
+    public Button _mButtonAllClear;
 
     /// <summary>
     /// Instance of the RazerAPI
@@ -183,21 +193,33 @@ public class TestSwaggerClient : MonoBehaviour
         StartCoroutine(HeartBeat());
 
         // subscribe to ui click events
-        _mButtonRed.onClick.AddListener(() =>
+        _mButtonAllBlue.onClick.AddListener(() =>
         {
-            SetStaticColor(255);
+            SetStaticColor(16711680);
         });
 
         // subscribe to ui click events
-        _mButtonGreen.onClick.AddListener(() =>
+        _mButtonAllGreen.onClick.AddListener(() =>
         {
             SetStaticColor(65280);
         });
 
         // subscribe to ui click events
-        _mButtonBlue.onClick.AddListener(() =>
+        _mButtonAllRed.onClick.AddListener(() =>
         {
-            SetStaticColor(16711680);
+            SetStaticColor(255);
+        });
+
+        // subscribe to ui click events
+        _mButtonAllOrange.onClick.AddListener(() =>
+        {
+            SetStaticColor(35071);
+        });
+
+        // subscribe to ui click events
+        _mButtonAllWhite.onClick.AddListener(() =>
+        {
+            SetStaticColor(16777215);
         });
 
         // subscribe to ui click events
@@ -207,7 +229,7 @@ public class TestSwaggerClient : MonoBehaviour
         });
 
         // subscribe to ui click events
-        _mButtonClear.onClick.AddListener(() =>
+        _mButtonAllClear.onClick.AddListener(() =>
         {
             ClearEffect();
         });

@@ -12,7 +12,7 @@ OpenAPI spec version: 0.0.1
     
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C6482F96-8E8B-4AC2-94B2-ECE31515DB97}</ProjectGuid>
+    <ProjectGuid>{2490AF04-606D-4E8C-B6EB-EE673CA4AD48}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RazerSDK</RootNamespace>
