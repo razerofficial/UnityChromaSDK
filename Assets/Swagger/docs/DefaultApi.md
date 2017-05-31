@@ -1,75 +1,13 @@
 # ChromaSDK.ChromaPackage.DefaultApi
 
-All URIs are relative to *http://localhost:54235*
+All URIs are relative to *http://localhost:54235/chromasdk*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CallBase**](DefaultApi.md#callbase) | **POST** /razer/chromasdk | 
-[**Heartbeat**](DefaultApi.md#heartbeat) | **PUT** /chromasdk/heartbeat | 
-[**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /chromasdk/keyboard | 
-[**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /chromasdk/keyboard | 
+[**Heartbeat**](DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
+[**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /keyboard | 
+[**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
 
-
-<a name="callbase"></a>
-# **CallBase**
-> SessionResponse CallBase (BaseInput baseInput = null)
-
-
-
-Initialize the client.
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using ChromaSDK.ChromaPackage;
-using ChromaSDK.Client;
-using ChromaSDK.ChromaPackage.Model;
-
-namespace Example
-{
-    public class CallBaseExample
-    {
-        public void main()
-        {
-            
-            var apiInstance = new DefaultApi();
-            var baseInput = new BaseInput(); // BaseInput |  (optional) 
-
-            try
-            {
-                SessionResponse result = apiInstance.CallBase(baseInput);
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling DefaultApi.CallBase: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **baseInput** | [**BaseInput**](BaseInput.md)|  | [optional] 
-
-### Return type
-
-[**SessionResponse**](SessionResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="heartbeat"></a>
 # **Heartbeat**

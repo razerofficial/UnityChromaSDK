@@ -1,11 +1,11 @@
 # CustomChromaSDK.CustomChromaPackage.DefaultApi
 
-All URIs are relative to *http://localhost:54235*
+All URIs are relative to *http://localhost:54235/chromasdk*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /chromasdk/keyboard | 
-[**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /chromasdk/keyboard | 
+[**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /keyboard | 
+[**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
 
 
 <a name="postkeyboard"></a>

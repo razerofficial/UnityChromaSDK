@@ -1,4 +1,5 @@
 ﻿using ChromaSDK.ChromaPackage.Model;
+using RazerSDK.RazerPackage.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ChromaApi = ChromaSDK.Api.DefaultApi;
 using ChromaCustomApi = CustomChromaSDK.Api.DefaultApi;
+using RazerApi = RazerSDK.Api.DefaultApi;
 using CustomEffectType = CustomChromaSDK.CustomChromaPackage.Model.EffectType;
 using CustomKeyboardInput = CustomChromaSDK.CustomChromaPackage.Model.KeyboardInput;
 
@@ -38,6 +40,11 @@ public class TestSwaggerClient : MonoBehaviour
     public Button _mButtonClear;
 
     /// <summary>
+    /// Instance of the RazerAPI
+    /// </summary>
+    private RazerApi _mApiRazerInstance;
+
+    /// <summary>
     /// Instance of the API
     /// </summary>
     private ChromaApi _mApiInstance;
@@ -55,13 +62,13 @@ public class TestSwaggerClient : MonoBehaviour
     {
         try
         {
-            // use the default basepath to get the session
-            _mApiInstance = new ChromaApi();
+            // use the Razer API to get the session
+            _mApiRazerInstance = new RazerApi();
 
-            var input = new BaseInput();
+            var input = new ChromaSdkInput();
             input.Title = "Test";
             input.Description = "This is a REST interface test application";
-            input.Author = new BaseInputAuthor();
+            input.Author = new ChromaSdkInputAuthor();
             input.Author.Name = "Chroma Developer";
             input.Author.Contact = "www.razerzone.com";
             input.DeviceSupported = new List<string> 
@@ -74,15 +81,12 @@ public class TestSwaggerClient : MonoBehaviour
                 "chromalink",
             };
             input.Category = "application";
-            SessionResponse result = _mApiInstance.CallBase(input);
+            ChromaSdkResponse result = _mApiRazerInstance.Chromasdk(input);
             Debug.Log(result);
 
-            // this code should is needed because result url was blank
-            result.Url = string.Format("http://localhost:{0}", result.Sessionid);
-
             // should have just needed to do this
-            _mApiInstance = new ChromaApi(result.Url);
-            _mApiCustomInstance = new ChromaCustomApi(result.Url);
+            _mApiInstance = new ChromaApi(result.Uri);
+            _mApiCustomInstance = new ChromaCustomApi(result.Uri);
         }
         catch (Exception e)
         {

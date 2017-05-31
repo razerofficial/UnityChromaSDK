@@ -12,12 +12,6 @@ namespace ChromaSDK.Api
     public interface IDefaultApi
     {
         /// <summary>
-        ///  Initialize the client.
-        /// </summary>
-        /// <param name="baseInput"></param>
-        /// <returns>SessionResponse</returns>
-        SessionResponse CallBase (BaseInput baseInput);
-        /// <summary>
         ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <returns></returns>
@@ -90,41 +84,6 @@ namespace ChromaSDK.Api
         public ApiClient ApiClient {get; set;}
     
         /// <summary>
-        ///  Initialize the client.
-        /// </summary>
-        /// <param name="baseInput"></param> 
-        /// <returns>SessionResponse</returns>            
-        public SessionResponse CallBase (BaseInput baseInput)
-        {
-            
-    
-            var path = "/razer/chromasdk";
-            path = path.Replace("{format}", "json");
-                
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
-    
-                                                postBody = ApiClient.Serialize(baseInput); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
-    
-            // authentication setting, if any
-            String[] authSettings = new String[] {  };
-    
-            // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling CallBase: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling CallBase: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (SessionResponse) ApiClient.Deserialize(response.Content, typeof(SessionResponse), response.Headers);
-        }
-    
-        /// <summary>
         ///  Creating effects on Keyboards by sending PUT to the URI. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <returns></returns>            
@@ -132,7 +91,7 @@ namespace ChromaSDK.Api
         {
             
     
-            var path = "/chromasdk/heartbeat";
+            var path = "/heartbeat";
             path = path.Replace("{format}", "json");
                 
             var queryParams = new Dictionary<String, String>();
@@ -165,7 +124,7 @@ namespace ChromaSDK.Api
         {
             
     
-            var path = "/chromasdk/keyboard";
+            var path = "/keyboard";
             path = path.Replace("{format}", "json");
                 
             var queryParams = new Dictionary<String, String>();
@@ -200,7 +159,7 @@ namespace ChromaSDK.Api
         {
             
     
-            var path = "/chromasdk/keyboard";
+            var path = "/keyboard";
             path = path.Replace("{format}", "json");
                 
             var queryParams = new Dictionary<String, String>();

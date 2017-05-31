@@ -20,4 +20,13 @@ cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\docs" "cu
 rm -r -f "src\CustomChromaSDK.Test"
 rm -f "src\ChromaSDK\Properties\AssemblyInfo.cs"
 
+SET VER=razer_csharp
+rm -r -f "razer"
+mkdir "razer"
+cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\src" .
+cp -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\README.md" "razer"
+cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\docs" "razer"
+rm -r -f "src\RazerSDK.Test"
+rm -f "src\RazerSDK\Properties\AssemblyInfo.cs"
+
 PAUSE
