@@ -3,9 +3,9 @@ using RazerSDK.RazerPackage.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+
 using ChromaApi = ChromaSDK.Api.DefaultApi;
 using ChromaCustomApi = CustomChromaSDK.Api.DefaultApi;
 using RazerApi = RazerSDK.Api.DefaultApi;
@@ -90,7 +90,7 @@ public class TestSwaggerClient : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Exception when calling DefaultApi.CallBase: {0}", e);
+            Debug.LogFormat("Exception when calling RazerApi.Chromasdk: {0}", e);
         }
     }
 
@@ -108,7 +108,7 @@ public class TestSwaggerClient : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Exception when calling DefaultApi.PutKeyboardInput: {0}", e);
+            Debug.LogFormat("Exception when calling ChromaApi.PutKeyboard: {0}", e);
         }
     }
 
@@ -128,7 +128,33 @@ public class TestSwaggerClient : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Exception when calling DefaultApi.PutKeyboardInput: {0}", e);
+            Debug.LogFormat("Exception when calling ChromaApi.PutKeyboard: {0}", e);
+        }
+    }
+
+    /// <summary>
+    /// Use the API to set the CHROMA_CUSTOM effect
+    /// </summary>
+    void SetCustomEffect()
+    {
+        var rows = new List<List<int?>>();
+        for (int i = 0; i < 6; ++i)
+        {
+            var row = new List<int?>();
+            for (int j = 0; j < 22; ++j)
+            {
+                row.Add(UnityEngine.Random.Range(0, 16777215));
+            }
+            rows.Add(row);
+        }
+        try
+        {
+            var input = new CustomKeyboardInput(CustomEffectType.CHROMA_CUSTOM, rows);
+            _mApiCustomInstance.PutKeyboard(input);
+        }
+        catch (Exception e)
+        {
+            Debug.LogFormat("Exception when calling ChromaCustomApi.PutKeyboard: {0}", e);
         }
     }
 
@@ -152,8 +178,6 @@ public class TestSwaggerClient : MonoBehaviour
     void Start()
     {
         InitChroma();
-
-        Debug.Log(_mApiInstance.ApiClient.BasePath);
 
         // use heartbeat to keep the REST API alive
         StartCoroutine(HeartBeat());
@@ -179,18 +203,7 @@ public class TestSwaggerClient : MonoBehaviour
         // subscribe to ui click events
         _mButtonCustom.onClick.AddListener(() =>
         {
-            var rows = new List<List<int?>>();
-            for (int i = 0; i < 6; ++i)
-            {
-                var row = new List<int?>();
-                for (int j = 0; j < 22; ++j)
-                {
-                    row.Add(UnityEngine.Random.Range(0, 16777215));
-                }
-                rows.Add(row);
-            }
-            var input = new CustomKeyboardInput(CustomEffectType.CHROMA_CUSTOM, rows);
-            _mApiCustomInstance.PutKeyboard(input);
+            SetCustomEffect();
         });
 
         // subscribe to ui click events
