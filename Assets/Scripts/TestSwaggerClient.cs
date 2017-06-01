@@ -230,7 +230,7 @@ public class TestSwaggerClient : MonoBehaviour
             _mApiCustomInstance = new ChromaCustomApi(result.Uri);
 
             // use heartbeat to keep the REST API alive
-            DoHeartBeat();
+            DoHeartbeat();
         }
         catch (Exception e)
         {
@@ -363,7 +363,7 @@ public class TestSwaggerClient : MonoBehaviour
     /// Use heartbeat to keep the REST API listening after initialization,
     /// be sure to call from a thread and not the main thread
     /// </summary>
-    void DoHeartBeat()
+    void DoHeartbeat()
     {
         if (null != _mApiInstance)
         {
@@ -371,7 +371,7 @@ public class TestSwaggerClient : MonoBehaviour
             
             RunOnMainThread(() =>
             {
-                _mTextHeartbeat.text = string.Format("Monitoring HeartBeat {0}...", uri.Port);
+                _mTextHeartbeat.text = string.Format("Monitoring Heartbeat {0}...", uri.Port);
             });
 
             while (_mWaitForExit &&
@@ -394,7 +394,7 @@ public class TestSwaggerClient : MonoBehaviour
 
             RunOnMainThread(() =>
             {
-                _mTextHeartbeat.text = string.Format("HeartBeat {0} exited", uri.Port);
+                _mTextHeartbeat.text = string.Format("Heartbeat {0} exited", uri.Port);
             });
             
         }
@@ -404,6 +404,7 @@ public class TestSwaggerClient : MonoBehaviour
     void OnEnable()
     {
         Debug.Log("OnEnable:");
+        _mWaitForExit = true;
 
         RunOnThread(() =>
         {
