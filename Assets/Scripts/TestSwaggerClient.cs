@@ -37,14 +37,16 @@ public class TestSwaggerClient : MonoBehaviour
     public Button _mButtonAllGreen;
     public Button _mButtonAllRed;
     public Button _mButtonAllOrange;
+    public Button _mButtonAllAqua;
     public Button _mButtonAllWhite;
+    public Button _mButtonAllRandom;
     public Button _mButtonKeyboard;
     public Button _mButtonHeadset;
     public Button _mButtonMouse;
     public Button _mButtonMousepad;
     public Button _mButtonKeypad;
     public Button _mButtonChromaLink;
-    public Button _mButtonCustom;
+    public Button _mButtonStart;
     public Button _mButtonAllClear;
     public Button _mButtonRegister;
     public Button _mButtonUnregister;
@@ -502,6 +504,17 @@ public class TestSwaggerClient : MonoBehaviour
         });
 
         // subscribe to ui click events
+        _mButtonAllAqua.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_AQUA);
+                SetEffectOnAll(input);
+            });
+        });
+
+        // subscribe to ui click events
         _mButtonAllWhite.onClick.AddListener(() =>
         {
             // avoid blocking the UI thread
@@ -509,6 +522,16 @@ public class TestSwaggerClient : MonoBehaviour
             {
                 EffectInput input = GetEffectChromaStatic(COLOR_WHITE);
                 SetEffectOnAll(input);
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonAllRandom.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetKeyboardCustomEffect();
             });
         });
 
@@ -579,13 +602,8 @@ public class TestSwaggerClient : MonoBehaviour
         });
 
         // subscribe to ui click events
-        _mButtonCustom.onClick.AddListener(() =>
+        _mButtonStart.onClick.AddListener(() =>
         {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                SetKeyboardCustomEffect();
-            });
         });
 
         // subscribe to ui click events
