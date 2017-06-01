@@ -66,7 +66,7 @@ public class TestSwaggerClient : MonoBehaviour
     const int COLOR_BLUE = 16711680;
     const int COLOR_GREEN = 65280;
     const int COLOR_RED = 255;
-    const int COLOR_ORANGE = 65535;
+    const int COLOR_ORANGE = 32767;
     const int COLOR_WHITE = 16777215;
 
     /// <summary>
