@@ -79,11 +79,6 @@ public class TestSwaggerClient : MonoBehaviour
     const int COLOR_WHITE = 16777215;
 
     /// <summary>
-    /// Keep track of initialization
-    /// </summary>
-    private bool _mInitialized = false;
-
-    /// <summary>
     /// Detect app shutdown
     /// </summary>
     private bool _mWaitForExit = true;
@@ -128,8 +123,8 @@ public class TestSwaggerClient : MonoBehaviour
             _mApiInstance = new ChromaApi(result.Uri);
             _mApiCustomInstance = new ChromaCustomApi(result.Uri);
 
-            // initialization complete
-            _mInitialized = true;
+            // use heartbeat to keep the REST API alive
+            DoHeartBeat();
         }
         catch (Exception e)
         {
@@ -158,9 +153,6 @@ public class TestSwaggerClient : MonoBehaviour
             _mApiRazerDeleteInstance = null;
             _mApiInstance = null;
             _mApiCustomInstance = null;
-
-            // no longer initialized
-            _mInitialized = false;
         }
         catch (Exception e)
         {
@@ -277,22 +269,24 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Use heartbeat to keep the REST API listening after initialization
+    /// Use heartbeat to keep the REST API listening after initialization,
+    /// be sure to call from a thread and not the main thread
     /// </summary>
     void DoHeartBeat()
     {
-        Thread thread = new Thread(() =>
+        if (null != _mApiInstance)
         {
-            while (_mWaitForExit)
+            Uri uri = new Uri(_mApiInstance.ApiClient.BasePath);
+            Debug.LogFormat("Monitoring HeartBeat {0}...", uri.Port);
+
+            while (_mWaitForExit &&
+                null != _mApiInstance)
             {
                 try
                 {
-                    if (null != _mApiRazerInstance)
-                    {
-                        // only one heartbeat is needed
-                        // since the custom api hits the same port
-                        _mApiInstance.Heartbeat();
-                    }
+                    // only one heartbeat is needed
+                    // since the custom api hits the same port
+                    _mApiInstance.Heartbeat();
                 }
                 catch (Exception)
                 {
@@ -302,27 +296,19 @@ public class TestSwaggerClient : MonoBehaviour
                 // Wait for a sec
                 Thread.Sleep(1000);
             }
-        });
-        thread.Start();
+
+            Debug.LogFormat("HeartBeat {0} exited", uri.Port);
+        }
     }
 
     // Use this for initialization
-    IEnumerator Start()
+    void Start()
     {
         RunOnThread(() =>
         {
             // start initialization
             PostChromaSdk();
         });
-
-        // wait for initialization
-        while (!_mInitialized)
-        {
-            yield return null;
-        }
-
-        // use heartbeat to keep the REST API alive
-        DoHeartBeat();
 
         // subscribe to ui click events
         _mButtonAllBlue.onClick.AddListener(() =>
