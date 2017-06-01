@@ -69,16 +69,16 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var keyboardInput = new KeyboardInput(); // KeyboardInput |  (optional) 
+            var effectInput = new EffectInput(); // EffectInput | Array dimensions are 1 rows by 5 columns. (optional) 
 
             try
             {
-                KeyboardResponseId result = apiInstance.PostKeyboard(keyboardInput);
+                EffectResponseId result = apiInstance.PostChromaLink(effectInput);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeyboard: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.PostChromaLink: " + e.Message );
             }
         }
     }
@@ -92,18 +92,28 @@ All URIs are relative to *http://localhost:54235/chromasdk*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**PostChromaLink**](docs/DefaultApi.md#postchromalink) | **POST** /chromalink | 
+*DefaultApi* | [**PostHeadset**](docs/DefaultApi.md#postheadset) | **POST** /headset | 
 *DefaultApi* | [**PostKeyboard**](docs/DefaultApi.md#postkeyboard) | **POST** /keyboard | 
+*DefaultApi* | [**PostKeypad**](docs/DefaultApi.md#postkeypad) | **POST** /keypad | 
+*DefaultApi* | [**PostMouse**](docs/DefaultApi.md#postmouse) | **POST** /mouse | 
+*DefaultApi* | [**PostMousepad**](docs/DefaultApi.md#postmousepad) | **POST** /mousepad | 
+*DefaultApi* | [**PutChromaLink**](docs/DefaultApi.md#putchromalink) | **PUT** /chromalink | 
+*DefaultApi* | [**PutHeadset**](docs/DefaultApi.md#putheadset) | **PUT** /headset | 
 *DefaultApi* | [**PutKeyboard**](docs/DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
+*DefaultApi* | [**PutKeypad**](docs/DefaultApi.md#putkeypad) | **PUT** /keypad | 
+*DefaultApi* | [**PutMouse**](docs/DefaultApi.md#putmouse) | **PUT** /mouse | 
+*DefaultApi* | [**PutMousepad**](docs/DefaultApi.md#putmousepad) | **PUT** /mousepad | 
 
 
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [CustomChromaPackage.Model.EffectInput](docs/EffectInput.md)
+ - [CustomChromaPackage.Model.EffectResponse](docs/EffectResponse.md)
+ - [CustomChromaPackage.Model.EffectResponseId](docs/EffectResponseId.md)
+ - [CustomChromaPackage.Model.EffectResponseItemId](docs/EffectResponseItemId.md)
  - [CustomChromaPackage.Model.EffectType](docs/EffectType.md)
- - [CustomChromaPackage.Model.KeyboardInput](docs/KeyboardInput.md)
- - [CustomChromaPackage.Model.KeyboardResponse](docs/KeyboardResponse.md)
- - [CustomChromaPackage.Model.KeyboardResponseId](docs/KeyboardResponseId.md)
- - [CustomChromaPackage.Model.KeyboardResponseItemId](docs/KeyboardResponseItemId.md)
 
 
 <a name="documentation-for-authorization"></a>

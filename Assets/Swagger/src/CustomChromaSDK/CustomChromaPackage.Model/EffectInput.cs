@@ -26,26 +26,26 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
     /// JSON Data
     /// </summary>
     [DataContract]
-    public partial class KeyboardInput :  IEquatable<KeyboardInput>
+    public partial class EffectInput :  IEquatable<EffectInput>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardInput" /> class.
+        /// Initializes a new instance of the <see cref="EffectInput" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected KeyboardInput() { }
+        protected EffectInput() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardInput" /> class.
+        /// Initializes a new instance of the <see cref="EffectInput" /> class.
         /// </summary>
         /// <param name="Effect">Effect (required).</param>
-        /// <param name="Param">2 dimensional array of size 6 rows by 22 columns. Each cell contains the color value in BGR format.</param>
-        /// <param name="Color">6 by 22 columns of array containing the value of color in BGR format.</param>
-        /// <param name="Key">6 by 22 columns of array containing the value of color on the specific key at the location in BGR format. Specify a bit mask of 0x01000000 with the color value for each keys that has an effect..</param>
-        public KeyboardInput(EffectType Effect = default(EffectType), List<List<int?>> Param = default(List<List<int?>>), List<int?> Color = default(List<int?>), List<int?> Key = default(List<int?>))
+        /// <param name="Param">Two-dimensional color array. See method for dimension details..</param>
+        /// <param name="Color">Two-dimensional color array. See method for dimension details..</param>
+        /// <param name="Key">Two-dimensional color array. See method for dimension details..</param>
+        public EffectInput(EffectType Effect = default(EffectType), List<List<int?>> Param = default(List<List<int?>>), List<int?> Color = default(List<int?>), List<int?> Key = default(List<int?>))
         {
             // to ensure "Effect" is required (not null)
             if (Effect == null)
             {
-                throw new InvalidDataException("Effect is a required property for KeyboardInput and cannot be null");
+                throw new InvalidDataException("Effect is a required property for EffectInput and cannot be null");
             }
             else
             {
@@ -63,23 +63,23 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
 		[JsonProperty(PropertyName = "effect")]
         public EffectType Effect { get; set; }
         /// <summary>
-        /// 2 dimensional array of size 6 rows by 22 columns. Each cell contains the color value in BGR format
+        /// Two-dimensional color array. See method for dimension details.
         /// </summary>
-        /// <value>2 dimensional array of size 6 rows by 22 columns. Each cell contains the color value in BGR format</value>
+        /// <value>Two-dimensional color array. See method for dimension details.</value>
         [DataMember(Name="param")]
 		[JsonProperty(PropertyName = "param")]
         public List<List<int?>> Param { get; set; }
         /// <summary>
-        /// 6 by 22 columns of array containing the value of color in BGR format
+        /// Two-dimensional color array. See method for dimension details.
         /// </summary>
-        /// <value>6 by 22 columns of array containing the value of color in BGR format</value>
+        /// <value>Two-dimensional color array. See method for dimension details.</value>
         [DataMember(Name="color")]
 		[JsonProperty(PropertyName = "color")]
         public List<int?> Color { get; set; }
         /// <summary>
-        /// 6 by 22 columns of array containing the value of color on the specific key at the location in BGR format. Specify a bit mask of 0x01000000 with the color value for each keys that has an effect.
+        /// Two-dimensional color array. See method for dimension details.
         /// </summary>
-        /// <value>6 by 22 columns of array containing the value of color on the specific key at the location in BGR format. Specify a bit mask of 0x01000000 with the color value for each keys that has an effect.</value>
+        /// <value>Two-dimensional color array. See method for dimension details.</value>
         [DataMember(Name="key")]
 		[JsonProperty(PropertyName = "key")]
         public List<int?> Key { get; set; }
@@ -90,7 +90,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class KeyboardInput {\n");
+            sb.Append("class EffectInput {\n");
             sb.Append("  Effect: ").Append(Effect).Append("\n");
             sb.Append("  Param: ").Append(Param).Append("\n");
             sb.Append("  Color: ").Append(Color).Append("\n");
@@ -116,15 +116,15 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as KeyboardInput);
+            return this.Equals(obj as EffectInput);
         }
 
         /// <summary>
-        /// Returns true if KeyboardInput instances are equal
+        /// Returns true if EffectInput instances are equal
         /// </summary>
-        /// <param name="other">Instance of KeyboardInput to be compared</param>
+        /// <param name="other">Instance of EffectInput to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(KeyboardInput other)
+        public bool Equals(EffectInput other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)

@@ -23,22 +23,20 @@ using Newtonsoft.Json.Converters;
 namespace CustomChromaSDK.CustomChromaPackage.Model
 {
     /// <summary>
-    /// KeyboardResponseId
+    /// EffectResponseItemId
     /// </summary>
     [DataContract]
-    public partial class KeyboardResponseId :  IEquatable<KeyboardResponseId>
+    public partial class EffectResponseItemId :  IEquatable<EffectResponseItemId>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardResponseId" /> class.
+        /// Initializes a new instance of the <see cref="EffectResponseItemId" /> class.
         /// </summary>
         /// <param name="Id">Id.</param>
         /// <param name="Result">Result.</param>
-        /// <param name="Results">Results.</param>
-        public KeyboardResponseId(string Id = default(string), int? Result = default(int?), List<KeyboardResponseItemId> Results = default(List<KeyboardResponseItemId>))
+        public EffectResponseItemId(string Id = default(string), int? Result = default(int?))
         {
             this.Id = Id;
             this.Result = Result;
-            this.Results = Results;
         }
         
         /// <summary>
@@ -54,22 +52,15 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
 		[JsonProperty(PropertyName = "result")]
         public int? Result { get; set; }
         /// <summary>
-        /// Gets or Sets Results
-        /// </summary>
-        [DataMember(Name="results")]
-		[JsonProperty(PropertyName = "results")]
-        public List<KeyboardResponseItemId> Results { get; set; }
-        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class KeyboardResponseId {\n");
+            sb.Append("class EffectResponseItemId {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Result: ").Append(Result).Append("\n");
-            sb.Append("  Results: ").Append(Results).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -91,15 +82,15 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as KeyboardResponseId);
+            return this.Equals(obj as EffectResponseItemId);
         }
 
         /// <summary>
-        /// Returns true if KeyboardResponseId instances are equal
+        /// Returns true if EffectResponseItemId instances are equal
         /// </summary>
-        /// <param name="other">Instance of KeyboardResponseId to be compared</param>
+        /// <param name="other">Instance of EffectResponseItemId to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(KeyboardResponseId other)
+        public bool Equals(EffectResponseItemId other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
@@ -115,11 +106,6 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
                     this.Result == other.Result ||
                     this.Result != null &&
                     this.Result.Equals(other.Result)
-                ) && 
-                (
-                    this.Results == other.Results ||
-                    this.Results != null &&
-                    this.Results.SequenceEqual(other.Results)
                 );
         }
 
@@ -138,8 +124,6 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
                     hash = hash * 59 + this.Id.GetHashCode();
                 if (this.Result != null)
                     hash = hash * 59 + this.Result.GetHashCode();
-                if (this.Results != null)
-                    hash = hash * 59 + this.Results.GetHashCode();
                 return hash;
             }
         }

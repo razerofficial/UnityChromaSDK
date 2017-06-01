@@ -13,7 +13,8 @@ using ChromaCustomApi = CustomChromaSDK.Api.DefaultApi;
 using RazerApi = RazerSDK.Api.DefaultApi;
 using RazerDeleteApi = RazerSDKDelete.Api.DefaultApi;
 using CustomEffectType = CustomChromaSDK.CustomChromaPackage.Model.EffectType;
-using CustomKeyboardInput = CustomChromaSDK.CustomChromaPackage.Model.KeyboardInput;
+using CustomEffectInput = CustomChromaSDK.CustomChromaPackage.Model.EffectInput;
+using CustomEffectResponse = CustomChromaSDK.CustomChromaPackage.Model.EffectResponse;
 using Random = System.Random;
 
 public class TestSwaggerClient : MonoBehaviour
@@ -70,7 +71,7 @@ public class TestSwaggerClient : MonoBehaviour
     /// <summary>
     /// Thread safe random object
     /// </summary>
-    Random _mRandom = new System.Random(123);
+    private static Random _sRandom = new System.Random(123);
 
     /// <summary>
     /// Delegate method for setting effects
@@ -80,9 +81,110 @@ public class TestSwaggerClient : MonoBehaviour
     delegate EffectResponse SetEffectMethod(EffectInput data);
 
     /// <summary>
+    /// Delegate method for setting custom effects
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    delegate CustomEffectResponse SetCustomEffectMethod(CustomEffectInput data);
+
+    /// <summary>
     /// Detect app shutdown
     /// </summary>
     private bool _mWaitForExit = true;
+
+    /// <summary>
+    /// Avoid blocking the UI thread
+    /// </summary>
+    /// <param name="action"></param>
+    void RunOnThread(Action action)
+    {
+        Thread thread = new Thread(new ThreadStart(() => {
+            try
+            {
+                action.Invoke();
+            }
+            catch (Exception)
+            {
+                Debug.LogError("Failed to invoke action!");
+            }
+        }));
+        thread.Start();
+    }
+
+    /// <summary>
+    /// Holds the max columns and max rows
+    /// </summary>
+    class TableSize
+    {
+        public int MaxColumns { get; set; }
+        public int MaxRows { get; set; }
+        public TableSize(int columns, int rows)
+        {
+            MaxColumns = columns;
+            MaxRows = rows;
+        }
+    }
+
+    #region Helpers
+
+    /// <summary>
+    /// Implicitly create a KeyValuePair item without the explicit types
+    /// </summary>
+    /// <param name="method"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    private static KeyValuePair<SetCustomEffectMethod, TableSize> CreateItem(SetCustomEffectMethod method, TableSize data)
+    {
+        return new KeyValuePair<SetCustomEffectMethod, TableSize>(method, data);
+    }
+
+    /// <summary>
+    /// Get Effect: CHROMA_NONE
+    /// </summary>
+    /// <returns></returns>
+    private static EffectInput GetEffectChromaNone()
+    {
+        var input = new EffectInput();
+        input.Effect = EffectType.CHROMA_NONE;
+        return input;
+    }
+
+    /// <summary>
+    /// Get Effect: CHROMA_STATIC
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
+    private static EffectInput GetEffectChromaStatic(int color)
+    {
+        var input = new EffectInput();
+        input.Effect = EffectType.CHROMA_STATIC;
+        input.Param = new EffectInputParam(color);
+        return input;
+    }
+
+    /// <summary>
+    /// Get Effect: CHROMA_CUSTOM
+    /// </summary>
+    /// <param name="maxColumns"></param>
+    /// <param name="maxRows"></param>
+    /// <returns></returns>
+    private static CustomEffectInput GetCustomEffectChroma(int maxColumns, int maxRows)
+    {
+        var rows = new List<List<int?>>();
+        for (int i = 0; i < maxRows; ++i)
+        {
+            var row = new List<int?>();
+            for (int j = 0; j < maxColumns; ++j)
+            {
+                row.Add(_sRandom.Next(16777215));
+            }
+            rows.Add(row);
+        }
+        var input = new CustomEffectInput(CustomEffectType.CHROMA_CUSTOM, rows);
+        return input;
+    }
+
+    #endregion
 
     /// <summary>
     /// Initialize Chroma by hitting the REST server and set the API port
@@ -106,7 +208,7 @@ public class TestSwaggerClient : MonoBehaviour
             input.Author = new ChromaSdkInputAuthor();
             input.Author.Name = "Chroma Developer";
             input.Author.Contact = "www.razerzone.com";
-            input.DeviceSupported = new List<string> 
+            input.DeviceSupported = new List<string>
             {
                 "keyboard",
                 "mouse",
@@ -148,7 +250,7 @@ public class TestSwaggerClient : MonoBehaviour
 
             // save a reference to the delete instance
             RazerDeleteApi instance = _mApiRazerDeleteInstance;
-            
+
             // clear the references
             _mApiRazerInstance = null;
             _mApiRazerDeleteInstance = null;
@@ -165,36 +267,6 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Avoid blocking the UI thread
-    /// </summary>
-    /// <param name="action"></param>
-    void RunOnThread(Action action)
-    {
-        Thread thread = new Thread(new ThreadStart(() => {
-            try
-            {
-                action.Invoke();
-            }
-            catch (Exception)
-            {
-                Debug.LogError("Failed to invoke action!");
-            }
-        }));
-        thread.Start();
-    }
-
-    /// <summary>
-    /// Get Effect: CHROMA_NONE
-    /// </summary>
-    /// <returns></returns>
-    EffectInput GetEffectChromaNone()
-    {
-        var input = new EffectInput();
-        input.Effect = EffectType.CHROMA_NONE;
-        return input;
-    }
-
-    /// <summary>
     /// Set effect on all devices
     /// </summary>
     /// <param name="input"></param>
@@ -207,69 +279,65 @@ public class TestSwaggerClient : MonoBehaviour
             return null;
         }
 
-        List<EffectResponse> results = new List<EffectResponse>();
-        try
+        var results = new List<EffectResponse>();
+        var methods = new List<SetEffectMethod>();
+        methods.Add(_mApiInstance.PutChromaLink);
+        methods.Add(_mApiInstance.PutHeadset);
+        methods.Add(_mApiInstance.PutKeyboard);
+        methods.Add(_mApiInstance.PutKeypad);
+        methods.Add(_mApiInstance.PutMouse);
+        methods.Add(_mApiInstance.PutMousepad);
+        foreach (SetEffectMethod method in methods)
         {
-            List<SetEffectMethod> methods = new List<SetEffectMethod>();
-            methods.Add(_mApiInstance.PutChromaLink);
-            methods.Add(_mApiInstance.PutHeadset);
-            methods.Add(_mApiInstance.PutKeyboard);
-            methods.Add(_mApiInstance.PutKeypad);
-            methods.Add(_mApiInstance.PutMouse);
-            methods.Add(_mApiInstance.PutMousepad);
-            foreach (SetEffectMethod method in methods)
+            try
             {
                 EffectResponse result = method.Invoke(input);
                 Debug.Log(result);
                 results.Add(result);
             }
-        }
-        catch (Exception e)
-        {
-            Debug.LogErrorFormat("Exception when setting affect on all devices: {0}", e);
+            catch (Exception)
+            {
+                Debug.LogErrorFormat("Failed to invoke: {0}", method.Method);
+            }
+
         }
         return results;
-
-    }
-
-    EffectInput GetEffectChromaStatic(int color)
-    {
-        var input = new EffectInput();
-        input.Effect = EffectType.CHROMA_STATIC;
-        input.Param = new EffectInputParam(color);
-        return input;
     }
 
     /// <summary>
     /// Use the API to set the CHROMA_CUSTOM effect
     /// </summary>
-    void SetKeyboardCustomEffect()
+    List<CustomEffectResponse> SetKeyboardCustomEffect()
     {
         if (null == _mApiInstance)
         {
             Debug.LogError("Need to register Chroma Server. The custom api instance is not set!");
-            return;
+            return null;
         }
 
-        var rows = new List<List<int?>>();
-        for (int i = 0; i < 6; ++i)
+        var results = new List<CustomEffectResponse>();
+        var items = new List<KeyValuePair<SetCustomEffectMethod, TableSize>>();
+        items.Add(CreateItem(_mApiCustomInstance.PutChromaLink, new TableSize(5, 1)));
+        items.Add(CreateItem(_mApiCustomInstance.PutHeadset, new TableSize(7, 9)));
+        items.Add(CreateItem(_mApiCustomInstance.PutKeyboard, new TableSize(22, 6)));
+        items.Add(CreateItem(_mApiCustomInstance.PutKeypad, new TableSize(5, 4)));
+        items.Add(CreateItem(_mApiCustomInstance.PutMouse, new TableSize(7, 9)));
+        items.Add(CreateItem(_mApiCustomInstance.PutMousepad, new TableSize(15, 1)));
+        foreach (KeyValuePair<SetCustomEffectMethod, TableSize> item in items)
         {
-            var row = new List<int?>();
-            for (int j = 0; j < 22; ++j)
+            try
             {
-                row.Add(_mRandom.Next(16777215));
+                var input = GetCustomEffectChroma(item.Value.MaxColumns, item.Value.MaxRows);
+                CustomEffectResponse result = item.Key.Invoke(input);
+                Debug.Log(result);
+                results.Add(result);
             }
-            rows.Add(row);
+            catch (Exception)
+            {
+                Debug.LogErrorFormat("Failed to invoke: {0}", item.Key.Method);
+            }
         }
-        try
-        {
-            var input = new CustomKeyboardInput(CustomEffectType.CHROMA_CUSTOM, rows);
-            _mApiCustomInstance.PutKeyboard(input);
-        }
-        catch (Exception e)
-        {
-            Debug.LogErrorFormat("Exception when calling ChromaCustomApi.PutKeyboard: {0}", e);
-        }
+        return results;
     }
 
     /// <summary>

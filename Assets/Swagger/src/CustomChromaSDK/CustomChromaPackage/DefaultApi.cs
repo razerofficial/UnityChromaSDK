@@ -14,15 +14,75 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="keyboardInput"></param>
-        /// <returns>KeyboardResponseId</returns>
-        KeyboardResponseId PostKeyboard (KeyboardInput keyboardInput);
+        /// <param name="effectInput">Array dimensions are 1 rows by 5 columns.</param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostChromaLink (EffectInput effectInput);
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="keyboardInput"></param>
-        /// <returns>KeyboardResponse</returns>
-        KeyboardResponse PutKeyboard (KeyboardInput keyboardInput);
+        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostHeadset (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 6 rows by 22 columns.</param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostKeyboard (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 4 rows by 5 columns.</param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostKeypad (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostMouse (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 1 rows by 15 columns.</param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostMousepad (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 1 rows by 5 columns.</param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutChromaLink (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutHeadset (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 6 rows by 22 columns.</param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutKeyboard (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 4 rows by 5 columns.</param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutKeypad (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutMouse (EffectInput effectInput);
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 1 rows by 15 columns.</param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutMousepad (EffectInput effectInput);
     }
   
     /// <summary>
@@ -81,9 +141,79 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="keyboardInput"></param> 
-        /// <returns>KeyboardResponseId</returns>            
-        public KeyboardResponseId PostKeyboard (KeyboardInput keyboardInput)
+        /// <param name="effectInput">Array dimensions are 1 rows by 5 columns.</param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostChromaLink (EffectInput effectInput)
+        {
+            
+    
+            var path = "/chromalink";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostChromaLink: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostChromaLink: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostHeadset (EffectInput effectInput)
+        {
+            
+    
+            var path = "/headset";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostHeadset: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostHeadset: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 6 rows by 22 columns.</param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostKeyboard (EffectInput effectInput)
         {
             
     
@@ -96,7 +226,7 @@ namespace CustomChromaSDK.Api
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
     
-                                                postBody = ApiClient.Serialize(keyboardInput); // http body (model) parameter
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
 			UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
@@ -110,15 +240,190 @@ namespace CustomChromaSDK.Api
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PostKeyboard: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (KeyboardResponseId) ApiClient.Deserialize(response.Content, typeof(KeyboardResponseId), response.Headers);
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
         }
     
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="keyboardInput"></param> 
-        /// <returns>KeyboardResponse</returns>            
-        public KeyboardResponse PutKeyboard (KeyboardInput keyboardInput)
+        /// <param name="effectInput">Array dimensions are 4 rows by 5 columns.</param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostKeypad (EffectInput effectInput)
+        {
+            
+    
+            var path = "/keypad";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeypad: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeypad: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostMouse (EffectInput effectInput)
+        {
+            
+    
+            var path = "/mouse";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMouse: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMouse: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 1 rows by 15 columns.</param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostMousepad (EffectInput effectInput)
+        {
+            
+    
+            var path = "/mousepad";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMousepad: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMousepad: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 1 rows by 5 columns.</param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutChromaLink (EffectInput effectInput)
+        {
+            
+    
+            var path = "/chromalink";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutChromaLink: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutChromaLink: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutHeadset (EffectInput effectInput)
+        {
+            
+    
+            var path = "/headset";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutHeadset: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutHeadset: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 6 rows by 22 columns.</param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutKeyboard (EffectInput effectInput)
         {
             
     
@@ -131,7 +436,7 @@ namespace CustomChromaSDK.Api
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
     
-                                                postBody = ApiClient.Serialize(keyboardInput); // http body (model) parameter
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
 			UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
@@ -145,7 +450,112 @@ namespace CustomChromaSDK.Api
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboard: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (KeyboardResponse) ApiClient.Deserialize(response.Content, typeof(KeyboardResponse), response.Headers);
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 4 rows by 5 columns.</param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutKeypad (EffectInput effectInput)
+        {
+            
+    
+            var path = "/keypad";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeypad: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeypad: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutMouse (EffectInput effectInput)
+        {
+            
+    
+            var path = "/mouse";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMouse: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMouse: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
+        /// </summary>
+        /// <param name="effectInput">Array dimensions are 1 rows by 15 columns.</param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutMousepad (EffectInput effectInput)
+        {
+            
+    
+            var path = "/mousepad";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(effectInput); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMousepad: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMousepad: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
         }
     
     }
