@@ -12,11 +12,16 @@ namespace RazerSDK.Api
     public interface IDefaultApi
     {
         /// <summary>
-        ///  Initialize the client.
+        ///  Uninitialize the Chroma SDK
+        /// </summary>
+        /// <returns>DeleteChromaSdkResponse</returns>
+        DeleteChromaSdkResponse DeleteChromaSdk ();
+        /// <summary>
+        ///  Initialize the Chroma SDK
         /// </summary>
         /// <param name="baseInput"></param>
-        /// <returns>ChromaSdkResponse</returns>
-        ChromaSdkResponse Chromasdk (ChromaSdkInput baseInput);
+        /// <returns>PostChromaSdkResponse</returns>
+        PostChromaSdkResponse PostChromaSdk (ChromaSdkInput baseInput);
     }
   
     /// <summary>
@@ -73,11 +78,43 @@ namespace RazerSDK.Api
         public ApiClient ApiClient {get; set;}
     
         /// <summary>
-        ///  Initialize the client.
+        ///  Uninitialize the Chroma SDK
+        /// </summary>
+        /// <returns>DeleteChromaSdkResponse</returns>            
+        public DeleteChromaSdkResponse DeleteChromaSdk ()
+        {
+            
+    
+            var path = "/chromasdk";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling DeleteChromaSdk: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling DeleteChromaSdk: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (DeleteChromaSdkResponse) ApiClient.Deserialize(response.Content, typeof(DeleteChromaSdkResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  Initialize the Chroma SDK
         /// </summary>
         /// <param name="baseInput"></param> 
-        /// <returns>ChromaSdkResponse</returns>            
-        public ChromaSdkResponse Chromasdk (ChromaSdkInput baseInput)
+        /// <returns>PostChromaSdkResponse</returns>            
+        public PostChromaSdkResponse PostChromaSdk (ChromaSdkInput baseInput)
         {
             
     
@@ -100,11 +137,11 @@ namespace RazerSDK.Api
             IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling Chromasdk: " + response.Content, response.Content);
+                throw new ApiException ((int)response.StatusCode, "Error calling PostChromaSdk: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling Chromasdk: " + response.ErrorMessage, response.ErrorMessage);
+                throw new ApiException ((int)response.StatusCode, "Error calling PostChromaSdk: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (ChromaSdkResponse) ApiClient.Deserialize(response.Content, typeof(ChromaSdkResponse), response.Headers);
+            return (PostChromaSdkResponse) ApiClient.Deserialize(response.Content, typeof(PostChromaSdkResponse), response.Headers);
         }
     
     }

@@ -4,16 +4,17 @@ All URIs are relative to *http://localhost:54235/razer*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Chromasdk**](DefaultApi.md#chromasdk) | **POST** /chromasdk | 
+[**DeleteChromaSdk**](DefaultApi.md#deletechromasdk) | **DELETE** /chromasdk | 
+[**PostChromaSdk**](DefaultApi.md#postchromasdk) | **POST** /chromasdk | 
 
 
-<a name="chromasdk"></a>
-# **Chromasdk**
-> ChromaSdkResponse Chromasdk (ChromaSdkInput baseInput = null)
+<a name="deletechromasdk"></a>
+# **DeleteChromaSdk**
+> DeleteChromaSdkResponse DeleteChromaSdk ()
 
 
 
-Initialize the client.
+Uninitialize the Chroma SDK
 
 ### Example
 ```csharp
@@ -25,7 +26,64 @@ using RazerSDK.RazerPackage.Model;
 
 namespace Example
 {
-    public class ChromasdkExample
+    public class DeleteChromaSdkExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                DeleteChromaSdkResponse result = apiInstance.DeleteChromaSdk();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.DeleteChromaSdk: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**DeleteChromaSdkResponse**](DeleteChromaSdkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="postchromasdk"></a>
+# **PostChromaSdk**
+> PostChromaSdkResponse PostChromaSdk (ChromaSdkInput baseInput = null)
+
+
+
+Initialize the Chroma SDK
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using RazerSDK.RazerPackage;
+using RazerSDK.Client;
+using RazerSDK.RazerPackage.Model;
+
+namespace Example
+{
+    public class PostChromaSdkExample
     {
         public void main()
         {
@@ -35,12 +93,12 @@ namespace Example
 
             try
             {
-                ChromaSdkResponse result = apiInstance.Chromasdk(baseInput);
+                PostChromaSdkResponse result = apiInstance.PostChromaSdk(baseInput);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.Chromasdk: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.PostChromaSdk: " + e.Message );
             }
         }
     }
@@ -55,7 +113,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChromaSdkResponse**](ChromaSdkResponse.md)
+[**PostChromaSdkResponse**](PostChromaSdkResponse.md)
 
 ### Authorization
 

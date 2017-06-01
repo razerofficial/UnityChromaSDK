@@ -23,34 +23,26 @@ using Newtonsoft.Json.Converters;
 namespace RazerSDK.RazerPackage.Model
 {
     /// <summary>
-    /// ChromaSdkResponse
+    /// DeleteChromaSdkResponse
     /// </summary>
     [DataContract]
-    public partial class ChromaSdkResponse :  IEquatable<ChromaSdkResponse>
+    public partial class DeleteChromaSdkResponse :  IEquatable<DeleteChromaSdkResponse>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChromaSdkResponse" /> class.
+        /// Initializes a new instance of the <see cref="DeleteChromaSdkResponse" /> class.
         /// </summary>
-        /// <param name="Sessionid">Sessionid.</param>
-        /// <param name="Uri">Uri.</param>
-        public ChromaSdkResponse(string Sessionid = default(string), string Uri = default(string))
+        /// <param name="Result">Result.</param>
+        public DeleteChromaSdkResponse(int? Result = default(int?))
         {
-            this.Sessionid = Sessionid;
-            this.Uri = Uri;
+            this.Result = Result;
         }
         
         /// <summary>
-        /// Gets or Sets Sessionid
+        /// Gets or Sets Result
         /// </summary>
-        [DataMember(Name="sessionid")]
-		[JsonProperty(PropertyName = "sessionid")]
-        public string Sessionid { get; set; }
-        /// <summary>
-        /// Gets or Sets Uri
-        /// </summary>
-        [DataMember(Name="uri")]
-		[JsonProperty(PropertyName = "uri")]
-        public string Uri { get; set; }
+        [DataMember(Name="result")]
+		[JsonProperty(PropertyName = "result")]
+        public int? Result { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -58,9 +50,8 @@ namespace RazerSDK.RazerPackage.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class ChromaSdkResponse {\n");
-            sb.Append("  Sessionid: ").Append(Sessionid).Append("\n");
-            sb.Append("  Uri: ").Append(Uri).Append("\n");
+            sb.Append("class DeleteChromaSdkResponse {\n");
+            sb.Append("  Result: ").Append(Result).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -82,15 +73,15 @@ namespace RazerSDK.RazerPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as ChromaSdkResponse);
+            return this.Equals(obj as DeleteChromaSdkResponse);
         }
 
         /// <summary>
-        /// Returns true if ChromaSdkResponse instances are equal
+        /// Returns true if DeleteChromaSdkResponse instances are equal
         /// </summary>
-        /// <param name="other">Instance of ChromaSdkResponse to be compared</param>
+        /// <param name="other">Instance of DeleteChromaSdkResponse to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(ChromaSdkResponse other)
+        public bool Equals(DeleteChromaSdkResponse other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
@@ -98,14 +89,9 @@ namespace RazerSDK.RazerPackage.Model
 
             return 
                 (
-                    this.Sessionid == other.Sessionid ||
-                    this.Sessionid != null &&
-                    this.Sessionid.Equals(other.Sessionid)
-                ) && 
-                (
-                    this.Uri == other.Uri ||
-                    this.Uri != null &&
-                    this.Uri.Equals(other.Uri)
+                    this.Result == other.Result ||
+                    this.Result != null &&
+                    this.Result.Equals(other.Result)
                 );
         }
 
@@ -120,10 +106,8 @@ namespace RazerSDK.RazerPackage.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.Sessionid != null)
-                    hash = hash * 59 + this.Sessionid.GetHashCode();
-                if (this.Uri != null)
-                    hash = hash * 59 + this.Uri.GetHashCode();
+                if (this.Result != null)
+                    hash = hash * 59 + this.Result.GetHashCode();
                 return hash;
             }
         }

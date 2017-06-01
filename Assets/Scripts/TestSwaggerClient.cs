@@ -32,6 +32,8 @@ public class TestSwaggerClient : MonoBehaviour
     public Button _mButtonChromaLink;
     public Button _mButtonCustom;
     public Button _mButtonAllClear;
+    public Button _mButtonRegister;
+    public Button _mButtonUnregister;
 
     /// <summary>
     /// Instance of the RazerAPI
@@ -83,10 +85,15 @@ public class TestSwaggerClient : MonoBehaviour
     /// Initialize Chroma by hitting the REST server and set the API port
     /// </summary>
     /// <returns></returns>
-    void InitChroma()
+    void PostChromaSdk()
     {
         try
         {
+            if (null != _mApiRazerInstance)
+            {
+                return;
+            }
+
             // use the Razer API to get the session
             _mApiRazerInstance = new RazerApi();
 
@@ -106,18 +113,49 @@ public class TestSwaggerClient : MonoBehaviour
                 "chromalink",
             };
             input.Category = "application";
-            ChromaSdkResponse result = _mApiRazerInstance.Chromasdk(input);
+            PostChromaSdkResponse result = _mApiRazerInstance.PostChromaSdk(input);
             Debug.Log(result);
 
             // setup the api instances with the session uri
             _mApiInstance = new ChromaApi(result.Uri);
             _mApiCustomInstance = new ChromaCustomApi(result.Uri);
 
+            // initialization complete
             _mInitialized = true;
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Exception when calling RazerApi.Chromasdk: {0}", e);
+            Debug.LogFormat("Exception when calling RazerApi.PostChromaSdk: {0}", e);
+        }
+    }
+
+    /// <summary>
+    /// Uninitialize Chroma
+    /// </summary>
+    /// <returns></returns>
+    void DeleteChromaSdk()
+    {
+        try
+        {
+            if (null == _mApiRazerInstance)
+            {
+                return;
+            }
+
+            DeleteChromaSdkResponse result = _mApiRazerInstance.DeleteChromaSdk();
+            Debug.Log(result);
+
+            // clear the references
+            _mApiRazerInstance = null;
+            _mApiInstance = null;
+            _mApiCustomInstance = null;
+
+            // no longer initialized
+            _mInitialized = false;
+        }
+        catch (Exception e)
+        {
+            Debug.LogFormat("Exception when calling RazerApi.DeleteChromaSdk: {0}", e);
         }
     }
 
@@ -158,6 +196,12 @@ public class TestSwaggerClient : MonoBehaviour
     /// <returns></returns>
     List<EffectResponse> SetEffectOnAll(EffectInput input)
     {
+        if (null == _mApiInstance)
+        {
+            Debug.LogError("Need to register Chroma Server. The api instance is not set!");
+            return null;
+        }
+
         List<EffectResponse> results = new List<EffectResponse>();
         try
         {
@@ -196,6 +240,12 @@ public class TestSwaggerClient : MonoBehaviour
     /// </summary>
     void SetKeyboardCustomEffect()
     {
+        if (null == _mApiInstance)
+        {
+            Debug.LogError("Need to register Chroma Server. The custom api instance is not set!");
+            return;
+        }
+
         var rows = new List<List<int?>>();
         for (int i = 0; i < 6; ++i)
         {
@@ -228,9 +278,12 @@ public class TestSwaggerClient : MonoBehaviour
             {
                 try
                 {
-                    // only one heartbeat is needed
-                    // since the custom api hits the same port
-                    _mApiInstance.Heartbeat();
+                    if (null != _mApiRazerInstance)
+                    {
+                        // only one heartbeat is needed
+                        // since the custom api hits the same port
+                        _mApiInstance.Heartbeat();
+                    }
                 }
                 catch (Exception)
                 {
@@ -250,7 +303,7 @@ public class TestSwaggerClient : MonoBehaviour
         RunOnThread(() =>
         {
             // start initialization
-            InitChroma();
+            PostChromaSdk();
         });
 
         // wait for initialization
@@ -401,6 +454,26 @@ public class TestSwaggerClient : MonoBehaviour
             {
                 var input = GetEffectChromaNone();
                 SetEffectOnAll(input);
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonRegister.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                PostChromaSdk();
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonUnregister.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                DeleteChromaSdk();
             });
         });
 
