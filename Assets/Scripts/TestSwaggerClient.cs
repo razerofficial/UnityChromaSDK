@@ -16,6 +16,7 @@ using CustomEffectType = CustomChromaSDK.CustomChromaPackage.Model.EffectType;
 using CustomEffectInput = CustomChromaSDK.CustomChromaPackage.Model.EffectInput;
 using CustomEffectInput1D = CustomChromaSDK.CustomChromaPackage.Model.EffectInput1D;
 using CustomEffectResponse = CustomChromaSDK.CustomChromaPackage.Model.EffectResponse;
+using CustomEffectResponseId = CustomChromaSDK.CustomChromaPackage.Model.EffectResponseId;
 using Random = System.Random;
 
 public class TestSwaggerClient : MonoBehaviour
@@ -33,13 +34,14 @@ public class TestSwaggerClient : MonoBehaviour
     /// <summary>
     /// Meta references to ui controls
     /// </summary>
+    public Button _mButtonAllRandom;
     public Button _mButtonAllBlue;
     public Button _mButtonAllGreen;
     public Button _mButtonAllRed;
     public Button _mButtonAllOrange;
     public Button _mButtonAllAqua;
     public Button _mButtonAllWhite;
-    public Button _mButtonAllRandom;
+    public Button _mButtonAllClear;
     public Button _mButtonKeyboard;
     public Button _mButtonHeadset;
     public Button _mButtonMouse;
@@ -47,7 +49,7 @@ public class TestSwaggerClient : MonoBehaviour
     public Button _mButtonKeypad;
     public Button _mButtonChromaLink;
     public Button _mButtonStart;
-    public Button _mButtonAllClear;
+    public Button _mButtonEnd;
     public Button _mButtonRegister;
     public Button _mButtonUnregister;
     public Text _mTextHeartbeat;
@@ -87,13 +89,20 @@ public class TestSwaggerClient : MonoBehaviour
     /// <summary>
     /// Delegates method for setting custom effects
     /// </summary>
-    delegate CustomEffectResponse SetCustomEffectMethod(CustomEffectInput data);
-    delegate CustomEffectResponse SetCustomEffectMethod1D(CustomEffectInput1D data);
+    delegate CustomEffectResponse PutCustomEffectMethod(CustomEffectInput data);
+    delegate CustomEffectResponse PutCustomEffectMethod1D(CustomEffectInput1D data);
+    delegate CustomEffectResponseId PostCustomEffectMethod(CustomEffectInput data);
+    delegate CustomEffectResponseId PostCustomEffectMethod1D(CustomEffectInput1D data);
 
     /// <summary>
     /// Detect app shutdown
     /// </summary>
     private bool _mWaitForExit = true;
+
+    /// <summary>
+    /// Keep animation playing
+    /// </summary>
+    private bool _mPlayAnimation = false;
 
     /// <summary>
     /// Actions to run on the main thread
@@ -325,32 +334,67 @@ public class TestSwaggerClient : MonoBehaviour
         return results;
     }
 
+    #region Put
+
     /// <summary>
     /// Implicitly create a KeyValuePair item without all the explicit types
     /// </summary>
     /// <param name="method"></param>
     /// <param name="data"></param>
     /// <returns></returns>
-    private static KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D> CreateItem(SetCustomEffectMethod1D method, int elements)
+    private static KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D> CreatePutItem(PutCustomEffectMethod1D method, int elements)
     {
-        return CreateItem(method, elements, CustomEffectType.CHROMA_CUSTOM);
+        return CreatePutItem(method, elements, CustomEffectType.CHROMA_CUSTOM);
     }
-    private static KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D> CreateItem(SetCustomEffectMethod1D method, int elements, CustomEffectType effectType)
+    private static KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D> CreatePutItem(PutCustomEffectMethod1D method, int elements, CustomEffectType effectType)
     {
         var input = GetCustomEffectChroma(elements);
         input.Effect = effectType;
-        return new KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D>(method, input);
+        return new KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D>(method, input);
     }
-    private static KeyValuePair<SetCustomEffectMethod, CustomEffectInput> CreateItem(SetCustomEffectMethod method, int columns, int rows)
+    private static KeyValuePair<PutCustomEffectMethod, CustomEffectInput> CreatePutItem(PutCustomEffectMethod method, int columns, int rows)
     {
-        return CreateItem(method, columns, rows, CustomEffectType.CHROMA_CUSTOM);
+        return CreatePutItem(method, columns, rows, CustomEffectType.CHROMA_CUSTOM);
     }
-    private static KeyValuePair<SetCustomEffectMethod, CustomEffectInput> CreateItem(SetCustomEffectMethod method, int columns, int rows, CustomEffectType effectType)
+    private static KeyValuePair<PutCustomEffectMethod, CustomEffectInput> CreatePutItem(PutCustomEffectMethod method, int columns, int rows, CustomEffectType effectType)
     {
         var input = GetCustomEffectChroma(columns, rows);
         input.Effect = effectType;
-        return new KeyValuePair<SetCustomEffectMethod, CustomEffectInput>(method, input);
+        return new KeyValuePair<PutCustomEffectMethod, CustomEffectInput>(method, input);
     }
+
+    #endregion
+
+    #region Post
+
+    /// <summary>
+    /// Implicitly create a KeyValuePair item without all the explicit types
+    /// </summary>
+    /// <param name="method"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    private static KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D> CreatePostItem(PostCustomEffectMethod1D method, int elements)
+    {
+        return CreatePostItem(method, elements, CustomEffectType.CHROMA_CUSTOM);
+    }
+    private static KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D> CreatePostItem(PostCustomEffectMethod1D method, int elements, CustomEffectType effectType)
+    {
+        var input = GetCustomEffectChroma(elements);
+        input.Effect = effectType;
+        return new KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D>(method, input);
+    }
+    private static KeyValuePair<PostCustomEffectMethod, CustomEffectInput> CreatePostItem(PostCustomEffectMethod method, int columns, int rows)
+    {
+        return CreatePostItem(method, columns, rows, CustomEffectType.CHROMA_CUSTOM);
+    }
+    private static KeyValuePair<PostCustomEffectMethod, CustomEffectInput> CreatePostItem(PostCustomEffectMethod method, int columns, int rows, CustomEffectType effectType)
+    {
+        var input = GetCustomEffectChroma(columns, rows);
+        input.Effect = effectType;
+        return new KeyValuePair<PostCustomEffectMethod, CustomEffectInput>(method, input);
+    }
+
+    #endregion
 
     /// <summary>
     /// Use the API to set the CHROMA_CUSTOM effect
@@ -366,11 +410,11 @@ public class TestSwaggerClient : MonoBehaviour
         var results = new List<CustomEffectResponse>();
 
         #region 2D
-        var items = new List<KeyValuePair<SetCustomEffectMethod, CustomEffectInput>>();
-        items.Add(CreateItem(_mApiCustomInstance.PutKeyboard, 22, 6));
-        items.Add(CreateItem(_mApiCustomInstance.PutKeypad, 5, 4));
-        items.Add(CreateItem(_mApiCustomInstance.PutMouse, 7, 9, CustomEffectType.CHROMA_CUSTOM2));
-        foreach (KeyValuePair<SetCustomEffectMethod, CustomEffectInput> item in items)
+        var items = new List<KeyValuePair<PutCustomEffectMethod, CustomEffectInput>>();
+        items.Add(CreatePutItem(_mApiCustomInstance.PutKeyboard, 22, 6));
+        items.Add(CreatePutItem(_mApiCustomInstance.PutKeypad, 5, 4));
+        items.Add(CreatePutItem(_mApiCustomInstance.PutMouse, 7, 9, CustomEffectType.CHROMA_CUSTOM2));
+        foreach (KeyValuePair<PutCustomEffectMethod, CustomEffectInput> item in items)
         {
             try
             {
@@ -385,11 +429,11 @@ public class TestSwaggerClient : MonoBehaviour
         }
         #endregion
         #region 1D
-        var items1D = new List<KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D>>();
-        items1D.Add(CreateItem(_mApiCustomInstance.PutChromaLink, 5));
-        items1D.Add(CreateItem(_mApiCustomInstance.PutHeadset, 5));
-        items1D.Add(CreateItem(_mApiCustomInstance.PutMousepad, 15));
-        foreach (KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D> item in items1D)
+        var items1D = new List<KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D>>();
+        items1D.Add(CreatePutItem(_mApiCustomInstance.PutChromaLink, 5));
+        items1D.Add(CreatePutItem(_mApiCustomInstance.PutHeadset, 5));
+        items1D.Add(CreatePutItem(_mApiCustomInstance.PutMousepad, 15));
+        foreach (KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D> item in items1D)
         {
             try
             {
@@ -404,6 +448,82 @@ public class TestSwaggerClient : MonoBehaviour
         }
         #endregion
         return results;
+    }
+
+    /// <summary>
+    /// Create and play an animation
+    /// </summary>
+    void DoAnimation()
+    {
+        if (_mPlayAnimation)
+        {
+            return;
+        }
+
+        if (null == _mApiInstance)
+        {
+            Debug.LogError("Need to register Chroma Server. The custom api instance is not set!");
+            return;
+        }
+
+        _mPlayAnimation = true;
+
+        // list of effect ids
+        List<string> effects = new List<string>();
+
+        // build custom effects, create 10 frames
+        for (int i = 0; i < 10; ++i)
+        {
+            #region 2D
+            var items = new List<KeyValuePair<PostCustomEffectMethod, CustomEffectInput>>();
+            items.Add(CreatePostItem(_mApiCustomInstance.PostKeyboard, 22, 6));
+            items.Add(CreatePostItem(_mApiCustomInstance.PostKeypad, 5, 4));
+            items.Add(CreatePostItem(_mApiCustomInstance.PostMouse, 7, 9, CustomEffectType.CHROMA_CUSTOM2));
+            foreach (KeyValuePair<PostCustomEffectMethod, CustomEffectInput> item in items)
+            {
+                try
+                {
+                    CustomEffectResponseId result = item.Key.Invoke(item.Value);
+                    Debug.Log(result);
+                    //effects.Add(result.Result.Value);
+                }
+                catch (Exception)
+                {
+                    Debug.LogErrorFormat("Failed to invoke: {0}", item.Key.Method);
+                }
+            }
+            #endregion
+            #region 1D
+            var items1D = new List<KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D>>();
+            items1D.Add(CreatePostItem(_mApiCustomInstance.PostChromaLink, 5));
+            items1D.Add(CreatePostItem(_mApiCustomInstance.PostHeadset, 5));
+            items1D.Add(CreatePostItem(_mApiCustomInstance.PostMousepad, 15));
+            foreach (KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D> item in items1D)
+            {
+                try
+                {
+                    CustomEffectResponseId result = item.Key.Invoke(item.Value);
+                    Debug.Log(result);
+                    effects.Add(result.Id);
+                }
+                catch (Exception)
+                {
+                    Debug.LogErrorFormat("Failed to invoke: {0}", item.Key.Method);
+                }
+            }
+            #endregion
+        }
+
+        Debug.Log("Animation looping...");
+
+        while (_mWaitForExit &&
+            _mPlayAnimation)
+        {
+            // loop animation frames
+            Thread.Sleep(30);
+        }
+
+        Debug.Log("Animation complete.");
     }
 
     /// <summary>
@@ -604,6 +724,17 @@ public class TestSwaggerClient : MonoBehaviour
         // subscribe to ui click events
         _mButtonStart.onClick.AddListener(() =>
         {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                DoAnimation();
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonEnd.onClick.AddListener(() =>
+        {
+            _mPlayAnimation = false;
         });
 
         // subscribe to ui click events
