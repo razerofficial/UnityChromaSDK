@@ -490,7 +490,7 @@ public class TestSwaggerClient : MonoBehaviour
                 {
                     CustomEffectResponseId result = item.Key.Invoke(item.Value);
                     Debug.Log(result);
-                    //effects.Add(result.Result.Value);
+                    effects.Add(result.Id);
                 }
                 catch (Exception)
                 {
@@ -544,7 +544,7 @@ public class TestSwaggerClient : MonoBehaviour
             index = (index + 1) % frames.Count;
 
             // loop animation frames
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
         }
 
         Debug.Log("Animation complete.");
