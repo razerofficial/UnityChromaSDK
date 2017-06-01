@@ -1,4 +1,4 @@
-# RazerSDK.RazerPackage.Model.DeleteChromaSdkResponse
+# RazerSDKDelete.RazerDeletePackage.Model.DeleteChromaSdkResponse
 ## Properties
 
 Name | Type | Description | Notes

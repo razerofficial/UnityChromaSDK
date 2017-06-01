@@ -1,5 +1,6 @@
 ﻿using ChromaSDK.ChromaPackage.Model;
 using RazerSDK.RazerPackage.Model;
+using RazerSDKDelete.RazerDeletePackage.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using UnityEngine.UI;
 using ChromaApi = ChromaSDK.Api.DefaultApi;
 using ChromaCustomApi = CustomChromaSDK.Api.DefaultApi;
 using RazerApi = RazerSDK.Api.DefaultApi;
+using RazerDeleteApi = RazerSDKDelete.Api.DefaultApi;
 using CustomEffectType = CustomChromaSDK.CustomChromaPackage.Model.EffectType;
 using CustomKeyboardInput = CustomChromaSDK.CustomChromaPackage.Model.KeyboardInput;
 using Random = System.Random;
@@ -39,6 +41,11 @@ public class TestSwaggerClient : MonoBehaviour
     /// Instance of the RazerAPI
     /// </summary>
     private RazerApi _mApiRazerInstance;
+
+    /// <summary>
+    /// Instance of the RazerAPI for delete
+    /// </summary>
+    private RazerDeleteApi _mApiRazerDeleteInstance;
 
     /// <summary>
     /// Instance of the API
@@ -117,6 +124,7 @@ public class TestSwaggerClient : MonoBehaviour
             Debug.Log(result);
 
             // setup the api instances with the session uri
+            _mApiRazerDeleteInstance = new RazerDeleteApi(result.Uri);
             _mApiInstance = new ChromaApi(result.Uri);
             _mApiCustomInstance = new ChromaCustomApi(result.Uri);
 
@@ -137,16 +145,17 @@ public class TestSwaggerClient : MonoBehaviour
     {
         try
         {
-            if (null == _mApiRazerInstance)
+            if (null == _mApiRazerDeleteInstance)
             {
                 return;
             }
 
-            DeleteChromaSdkResponse result = _mApiRazerInstance.DeleteChromaSdk();
+            DeleteChromaSdkResponse result = _mApiRazerDeleteInstance.DeleteChromaSdk();
             Debug.Log(result);
 
             // clear the references
             _mApiRazerInstance = null;
+            _mApiRazerDeleteInstance = null;
             _mApiInstance = null;
             _mApiCustomInstance = null;
 

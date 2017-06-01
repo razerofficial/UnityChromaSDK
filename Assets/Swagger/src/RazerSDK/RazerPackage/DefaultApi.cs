@@ -12,11 +12,6 @@ namespace RazerSDK.Api
     public interface IDefaultApi
     {
         /// <summary>
-        ///  Uninitialize the Chroma SDK
-        /// </summary>
-        /// <returns>DeleteChromaSdkResponse</returns>
-        DeleteChromaSdkResponse DeleteChromaSdk ();
-        /// <summary>
         ///  Initialize the Chroma SDK
         /// </summary>
         /// <param name="baseInput"></param>
@@ -76,38 +71,6 @@ namespace RazerSDK.Api
         /// </summary>
         /// <value>An instance of the ApiClient</value>
         public ApiClient ApiClient {get; set;}
-    
-        /// <summary>
-        ///  Uninitialize the Chroma SDK
-        /// </summary>
-        /// <returns>DeleteChromaSdkResponse</returns>            
-        public DeleteChromaSdkResponse DeleteChromaSdk ()
-        {
-            
-    
-            var path = "/chromasdk";
-            path = path.Replace("{format}", "json");
-                
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
-    
-                                                    
-            // authentication setting, if any
-            String[] authSettings = new String[] {  };
-    
-            // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling DeleteChromaSdk: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling DeleteChromaSdk: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (DeleteChromaSdkResponse) ApiClient.Deserialize(response.Content, typeof(DeleteChromaSdkResponse), response.Headers);
-        }
     
         /// <summary>
         ///  Initialize the Chroma SDK

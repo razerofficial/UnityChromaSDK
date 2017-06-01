@@ -12,7 +12,7 @@ OpenAPI spec version: 0.0.1
     
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B5DF87EA-975C-4E9B-8778-F9A824E4BC26}</ProjectGuid>
+    <ProjectGuid>{B3B36A20-AE98-4ED3-A887-187BF818A80B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CustomChromaSDK</RootNamespace>

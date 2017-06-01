@@ -29,4 +29,15 @@ cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\docs" "ra
 rm -r -f "src\RazerSDK.Test"
 rm -f "src\RazerSDK\Properties\AssemblyInfo.cs"
 
+
+SET VER=razer_delete_csharp
+rm -r -f "razer_delete"
+mkdir "razer_delete"
+cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\src" .
+cp -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\README.md" "razer_delete"
+cp -r -f "C:\Public\tgraupmann-swagger-codegen\samples\chromasdk\%VER%\docs" "razer_delete"
+rm -r -f "src\RazerSDKDelete.Test"
+rm -f "src\RazerSDKDelete\Properties\AssemblyInfo.cs"
+
+
 PAUSE

@@ -69,15 +69,16 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
+            var baseInput = new ChromaSdkInput(); // ChromaSdkInput |  (optional) 
 
             try
             {
-                DeleteChromaSdkResponse result = apiInstance.DeleteChromaSdk();
+                PostChromaSdkResponse result = apiInstance.PostChromaSdk(baseInput);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.DeleteChromaSdk: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.PostChromaSdk: " + e.Message );
             }
         }
     }
@@ -91,7 +92,6 @@ All URIs are relative to *http://localhost:54235/razer*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**DeleteChromaSdk**](docs/DefaultApi.md#deletechromasdk) | **DELETE** /chromasdk | 
 *DefaultApi* | [**PostChromaSdk**](docs/DefaultApi.md#postchromasdk) | **POST** /chromasdk | 
 
 
@@ -100,7 +100,6 @@ Class | Method | HTTP request | Description
 
  - [RazerPackage.Model.ChromaSdkInput](docs/ChromaSdkInput.md)
  - [RazerPackage.Model.ChromaSdkInputAuthor](docs/ChromaSdkInputAuthor.md)
- - [RazerPackage.Model.DeleteChromaSdkResponse](docs/DeleteChromaSdkResponse.md)
  - [RazerPackage.Model.PostChromaSdkResponse](docs/PostChromaSdkResponse.md)
 
 
