@@ -19,6 +19,16 @@ using Random = System.Random;
 public class TestSwaggerClient : MonoBehaviour
 {
     /// <summary>
+    /// Colors
+    /// </summary>
+    const int COLOR_AQUA = 16776960;
+    const int COLOR_BLUE = 16711680;
+    const int COLOR_GREEN = 65280;
+    const int COLOR_RED = 255;
+    const int COLOR_ORANGE = 32767;
+    const int COLOR_WHITE = 16777215;
+
+    /// <summary>
     /// Meta references to ui controls
     /// </summary>
     public Button _mButtonAllBlue;
@@ -68,15 +78,6 @@ public class TestSwaggerClient : MonoBehaviour
     /// <param name="data"></param>
     /// <returns></returns>
     delegate EffectResponse SetEffectMethod(EffectInput data);
-
-    /// <summary>
-    /// Colors
-    /// </summary>
-    const int COLOR_BLUE = 16711680;
-    const int COLOR_GREEN = 65280;
-    const int COLOR_RED = 255;
-    const int COLOR_ORANGE = 32767;
-    const int COLOR_WHITE = 16777215;
 
     /// <summary>
     /// Detect app shutdown
@@ -415,7 +416,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
+                EffectInput input = GetEffectChromaStatic(COLOR_AQUA);
                 _mApiInstance.PutKeypad(input);
             });
         });
@@ -426,7 +427,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
+                EffectInput input = GetEffectChromaStatic(COLOR_WHITE);
                 _mApiInstance.PutChromaLink(input);
             });
         });
