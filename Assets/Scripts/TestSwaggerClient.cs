@@ -17,38 +17,20 @@ using Random = System.Random;
 public class TestSwaggerClient : MonoBehaviour
 {
     /// <summary>
-    /// Meta reference to a ui button
+    /// Meta references to ui controls
     /// </summary>
     public Button _mButtonAllBlue;
-
-    /// <summary>
-    /// Meta reference to a ui button
-    /// </summary>
     public Button _mButtonAllGreen;
-
-    /// <summary>
-    /// Meta reference to a ui button
-    /// </summary>
     public Button _mButtonAllRed;
-
-    /// <summary>
-    /// Meta reference to a ui button
-    /// </summary>
     public Button _mButtonAllOrange;
-
-    /// <summary>
-    /// Meta reference to a ui button
-    /// </summary>
     public Button _mButtonAllWhite;
-
-    /// <summary>
-    /// Meta reference to a ui button
-    /// </summary>
+    public Button _mButtonKeyboard;
+    public Button _mButtonHeadset;
+    public Button _mButtonMouse;
+    public Button _mButtonMousepad;
+    public Button _mButtonKeypad;
+    public Button _mButtonChromaLink;
     public Button _mButtonCustom;
-
-    /// <summary>
-    /// Meta reference to a ui button
-    /// </summary>
     public Button _mButtonAllClear;
 
     /// <summary>
@@ -70,6 +52,32 @@ public class TestSwaggerClient : MonoBehaviour
     /// Thread safe random object
     /// </summary>
     Random _mRandom = new System.Random(123);
+
+    /// <summary>
+    /// Delegate method for setting effects
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    delegate EffectResponse SetEffectMethod(EffectInput data);
+
+    /// <summary>
+    /// Colors
+    /// </summary>
+    const int COLOR_BLUE = 16711680;
+    const int COLOR_GREEN = 65280;
+    const int COLOR_RED = 255;
+    const int COLOR_ORANGE = 65535;
+    const int COLOR_WHITE = 16777215;
+
+    /// <summary>
+    /// Keep track of initialization
+    /// </summary>
+    private bool _mInitialized = false;
+
+    /// <summary>
+    /// Detect app shutdown
+    /// </summary>
+    private bool _mWaitForExit = true;
 
     /// <summary>
     /// Initialize Chroma by hitting the REST server and set the API port
@@ -104,6 +112,8 @@ public class TestSwaggerClient : MonoBehaviour
             // setup the api instances with the session uri
             _mApiInstance = new ChromaApi(result.Uri);
             _mApiCustomInstance = new ChromaCustomApi(result.Uri);
+
+            _mInitialized = true;
         }
         catch (Exception e)
         {
@@ -118,7 +128,14 @@ public class TestSwaggerClient : MonoBehaviour
     void RunOnThread(Action action)
     {
         Thread thread = new Thread(new ThreadStart(() => {
-            action.Invoke();
+            try
+            {
+                action.Invoke();
+            }
+            catch (Exception)
+            {
+                Debug.Log("Failed to invoke action!");
+            }
         }));
         thread.Start();
     }
@@ -127,19 +144,12 @@ public class TestSwaggerClient : MonoBehaviour
     /// Get Effect: CHROMA_NONE
     /// </summary>
     /// <returns></returns>
-    EffectInput GetChromaNoneEffect()
+    EffectInput GetEffectChromaNone()
     {
         var input = new EffectInput();
         input.Effect = EffectType.CHROMA_NONE;
         return input;
     }
-
-    /// <summary>
-    /// Delegate method for setting effects
-    /// </summary>
-    /// <param name="data"></param>
-    /// <returns></returns>
-    delegate EffectResponse SetEffectMethod(EffectInput data);
 
     /// <summary>
     /// Set effect on all devices
@@ -173,30 +183,12 @@ public class TestSwaggerClient : MonoBehaviour
 
     }
 
-    EffectInput GetStaticColor(int color)
+    EffectInput GetEffectChromaStatic(int color)
     {
         var input = new EffectInput();
         input.Effect = EffectType.CHROMA_STATIC;
         input.Param = new EffectInputParam(color);
         return input;
-    }
-
-    /// <summary>
-    /// Use the API to set the CHROMA_STATIC effect
-    /// </summary>
-    /// <param name="color"></param>
-    void SetStaticColor(int color)
-    {
-        try
-        {
-            var input = GetStaticColor(color);
-            EffectResponse result = _mApiInstance.PutKeyboard(input);
-            Debug.Log(result);
-        }
-        catch (Exception e)
-        {
-            Debug.LogFormat("Exception when calling ChromaApi.PutKeyboard: {0}", e);
-        }
     }
 
     /// <summary>
@@ -228,26 +220,47 @@ public class TestSwaggerClient : MonoBehaviour
     /// <summary>
     /// Use heartbeat to keep the REST API listening after initialization
     /// </summary>
-    /// <returns></returns>
-    IEnumerator HeartBeat()
+    void DoHeartBeat()
     {
-        while (true)
+        Thread thread = new Thread(() =>
         {
-            yield return new WaitForSeconds(1);
+            while (_mWaitForExit)
+            {
+                try
+                {
+                    // only one heartbeat is needed
+                    // since the custom api hits the same port
+                    _mApiInstance.Heartbeat();
+                }
+                catch (Exception)
+                {
+                    Debug.LogError("Failed to check heartbeat!");
+                }
 
-            // only one heartbeat is needed
-            // since the custom api hits the same port
-            _mApiInstance.Heartbeat();
-        }
+                // Wait for a sec
+                Thread.Sleep(1000);
+            }
+        });
+        thread.Start();
     }
 
     // Use this for initialization
-    void Start()
+    IEnumerator Start()
     {
-        InitChroma();
+        RunOnThread(() =>
+        {
+            // start initialization
+            InitChroma();
+        });
+
+        // wait for initialization
+        while (!_mInitialized)
+        {
+            yield return null;
+        }
 
         // use heartbeat to keep the REST API alive
-        StartCoroutine(HeartBeat());
+        DoHeartBeat();
 
         // subscribe to ui click events
         _mButtonAllBlue.onClick.AddListener(() =>
@@ -255,7 +268,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetStaticColor(16711680);
+                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
                 SetEffectOnAll(input);
             });
         });
@@ -266,7 +279,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetStaticColor(65280);
+                EffectInput input = GetEffectChromaStatic(COLOR_GREEN);
                 SetEffectOnAll(input);
             });
         });
@@ -277,7 +290,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetStaticColor(255);
+                EffectInput input = GetEffectChromaStatic(COLOR_RED);
                 SetEffectOnAll(input);
             });
         });
@@ -288,7 +301,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetStaticColor(65535);
+                EffectInput input = GetEffectChromaStatic(COLOR_ORANGE);
                 SetEffectOnAll(input);
             });
         });
@@ -299,8 +312,74 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetStaticColor(16777215);
+                EffectInput input = GetEffectChromaStatic(COLOR_WHITE);
                 SetEffectOnAll(input);
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonKeyboard.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
+                _mApiInstance.PutKeyboard(input);
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonHeadset.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_GREEN);
+                _mApiInstance.PutHeadset(input);
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonMouse.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_RED);
+                _mApiInstance.PutMouse(input);
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonMousepad.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_ORANGE);
+                _mApiInstance.PutMousepad(input);
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonKeypad.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
+                _mApiInstance.PutKeypad(input);
+            });
+        });
+
+        // subscribe to ui click events
+        _mButtonChromaLink.onClick.AddListener(() =>
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
+                _mApiInstance.PutChromaLink(input);
             });
         });
 
@@ -320,7 +399,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                var input = GetChromaNoneEffect();
+                var input = GetEffectChromaNone();
                 SetEffectOnAll(input);
             });
         });
@@ -328,14 +407,26 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Clear the active effect on quit
+    /// Stop heartbeat on disable
+    /// </summary>
+    private void OnDisable()
+    {
+        Debug.Log("OnDisable:");
+        _mWaitForExit = false;
+    }
+
+    /// <summary>
+    /// Stop heartbeat on exit and clear effect
     /// </summary>
     private void OnApplicationQuit()
     {
+        Debug.Log("OnApplicationQuit:");
+        _mWaitForExit = false;
+
         // avoid blocking the UI thread
         RunOnThread(() =>
         {
-            var input = GetChromaNoneEffect();
+            var input = GetEffectChromaNone();
             SetEffectOnAll(input);
         });
     }
