@@ -468,12 +468,17 @@ public class TestSwaggerClient : MonoBehaviour
 
         _mPlayAnimation = true;
 
-        // list of effect ids
-        List<string> effects = new List<string>();
+        // build custom effects
 
-        // build custom effects, create 10 frames
-        for (int i = 0; i < 10; ++i)
+        //create 10 frames
+        List<List<string>> frames = new List<List<string>>();
+
+        const int FRAME_COUNT = 10;
+        for (int i = 0; i < FRAME_COUNT; ++i)
         {
+            // list of effect ids
+            List<string> effects = new List<string>();
+
             #region 2D
             var items = new List<KeyValuePair<PostCustomEffectMethod, CustomEffectInput>>();
             items.Add(CreatePostItem(_mApiCustomInstance.PostKeyboard, 22, 6));
@@ -512,18 +517,57 @@ public class TestSwaggerClient : MonoBehaviour
                 }
             }
             #endregion
+
+            // add the frame
+            frames.Add(effects);
         }
 
         Debug.Log("Animation looping...");
 
+        int index = 0;
         while (_mWaitForExit &&
-            _mPlayAnimation)
+            _mPlayAnimation &&
+            frames.Count > 0)
         {
+            List<string> effects = frames[index];
+
+            try
+            {
+                var input = new EffectIdentifierInput(null, effects);
+                EffectIdentifierResponse result = _mApiInstance.PutEffect(input);
+            }
+            catch (Exception e)
+            {
+                Debug.LogErrorFormat("Failed to put effects: {0}", e);
+            }
+
+            index = (index + 1) % frames.Count;
+
             // loop animation frames
-            Thread.Sleep(30);
+            Thread.Sleep(1000);
         }
 
         Debug.Log("Animation complete.");
+
+        // clean up effects
+        while (_mWaitForExit &&
+            frames.Count > 0)
+        {
+            List<string> effects = frames[0];
+            frames.RemoveAt(0);
+            try
+            {
+                var input = new EffectIdentifierInput(null, effects);
+                EffectIdentifierResponse result = _mApiInstance.DeleteEffect(input);
+                Debug.Log(result);
+            }
+            catch (Exception e)
+            {
+                Debug.LogErrorFormat("Failed to delete effects: {0}", e);
+            }
+        }
+
+        Debug.Log("Animation cleaned.");
     }
 
     /// <summary>
