@@ -26,26 +26,26 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
     /// JSON Data
     /// </summary>
     [DataContract]
-    public partial class EffectInput :  IEquatable<EffectInput>
+    public partial class EffectInput1D :  IEquatable<EffectInput1D>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EffectInput" /> class.
+        /// Initializes a new instance of the <see cref="EffectInput1D" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected EffectInput() { }
+        protected EffectInput1D() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EffectInput" /> class.
+        /// Initializes a new instance of the <see cref="EffectInput1D" /> class.
         /// </summary>
         /// <param name="Effect">Effect (required).</param>
-        /// <param name="Param">Two-dimensional color array. See method for dimension details..</param>
-        /// <param name="Color">Two-dimensional color array. See method for dimension details..</param>
-        /// <param name="Key">Two-dimensional color array. See method for dimension details..</param>
-        public EffectInput(EffectType Effect = default(EffectType), List<List<int?>> Param = default(List<List<int?>>), List<List<int?>> Color = default(List<List<int?>>), List<List<int?>> Key = default(List<List<int?>>))
+        /// <param name="Param">One-dimensional color array. See method for dimension details..</param>
+        /// <param name="Color">One-dimensional color array. See method for dimension details..</param>
+        /// <param name="Key">One-dimensional color array. See method for dimension details..</param>
+        public EffectInput1D(EffectType Effect = default(EffectType), List<int?> Param = default(List<int?>), List<int?> Color = default(List<int?>), List<int?> Key = default(List<int?>))
         {
             // to ensure "Effect" is required (not null)
             if (Effect == null)
             {
-                throw new InvalidDataException("Effect is a required property for EffectInput and cannot be null");
+                throw new InvalidDataException("Effect is a required property for EffectInput1D and cannot be null");
             }
             else
             {
@@ -63,26 +63,26 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
 		[JsonProperty(PropertyName = "effect")]
         public EffectType Effect { get; set; }
         /// <summary>
-        /// Two-dimensional color array. See method for dimension details.
+        /// One-dimensional color array. See method for dimension details.
         /// </summary>
-        /// <value>Two-dimensional color array. See method for dimension details.</value>
+        /// <value>One-dimensional color array. See method for dimension details.</value>
         [DataMember(Name="param")]
 		[JsonProperty(PropertyName = "param")]
-        public List<List<int?>> Param { get; set; }
+        public List<int?> Param { get; set; }
         /// <summary>
-        /// Two-dimensional color array. See method for dimension details.
+        /// One-dimensional color array. See method for dimension details.
         /// </summary>
-        /// <value>Two-dimensional color array. See method for dimension details.</value>
+        /// <value>One-dimensional color array. See method for dimension details.</value>
         [DataMember(Name="color")]
 		[JsonProperty(PropertyName = "color")]
-        public List<List<int?>> Color { get; set; }
+        public List<int?> Color { get; set; }
         /// <summary>
-        /// Two-dimensional color array. See method for dimension details.
+        /// One-dimensional color array. See method for dimension details.
         /// </summary>
-        /// <value>Two-dimensional color array. See method for dimension details.</value>
+        /// <value>One-dimensional color array. See method for dimension details.</value>
         [DataMember(Name="key")]
 		[JsonProperty(PropertyName = "key")]
-        public List<List<int?>> Key { get; set; }
+        public List<int?> Key { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -90,7 +90,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class EffectInput {\n");
+            sb.Append("class EffectInput1D {\n");
             sb.Append("  Effect: ").Append(Effect).Append("\n");
             sb.Append("  Param: ").Append(Param).Append("\n");
             sb.Append("  Color: ").Append(Color).Append("\n");
@@ -116,15 +116,15 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as EffectInput);
+            return this.Equals(obj as EffectInput1D);
         }
 
         /// <summary>
-        /// Returns true if EffectInput instances are equal
+        /// Returns true if EffectInput1D instances are equal
         /// </summary>
-        /// <param name="other">Instance of EffectInput to be compared</param>
+        /// <param name="other">Instance of EffectInput1D to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(EffectInput other)
+        public bool Equals(EffectInput1D other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)

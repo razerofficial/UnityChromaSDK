@@ -14,6 +14,7 @@ using RazerApi = RazerSDK.Api.DefaultApi;
 using RazerDeleteApi = RazerSDKDelete.Api.DefaultApi;
 using CustomEffectType = CustomChromaSDK.CustomChromaPackage.Model.EffectType;
 using CustomEffectInput = CustomChromaSDK.CustomChromaPackage.Model.EffectInput;
+using CustomEffectInput1D = CustomChromaSDK.CustomChromaPackage.Model.EffectInput1D;
 using CustomEffectResponse = CustomChromaSDK.CustomChromaPackage.Model.EffectResponse;
 using Random = System.Random;
 
@@ -82,11 +83,10 @@ public class TestSwaggerClient : MonoBehaviour
     delegate EffectResponse SetEffectMethod(EffectInput data);
 
     /// <summary>
-    /// Delegate method for setting custom effects
+    /// Delegates method for setting custom effects
     /// </summary>
-    /// <param name="data"></param>
-    /// <returns></returns>
     delegate CustomEffectResponse SetCustomEffectMethod(CustomEffectInput data);
+    delegate CustomEffectResponse SetCustomEffectMethod1D(CustomEffectInput1D data);
 
     /// <summary>
     /// Detect app shutdown
@@ -166,7 +166,23 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Get Effect: CHROMA_CUSTOM
+    /// Get Effect: CHROMA_CUSTOM 1D Array
+    /// </summary>
+    /// <param name="maxElements"></param>
+    /// <returns></returns>
+    private static CustomEffectInput1D GetCustomEffectChroma(int maxElements)
+    {
+        var elements = new List<int?>();
+        for (int i = 0; i < maxElements; ++i)
+        {
+            elements.Add(_sRandom.Next(16777215));
+        }
+        var input = new CustomEffectInput1D(CustomEffectType.CHROMA_CUSTOM, elements);
+        return input;
+    }
+
+    /// <summary>
+    /// Get Effect: CHROMA_CUSTOM 2D Array
     /// </summary>
     /// <param name="maxColumns"></param>
     /// <param name="maxRows"></param>
@@ -313,6 +329,16 @@ public class TestSwaggerClient : MonoBehaviour
     /// <param name="method"></param>
     /// <param name="data"></param>
     /// <returns></returns>
+    private static KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D> CreateItem(SetCustomEffectMethod1D method, int elements)
+    {
+        return CreateItem(method, elements, CustomEffectType.CHROMA_CUSTOM);
+    }
+    private static KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D> CreateItem(SetCustomEffectMethod1D method, int elements, CustomEffectType effectType)
+    {
+        var input = GetCustomEffectChroma(elements);
+        input.Effect = effectType;
+        return new KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D>(method, input);
+    }
     private static KeyValuePair<SetCustomEffectMethod, CustomEffectInput> CreateItem(SetCustomEffectMethod method, int columns, int rows)
     {
         return CreateItem(method, columns, rows, CustomEffectType.CHROMA_CUSTOM);
@@ -336,13 +362,12 @@ public class TestSwaggerClient : MonoBehaviour
         }
 
         var results = new List<CustomEffectResponse>();
+
+        #region 2D
         var items = new List<KeyValuePair<SetCustomEffectMethod, CustomEffectInput>>();
-        items.Add(CreateItem(_mApiCustomInstance.PutChromaLink, 5, 1));
-        items.Add(CreateItem(_mApiCustomInstance.PutHeadset, 7, 9));
         items.Add(CreateItem(_mApiCustomInstance.PutKeyboard, 22, 6));
         items.Add(CreateItem(_mApiCustomInstance.PutKeypad, 5, 4));
         items.Add(CreateItem(_mApiCustomInstance.PutMouse, 7, 9, CustomEffectType.CHROMA_CUSTOM2));
-        items.Add(CreateItem(_mApiCustomInstance.PutMousepad, 15, 1));
         foreach (KeyValuePair<SetCustomEffectMethod, CustomEffectInput> item in items)
         {
             try
@@ -356,6 +381,26 @@ public class TestSwaggerClient : MonoBehaviour
                 Debug.LogErrorFormat("Failed to invoke: {0}", item.Key.Method);
             }
         }
+        #endregion
+        #region 1D
+        var items1D = new List<KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D>>();
+        items1D.Add(CreateItem(_mApiCustomInstance.PutChromaLink, 5));
+        items1D.Add(CreateItem(_mApiCustomInstance.PutHeadset, 5));
+        items1D.Add(CreateItem(_mApiCustomInstance.PutMousepad, 15));
+        foreach (KeyValuePair<SetCustomEffectMethod1D, CustomEffectInput1D> item in items1D)
+        {
+            try
+            {
+                CustomEffectResponse result = item.Key.Invoke(item.Value);
+                Debug.Log(result);
+                results.Add(result);
+            }
+            catch (Exception)
+            {
+                Debug.LogErrorFormat("Failed to invoke: {0}", item.Key.Method);
+            }
+        }
+        #endregion
         return results;
     }
 

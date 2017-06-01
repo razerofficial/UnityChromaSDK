@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 <a name="postchromalink"></a>
 # **PostChromaLink**
-> EffectResponseId PostChromaLink (EffectInput effectInput = null)
+> EffectResponseId PostChromaLink (EffectInput1D effectInput = null)
 
 
 
@@ -42,7 +42,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var effectInput = new EffectInput(); // EffectInput | Array dimensions are 1 rows by 5 columns. (optional) 
+            var effectInput = new EffectInput1D(); // EffectInput1D | Array dimensions are 5 elements. (optional) 
 
             try
             {
@@ -62,7 +62,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **effectInput** | [**EffectInput**](EffectInput.md)| Array dimensions are 1 rows by 5 columns. | [optional] 
+ **effectInput** | [**EffectInput1D**](EffectInput1D.md)| Array dimensions are 5 elements. | [optional] 
 
 ### Return type
 
@@ -81,7 +81,7 @@ No authorization required
 
 <a name="postheadset"></a>
 # **PostHeadset**
-> EffectResponseId PostHeadset (EffectInput effectInput = null)
+> EffectResponseId PostHeadset (EffectInput1D effectInput = null)
 
 
 
@@ -103,7 +103,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var effectInput = new EffectInput(); // EffectInput | Array dimensions are 9 rows by 7 columns. (optional) 
+            var effectInput = new EffectInput1D(); // EffectInput1D | Array dimensions are 5 elements. (optional) 
 
             try
             {
@@ -123,7 +123,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **effectInput** | [**EffectInput**](EffectInput.md)| Array dimensions are 9 rows by 7 columns. | [optional] 
+ **effectInput** | [**EffectInput1D**](EffectInput1D.md)| Array dimensions are 5 elements. | [optional] 
 
 ### Return type
 
@@ -325,7 +325,7 @@ No authorization required
 
 <a name="postmousepad"></a>
 # **PostMousepad**
-> EffectResponseId PostMousepad (EffectInput effectInput = null)
+> EffectResponseId PostMousepad (EffectInput1D effectInput = null)
 
 
 
@@ -347,7 +347,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var effectInput = new EffectInput(); // EffectInput | Array dimensions are 1 rows by 15 columns. (optional) 
+            var effectInput = new EffectInput1D(); // EffectInput1D | Array dimensions are 15 elements. (optional) 
 
             try
             {
@@ -367,7 +367,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **effectInput** | [**EffectInput**](EffectInput.md)| Array dimensions are 1 rows by 15 columns. | [optional] 
+ **effectInput** | [**EffectInput1D**](EffectInput1D.md)| Array dimensions are 15 elements. | [optional] 
 
 ### Return type
 
@@ -386,7 +386,7 @@ No authorization required
 
 <a name="putchromalink"></a>
 # **PutChromaLink**
-> EffectResponse PutChromaLink (EffectInput effectInput = null)
+> EffectResponse PutChromaLink (EffectInput1D effectInput = null)
 
 
 
@@ -408,7 +408,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var effectInput = new EffectInput(); // EffectInput | Array dimensions are 1 rows by 5 columns. (optional) 
+            var effectInput = new EffectInput1D(); // EffectInput1D | Array dimensions are 5 elements. (optional) 
 
             try
             {
@@ -428,7 +428,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **effectInput** | [**EffectInput**](EffectInput.md)| Array dimensions are 1 rows by 5 columns. | [optional] 
+ **effectInput** | [**EffectInput1D**](EffectInput1D.md)| Array dimensions are 5 elements. | [optional] 
 
 ### Return type
 
@@ -447,7 +447,7 @@ No authorization required
 
 <a name="putheadset"></a>
 # **PutHeadset**
-> EffectResponse PutHeadset (EffectInput effectInput = null)
+> EffectResponse PutHeadset (EffectInput1D effectInput = null)
 
 
 
@@ -469,7 +469,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var effectInput = new EffectInput(); // EffectInput | Array dimensions are 9 rows by 7 columns. (optional) 
+            var effectInput = new EffectInput1D(); // EffectInput1D | Array dimensions are 5 elements. (optional) 
 
             try
             {
@@ -489,7 +489,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **effectInput** | [**EffectInput**](EffectInput.md)| Array dimensions are 9 rows by 7 columns. | [optional] 
+ **effectInput** | [**EffectInput1D**](EffectInput1D.md)| Array dimensions are 5 elements. | [optional] 
 
 ### Return type
 
@@ -691,7 +691,7 @@ No authorization required
 
 <a name="putmousepad"></a>
 # **PutMousepad**
-> EffectResponse PutMousepad (EffectInput effectInput = null)
+> EffectResponse PutMousepad (EffectInput1D effectInput = null)
 
 
 
@@ -713,7 +713,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var effectInput = new EffectInput(); // EffectInput | Array dimensions are 1 rows by 15 columns. (optional) 
+            var effectInput = new EffectInput1D(); // EffectInput1D | Array dimensions are 15 elements. (optional) 
 
             try
             {
@@ -733,7 +733,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **effectInput** | [**EffectInput**](EffectInput.md)| Array dimensions are 1 rows by 15 columns. | [optional] 
+ **effectInput** | [**EffectInput1D**](EffectInput1D.md)| Array dimensions are 15 elements. | [optional] 
 
 ### Return type
 

@@ -14,15 +14,15 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 1 rows by 5 columns.</param>
+        /// <param name="effectInput">Array dimensions are 5 elements.</param>
         /// <returns>EffectResponseId</returns>
-        EffectResponseId PostChromaLink (EffectInput effectInput);
+        EffectResponseId PostChromaLink (EffectInput1D effectInput);
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param>
+        /// <param name="effectInput">Array dimensions are 5 elements.</param>
         /// <returns>EffectResponseId</returns>
-        EffectResponseId PostHeadset (EffectInput effectInput);
+        EffectResponseId PostHeadset (EffectInput1D effectInput);
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
@@ -44,21 +44,21 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 1 rows by 15 columns.</param>
+        /// <param name="effectInput">Array dimensions are 15 elements.</param>
         /// <returns>EffectResponseId</returns>
-        EffectResponseId PostMousepad (EffectInput effectInput);
+        EffectResponseId PostMousepad (EffectInput1D effectInput);
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 1 rows by 5 columns.</param>
+        /// <param name="effectInput">Array dimensions are 5 elements.</param>
         /// <returns>EffectResponse</returns>
-        EffectResponse PutChromaLink (EffectInput effectInput);
+        EffectResponse PutChromaLink (EffectInput1D effectInput);
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param>
+        /// <param name="effectInput">Array dimensions are 5 elements.</param>
         /// <returns>EffectResponse</returns>
-        EffectResponse PutHeadset (EffectInput effectInput);
+        EffectResponse PutHeadset (EffectInput1D effectInput);
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
@@ -80,9 +80,9 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 1 rows by 15 columns.</param>
+        /// <param name="effectInput">Array dimensions are 15 elements.</param>
         /// <returns>EffectResponse</returns>
-        EffectResponse PutMousepad (EffectInput effectInput);
+        EffectResponse PutMousepad (EffectInput1D effectInput);
     }
   
     /// <summary>
@@ -141,9 +141,9 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 1 rows by 5 columns.</param> 
+        /// <param name="effectInput">Array dimensions are 5 elements.</param> 
         /// <returns>EffectResponseId</returns>            
-        public EffectResponseId PostChromaLink (EffectInput effectInput)
+        public EffectResponseId PostChromaLink (EffectInput1D effectInput)
         {
             
     
@@ -176,9 +176,9 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param> 
+        /// <param name="effectInput">Array dimensions are 5 elements.</param> 
         /// <returns>EffectResponseId</returns>            
-        public EffectResponseId PostHeadset (EffectInput effectInput)
+        public EffectResponseId PostHeadset (EffectInput1D effectInput)
         {
             
     
@@ -316,9 +316,9 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 1 rows by 15 columns.</param> 
+        /// <param name="effectInput">Array dimensions are 15 elements.</param> 
         /// <returns>EffectResponseId</returns>            
-        public EffectResponseId PostMousepad (EffectInput effectInput)
+        public EffectResponseId PostMousepad (EffectInput1D effectInput)
         {
             
     
@@ -351,9 +351,9 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 1 rows by 5 columns.</param> 
+        /// <param name="effectInput">Array dimensions are 5 elements.</param> 
         /// <returns>EffectResponse</returns>            
-        public EffectResponse PutChromaLink (EffectInput effectInput)
+        public EffectResponse PutChromaLink (EffectInput1D effectInput)
         {
             
     
@@ -386,9 +386,9 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 9 rows by 7 columns.</param> 
+        /// <param name="effectInput">Array dimensions are 5 elements.</param> 
         /// <returns>EffectResponse</returns>            
-        public EffectResponse PutHeadset (EffectInput effectInput)
+        public EffectResponse PutHeadset (EffectInput1D effectInput)
         {
             
     
@@ -526,9 +526,9 @@ namespace CustomChromaSDK.Api
         /// <summary>
         ///  To create a custom effect use CHROMA_CUSTOM and fill in the colors in each element in the array.
         /// </summary>
-        /// <param name="effectInput">Array dimensions are 1 rows by 15 columns.</param> 
+        /// <param name="effectInput">Array dimensions are 15 elements.</param> 
         /// <returns>EffectResponse</returns>            
-        public EffectResponse PutMousepad (EffectInput effectInput)
+        public EffectResponse PutMousepad (EffectInput1D effectInput)
         {
             
     

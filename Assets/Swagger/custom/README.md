@@ -69,7 +69,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var effectInput = new EffectInput(); // EffectInput | Array dimensions are 1 rows by 5 columns. (optional) 
+            var effectInput = new EffectInput1D(); // EffectInput1D | Array dimensions are 5 elements. (optional) 
 
             try
             {
@@ -110,6 +110,7 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [CustomChromaPackage.Model.EffectInput](docs/EffectInput.md)
+ - [CustomChromaPackage.Model.EffectInput1D](docs/EffectInput1D.md)
  - [CustomChromaPackage.Model.EffectResponse](docs/EffectResponse.md)
  - [CustomChromaPackage.Model.EffectResponseId](docs/EffectResponseId.md)
  - [CustomChromaPackage.Model.EffectResponseItemId](docs/EffectResponseItemId.md)
