@@ -47,6 +47,7 @@ public class TestSwaggerClient : MonoBehaviour
     public Button _mButtonAllClear;
     public Button _mButtonRegister;
     public Button _mButtonUnregister;
+    public Text _mTextHeartbeat;
 
     /// <summary>
     /// Instance of the RazerAPI
@@ -91,6 +92,33 @@ public class TestSwaggerClient : MonoBehaviour
     /// Detect app shutdown
     /// </summary>
     private bool _mWaitForExit = true;
+
+    /// <summary>
+    /// Actions to run on the main thread
+    /// </summary>
+    private List<Action> _mMainActions = new List<Action>();
+
+    /// <summary>
+    /// UI interaction needs to execute on the main thread
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if (_mMainActions.Count > 0)
+        {
+            Action action = _mMainActions[0];
+            _mMainActions.RemoveAt(0);
+            action.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Run on the main thread
+    /// </summary>
+    /// <param name="action"></param>
+    void RunOnMainThread(Action action)
+    {
+        _mMainActions.Add(action);
+    }
 
     /// <summary>
     /// Avoid blocking the UI thread
@@ -340,7 +368,11 @@ public class TestSwaggerClient : MonoBehaviour
         if (null != _mApiInstance)
         {
             Uri uri = new Uri(_mApiInstance.ApiClient.BasePath);
-            Debug.LogFormat("Monitoring HeartBeat {0}...", uri.Port);
+            
+            RunOnMainThread(() =>
+            {
+                _mTextHeartbeat.text = string.Format("Monitoring HeartBeat {0}...", uri.Port);
+            });
 
             while (_mWaitForExit &&
                 null != _mApiInstance)
@@ -360,7 +392,11 @@ public class TestSwaggerClient : MonoBehaviour
                 Thread.Sleep(1000);
             }
 
-            Debug.LogFormat("HeartBeat {0} exited", uri.Port);
+            RunOnMainThread(() =>
+            {
+                _mTextHeartbeat.text = string.Format("HeartBeat {0} exited", uri.Port);
+            });
+            
         }
     }
 
