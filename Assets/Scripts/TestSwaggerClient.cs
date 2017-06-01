@@ -129,7 +129,7 @@ public class TestSwaggerClient : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Exception when calling RazerApi.PostChromaSdk: {0}", e);
+            Debug.LogErrorFormat("Exception when calling RazerApi.PostChromaSdk: {0}", e);
         }
     }
 
@@ -146,18 +146,21 @@ public class TestSwaggerClient : MonoBehaviour
                 return;
             }
 
-            DeleteChromaSdkResponse result = _mApiRazerDeleteInstance.DeleteChromaSdk();
-            Debug.Log(result);
-
+            // save a reference to the delete instance
+            RazerDeleteApi instance = _mApiRazerDeleteInstance;
+            
             // clear the references
             _mApiRazerInstance = null;
             _mApiRazerDeleteInstance = null;
             _mApiInstance = null;
             _mApiCustomInstance = null;
+
+            DeleteChromaSdkResponse result = instance.DeleteChromaSdk();
+            Debug.Log(result);
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Exception when calling RazerApi.DeleteChromaSdk: {0}", e);
+            Debug.LogErrorFormat("Exception when calling RazerApi.DeleteChromaSdk: {0}", e);
         }
     }
 
@@ -174,7 +177,7 @@ public class TestSwaggerClient : MonoBehaviour
             }
             catch (Exception)
             {
-                Debug.Log("Failed to invoke action!");
+                Debug.LogError("Failed to invoke action!");
             }
         }));
         thread.Start();
@@ -223,7 +226,7 @@ public class TestSwaggerClient : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Exception when setting affect on all devices: {0}", e);
+            Debug.LogErrorFormat("Exception when setting affect on all devices: {0}", e);
         }
         return results;
 
@@ -265,7 +268,7 @@ public class TestSwaggerClient : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Exception when calling ChromaCustomApi.PutKeyboard: {0}", e);
+            Debug.LogErrorFormat("Exception when calling ChromaCustomApi.PutKeyboard: {0}", e);
         }
     }
 
@@ -303,8 +306,10 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start()
+    void OnEnable()
     {
+        Debug.Log("OnEnable:");
+
         RunOnThread(() =>
         {
             // start initialization
@@ -482,6 +487,12 @@ public class TestSwaggerClient : MonoBehaviour
     {
         Debug.Log("OnDisable:");
         _mWaitForExit = false;
+
+        // avoid blocking the UI thread
+        RunOnThread(() =>
+        {
+            DeleteChromaSdk();
+        });
     }
 
     /// <summary>
@@ -495,8 +506,7 @@ public class TestSwaggerClient : MonoBehaviour
         // avoid blocking the UI thread
         RunOnThread(() =>
         {
-            var input = GetEffectChromaNone();
-            SetEffectOnAll(input);
+            DeleteChromaSdk();
         });
     }
 }
