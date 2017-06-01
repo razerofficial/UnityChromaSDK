@@ -23,20 +23,18 @@ using Newtonsoft.Json.Converters;
 namespace ChromaSDK.ChromaPackage.Model
 {
     /// <summary>
-    /// EffectIdentifierResponse
+    /// EffectIdentifierResponseResults
     /// </summary>
     [DataContract]
-    public partial class EffectIdentifierResponse :  IEquatable<EffectIdentifierResponse>
+    public partial class EffectIdentifierResponseResults :  IEquatable<EffectIdentifierResponseResults>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EffectIdentifierResponse" /> class.
+        /// Initializes a new instance of the <see cref="EffectIdentifierResponseResults" /> class.
         /// </summary>
         /// <param name="Result">Result.</param>
-        /// <param name="Results">Results.</param>
-        public EffectIdentifierResponse(int? Result = default(int?), List<EffectIdentifierResponseResults> Results = default(List<EffectIdentifierResponseResults>))
+        public EffectIdentifierResponseResults(int? Result = default(int?))
         {
             this.Result = Result;
-            this.Results = Results;
         }
         
         /// <summary>
@@ -46,21 +44,14 @@ namespace ChromaSDK.ChromaPackage.Model
 		[JsonProperty(PropertyName = "result")]
         public int? Result { get; set; }
         /// <summary>
-        /// Gets or Sets Results
-        /// </summary>
-        [DataMember(Name="results")]
-		[JsonProperty(PropertyName = "results")]
-        public List<EffectIdentifierResponseResults> Results { get; set; }
-        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class EffectIdentifierResponse {\n");
+            sb.Append("class EffectIdentifierResponseResults {\n");
             sb.Append("  Result: ").Append(Result).Append("\n");
-            sb.Append("  Results: ").Append(Results).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -82,15 +73,15 @@ namespace ChromaSDK.ChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as EffectIdentifierResponse);
+            return this.Equals(obj as EffectIdentifierResponseResults);
         }
 
         /// <summary>
-        /// Returns true if EffectIdentifierResponse instances are equal
+        /// Returns true if EffectIdentifierResponseResults instances are equal
         /// </summary>
-        /// <param name="other">Instance of EffectIdentifierResponse to be compared</param>
+        /// <param name="other">Instance of EffectIdentifierResponseResults to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(EffectIdentifierResponse other)
+        public bool Equals(EffectIdentifierResponseResults other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
@@ -101,11 +92,6 @@ namespace ChromaSDK.ChromaPackage.Model
                     this.Result == other.Result ||
                     this.Result != null &&
                     this.Result.Equals(other.Result)
-                ) && 
-                (
-                    this.Results == other.Results ||
-                    this.Results != null &&
-                    this.Results.SequenceEqual(other.Results)
                 );
         }
 
@@ -122,8 +108,6 @@ namespace ChromaSDK.ChromaPackage.Model
                 // Suitable nullity checks etc, of course :)
                 if (this.Result != null)
                     hash = hash * 59 + this.Result.GetHashCode();
-                if (this.Results != null)
-                    hash = hash * 59 + this.Results.GetHashCode();
                 return hash;
             }
         }

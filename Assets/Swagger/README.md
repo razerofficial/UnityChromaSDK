@@ -114,6 +114,7 @@ Class | Method | HTTP request | Description
 
  - [ChromaPackage.Model.EffectIdentifierInput](docs/EffectIdentifierInput.md)
  - [ChromaPackage.Model.EffectIdentifierResponse](docs/EffectIdentifierResponse.md)
+ - [ChromaPackage.Model.EffectIdentifierResponseResults](docs/EffectIdentifierResponseResults.md)
  - [ChromaPackage.Model.EffectInput](docs/EffectInput.md)
  - [ChromaPackage.Model.EffectInputParam](docs/EffectInputParam.md)
  - [ChromaPackage.Model.EffectResponse](docs/EffectResponse.md)
