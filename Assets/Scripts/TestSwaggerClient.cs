@@ -527,7 +527,8 @@ public class TestSwaggerClient : MonoBehaviour
         int index = 0;
         while (_mWaitForExit &&
             _mPlayAnimation &&
-            frames.Count > 0)
+            frames.Count > 0 &&
+            null != _mApiInstance)
         {
             List<string> effects = frames[index];
 
