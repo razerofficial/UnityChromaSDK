@@ -111,32 +111,7 @@ public class TestSwaggerClient : MonoBehaviour
         thread.Start();
     }
 
-    /// <summary>
-    /// Holds the max columns and max rows
-    /// </summary>
-    class TableSize
-    {
-        public int MaxColumns { get; set; }
-        public int MaxRows { get; set; }
-        public TableSize(int columns, int rows)
-        {
-            MaxColumns = columns;
-            MaxRows = rows;
-        }
-    }
-
     #region Helpers
-
-    /// <summary>
-    /// Implicitly create a KeyValuePair item without the explicit types
-    /// </summary>
-    /// <param name="method"></param>
-    /// <param name="data"></param>
-    /// <returns></returns>
-    private static KeyValuePair<SetCustomEffectMethod, TableSize> CreateItem(SetCustomEffectMethod method, TableSize data)
-    {
-        return new KeyValuePair<SetCustomEffectMethod, TableSize>(method, data);
-    }
 
     /// <summary>
     /// Get Effect: CHROMA_NONE
@@ -305,6 +280,23 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
+    /// Implicitly create a KeyValuePair item without all the explicit types
+    /// </summary>
+    /// <param name="method"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    private static KeyValuePair<SetCustomEffectMethod, CustomEffectInput> CreateItem(SetCustomEffectMethod method, int columns, int rows)
+    {
+        return CreateItem(method, columns, rows, CustomEffectType.CHROMA_CUSTOM);
+    }
+    private static KeyValuePair<SetCustomEffectMethod, CustomEffectInput> CreateItem(SetCustomEffectMethod method, int columns, int rows, CustomEffectType effectType)
+    {
+        var input = GetCustomEffectChroma(columns, rows);
+        input.Effect = effectType;
+        return new KeyValuePair<SetCustomEffectMethod, CustomEffectInput>(method, input);
+    }
+
+    /// <summary>
     /// Use the API to set the CHROMA_CUSTOM effect
     /// </summary>
     List<CustomEffectResponse> SetKeyboardCustomEffect()
@@ -316,19 +308,18 @@ public class TestSwaggerClient : MonoBehaviour
         }
 
         var results = new List<CustomEffectResponse>();
-        var items = new List<KeyValuePair<SetCustomEffectMethod, TableSize>>();
-        items.Add(CreateItem(_mApiCustomInstance.PutChromaLink, new TableSize(5, 1)));
-        items.Add(CreateItem(_mApiCustomInstance.PutHeadset, new TableSize(7, 9)));
-        items.Add(CreateItem(_mApiCustomInstance.PutKeyboard, new TableSize(22, 6)));
-        items.Add(CreateItem(_mApiCustomInstance.PutKeypad, new TableSize(5, 4)));
-        items.Add(CreateItem(_mApiCustomInstance.PutMouse, new TableSize(7, 9)));
-        items.Add(CreateItem(_mApiCustomInstance.PutMousepad, new TableSize(15, 1)));
-        foreach (KeyValuePair<SetCustomEffectMethod, TableSize> item in items)
+        var items = new List<KeyValuePair<SetCustomEffectMethod, CustomEffectInput>>();
+        items.Add(CreateItem(_mApiCustomInstance.PutChromaLink, 5, 1));
+        items.Add(CreateItem(_mApiCustomInstance.PutHeadset, 7, 9));
+        items.Add(CreateItem(_mApiCustomInstance.PutKeyboard, 22, 6));
+        items.Add(CreateItem(_mApiCustomInstance.PutKeypad, 5, 4));
+        items.Add(CreateItem(_mApiCustomInstance.PutMouse, 7, 9, CustomEffectType.CHROMA_CUSTOM2));
+        items.Add(CreateItem(_mApiCustomInstance.PutMousepad, 15, 1));
+        foreach (KeyValuePair<SetCustomEffectMethod, CustomEffectInput> item in items)
         {
             try
             {
-                var input = GetCustomEffectChroma(item.Value.MaxColumns, item.Value.MaxRows);
-                CustomEffectResponse result = item.Key.Invoke(input);
+                CustomEffectResponse result = item.Key.Invoke(item.Value);
                 Debug.Log(result);
                 results.Add(result);
             }
