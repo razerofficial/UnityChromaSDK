@@ -16,7 +16,7 @@ namespace ChromaSDK.Api
         /// </summary>
         /// <param name="data"></param>
         /// <returns>EffectIdentifierResponse</returns>
-        EffectIdentifierResponse DeleteEffect (EffectIdentifierInput data);
+        EffectIdentifierResponse DeleteEffect (EffectIdentifierArrayInput data);
         /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
@@ -160,7 +160,7 @@ namespace ChromaSDK.Api
         /// </summary>
         /// <param name="data"></param> 
         /// <returns>EffectIdentifierResponse</returns>            
-        public EffectIdentifierResponse DeleteEffect (EffectIdentifierInput data)
+        public EffectIdentifierResponse DeleteEffect (EffectIdentifierArrayInput data)
         {
             
     

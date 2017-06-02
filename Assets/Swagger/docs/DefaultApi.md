@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 <a name="deleteeffect"></a>
 # **DeleteEffect**
-> EffectIdentifierResponse DeleteEffect (EffectIdentifierInput data = null)
+> EffectIdentifierResponse DeleteEffect (EffectIdentifierArrayInput data = null)
 
 
 
@@ -45,7 +45,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var data = new EffectIdentifierInput(); // EffectIdentifierInput |  (optional) 
+            var data = new EffectIdentifierArrayInput(); // EffectIdentifierArrayInput |  (optional) 
 
             try
             {
@@ -65,7 +65,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **data** | [**EffectIdentifierInput**](EffectIdentifierInput.md)|  | [optional] 
+ **data** | [**EffectIdentifierArrayInput**](EffectIdentifierArrayInput.md)|  | [optional] 
 
 ### Return type
 

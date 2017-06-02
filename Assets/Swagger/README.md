@@ -69,7 +69,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var data = new EffectIdentifierInput(); // EffectIdentifierInput |  (optional) 
+            var data = new EffectIdentifierArrayInput(); // EffectIdentifierArrayInput |  (optional) 
 
             try
             {
@@ -112,6 +112,7 @@ Class | Method | HTTP request | Description
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [ChromaPackage.Model.EffectIdentifierArrayInput](docs/EffectIdentifierArrayInput.md)
  - [ChromaPackage.Model.EffectIdentifierInput](docs/EffectIdentifierInput.md)
  - [ChromaPackage.Model.EffectIdentifierResponse](docs/EffectIdentifierResponse.md)
  - [ChromaPackage.Model.EffectIdentifierResponseResults](docs/EffectIdentifierResponseResults.md)

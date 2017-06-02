@@ -558,7 +558,7 @@ public class TestSwaggerClient : MonoBehaviour
             frames.RemoveAt(0);
             try
             {
-                var input = new EffectIdentifierInput(null, effects);
+                var input = new EffectIdentifierArrayInput(effects);
                 EffectIdentifierResponse result = _mApiInstance.DeleteEffect(input);
                 Debug.Log(result);
             }
