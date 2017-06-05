@@ -7,29 +7,41 @@ Method | HTTP request | Description
 [**Heartbeat**](DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
 [**PostChromaLink**](DefaultApi.md#postchromalink) | **POST** /chromalink | 
 [**PostChromaLinkNone**](DefaultApi.md#postchromalinknone) | **POST** /chromalink/none | 
+[**PostChromaLinkStatic**](DefaultApi.md#postchromalinkstatic) | **POST** /chromalink/static | 
 [**PostHeadset**](DefaultApi.md#postheadset) | **POST** /headset | 
 [**PostHeadsetNone**](DefaultApi.md#postheadsetnone) | **POST** /headset/none | 
+[**PostHeadsetStatic**](DefaultApi.md#postheadsetstatic) | **POST** /headset/static | 
 [**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /keyboard | 
 [**PostKeyboardNone**](DefaultApi.md#postkeyboardnone) | **POST** /keyboard/none | 
+[**PostKeyboardStatic**](DefaultApi.md#postkeyboardstatic) | **POST** /keyboard/static | 
 [**PostKeypad**](DefaultApi.md#postkeypad) | **POST** /keypad | 
 [**PostKeypadNone**](DefaultApi.md#postkeypadnone) | **POST** /keypad/none | 
+[**PostKeypadStatic**](DefaultApi.md#postkeypadstatic) | **POST** /keypad/static | 
 [**PostMouse**](DefaultApi.md#postmouse) | **POST** /mouse | 
 [**PostMouseNone**](DefaultApi.md#postmousenone) | **POST** /mouse/none | 
+[**PostMouseStatic**](DefaultApi.md#postmousestatic) | **POST** /mouse/static | 
 [**PostMousepad**](DefaultApi.md#postmousepad) | **POST** /mousepad | 
 [**PostMousepadNone**](DefaultApi.md#postmousepadnone) | **POST** /mousepad/none | 
+[**PostMousepadStatic**](DefaultApi.md#postmousepadstatic) | **POST** /mousepad/static | 
 [**PutChromaLink**](DefaultApi.md#putchromalink) | **PUT** /chromalink | 
 [**PutChromaLinkNone**](DefaultApi.md#putchromalinknone) | **PUT** /chromalink/none | 
+[**PutChromaLinkStatic**](DefaultApi.md#putchromalinkstatic) | **PUT** /chromalink/static | 
 [**PutEffect**](DefaultApi.md#puteffect) | **PUT** /effect | 
 [**PutHeadset**](DefaultApi.md#putheadset) | **PUT** /headset | 
 [**PutHeadsetNone**](DefaultApi.md#putheadsetnone) | **PUT** /headset/none | 
+[**PutHeadsetStatic**](DefaultApi.md#putheadsetstatic) | **PUT** /headset/static | 
 [**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
 [**PutKeyboardNone**](DefaultApi.md#putkeyboardnone) | **PUT** /keyboard/none | 
+[**PutKeyboardStatic**](DefaultApi.md#putkeyboardstatic) | **PUT** /keyboard/static | 
 [**PutKeypad**](DefaultApi.md#putkeypad) | **PUT** /keypad | 
 [**PutKeypadNone**](DefaultApi.md#putkeypadnone) | **PUT** /keypad/none | 
+[**PutKeypadStatic**](DefaultApi.md#putkeypadstatic) | **PUT** /keypad/static | 
 [**PutMouse**](DefaultApi.md#putmouse) | **PUT** /mouse | 
 [**PutMouseNone**](DefaultApi.md#putmousenone) | **PUT** /mouse/none | 
+[**PutMouseStatic**](DefaultApi.md#putmousestatic) | **PUT** /mouse/static | 
 [**PutMousepad**](DefaultApi.md#putmousepad) | **PUT** /mousepad | 
 [**PutMousepadNone**](DefaultApi.md#putmousepadnone) | **PUT** /mousepad/none | 
+[**PutMousepadStatic**](DefaultApi.md#putmousepadstatic) | **PUT** /mousepad/static | 
 [**RemoveEffect**](DefaultApi.md#removeeffect) | **PUT** /effect/remove | 
 
 
@@ -207,6 +219,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postchromalinkstatic"></a>
+# **PostChromaLinkStatic**
+> EffectResponseId PostChromaLinkStatic (int? color = null)
+
+
+
+To set static color. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostChromaLinkStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostChromaLinkStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostChromaLinkStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="postheadset"></a>
 # **PostHeadset**
 > EffectResponseId PostHeadset (EffectInput data = null)
@@ -309,6 +382,67 @@ namespace Example
 
 ### Parameters
 This endpoint does not need any parameter.
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="postheadsetstatic"></a>
+# **PostHeadsetStatic**
+> EffectResponseId PostHeadsetStatic (int? color = null)
+
+
+
+To set static color. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostHeadsetStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostHeadsetStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostHeadsetStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
 
 ### Return type
 
@@ -443,6 +577,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postkeyboardstatic"></a>
+# **PostKeyboardStatic**
+> EffectResponseId PostKeyboardStatic (int? color = null)
+
+
+
+To set static color. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostKeyboardStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostKeyboardStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostKeyboardStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="postkeypad"></a>
 # **PostKeypad**
 > EffectResponseId PostKeypad (EffectInput data = null)
@@ -545,6 +740,67 @@ namespace Example
 
 ### Parameters
 This endpoint does not need any parameter.
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="postkeypadstatic"></a>
+# **PostKeypadStatic**
+> EffectResponseId PostKeypadStatic (int? color = null)
+
+
+
+To set static color. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostKeypadStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostKeypadStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostKeypadStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
 
 ### Return type
 
@@ -679,6 +935,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postmousestatic"></a>
+# **PostMouseStatic**
+> EffectResponseId PostMouseStatic (int? color = null)
+
+
+
+To set static color. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostMouseStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostMouseStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostMouseStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="postmousepad"></a>
 # **PostMousepad**
 > EffectResponseId PostMousepad (EffectInput data = null)
@@ -797,6 +1114,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postmousepadstatic"></a>
+# **PostMousepadStatic**
+> EffectResponseId PostMousepadStatic (int? color = null)
+
+
+
+To set static color. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostMousepadStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostMousepadStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostMousepadStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putchromalink"></a>
 # **PutChromaLink**
 > EffectResponse PutChromaLink (EffectInput data = null)
@@ -899,6 +1277,67 @@ namespace Example
 
 ### Parameters
 This endpoint does not need any parameter.
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="putchromalinkstatic"></a>
+# **PutChromaLinkStatic**
+> EffectResponse PutChromaLinkStatic (int? color = null)
+
+
+
+To set static color.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutChromaLinkStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutChromaLinkStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutChromaLinkStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
 
 ### Return type
 
@@ -1094,6 +1533,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="putheadsetstatic"></a>
+# **PutHeadsetStatic**
+> EffectResponse PutHeadsetStatic (int? color = null)
+
+
+
+To set static color.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutHeadsetStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutHeadsetStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutHeadsetStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putkeyboard"></a>
 # **PutKeyboard**
 > EffectResponse PutKeyboard (EffectInput data = null)
@@ -1196,6 +1696,67 @@ namespace Example
 
 ### Parameters
 This endpoint does not need any parameter.
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="putkeyboardstatic"></a>
+# **PutKeyboardStatic**
+> EffectResponse PutKeyboardStatic (int? color = null)
+
+
+
+To set static color.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutKeyboardStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutKeyboardStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutKeyboardStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
 
 ### Return type
 
@@ -1330,6 +1891,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="putkeypadstatic"></a>
+# **PutKeypadStatic**
+> EffectResponse PutKeypadStatic (int? color = null)
+
+
+
+To set static color.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutKeypadStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutKeypadStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutKeypadStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putmouse"></a>
 # **PutMouse**
 > EffectResponse PutMouse (EffectInput data = null)
@@ -1448,6 +2070,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="putmousestatic"></a>
+# **PutMouseStatic**
+> EffectResponse PutMouseStatic (int? color = null)
+
+
+
+To set static color.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutMouseStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutMouseStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutMouseStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putmousepad"></a>
 # **PutMousepad**
 > EffectResponse PutMousepad (EffectInput data = null)
@@ -1550,6 +2233,67 @@ namespace Example
 
 ### Parameters
 This endpoint does not need any parameter.
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="putmousepadstatic"></a>
+# **PutMousepadStatic**
+> EffectResponse PutMousepadStatic (int? color = null)
+
+
+
+To set static color.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutMousepadStaticExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var color = 56;  // int? | Color value in BGR format (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutMousepadStatic(color);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutMousepadStatic: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **color** | **int?**| Color value in BGR format | [optional] 
 
 ### Return type
 

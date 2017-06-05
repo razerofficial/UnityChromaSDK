@@ -86,6 +86,13 @@ public class TestSwaggerClient : MonoBehaviour
     delegate EffectResponse EffectNoneMethod();
 
     /// <summary>
+    /// Delegate method for setting static color effects
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    delegate EffectResponse SetEffectStaticMethod(int? color);
+
+    /// <summary>
     /// Delegate method for setting effects
     /// </summary>
     /// <param name="data"></param>
@@ -350,7 +357,40 @@ public class TestSwaggerClient : MonoBehaviour
             }
             catch (Exception)
             {
-                Debug.LogErrorFormat("Failed to invoke: {0}", method.Method);
+                Debug.LogErrorFormat("Failed to set none effect: {0}", method.Method);
+            }
+
+        }
+        return results;
+    }
+
+    List<EffectResponse> SetEffectStaticOnAll(int color)
+    {
+        if (null == _mApiInstance)
+        {
+            Debug.LogError("Need to register Chroma Server. The api instance is not set!");
+            return null;
+        }
+
+        var results = new List<EffectResponse>();
+        var methods = new List<SetEffectStaticMethod>();
+        methods.Add(_mApiInstance.PutChromaLinkStatic);
+        methods.Add(_mApiInstance.PutHeadsetStatic);
+        methods.Add(_mApiInstance.PutKeyboardStatic);
+        methods.Add(_mApiInstance.PutKeypadStatic);
+        methods.Add(_mApiInstance.PutMouseStatic);
+        methods.Add(_mApiInstance.PutMousepadStatic);
+        foreach (SetEffectStaticMethod method in methods)
+        {
+            try
+            {
+                EffectResponse result = method.Invoke(color);
+                Debug.Log(result);
+                results.Add(result);
+            }
+            catch (Exception)
+            {
+                Debug.LogErrorFormat("Failed to set static effect: {0}", method.Method);
             }
 
         }
@@ -709,8 +749,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
-                SetEffectOnAll(input);
+                SetEffectStaticOnAll(COLOR_BLUE);
             });
         });
 
@@ -720,8 +759,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_GREEN);
-                SetEffectOnAll(input);
+                SetEffectStaticOnAll(COLOR_GREEN);
             });
         });
 
@@ -731,8 +769,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_RED);
-                SetEffectOnAll(input);
+                SetEffectStaticOnAll(COLOR_RED);
             });
         });
 
@@ -742,8 +779,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_ORANGE);
-                SetEffectOnAll(input);
+                SetEffectStaticOnAll(COLOR_ORANGE);
             });
         });
 
@@ -753,8 +789,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_AQUA);
-                SetEffectOnAll(input);
+                SetEffectStaticOnAll(COLOR_AQUA);
             });
         });
 
@@ -764,8 +799,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_WHITE);
-                SetEffectOnAll(input);
+                SetEffectStaticOnAll(COLOR_WHITE);
             });
         });
 
