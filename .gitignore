@@ -3,3 +3,5 @@ Temp/
 .vs/
 *.csproj
 /*.sln
+Assets/Swagger/generate_csharp_client.cmd - Shortcut.lnk
+Assets/Swagger/generate_csharp_client.cmd - Shortcut.lnk.meta

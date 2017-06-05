@@ -69,16 +69,14 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var data = new EffectIdentifierArrayInput(); // EffectIdentifierArrayInput |  (optional) 
 
             try
             {
-                EffectIdentifierResponse result = apiInstance.DeleteEffect(data);
-                Debug.WriteLine(result);
+                apiInstance.Heartbeat();
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.DeleteEffect: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.Heartbeat: " + e.Message );
             }
         }
     }
@@ -92,7 +90,6 @@ All URIs are relative to *http://localhost:54235/chromasdk*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**DeleteEffect**](docs/DefaultApi.md#deleteeffect) | **DELETE** /effect | 
 *DefaultApi* | [**Heartbeat**](docs/DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
 *DefaultApi* | [**PostChromaLink**](docs/DefaultApi.md#postchromalink) | **POST** /chromalink | 
 *DefaultApi* | [**PostHeadset**](docs/DefaultApi.md#postheadset) | **POST** /headset | 
@@ -107,6 +104,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**PutKeypad**](docs/DefaultApi.md#putkeypad) | **PUT** /keypad | 
 *DefaultApi* | [**PutMouse**](docs/DefaultApi.md#putmouse) | **PUT** /mouse | 
 *DefaultApi* | [**PutMousepad**](docs/DefaultApi.md#putmousepad) | **PUT** /mousepad | 
+*DefaultApi* | [**RemoveEffect**](docs/DefaultApi.md#removeeffect) | **PUT** /effect/remove | 
 
 
 <a name="documentation-for-models"></a>

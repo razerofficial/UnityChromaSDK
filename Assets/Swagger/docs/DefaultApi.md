@@ -4,7 +4,6 @@ All URIs are relative to *http://localhost:54235/chromasdk*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteEffect**](DefaultApi.md#deleteeffect) | **DELETE** /effect | 
 [**Heartbeat**](DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
 [**PostChromaLink**](DefaultApi.md#postchromalink) | **POST** /chromalink | 
 [**PostHeadset**](DefaultApi.md#postheadset) | **POST** /headset | 
@@ -19,68 +18,8 @@ Method | HTTP request | Description
 [**PutKeypad**](DefaultApi.md#putkeypad) | **PUT** /keypad | 
 [**PutMouse**](DefaultApi.md#putmouse) | **PUT** /mouse | 
 [**PutMousepad**](DefaultApi.md#putmousepad) | **PUT** /mousepad | 
+[**RemoveEffect**](DefaultApi.md#removeeffect) | **PUT** /effect/remove | 
 
-
-<a name="deleteeffect"></a>
-# **DeleteEffect**
-> EffectIdentifierResponse DeleteEffect (EffectIdentifierArrayInput data = null)
-
-
-
-Deleting an effect or a set of effects with identifier. Effects must be deleted to free resources.
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using ChromaSDK.ChromaPackage;
-using ChromaSDK.Client;
-using ChromaSDK.ChromaPackage.Model;
-
-namespace Example
-{
-    public class DeleteEffectExample
-    {
-        public void main()
-        {
-            
-            var apiInstance = new DefaultApi();
-            var data = new EffectIdentifierArrayInput(); // EffectIdentifierArrayInput |  (optional) 
-
-            try
-            {
-                EffectIdentifierResponse result = apiInstance.DeleteEffect(data);
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling DefaultApi.DeleteEffect: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **data** | [**EffectIdentifierArrayInput**](EffectIdentifierArrayInput.md)|  | [optional] 
-
-### Return type
-
-[**EffectIdentifierResponse**](EffectIdentifierResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="heartbeat"></a>
 # **Heartbeat**
@@ -919,6 +858,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="removeeffect"></a>
+# **RemoveEffect**
+> EffectIdentifierResponse RemoveEffect (EffectIdentifierArrayInput data = null)
+
+
+
+Remove an effect or a set of effects with identifier. Effects must be removed to free resources.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class RemoveEffectExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectIdentifierArrayInput(); // EffectIdentifierArrayInput |  (optional) 
+
+            try
+            {
+                EffectIdentifierResponse result = apiInstance.RemoveEffect(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.RemoveEffect: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectIdentifierArrayInput**](EffectIdentifierArrayInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectIdentifierResponse**](EffectIdentifierResponse.md)
 
 ### Authorization
 

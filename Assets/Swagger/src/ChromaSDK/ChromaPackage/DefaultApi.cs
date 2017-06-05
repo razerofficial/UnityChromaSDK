@@ -12,12 +12,6 @@ namespace ChromaSDK.Api
     public interface IDefaultApi
     {
         /// <summary>
-        ///  Deleting an effect or a set of effects with identifier. Effects must be deleted to free resources.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns>EffectIdentifierResponse</returns>
-        EffectIdentifierResponse DeleteEffect (EffectIdentifierArrayInput data);
-        /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <returns></returns>
@@ -100,6 +94,12 @@ namespace ChromaSDK.Api
         /// <param name="data"></param>
         /// <returns>EffectResponse</returns>
         EffectResponse PutMousepad (EffectInput data);
+        /// <summary>
+        ///  Remove an effect or a set of effects with identifier. Effects must be removed to free resources.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectIdentifierResponse</returns>
+        EffectIdentifierResponse RemoveEffect (EffectIdentifierArrayInput data);
     }
   
     /// <summary>
@@ -154,41 +154,6 @@ namespace ChromaSDK.Api
         /// </summary>
         /// <value>An instance of the ApiClient</value>
         public ApiClient ApiClient {get; set;}
-    
-        /// <summary>
-        ///  Deleting an effect or a set of effects with identifier. Effects must be deleted to free resources.
-        /// </summary>
-        /// <param name="data"></param> 
-        /// <returns>EffectIdentifierResponse</returns>            
-        public EffectIdentifierResponse DeleteEffect (EffectIdentifierArrayInput data)
-        {
-            
-    
-            var path = "/effect";
-            path = path.Replace("{format}", "json");
-                
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
-    
-                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
-    
-            // authentication setting, if any
-            String[] authSettings = new String[] {  };
-    
-            // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling DeleteEffect: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling DeleteEffect: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (EffectIdentifierResponse) ApiClient.Deserialize(response.Content, typeof(EffectIdentifierResponse), response.Headers);
-        }
     
         /// <summary>
         ///  To turn off effect use CHROMA_NONE.
@@ -675,6 +640,41 @@ namespace ChromaSDK.Api
                 throw new ApiException ((int)response.StatusCode, "Error calling PutMousepad: " + response.ErrorMessage, response.ErrorMessage);
     
             return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  Remove an effect or a set of effects with identifier. Effects must be removed to free resources.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectIdentifierResponse</returns>            
+        public EffectIdentifierResponse RemoveEffect (EffectIdentifierArrayInput data)
+        {
+            
+    
+            var path = "/effect/remove";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling RemoveEffect: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling RemoveEffect: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectIdentifierResponse) ApiClient.Deserialize(response.Content, typeof(EffectIdentifierResponse), response.Headers);
         }
     
     }

@@ -559,7 +559,7 @@ public class TestSwaggerClient : MonoBehaviour
             try
             {
                 var input = new EffectIdentifierArrayInput(effects);
-                EffectIdentifierResponse result = _mApiInstance.DeleteEffect(input);
+                EffectIdentifierResponse result = _mApiInstance.RemoveEffect(input);
                 Debug.Log(result);
             }
             catch (Exception e)
