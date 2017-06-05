@@ -23,11 +23,21 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostChromaLink (EffectInput data);
         /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostChromaLinkNone ();
+        /// <summary>
         ///  POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param>
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostHeadset (EffectInput data);
+        /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostHeadsetNone ();
         /// <summary>
         ///  POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
@@ -35,11 +45,21 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostKeyboard (EffectInput data);
         /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostKeyboardNone ();
+        /// <summary>
         ///  POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param>
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostKeypad (EffectInput data);
+        /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostKeypadNone ();
         /// <summary>
         ///  POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
@@ -47,17 +67,32 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostMouse (EffectInput data);
         /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostMouseNone ();
+        /// <summary>
         ///  POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param>
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostMousepad (EffectInput data);
         /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostMousepadNone ();
+        /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param>
         /// <returns>EffectResponse</returns>
         EffectResponse PutChromaLink (EffectInput data);
+        /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutChromaLinkNone ();
         /// <summary>
         ///  Setting effect with an identifier or set of identifiers.
         /// </summary>
@@ -71,11 +106,21 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>
         EffectResponse PutHeadset (EffectInput data);
         /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutHeadsetNone ();
+        /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param>
         /// <returns>EffectResponse</returns>
         EffectResponse PutKeyboard (EffectInput data);
+        /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutKeyboardNone ();
         /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
@@ -83,11 +128,21 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>
         EffectResponse PutKeypad (EffectInput data);
         /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutKeypadNone ();
+        /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param>
         /// <returns>EffectResponse</returns>
         EffectResponse PutMouse (EffectInput data);
+        /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutMouseNone ();
         /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
@@ -95,11 +150,16 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>
         EffectResponse PutMousepad (EffectInput data);
         /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutMousepadNone ();
+        /// <summary>
         ///  Remove an effect or a set of effects with identifier. Effects must be removed to free resources.
         /// </summary>
         /// <param name="data"></param>
         /// <returns>EffectIdentifierResponse</returns>
-        EffectIdentifierResponse RemoveEffect (EffectIdentifierArrayInput data);
+        EffectIdentifierResponse RemoveEffect (EffectIdentifierInput data);
     }
   
     /// <summary>
@@ -223,6 +283,38 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostChromaLinkNone ()
+        {
+            
+    
+            var path = "/chromalink/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostChromaLinkNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostChromaLinkNone: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param> 
@@ -253,6 +345,38 @@ namespace ChromaSDK.Api
                 throw new ApiException ((int)response.StatusCode, "Error calling PostHeadset: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PostHeadset: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostHeadsetNone ()
+        {
+            
+    
+            var path = "/headset/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostHeadsetNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostHeadsetNone: " + response.ErrorMessage, response.ErrorMessage);
     
             return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
         }
@@ -293,6 +417,38 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostKeyboardNone ()
+        {
+            
+    
+            var path = "/keyboard/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeyboardNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeyboardNone: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param> 
@@ -323,6 +479,38 @@ namespace ChromaSDK.Api
                 throw new ApiException ((int)response.StatusCode, "Error calling PostKeypad: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PostKeypad: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostKeypadNone ()
+        {
+            
+    
+            var path = "/keypad/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeypadNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeypadNone: " + response.ErrorMessage, response.ErrorMessage);
     
             return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
         }
@@ -363,6 +551,38 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostMouseNone ()
+        {
+            
+    
+            var path = "/mouse/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMouseNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMouseNone: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  POST will return an effect id. To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param> 
@@ -398,6 +618,38 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  Turn off effect. POST will return an effect id.
+        /// </summary>
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostMousepadNone ()
+        {
+            
+    
+            var path = "/mousepad/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMousepadNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMousepadNone: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param> 
@@ -428,6 +680,38 @@ namespace ChromaSDK.Api
                 throw new ApiException ((int)response.StatusCode, "Error calling PutChromaLink: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PutChromaLink: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutChromaLinkNone ()
+        {
+            
+    
+            var path = "/chromalink/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutChromaLinkNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutChromaLinkNone: " + response.ErrorMessage, response.ErrorMessage);
     
             return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
         }
@@ -503,6 +787,38 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutHeadsetNone ()
+        {
+            
+    
+            var path = "/headset/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutHeadsetNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutHeadsetNone: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param> 
@@ -533,6 +849,38 @@ namespace ChromaSDK.Api
                 throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboard: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboard: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutKeyboardNone ()
+        {
+            
+    
+            var path = "/keyboard/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboardNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboardNone: " + response.ErrorMessage, response.ErrorMessage);
     
             return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
         }
@@ -573,6 +921,38 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutKeypadNone ()
+        {
+            
+    
+            var path = "/keypad/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeypadNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeypadNone: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  To turn off effect use CHROMA_NONE.
         /// </summary>
         /// <param name="data"></param> 
@@ -603,6 +983,38 @@ namespace ChromaSDK.Api
                 throw new ApiException ((int)response.StatusCode, "Error calling PutMouse: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PutMouse: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutMouseNone ()
+        {
+            
+    
+            var path = "/mouse/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMouseNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMouseNone: " + response.ErrorMessage, response.ErrorMessage);
     
             return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
         }
@@ -643,11 +1055,43 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  Turn off effect
+        /// </summary>
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutMousepadNone ()
+        {
+            
+    
+            var path = "/mousepad/none";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMousepadNone: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMousepadNone: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  Remove an effect or a set of effects with identifier. Effects must be removed to free resources.
         /// </summary>
         /// <param name="data"></param> 
         /// <returns>EffectIdentifierResponse</returns>            
-        public EffectIdentifierResponse RemoveEffect (EffectIdentifierArrayInput data)
+        public EffectIdentifierResponse RemoveEffect (EffectIdentifierInput data)
         {
             
     

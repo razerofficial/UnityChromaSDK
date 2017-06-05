@@ -79,6 +79,12 @@ namespace ChromaSDK.ChromaPackage.Model
         CHROMA_CUSTOM,
         
         /// <summary>
+        /// Enum CHROMA_CUSTOM2
+        /// </summary>
+        [EnumMember(Value = "CHROMA_CUSTOM2")]
+        CHROMA_CUSTOM2,
+        
+        /// <summary>
         /// Enum CHROMA_RESERVED
         /// </summary>
         [EnumMember(Value = "CHROMA_RESERVED")]

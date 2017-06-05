@@ -28,6 +28,7 @@ namespace CustomChromaSDK.Client
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);
+			RestClient.Timeout = 1000;
         }
     
         /// <summary>

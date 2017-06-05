@@ -92,25 +92,36 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**Heartbeat**](docs/DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
 *DefaultApi* | [**PostChromaLink**](docs/DefaultApi.md#postchromalink) | **POST** /chromalink | 
+*DefaultApi* | [**PostChromaLinkNone**](docs/DefaultApi.md#postchromalinknone) | **POST** /chromalink/none | 
 *DefaultApi* | [**PostHeadset**](docs/DefaultApi.md#postheadset) | **POST** /headset | 
+*DefaultApi* | [**PostHeadsetNone**](docs/DefaultApi.md#postheadsetnone) | **POST** /headset/none | 
 *DefaultApi* | [**PostKeyboard**](docs/DefaultApi.md#postkeyboard) | **POST** /keyboard | 
+*DefaultApi* | [**PostKeyboardNone**](docs/DefaultApi.md#postkeyboardnone) | **POST** /keyboard/none | 
 *DefaultApi* | [**PostKeypad**](docs/DefaultApi.md#postkeypad) | **POST** /keypad | 
+*DefaultApi* | [**PostKeypadNone**](docs/DefaultApi.md#postkeypadnone) | **POST** /keypad/none | 
 *DefaultApi* | [**PostMouse**](docs/DefaultApi.md#postmouse) | **POST** /mouse | 
+*DefaultApi* | [**PostMouseNone**](docs/DefaultApi.md#postmousenone) | **POST** /mouse/none | 
 *DefaultApi* | [**PostMousepad**](docs/DefaultApi.md#postmousepad) | **POST** /mousepad | 
+*DefaultApi* | [**PostMousepadNone**](docs/DefaultApi.md#postmousepadnone) | **POST** /mousepad/none | 
 *DefaultApi* | [**PutChromaLink**](docs/DefaultApi.md#putchromalink) | **PUT** /chromalink | 
+*DefaultApi* | [**PutChromaLinkNone**](docs/DefaultApi.md#putchromalinknone) | **PUT** /chromalink/none | 
 *DefaultApi* | [**PutEffect**](docs/DefaultApi.md#puteffect) | **PUT** /effect | 
 *DefaultApi* | [**PutHeadset**](docs/DefaultApi.md#putheadset) | **PUT** /headset | 
+*DefaultApi* | [**PutHeadsetNone**](docs/DefaultApi.md#putheadsetnone) | **PUT** /headset/none | 
 *DefaultApi* | [**PutKeyboard**](docs/DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
+*DefaultApi* | [**PutKeyboardNone**](docs/DefaultApi.md#putkeyboardnone) | **PUT** /keyboard/none | 
 *DefaultApi* | [**PutKeypad**](docs/DefaultApi.md#putkeypad) | **PUT** /keypad | 
+*DefaultApi* | [**PutKeypadNone**](docs/DefaultApi.md#putkeypadnone) | **PUT** /keypad/none | 
 *DefaultApi* | [**PutMouse**](docs/DefaultApi.md#putmouse) | **PUT** /mouse | 
+*DefaultApi* | [**PutMouseNone**](docs/DefaultApi.md#putmousenone) | **PUT** /mouse/none | 
 *DefaultApi* | [**PutMousepad**](docs/DefaultApi.md#putmousepad) | **PUT** /mousepad | 
+*DefaultApi* | [**PutMousepadNone**](docs/DefaultApi.md#putmousepadnone) | **PUT** /mousepad/none | 
 *DefaultApi* | [**RemoveEffect**](docs/DefaultApi.md#removeeffect) | **PUT** /effect/remove | 
 
 
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
- - [ChromaPackage.Model.EffectIdentifierArrayInput](docs/EffectIdentifierArrayInput.md)
  - [ChromaPackage.Model.EffectIdentifierInput](docs/EffectIdentifierInput.md)
  - [ChromaPackage.Model.EffectIdentifierResponse](docs/EffectIdentifierResponse.md)
  - [ChromaPackage.Model.EffectIdentifierResponseResults](docs/EffectIdentifierResponseResults.md)

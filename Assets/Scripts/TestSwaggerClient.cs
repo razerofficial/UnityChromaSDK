@@ -80,6 +80,12 @@ public class TestSwaggerClient : MonoBehaviour
     private static Random _sRandom = new System.Random(123);
 
     /// <summary>
+    /// Delegate method for clearing effects
+    /// </summary>
+    /// <returns></returns>
+    delegate EffectResponse EffectNoneMethod();
+
+    /// <summary>
     /// Delegate method for setting effects
     /// </summary>
     /// <param name="data"></param>
@@ -153,17 +159,6 @@ public class TestSwaggerClient : MonoBehaviour
     #region Helpers
 
     /// <summary>
-    /// Get Effect: CHROMA_NONE
-    /// </summary>
-    /// <returns></returns>
-    private static EffectInput GetEffectChromaNone()
-    {
-        var input = new EffectInput();
-        input.Effect = EffectType.CHROMA_NONE;
-        return input;
-    }
-
-    /// <summary>
     /// Get Effect: CHROMA_STATIC
     /// </summary>
     /// <param name="color"></param>
@@ -222,6 +217,11 @@ public class TestSwaggerClient : MonoBehaviour
     /// <returns></returns>
     void PostChromaSdk()
     {
+        if (!_mWaitForExit)
+        {
+            return;
+        }
+
         try
         {
             if (null != _mApiRazerInstance)
@@ -248,6 +248,8 @@ public class TestSwaggerClient : MonoBehaviour
                 "chromalink",
             };
             input.Category = "application";
+
+            Debug.Log("Initializing...");
             PostChromaSdkResponse result = _mApiRazerInstance.PostChromaSdk(input);
             Debug.Log(result);
 
@@ -256,13 +258,35 @@ public class TestSwaggerClient : MonoBehaviour
             _mApiInstance = new ChromaApi(result.Uri);
             _mApiCustomInstance = new ChromaCustomApi(result.Uri);
 
+            Debug.Log("Init complete.");
+
             // use heartbeat to keep the REST API alive
             DoHeartbeat();
         }
         catch (Exception e)
         {
             Debug.LogErrorFormat("Exception when calling RazerApi.PostChromaSdk: {0}", e);
+            _mApiRazerInstance = null;
+
+            // retry
+            StartCoroutine(Initialize());
         }
+    }
+
+    /// <summary>
+    /// Initialize after a delay
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Initialize()
+    {
+        // delay
+        yield return new WaitForSeconds(2);
+
+        RunOnThread(() =>
+        {
+            // start initialization
+            PostChromaSdk();
+        });
     }
 
     /// <summary>
@@ -294,6 +318,43 @@ public class TestSwaggerClient : MonoBehaviour
         {
             Debug.LogErrorFormat("Exception when calling RazerApi.DeleteChromaSdk: {0}", e);
         }
+    }
+
+    /// <summary>
+    /// Clear effect on all devices
+    /// </summary>
+    /// <returns></returns>
+    List<EffectResponse> SetEffectNoneOnAll()
+    {
+        if (null == _mApiInstance)
+        {
+            Debug.LogError("Need to register Chroma Server. The api instance is not set!");
+            return null;
+        }
+
+        var results = new List<EffectResponse>();
+        var methods = new List<EffectNoneMethod>();
+        methods.Add(_mApiInstance.PutChromaLinkNone);
+        methods.Add(_mApiInstance.PutHeadsetNone);
+        methods.Add(_mApiInstance.PutKeyboardNone);
+        methods.Add(_mApiInstance.PutKeypadNone);
+        methods.Add(_mApiInstance.PutMouseNone);
+        methods.Add(_mApiInstance.PutMousepadNone);
+        foreach (EffectNoneMethod method in methods)
+        {
+            try
+            {
+                EffectResponse result = method.Invoke();
+                Debug.Log(result);
+                results.Add(result);
+            }
+            catch (Exception)
+            {
+                Debug.LogErrorFormat("Failed to invoke: {0}", method.Method);
+            }
+
+        }
+        return results;
     }
 
     /// <summary>
@@ -550,7 +611,28 @@ public class TestSwaggerClient : MonoBehaviour
 
         Debug.Log("Animation complete.");
 
-        // clean up effects
+        // clean up effects single item, first frame
+        if (_mWaitForExit &&
+            frames.Count > 0)
+        {
+            List<string> effects = frames[0];
+            frames.RemoveAt(0);
+            foreach (string id in effects)
+            {
+                try
+                {
+                    var input = new EffectIdentifierInput(id, null);
+                    EffectIdentifierResponse result = _mApiInstance.RemoveEffect(input);
+                    Debug.Log(result);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogErrorFormat("Failed to delete effect by id: {0}", e);
+                }
+            }
+        }
+        
+        // clean up effects by array
         while (_mWaitForExit &&
             frames.Count > 0)
         {
@@ -558,7 +640,7 @@ public class TestSwaggerClient : MonoBehaviour
             frames.RemoveAt(0);
             try
             {
-                var input = new EffectIdentifierArrayInput(effects);
+                var input = new EffectIdentifierInput(null, effects);
                 EffectIdentifierResponse result = _mApiInstance.RemoveEffect(input);
                 Debug.Log(result);
             }
@@ -618,11 +700,8 @@ public class TestSwaggerClient : MonoBehaviour
         Debug.Log("OnEnable:");
         _mWaitForExit = true;
 
-        RunOnThread(() =>
-        {
-            // start initialization
-            PostChromaSdk();
-        });
+        // initialize
+        StartCoroutine(Initialize());
 
         // subscribe to ui click events
         _mButtonAllBlue.onClick.AddListener(() =>
@@ -788,8 +867,7 @@ public class TestSwaggerClient : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                var input = GetEffectChromaNone();
-                SetEffectOnAll(input);
+                SetEffectNoneOnAll();
             });
         });
 
