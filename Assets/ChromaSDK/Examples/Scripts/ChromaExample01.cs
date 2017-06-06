@@ -752,7 +752,12 @@ public class ChromaExample01 : MonoBehaviour
 
         GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("Blue"))
+        Color oldColor = GUI.backgroundColor;
+
+        const int height = 50;
+
+        GUI.backgroundColor = Color.blue;
+        if (GUILayout.Button("Blue", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -761,7 +766,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Green"))
+        GUI.backgroundColor = Color.green;
+        if (GUILayout.Button("Green", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -770,7 +776,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Red"))
+        GUI.backgroundColor = Color.red;
+        if (GUILayout.Button("Red", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -779,7 +786,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Orange"))
+        GUI.backgroundColor = new Color(255, 127, 0);
+        if (GUILayout.Button("Orange", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -788,7 +796,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Aqua"))
+        GUI.backgroundColor = new Color(0, 255, 255);
+        if (GUILayout.Button("Aqua", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -797,7 +806,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("White"))
+        GUI.backgroundColor = Color.white;
+        if (GUILayout.Button("White", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -806,7 +816,9 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Random"))
+        GUI.backgroundColor = oldColor;
+
+        if (GUILayout.Button("Random", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -815,7 +827,7 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Clear"))
+        if (GUILayout.Button("Clear", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -830,7 +842,8 @@ public class ChromaExample01 : MonoBehaviour
 
         GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("Keyboard"))
+        GUI.backgroundColor = Color.blue;
+        if (GUILayout.Button("Keyboard", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -840,7 +853,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Headset"))
+        GUI.backgroundColor = Color.green;
+        if (GUILayout.Button("Headset", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -850,7 +864,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Mouse"))
+        GUI.backgroundColor = Color.red;
+        if (GUILayout.Button("Mouse", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -860,7 +875,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Mousepad"))
+        GUI.backgroundColor = new Color(255, 127, 0);
+        if (GUILayout.Button("Mousepad", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -870,7 +886,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Keypad"))
+        GUI.backgroundColor = new Color(0, 255, 255);
+        if (GUILayout.Button("Keypad", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -880,7 +897,8 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("ChromaLink"))
+        GUI.backgroundColor = Color.white;
+        if (GUILayout.Button("ChromaLink", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -890,13 +908,15 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
+        GUI.backgroundColor = oldColor;
+
         GUILayout.EndHorizontal();
 
         GUILayout.Label("Play animation...");
 
         GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("Start"))
+        if (GUILayout.Button("Start", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -905,7 +925,7 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("End"))
+        if (GUILayout.Button("End", GUILayout.Height(height)))
         {
             _mPlayAnimation = false;
         }
@@ -914,7 +934,7 @@ public class ChromaExample01 : MonoBehaviour
 
         GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("Register Chroma Server"))
+        if (GUILayout.Button("Register Chroma Server", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
@@ -923,7 +943,7 @@ public class ChromaExample01 : MonoBehaviour
             });
         }
 
-        if (GUILayout.Button("Unregister Chroma Server"))
+        if (GUILayout.Button("Unregister Chroma Server", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
