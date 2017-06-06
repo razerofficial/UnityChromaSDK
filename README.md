@@ -32,7 +32,11 @@ Import `UnityChromaSDK.unitypackage` into your project.
 <a name="getting-started"></a>
 ## Getting Started
 
+1 Open the example scene [Assets/ChromaSDK/Examples/Scenes/Example01.unity](Assets/ChromaSDK/Examples/Scenes/Example01.unity)
 
+2 Customize the example script [Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs](Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs)
+
+![image_1](images/image_1.png)
 
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
