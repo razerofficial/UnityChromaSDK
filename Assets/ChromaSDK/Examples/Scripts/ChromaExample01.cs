@@ -6,9 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-#if !UNITY_3 && !UNITY_3_5 && !UNITY_4 && !UNITY_5_0 && !UNITY_5_1
-using UnityEngine.UI;
-#endif
 
 using ChromaApi = ChromaSDK.Api.DefaultApi;
 using RazerApi = RazerSDK.Api.DefaultApi2;
@@ -742,7 +739,7 @@ public class ChromaExample01 : MonoBehaviour
     {
         GUILayout.BeginHorizontal();
 
-        GUILayout.Label("ChromaServer Test App");
+        GUILayout.Label("Unity Plugin - Chroma REST API");
         GUILayout.FlexibleSpace();
         GUILayout.Label(_mTextHeartbeat);
 
