@@ -13,7 +13,7 @@ using RazerApi = RazerSDK.Api.DefaultApi;
 using RazerDeleteApi = RazerSDKDelete.Api.DefaultApi;
 using Random = System.Random;
 
-public class TestSwaggerClient : MonoBehaviour
+public class ChromaExample01 : MonoBehaviour
 {
     /// <summary>
     /// Colors
@@ -72,49 +72,49 @@ public class TestSwaggerClient : MonoBehaviour
     /// Delegate method for clearing effects
     /// </summary>
     /// <returns></returns>
-    delegate EffectResponse EffectNoneMethod();
+    delegate EffectResponse MethodEffectNone();
 
     /// <summary>
     /// Delegate method for setting static color effects
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    delegate EffectResponse SetEffectStaticMethod(int? color);
+    delegate EffectResponse MethodEffectStatic(int? color);
 
     /// <summary>
     /// Delegate method for setting effects
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    delegate EffectResponse SetEffectMethod(EffectInput data);
+    delegate EffectResponse MethodPutEffect(EffectInput data);
 
     /// <summary>
     /// Delegate method for setting custom effects for one-dimensional arrays
     /// </summary>
     /// <param name="colors"></param>
     /// <returns></returns>
-    delegate EffectResponse PutCustomArray1dMethod(EffectArray1dInput data);
+    delegate EffectResponse MethodPutCustomArray1d(EffectArray1dInput data);
 
     /// <summary>
     /// Delegate method for setting custom effects for two-dimensional arrays
     /// </summary>
     /// <param name="colors"></param>
     /// <returns></returns>
-    delegate EffectResponse PutCustomArray2dMethod(EffectArray2dInput data);
+    delegate EffectResponse MethodPutCustomArray2d(EffectArray2dInput data);
 
     /// <summary>
     /// Delegate method for setting custom effects for one-dimensional arrays
     /// </summary>
     /// <param name="colors"></param>
     /// <returns></returns>
-    delegate EffectResponseId PostCustomArray1dMethod(EffectArray1dInput data);
+    delegate EffectResponseId MethodPostCustomArray1d(EffectArray1dInput data);
 
     /// <summary>
     /// Delegate method for setting custom effects for two-dimensional arrays
     /// </summary>
     /// <param name="colors"></param>
     /// <returns></returns>
-    delegate EffectResponseId PostCustomArray2dMethod(EffectArray2dInput data);
+    delegate EffectResponseId MethodPostCustomArray2d(EffectArray2dInput data);
 
     /// <summary>
     /// Detect app shutdown
@@ -192,7 +192,7 @@ public class TestSwaggerClient : MonoBehaviour
     /// </summary>
     /// <param name="maxElements"></param>
     /// <returns></returns>
-    private static EffectArray1dInput GetCustomEffectChroma(int maxElements)
+    private static EffectArray1dInput GetEffectChromaCustom(int maxElements)
     {
         var elements = new EffectArray1dInput();
         for (int i = 0; i < maxElements; ++i)
@@ -208,7 +208,7 @@ public class TestSwaggerClient : MonoBehaviour
     /// <param name="maxColumns"></param>
     /// <param name="maxRows"></param>
     /// <returns></returns>
-    private static EffectArray2dInput GetCustomEffectChroma(int maxColumns, int maxRows)
+    private static EffectArray2dInput GetEffectChromaCustom(int maxColumns, int maxRows)
     {
         var rows = new EffectArray2dInput();
         for (int i = 0; i < maxRows; ++i)
@@ -292,6 +292,12 @@ public class TestSwaggerClient : MonoBehaviour
     /// <returns></returns>
     IEnumerator Initialize()
     {
+        // wait to initialize in case recompile just shutdown
+        RunOnMainThread(() =>
+        {
+            _mTextHeartbeat.text = "Waiting to initialize ChromaSDK...";
+        });
+
         // delay
         yield return new WaitForSeconds(2);
 
@@ -333,7 +339,7 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Clear effect on all devices
+    /// Clear effect on all devices using PUT
     /// </summary>
     /// <returns></returns>
     List<EffectResponse> SetEffectNoneOnAll()
@@ -345,14 +351,14 @@ public class TestSwaggerClient : MonoBehaviour
         }
 
         var results = new List<EffectResponse>();
-        var methods = new List<EffectNoneMethod>();
+        var methods = new List<MethodEffectNone>();
         methods.Add(_mApiInstance.PutChromaLinkNone);
         methods.Add(_mApiInstance.PutHeadsetNone);
         methods.Add(_mApiInstance.PutKeyboardNone);
         methods.Add(_mApiInstance.PutKeypadNone);
         methods.Add(_mApiInstance.PutMouseNone);
         methods.Add(_mApiInstance.PutMousepadNone);
-        foreach (EffectNoneMethod method in methods)
+        foreach (MethodEffectNone method in methods)
         {
             try
             {
@@ -369,6 +375,11 @@ public class TestSwaggerClient : MonoBehaviour
         return results;
     }
 
+    /// <summary>
+    /// Set static effect on all devices using PUT
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
     List<EffectResponse> SetEffectStaticOnAll(int color)
     {
         if (null == _mApiInstance)
@@ -378,14 +389,14 @@ public class TestSwaggerClient : MonoBehaviour
         }
 
         var results = new List<EffectResponse>();
-        var methods = new List<SetEffectStaticMethod>();
+        var methods = new List<MethodEffectStatic>();
         methods.Add(_mApiInstance.PutChromaLinkStatic);
         methods.Add(_mApiInstance.PutHeadsetStatic);
         methods.Add(_mApiInstance.PutKeyboardStatic);
         methods.Add(_mApiInstance.PutKeypadStatic);
         methods.Add(_mApiInstance.PutMouseStatic);
         methods.Add(_mApiInstance.PutMousepadStatic);
-        foreach (SetEffectStaticMethod method in methods)
+        foreach (MethodEffectStatic method in methods)
         {
             try
             {
@@ -403,7 +414,7 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Set effect on all devices
+    /// Set effect on all devices using PUT
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -416,14 +427,14 @@ public class TestSwaggerClient : MonoBehaviour
         }
 
         var results = new List<EffectResponse>();
-        var methods = new List<SetEffectMethod>();
+        var methods = new List<MethodPutEffect>();
         methods.Add(_mApiInstance.PutChromaLink);
         methods.Add(_mApiInstance.PutHeadset);
         methods.Add(_mApiInstance.PutKeyboard);
         methods.Add(_mApiInstance.PutKeypad);
         methods.Add(_mApiInstance.PutMouse);
         methods.Add(_mApiInstance.PutMousepad);
-        foreach (SetEffectMethod method in methods)
+        foreach (MethodPutEffect method in methods)
         {
             try
             {
@@ -441,13 +452,13 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Container for custom method and data
+    /// Container for custom method and data with one-dimension using PUT
     /// </summary>
     class PutAnimationData1D
     {
-        public PutCustomArray1dMethod Method { get; set; }
+        public MethodPutCustomArray1d Method { get; set; }
         public EffectArray1dInput Data { get; set; }
-        public PutAnimationData1D(PutCustomArray1dMethod method, EffectArray1dInput data)
+        public PutAnimationData1D(MethodPutCustomArray1d method, EffectArray1dInput data)
         {
             Method = method;
             Data = data;
@@ -455,13 +466,13 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Container for custom method and data
+    /// Container for custom method and data with two-dimensions using PUT
     /// </summary>
     class PutAnimationData2D
     {
-        public PutCustomArray2dMethod Method { get; set; }
+        public MethodPutCustomArray2d Method { get; set; }
         public EffectArray2dInput Data { get; set; }
-        public PutAnimationData2D(PutCustomArray2dMethod method, EffectArray2dInput data)
+        public PutAnimationData2D(MethodPutCustomArray2d method, EffectArray2dInput data)
         {
             Method = method;
             Data = data;
@@ -483,9 +494,9 @@ public class TestSwaggerClient : MonoBehaviour
 
         #region 2D
         var items2d = new List<PutAnimationData2D>();
-        items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeyboardCustom, GetCustomEffectChroma(22, 6)));
-        items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeypadCustom, GetCustomEffectChroma(5, 4)));
-        items2d.Add(new PutAnimationData2D(_mApiInstance.PutMouseCustom, GetCustomEffectChroma(7, 9)));
+        items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeyboardCustom, GetEffectChromaCustom(22, 6)));
+        items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeypadCustom, GetEffectChromaCustom(5, 4)));
+        items2d.Add(new PutAnimationData2D(_mApiInstance.PutMouseCustom, GetEffectChromaCustom(7, 9)));
         foreach (PutAnimationData2D item in items2d)
         {
             try
@@ -502,9 +513,9 @@ public class TestSwaggerClient : MonoBehaviour
         #endregion
         #region 1D
         var items1d = new List<PutAnimationData1D>();
-        items1d.Add(new PutAnimationData1D(_mApiInstance.PutChromaLinkCustom, GetCustomEffectChroma(5)));
-        items1d.Add(new PutAnimationData1D(_mApiInstance.PutHeadsetCustom, GetCustomEffectChroma(5)));
-        items1d.Add(new PutAnimationData1D(_mApiInstance.PutMousepadCustom, GetCustomEffectChroma(15)));
+        items1d.Add(new PutAnimationData1D(_mApiInstance.PutChromaLinkCustom, GetEffectChromaCustom(5)));
+        items1d.Add(new PutAnimationData1D(_mApiInstance.PutHeadsetCustom, GetEffectChromaCustom(5)));
+        items1d.Add(new PutAnimationData1D(_mApiInstance.PutMousepadCustom, GetEffectChromaCustom(15)));
         foreach (PutAnimationData1D item in items1d)
         {
             try
@@ -523,13 +534,13 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Container for custom method and data
+    /// Container for custom method and data with one-dimension using POST
     /// </summary>
     class PostAnimationData1D
     {
-        public PostCustomArray1dMethod Method { get; set; }
+        public MethodPostCustomArray1d Method { get; set; }
         public EffectArray1dInput Data { get; set; }
-        public PostAnimationData1D(PostCustomArray1dMethod method, EffectArray1dInput data)
+        public PostAnimationData1D(MethodPostCustomArray1d method, EffectArray1dInput data)
         {
             Method = method;
             Data = data;
@@ -537,13 +548,13 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Container for custom method and data
+    /// Container for custom method and data with two-dimensions using POST
     /// </summary>
     class PostAnimationData2D
     {
-        public PostCustomArray2dMethod Method { get; set; }
+        public MethodPostCustomArray2d Method { get; set; }
         public EffectArray2dInput Data { get; set; }
-        public PostAnimationData2D(PostCustomArray2dMethod method, EffectArray2dInput data)
+        public PostAnimationData2D(MethodPostCustomArray2d method, EffectArray2dInput data)
         {
             Method = method;
             Data = data;
@@ -581,9 +592,9 @@ public class TestSwaggerClient : MonoBehaviour
 
             #region 2D
             var items2d = new List<PostAnimationData2D>();
-            items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeyboardCustom, GetCustomEffectChroma(22, 6)));
-            items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeypadCustom, GetCustomEffectChroma(5, 4)));
-            items2d.Add(new PostAnimationData2D(_mApiInstance.PostMouseCustom, GetCustomEffectChroma(7, 9)));
+            items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeyboardCustom, GetEffectChromaCustom(22, 6)));
+            items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeypadCustom, GetEffectChromaCustom(5, 4)));
+            items2d.Add(new PostAnimationData2D(_mApiInstance.PostMouseCustom, GetEffectChromaCustom(7, 9)));
             foreach (PostAnimationData2D item in items2d)
             {
                 try
@@ -600,9 +611,9 @@ public class TestSwaggerClient : MonoBehaviour
             #endregion
             #region 1D
             var items1d = new List<PostAnimationData1D>();
-            items1d.Add(new PostAnimationData1D(_mApiInstance.PostChromaLinkCustom, GetCustomEffectChroma(5)));
-            items1d.Add(new PostAnimationData1D(_mApiInstance.PostHeadsetCustom, GetCustomEffectChroma(5)));
-            items1d.Add(new PostAnimationData1D(_mApiInstance.PostMousepadCustom, GetCustomEffectChroma(15)));
+            items1d.Add(new PostAnimationData1D(_mApiInstance.PostChromaLinkCustom, GetEffectChromaCustom(5)));
+            items1d.Add(new PostAnimationData1D(_mApiInstance.PostHeadsetCustom, GetEffectChromaCustom(5)));
+            items1d.Add(new PostAnimationData1D(_mApiInstance.PostMousepadCustom, GetEffectChromaCustom(15)));
             foreach (PostAnimationData1D item in items1d)
             {
                 try
@@ -734,6 +745,14 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     // Use this for initialization
+    void Start()
+    {
+        Debug.Log("Start:");
+    }
+
+    /// <summary>
+    /// OnEnable is invoked on play, or while playing after compile
+    /// </summary>
     void OnEnable()
     {
         Debug.Log("OnEnable:");
@@ -927,7 +946,7 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Stop heartbeat on disable
+    /// Stop heartbeat on disable, on disable is called on stop, or if compiling
     /// </summary>
     private void OnDisable()
     {
@@ -942,7 +961,7 @@ public class TestSwaggerClient : MonoBehaviour
     }
 
     /// <summary>
-    /// Stop heartbeat on exit and clear effect
+    /// Stop heartbeat on exit and clear effect, on quit happens on stop
     /// </summary>
     private void OnApplicationQuit()
     {
