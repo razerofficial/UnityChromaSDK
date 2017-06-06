@@ -7,3 +7,4 @@ Assets/Swagger/generate_csharp_client.cmd - Shortcut.lnk
 Assets/Swagger/generate_csharp_client.cmd - Shortcut.lnk.meta
 Assets/Swagger/maven_clean_package.cmd - Shortcut.lnk
 Assets/Swagger/maven_clean_package.cmd - Shortcut.lnk.meta
+*.unitypackage

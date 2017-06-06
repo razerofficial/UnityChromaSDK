@@ -1,0 +1,1 @@
+C:\Public\UnityChromaSwagger\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

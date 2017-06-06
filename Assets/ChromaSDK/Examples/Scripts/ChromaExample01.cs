@@ -6,11 +6,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+#if !UNITY_3 && !UNITY_3_5 && !UNITY_4 && !UNITY_5_0 && !UNITY_5_1
 using UnityEngine.UI;
+#endif
 
 using ChromaApi = ChromaSDK.Api.DefaultApi;
-using RazerApi = RazerSDK.Api.DefaultApi;
-using RazerDeleteApi = RazerSDKDelete.Api.DefaultApi;
+using RazerApi = RazerSDK.Api.DefaultApi2;
+using RazerDeleteApi = RazerSDKDelete.Api.DefaultApi3;
 using Random = System.Random;
 
 public class ChromaExample01 : MonoBehaviour
@@ -28,25 +30,7 @@ public class ChromaExample01 : MonoBehaviour
     /// <summary>
     /// Meta references to ui controls
     /// </summary>
-    public Button _mButtonAllRandom;
-    public Button _mButtonAllBlue;
-    public Button _mButtonAllGreen;
-    public Button _mButtonAllRed;
-    public Button _mButtonAllOrange;
-    public Button _mButtonAllAqua;
-    public Button _mButtonAllWhite;
-    public Button _mButtonAllClear;
-    public Button _mButtonKeyboard;
-    public Button _mButtonHeadset;
-    public Button _mButtonMouse;
-    public Button _mButtonMousepad;
-    public Button _mButtonKeypad;
-    public Button _mButtonChromaLink;
-    public Button _mButtonStart;
-    public Button _mButtonEnd;
-    public Button _mButtonRegister;
-    public Button _mButtonUnregister;
-    public Text _mTextHeartbeat;
+    private string _mTextHeartbeat;
 
     /// <summary>
     /// Instance of the RazerAPI
@@ -172,7 +156,7 @@ public class ChromaExample01 : MonoBehaviour
         thread.Start();
     }
 
-    #region Helpers
+#region Helpers
 
     /// <summary>
     /// Get Effect: CHROMA_STATIC
@@ -223,7 +207,7 @@ public class ChromaExample01 : MonoBehaviour
         return rows;
     }
 
-    #endregion
+#endregion
 
     /// <summary>
     /// Initialize Chroma by hitting the REST server and set the API port
@@ -278,12 +262,21 @@ public class ChromaExample01 : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogErrorFormat("Exception when calling RazerApi.PostChromaSdk: {0}", e);
+            Debug.LogError(string.Format("Exception when calling RazerApi.PostChromaSdk: {0}", e));
             _mApiRazerInstance = null;
 
             // retry
             StartCoroutine(Initialize());
         }
+    }
+
+    /// <summary>
+    /// Set the heartbeat text
+    /// </summary>
+    /// <param name="text"></param>
+    void SetHeartbeatText(string text)
+    {
+        _mTextHeartbeat = text;
     }
 
     /// <summary>
@@ -295,7 +288,7 @@ public class ChromaExample01 : MonoBehaviour
         // wait to initialize in case recompile just shutdown
         RunOnMainThread(() =>
         {
-            _mTextHeartbeat.text = "Waiting to initialize ChromaSDK...";
+            SetHeartbeatText("Waiting to initialize ChromaSDK...");
         });
 
         // delay
@@ -334,7 +327,7 @@ public class ChromaExample01 : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogErrorFormat("Exception when calling RazerApi.DeleteChromaSdk: {0}", e);
+            Debug.LogError(string.Format("Exception when calling RazerApi.DeleteChromaSdk: {0}", e));
         }
     }
 
@@ -368,7 +361,7 @@ public class ChromaExample01 : MonoBehaviour
             }
             catch (Exception)
             {
-                Debug.LogErrorFormat("Failed to set none effect: {0}", method.Method);
+                Debug.LogError(string.Format("Failed to set none effect: {0}", method.Method));
             }
 
         }
@@ -406,7 +399,7 @@ public class ChromaExample01 : MonoBehaviour
             }
             catch (Exception)
             {
-                Debug.LogErrorFormat("Failed to set static effect: {0}", method.Method);
+                Debug.LogError(string.Format("Failed to set static effect: {0}", method.Method));
             }
 
         }
@@ -444,7 +437,7 @@ public class ChromaExample01 : MonoBehaviour
             }
             catch (Exception)
             {
-                Debug.LogErrorFormat("Failed to invoke: {0}", method.Method);
+                Debug.LogError(string.Format("Failed to invoke: {0}", method.Method));
             }
 
         }
@@ -492,7 +485,7 @@ public class ChromaExample01 : MonoBehaviour
 
         var results = new List<EffectResponse>();
 
-        #region 2D
+#region 2D
         var items2d = new List<PutAnimationData2D>();
         items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeyboardCustom, GetEffectChromaCustom(22, 6)));
         items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeypadCustom, GetEffectChromaCustom(5, 4)));
@@ -507,11 +500,11 @@ public class ChromaExample01 : MonoBehaviour
             }
             catch (Exception)
             {
-                Debug.LogErrorFormat("Failed to invoke: {0}", item.Method);
+                Debug.LogError(string.Format("Failed to invoke: {0}", item.Method));
             }
         }
-        #endregion
-        #region 1D
+#endregion
+#region 1D
         var items1d = new List<PutAnimationData1D>();
         items1d.Add(new PutAnimationData1D(_mApiInstance.PutChromaLinkCustom, GetEffectChromaCustom(5)));
         items1d.Add(new PutAnimationData1D(_mApiInstance.PutHeadsetCustom, GetEffectChromaCustom(5)));
@@ -526,10 +519,10 @@ public class ChromaExample01 : MonoBehaviour
             }
             catch (Exception)
             {
-                Debug.LogErrorFormat("Failed to invoke: {0}", item.Method);
+                Debug.LogError(string.Format("Failed to invoke: {0}", item.Method));
             }
         }
-        #endregion
+#endregion
         return results;
     }
 
@@ -590,7 +583,7 @@ public class ChromaExample01 : MonoBehaviour
             // list of effect ids
             List<string> effects = new List<string>();
 
-            #region 2D
+#region 2D
             var items2d = new List<PostAnimationData2D>();
             items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeyboardCustom, GetEffectChromaCustom(22, 6)));
             items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeypadCustom, GetEffectChromaCustom(5, 4)));
@@ -605,11 +598,11 @@ public class ChromaExample01 : MonoBehaviour
                 }
                 catch (Exception)
                 {
-                    Debug.LogErrorFormat("Failed to invoke: {0}", item.Method);
+                    Debug.LogError(string.Format("Failed to invoke: {0}", item.Method));
                 }
             }
-            #endregion
-            #region 1D
+#endregion
+#region 1D
             var items1d = new List<PostAnimationData1D>();
             items1d.Add(new PostAnimationData1D(_mApiInstance.PostChromaLinkCustom, GetEffectChromaCustom(5)));
             items1d.Add(new PostAnimationData1D(_mApiInstance.PostHeadsetCustom, GetEffectChromaCustom(5)));
@@ -624,10 +617,10 @@ public class ChromaExample01 : MonoBehaviour
                 }
                 catch (Exception)
                 {
-                    Debug.LogErrorFormat("Failed to invoke: {0}", item.Method);
+                    Debug.LogError(string.Format("Failed to invoke: {0}", item.Method));
                 }
             }
-            #endregion
+#endregion
 
             // add the frame
             frames.Add(effects);
@@ -650,7 +643,7 @@ public class ChromaExample01 : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogErrorFormat("Failed to put effects: {0}", e);
+                Debug.LogError(string.Format("Failed to put effects: {0}", e));
             }
 
             index = (index + 1) % frames.Count;
@@ -677,7 +670,7 @@ public class ChromaExample01 : MonoBehaviour
                 }
                 catch (Exception e)
                 {
-                    Debug.LogErrorFormat("Failed to delete effect by id: {0}", e);
+                    Debug.LogError(string.Format("Failed to delete effect by id: {0}", e));
                 }
             }
         }
@@ -696,7 +689,7 @@ public class ChromaExample01 : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogErrorFormat("Failed to delete effects: {0}", e);
+                Debug.LogError(string.Format("Failed to delete effects: {0}", e));
             }
         }
 
@@ -715,7 +708,7 @@ public class ChromaExample01 : MonoBehaviour
             
             RunOnMainThread(() =>
             {
-                _mTextHeartbeat.text = string.Format("Monitoring Heartbeat {0}...", uri.Port);
+                SetHeartbeatText(string.Format("Monitoring Heartbeat {0}...", uri.Port));
             });
 
             while (_mWaitForExit &&
@@ -738,16 +731,208 @@ public class ChromaExample01 : MonoBehaviour
 
             RunOnMainThread(() =>
             {
-                _mTextHeartbeat.text = string.Format("Heartbeat {0} exited", uri.Port);
+                SetHeartbeatText(string.Format("Heartbeat {0} exited", uri.Port));
             });
             
         }
     }
 
-    // Use this for initialization
-    void Start()
+    // Display the UI in Unity GUI to be compatible with 3.X
+    void OnGUI()
     {
-        Debug.Log("Start:");
+        GUILayout.BeginHorizontal();
+
+        GUILayout.Label("ChromaServer Test App");
+        GUILayout.FlexibleSpace();
+        GUILayout.Label(_mTextHeartbeat);
+
+        GUILayout.EndHorizontal();
+
+        GUILayout.Label("Set a static color on all devices");
+
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("Blue"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetEffectStaticOnAll(COLOR_BLUE);
+            });
+        }
+
+        if (GUILayout.Button("Green"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetEffectStaticOnAll(COLOR_GREEN);
+            });
+        }
+
+        if (GUILayout.Button("Red"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetEffectStaticOnAll(COLOR_RED);
+            });
+        }
+
+        if (GUILayout.Button("Orange"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetEffectStaticOnAll(COLOR_ORANGE);
+            });
+        }
+
+        if (GUILayout.Button("Aqua"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetEffectStaticOnAll(COLOR_AQUA);
+            });
+        }
+
+        if (GUILayout.Button("White"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetEffectStaticOnAll(COLOR_WHITE);
+            });
+        }
+
+        if (GUILayout.Button("Random"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetKeyboardCustomEffect();
+            });
+        }
+
+        if (GUILayout.Button("Clear"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                SetEffectNoneOnAll();
+            });
+        }
+
+        GUILayout.EndHorizontal();
+
+        GUILayout.Label("Set a different color to a specific device");
+
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("Keyboard"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
+                _mApiInstance.PutKeyboard(input);
+            });
+        }
+
+        if (GUILayout.Button("Headset"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_GREEN);
+                _mApiInstance.PutHeadset(input);
+            });
+        }
+
+        if (GUILayout.Button("Mouse"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_RED);
+                _mApiInstance.PutMouse(input);
+            });
+        }
+
+        if (GUILayout.Button("Mousepad"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_ORANGE);
+                _mApiInstance.PutMousepad(input);
+            });
+        }
+
+        if (GUILayout.Button("Keypad"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_AQUA);
+                _mApiInstance.PutKeypad(input);
+            });
+        }
+
+        if (GUILayout.Button("ChromaLink"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                EffectInput input = GetEffectChromaStatic(COLOR_WHITE);
+                _mApiInstance.PutChromaLink(input);
+            });
+        }
+
+        GUILayout.EndHorizontal();
+
+        GUILayout.Label("Play animation...");
+
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("Start"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                DoAnimation();
+            });
+        }
+
+        if (GUILayout.Button("End"))
+        {
+            _mPlayAnimation = false;
+        }
+
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("Register Chroma Server"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                PostChromaSdk();
+            });
+        }
+
+        if (GUILayout.Button("Unregister Chroma Server"))
+        {
+            // avoid blocking the UI thread
+            RunOnThread(() =>
+            {
+                DeleteChromaSdk();
+            });
+        }
+
+        GUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -760,189 +945,6 @@ public class ChromaExample01 : MonoBehaviour
 
         // initialize
         StartCoroutine(Initialize());
-
-        // subscribe to ui click events
-        _mButtonAllBlue.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                SetEffectStaticOnAll(COLOR_BLUE);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonAllGreen.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                SetEffectStaticOnAll(COLOR_GREEN);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonAllRed.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                SetEffectStaticOnAll(COLOR_RED);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonAllOrange.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                SetEffectStaticOnAll(COLOR_ORANGE);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonAllAqua.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                SetEffectStaticOnAll(COLOR_AQUA);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonAllWhite.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                SetEffectStaticOnAll(COLOR_WHITE);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonAllRandom.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                SetKeyboardCustomEffect();
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonKeyboard.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
-                _mApiInstance.PutKeyboard(input);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonHeadset.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                EffectInput input = GetEffectChromaStatic(COLOR_GREEN);
-                _mApiInstance.PutHeadset(input);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonMouse.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                EffectInput input = GetEffectChromaStatic(COLOR_RED);
-                _mApiInstance.PutMouse(input);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonMousepad.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                EffectInput input = GetEffectChromaStatic(COLOR_ORANGE);
-                _mApiInstance.PutMousepad(input);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonKeypad.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                EffectInput input = GetEffectChromaStatic(COLOR_AQUA);
-                _mApiInstance.PutKeypad(input);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonChromaLink.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                EffectInput input = GetEffectChromaStatic(COLOR_WHITE);
-                _mApiInstance.PutChromaLink(input);
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonStart.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                DoAnimation();
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonEnd.onClick.AddListener(() =>
-        {
-            _mPlayAnimation = false;
-        });
-
-        // subscribe to ui click events
-        _mButtonAllClear.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                SetEffectNoneOnAll();
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonRegister.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                PostChromaSdk();
-            });
-        });
-
-        // subscribe to ui click events
-        _mButtonUnregister.onClick.AddListener(() =>
-        {
-            // avoid blocking the UI thread
-            RunOnThread(() =>
-            {
-                DeleteChromaSdk();
-            });
-        });
-
     }
 
     /// <summary>

@@ -68,7 +68,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new DefaultApi2();
             var baseInput = new ChromaSdkInput(); // ChromaSdkInput |  (optional) 
 
             try
@@ -78,7 +78,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostChromaSdk: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi2.PostChromaSdk: " + e.Message );
             }
         }
     }
@@ -92,7 +92,7 @@ All URIs are relative to *http://localhost:54235/razer*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**PostChromaSdk**](docs/DefaultApi.md#postchromasdk) | **POST** /chromasdk | 
+*DefaultApi2* | [**PostChromaSdk**](docs/DefaultApi2.md#postchromasdk) | **POST** /chromasdk | 
 
 
 <a name="documentation-for-models"></a>
