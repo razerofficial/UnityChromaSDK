@@ -23,6 +23,12 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostChromaLink (EffectInput data);
         /// <summary>
+        ///  1D array with 5 elements. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostChromaLinkCustom (EffectArray1dInput data);
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>
@@ -39,6 +45,12 @@ namespace ChromaSDK.Api
         /// <param name="data"></param>
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostHeadset (EffectInput data);
+        /// <summary>
+        ///  1D array with 5 elements. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostHeadsetCustom (EffectArray1dInput data);
         /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
@@ -57,6 +69,12 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostKeyboard (EffectInput data);
         /// <summary>
+        ///  2D array with 6 rows of 22 columns. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostKeyboardCustom (EffectArray2dInput data);
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>
@@ -73,6 +91,12 @@ namespace ChromaSDK.Api
         /// <param name="data"></param>
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostKeypad (EffectInput data);
+        /// <summary>
+        ///  1D array with 4 rows of 5 columns. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostKeypadCustom (EffectArray2dInput data);
         /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
@@ -91,6 +115,12 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostMouse (EffectInput data);
         /// <summary>
+        ///  2D array with 9 rows of 7 columns. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostMouseCustom (EffectArray2dInput data);
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>
@@ -108,6 +138,12 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>
         EffectResponseId PostMousepad (EffectInput data);
         /// <summary>
+        ///  1D array with 15 elements. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponseId</returns>
+        EffectResponseId PostMousepadCustom (EffectArray1dInput data);
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>
@@ -124,6 +160,12 @@ namespace ChromaSDK.Api
         /// <param name="data"></param>
         /// <returns>EffectResponse</returns>
         EffectResponse PutChromaLink (EffectInput data);
+        /// <summary>
+        ///  1D array with 5 elements.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutChromaLinkCustom (EffectArray1dInput data);
         /// <summary>
         ///  Turn off effect
         /// </summary>
@@ -148,6 +190,12 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>
         EffectResponse PutHeadset (EffectInput data);
         /// <summary>
+        ///  1D array with 5 elements.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutHeadsetCustom (EffectArray1dInput data);
+        /// <summary>
         ///  Turn off effect
         /// </summary>
         /// <returns>EffectResponse</returns>
@@ -164,6 +212,12 @@ namespace ChromaSDK.Api
         /// <param name="data"></param>
         /// <returns>EffectResponse</returns>
         EffectResponse PutKeyboard (EffectInput data);
+        /// <summary>
+        ///  2D array with 6 rows of 22 columns.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutKeyboardCustom (EffectArray2dInput data);
         /// <summary>
         ///  Turn off effect
         /// </summary>
@@ -182,6 +236,12 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>
         EffectResponse PutKeypad (EffectInput data);
         /// <summary>
+        ///  2D array with 4 rows of 5 columns.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutKeypadCustom (EffectArray2dInput data);
+        /// <summary>
         ///  Turn off effect
         /// </summary>
         /// <returns>EffectResponse</returns>
@@ -199,6 +259,12 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>
         EffectResponse PutMouse (EffectInput data);
         /// <summary>
+        ///  2D array with 9 rows of 7 columns.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutMouseCustom (EffectArray2dInput data);
+        /// <summary>
         ///  Turn off effect
         /// </summary>
         /// <returns>EffectResponse</returns>
@@ -215,6 +281,12 @@ namespace ChromaSDK.Api
         /// <param name="data"></param>
         /// <returns>EffectResponse</returns>
         EffectResponse PutMousepad (EffectInput data);
+        /// <summary>
+        ///  1D array with 15 elements.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>EffectResponse</returns>
+        EffectResponse PutMousepadCustom (EffectArray1dInput data);
         /// <summary>
         ///  Turn off effect
         /// </summary>
@@ -355,6 +427,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  1D array with 5 elements. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostChromaLinkCustom (EffectArray1dInput data)
+        {
+            
+    
+            var path = "/chromalink/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostChromaLinkCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostChromaLinkCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>            
@@ -393,6 +500,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>            
         public EffectResponseId PostChromaLinkStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PostChromaLinkStatic");
             
     
             var path = "/chromalink/static";
@@ -457,6 +567,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  1D array with 5 elements. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostHeadsetCustom (EffectArray1dInput data)
+        {
+            
+    
+            var path = "/headset/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostHeadsetCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostHeadsetCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>            
@@ -495,6 +640,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>            
         public EffectResponseId PostHeadsetStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PostHeadsetStatic");
             
     
             var path = "/headset/static";
@@ -559,6 +707,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  2D array with 6 rows of 22 columns. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostKeyboardCustom (EffectArray2dInput data)
+        {
+            
+    
+            var path = "/keyboard/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeyboardCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeyboardCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>            
@@ -597,6 +780,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>            
         public EffectResponseId PostKeyboardStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PostKeyboardStatic");
             
     
             var path = "/keyboard/static";
@@ -661,6 +847,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  1D array with 4 rows of 5 columns. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostKeypadCustom (EffectArray2dInput data)
+        {
+            
+    
+            var path = "/keypad/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeypadCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostKeypadCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>            
@@ -699,6 +920,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>            
         public EffectResponseId PostKeypadStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PostKeypadStatic");
             
     
             var path = "/keypad/static";
@@ -763,6 +987,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  2D array with 9 rows of 7 columns. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostMouseCustom (EffectArray2dInput data)
+        {
+            
+    
+            var path = "/mouse/custom2";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMouseCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMouseCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>            
@@ -801,6 +1060,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>            
         public EffectResponseId PostMouseStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PostMouseStatic");
             
     
             var path = "/mouse/static";
@@ -865,6 +1127,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  1D array with 15 elements. POST will return an effect id.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponseId</returns>            
+        public EffectResponseId PostMousepadCustom (EffectArray1dInput data)
+        {
+            
+    
+            var path = "/mousepad/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMousepadCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PostMousepadCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponseId) ApiClient.Deserialize(response.Content, typeof(EffectResponseId), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect. POST will return an effect id.
         /// </summary>
         /// <returns>EffectResponseId</returns>            
@@ -903,6 +1200,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponseId</returns>            
         public EffectResponseId PostMousepadStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PostMousepadStatic");
             
     
             var path = "/mousepad/static";
@@ -967,6 +1267,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  1D array with 5 elements.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutChromaLinkCustom (EffectArray1dInput data)
+        {
+            
+    
+            var path = "/chromalink/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutChromaLinkCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutChromaLinkCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect
         /// </summary>
         /// <returns>EffectResponse</returns>            
@@ -1005,6 +1340,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>            
         public EffectResponse PutChromaLinkStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PutChromaLinkStatic");
             
     
             var path = "/chromalink/static";
@@ -1104,6 +1442,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  1D array with 5 elements.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutHeadsetCustom (EffectArray1dInput data)
+        {
+            
+    
+            var path = "/headset/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutHeadsetCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutHeadsetCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect
         /// </summary>
         /// <returns>EffectResponse</returns>            
@@ -1142,6 +1515,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>            
         public EffectResponse PutHeadsetStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PutHeadsetStatic");
             
     
             var path = "/headset/static";
@@ -1206,6 +1582,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  2D array with 6 rows of 22 columns.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutKeyboardCustom (EffectArray2dInput data)
+        {
+            
+    
+            var path = "/keyboard/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboardCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeyboardCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect
         /// </summary>
         /// <returns>EffectResponse</returns>            
@@ -1244,6 +1655,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>            
         public EffectResponse PutKeyboardStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PutKeyboardStatic");
             
     
             var path = "/keyboard/static";
@@ -1308,6 +1722,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  2D array with 4 rows of 5 columns.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutKeypadCustom (EffectArray2dInput data)
+        {
+            
+    
+            var path = "/keypad/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeypadCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutKeypadCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect
         /// </summary>
         /// <returns>EffectResponse</returns>            
@@ -1346,6 +1795,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>            
         public EffectResponse PutKeypadStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PutKeypadStatic");
             
     
             var path = "/keypad/static";
@@ -1410,6 +1862,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  2D array with 9 rows of 7 columns.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutMouseCustom (EffectArray2dInput data)
+        {
+            
+    
+            var path = "/mouse/custom2";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMouseCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMouseCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect
         /// </summary>
         /// <returns>EffectResponse</returns>            
@@ -1448,6 +1935,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>            
         public EffectResponse PutMouseStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PutMouseStatic");
             
     
             var path = "/mouse/static";
@@ -1512,6 +2002,41 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
+        ///  1D array with 15 elements.
+        /// </summary>
+        /// <param name="data"></param> 
+        /// <returns>EffectResponse</returns>            
+        public EffectResponse PutMousepadCustom (EffectArray1dInput data)
+        {
+            
+    
+            var path = "/mousepad/custom";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+                                                postBody = ApiClient.Serialize(data); // http body (model) parameter
+			UnityEngine.Debug.Log(postBody);
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PUT, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMousepadCustom: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PutMousepadCustom: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (EffectResponse) ApiClient.Deserialize(response.Content, typeof(EffectResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  Turn off effect
         /// </summary>
         /// <returns>EffectResponse</returns>            
@@ -1550,6 +2075,9 @@ namespace ChromaSDK.Api
         /// <returns>EffectResponse</returns>            
         public EffectResponse PutMousepadStatic (int? color)
         {
+            
+            // verify the required parameter 'color' is set
+            if (color == null) throw new ApiException(400, "Missing required parameter 'color' when calling PutMousepadStatic");
             
     
             var path = "/mousepad/static";

@@ -6,40 +6,52 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Heartbeat**](DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
 [**PostChromaLink**](DefaultApi.md#postchromalink) | **POST** /chromalink | 
+[**PostChromaLinkCustom**](DefaultApi.md#postchromalinkcustom) | **POST** /chromalink/custom | 
 [**PostChromaLinkNone**](DefaultApi.md#postchromalinknone) | **POST** /chromalink/none | 
 [**PostChromaLinkStatic**](DefaultApi.md#postchromalinkstatic) | **POST** /chromalink/static | 
 [**PostHeadset**](DefaultApi.md#postheadset) | **POST** /headset | 
+[**PostHeadsetCustom**](DefaultApi.md#postheadsetcustom) | **POST** /headset/custom | 
 [**PostHeadsetNone**](DefaultApi.md#postheadsetnone) | **POST** /headset/none | 
 [**PostHeadsetStatic**](DefaultApi.md#postheadsetstatic) | **POST** /headset/static | 
 [**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /keyboard | 
+[**PostKeyboardCustom**](DefaultApi.md#postkeyboardcustom) | **POST** /keyboard/custom | 
 [**PostKeyboardNone**](DefaultApi.md#postkeyboardnone) | **POST** /keyboard/none | 
 [**PostKeyboardStatic**](DefaultApi.md#postkeyboardstatic) | **POST** /keyboard/static | 
 [**PostKeypad**](DefaultApi.md#postkeypad) | **POST** /keypad | 
+[**PostKeypadCustom**](DefaultApi.md#postkeypadcustom) | **POST** /keypad/custom | 
 [**PostKeypadNone**](DefaultApi.md#postkeypadnone) | **POST** /keypad/none | 
 [**PostKeypadStatic**](DefaultApi.md#postkeypadstatic) | **POST** /keypad/static | 
 [**PostMouse**](DefaultApi.md#postmouse) | **POST** /mouse | 
+[**PostMouseCustom**](DefaultApi.md#postmousecustom) | **POST** /mouse/custom2 | 
 [**PostMouseNone**](DefaultApi.md#postmousenone) | **POST** /mouse/none | 
 [**PostMouseStatic**](DefaultApi.md#postmousestatic) | **POST** /mouse/static | 
 [**PostMousepad**](DefaultApi.md#postmousepad) | **POST** /mousepad | 
+[**PostMousepadCustom**](DefaultApi.md#postmousepadcustom) | **POST** /mousepad/custom | 
 [**PostMousepadNone**](DefaultApi.md#postmousepadnone) | **POST** /mousepad/none | 
 [**PostMousepadStatic**](DefaultApi.md#postmousepadstatic) | **POST** /mousepad/static | 
 [**PutChromaLink**](DefaultApi.md#putchromalink) | **PUT** /chromalink | 
+[**PutChromaLinkCustom**](DefaultApi.md#putchromalinkcustom) | **PUT** /chromalink/custom | 
 [**PutChromaLinkNone**](DefaultApi.md#putchromalinknone) | **PUT** /chromalink/none | 
 [**PutChromaLinkStatic**](DefaultApi.md#putchromalinkstatic) | **PUT** /chromalink/static | 
 [**PutEffect**](DefaultApi.md#puteffect) | **PUT** /effect | 
 [**PutHeadset**](DefaultApi.md#putheadset) | **PUT** /headset | 
+[**PutHeadsetCustom**](DefaultApi.md#putheadsetcustom) | **PUT** /headset/custom | 
 [**PutHeadsetNone**](DefaultApi.md#putheadsetnone) | **PUT** /headset/none | 
 [**PutHeadsetStatic**](DefaultApi.md#putheadsetstatic) | **PUT** /headset/static | 
 [**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
+[**PutKeyboardCustom**](DefaultApi.md#putkeyboardcustom) | **PUT** /keyboard/custom | 
 [**PutKeyboardNone**](DefaultApi.md#putkeyboardnone) | **PUT** /keyboard/none | 
 [**PutKeyboardStatic**](DefaultApi.md#putkeyboardstatic) | **PUT** /keyboard/static | 
 [**PutKeypad**](DefaultApi.md#putkeypad) | **PUT** /keypad | 
+[**PutKeypadCustom**](DefaultApi.md#putkeypadcustom) | **PUT** /keypad/custom | 
 [**PutKeypadNone**](DefaultApi.md#putkeypadnone) | **PUT** /keypad/none | 
 [**PutKeypadStatic**](DefaultApi.md#putkeypadstatic) | **PUT** /keypad/static | 
 [**PutMouse**](DefaultApi.md#putmouse) | **PUT** /mouse | 
+[**PutMouseCustom**](DefaultApi.md#putmousecustom) | **PUT** /mouse/custom2 | 
 [**PutMouseNone**](DefaultApi.md#putmousenone) | **PUT** /mouse/none | 
 [**PutMouseStatic**](DefaultApi.md#putmousestatic) | **PUT** /mouse/static | 
 [**PutMousepad**](DefaultApi.md#putmousepad) | **PUT** /mousepad | 
+[**PutMousepadCustom**](DefaultApi.md#putmousepadcustom) | **PUT** /mousepad/custom | 
 [**PutMousepadNone**](DefaultApi.md#putmousepadnone) | **PUT** /mousepad/none | 
 [**PutMousepadStatic**](DefaultApi.md#putmousepadstatic) | **PUT** /mousepad/static | 
 [**RemoveEffect**](DefaultApi.md#removeeffect) | **PUT** /effect/remove | 
@@ -162,6 +174,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postchromalinkcustom"></a>
+# **PostChromaLinkCustom**
+> EffectResponseId PostChromaLinkCustom (EffectArray1dInput data = null)
+
+
+
+1D array with 5 elements. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostChromaLinkCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostChromaLinkCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostChromaLinkCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray1dInput**](EffectArray1dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="postchromalinknone"></a>
 # **PostChromaLinkNone**
 > EffectResponseId PostChromaLinkNone ()
@@ -221,7 +294,7 @@ No authorization required
 
 <a name="postchromalinkstatic"></a>
 # **PostChromaLinkStatic**
-> EffectResponseId PostChromaLinkStatic (int? color = null)
+> EffectResponseId PostChromaLinkStatic (int? color)
 
 
 
@@ -243,7 +316,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -263,7 +336,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -341,6 +414,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postheadsetcustom"></a>
+# **PostHeadsetCustom**
+> EffectResponseId PostHeadsetCustom (EffectArray1dInput data = null)
+
+
+
+1D array with 5 elements. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostHeadsetCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostHeadsetCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostHeadsetCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray1dInput**](EffectArray1dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="postheadsetnone"></a>
 # **PostHeadsetNone**
 > EffectResponseId PostHeadsetNone ()
@@ -400,7 +534,7 @@ No authorization required
 
 <a name="postheadsetstatic"></a>
 # **PostHeadsetStatic**
-> EffectResponseId PostHeadsetStatic (int? color = null)
+> EffectResponseId PostHeadsetStatic (int? color)
 
 
 
@@ -422,7 +556,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -442,7 +576,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -520,6 +654,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postkeyboardcustom"></a>
+# **PostKeyboardCustom**
+> EffectResponseId PostKeyboardCustom (EffectArray2dInput data = null)
+
+
+
+2D array with 6 rows of 22 columns. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostKeyboardCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostKeyboardCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostKeyboardCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray2dInput**](EffectArray2dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="postkeyboardnone"></a>
 # **PostKeyboardNone**
 > EffectResponseId PostKeyboardNone ()
@@ -579,7 +774,7 @@ No authorization required
 
 <a name="postkeyboardstatic"></a>
 # **PostKeyboardStatic**
-> EffectResponseId PostKeyboardStatic (int? color = null)
+> EffectResponseId PostKeyboardStatic (int? color)
 
 
 
@@ -601,7 +796,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -621,7 +816,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -699,6 +894,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postkeypadcustom"></a>
+# **PostKeypadCustom**
+> EffectResponseId PostKeypadCustom (EffectArray2dInput data = null)
+
+
+
+1D array with 4 rows of 5 columns. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostKeypadCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostKeypadCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostKeypadCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray2dInput**](EffectArray2dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="postkeypadnone"></a>
 # **PostKeypadNone**
 > EffectResponseId PostKeypadNone ()
@@ -758,7 +1014,7 @@ No authorization required
 
 <a name="postkeypadstatic"></a>
 # **PostKeypadStatic**
-> EffectResponseId PostKeypadStatic (int? color = null)
+> EffectResponseId PostKeypadStatic (int? color)
 
 
 
@@ -780,7 +1036,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -800,7 +1056,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -878,6 +1134,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postmousecustom"></a>
+# **PostMouseCustom**
+> EffectResponseId PostMouseCustom (EffectArray2dInput data = null)
+
+
+
+2D array with 9 rows of 7 columns. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostMouseCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostMouseCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostMouseCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray2dInput**](EffectArray2dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="postmousenone"></a>
 # **PostMouseNone**
 > EffectResponseId PostMouseNone ()
@@ -937,7 +1254,7 @@ No authorization required
 
 <a name="postmousestatic"></a>
 # **PostMouseStatic**
-> EffectResponseId PostMouseStatic (int? color = null)
+> EffectResponseId PostMouseStatic (int? color)
 
 
 
@@ -959,7 +1276,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -979,7 +1296,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -1057,6 +1374,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="postmousepadcustom"></a>
+# **PostMousepadCustom**
+> EffectResponseId PostMousepadCustom (EffectArray1dInput data = null)
+
+
+
+1D array with 15 elements. POST will return an effect id.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PostMousepadCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
+
+            try
+            {
+                EffectResponseId result = apiInstance.PostMousepadCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PostMousepadCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray1dInput**](EffectArray1dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponseId**](EffectResponseId.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="postmousepadnone"></a>
 # **PostMousepadNone**
 > EffectResponseId PostMousepadNone ()
@@ -1116,7 +1494,7 @@ No authorization required
 
 <a name="postmousepadstatic"></a>
 # **PostMousepadStatic**
-> EffectResponseId PostMousepadStatic (int? color = null)
+> EffectResponseId PostMousepadStatic (int? color)
 
 
 
@@ -1138,7 +1516,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -1158,7 +1536,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -1236,6 +1614,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="putchromalinkcustom"></a>
+# **PutChromaLinkCustom**
+> EffectResponse PutChromaLinkCustom (EffectArray1dInput data = null)
+
+
+
+1D array with 5 elements.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutChromaLinkCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutChromaLinkCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutChromaLinkCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray1dInput**](EffectArray1dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putchromalinknone"></a>
 # **PutChromaLinkNone**
 > EffectResponse PutChromaLinkNone ()
@@ -1295,7 +1734,7 @@ No authorization required
 
 <a name="putchromalinkstatic"></a>
 # **PutChromaLinkStatic**
-> EffectResponse PutChromaLinkStatic (int? color = null)
+> EffectResponse PutChromaLinkStatic (int? color)
 
 
 
@@ -1317,7 +1756,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -1337,7 +1776,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -1476,6 +1915,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="putheadsetcustom"></a>
+# **PutHeadsetCustom**
+> EffectResponse PutHeadsetCustom (EffectArray1dInput data = null)
+
+
+
+1D array with 5 elements.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutHeadsetCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutHeadsetCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutHeadsetCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray1dInput**](EffectArray1dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putheadsetnone"></a>
 # **PutHeadsetNone**
 > EffectResponse PutHeadsetNone ()
@@ -1535,7 +2035,7 @@ No authorization required
 
 <a name="putheadsetstatic"></a>
 # **PutHeadsetStatic**
-> EffectResponse PutHeadsetStatic (int? color = null)
+> EffectResponse PutHeadsetStatic (int? color)
 
 
 
@@ -1557,7 +2057,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -1577,7 +2077,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -1655,6 +2155,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="putkeyboardcustom"></a>
+# **PutKeyboardCustom**
+> EffectResponse PutKeyboardCustom (EffectArray2dInput data = null)
+
+
+
+2D array with 6 rows of 22 columns.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutKeyboardCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutKeyboardCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutKeyboardCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray2dInput**](EffectArray2dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putkeyboardnone"></a>
 # **PutKeyboardNone**
 > EffectResponse PutKeyboardNone ()
@@ -1714,7 +2275,7 @@ No authorization required
 
 <a name="putkeyboardstatic"></a>
 # **PutKeyboardStatic**
-> EffectResponse PutKeyboardStatic (int? color = null)
+> EffectResponse PutKeyboardStatic (int? color)
 
 
 
@@ -1736,7 +2297,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -1756,7 +2317,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -1834,6 +2395,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="putkeypadcustom"></a>
+# **PutKeypadCustom**
+> EffectResponse PutKeypadCustom (EffectArray2dInput data = null)
+
+
+
+2D array with 4 rows of 5 columns.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutKeypadCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutKeypadCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutKeypadCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray2dInput**](EffectArray2dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putkeypadnone"></a>
 # **PutKeypadNone**
 > EffectResponse PutKeypadNone ()
@@ -1893,7 +2515,7 @@ No authorization required
 
 <a name="putkeypadstatic"></a>
 # **PutKeypadStatic**
-> EffectResponse PutKeypadStatic (int? color = null)
+> EffectResponse PutKeypadStatic (int? color)
 
 
 
@@ -1915,7 +2537,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -1935,7 +2557,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -2013,6 +2635,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="putmousecustom"></a>
+# **PutMouseCustom**
+> EffectResponse PutMouseCustom (EffectArray2dInput data = null)
+
+
+
+2D array with 9 rows of 7 columns.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutMouseCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutMouseCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutMouseCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray2dInput**](EffectArray2dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putmousenone"></a>
 # **PutMouseNone**
 > EffectResponse PutMouseNone ()
@@ -2072,7 +2755,7 @@ No authorization required
 
 <a name="putmousestatic"></a>
 # **PutMouseStatic**
-> EffectResponse PutMouseStatic (int? color = null)
+> EffectResponse PutMouseStatic (int? color)
 
 
 
@@ -2094,7 +2777,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -2114,7 +2797,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 
@@ -2192,6 +2875,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="putmousepadcustom"></a>
+# **PutMousepadCustom**
+> EffectResponse PutMousepadCustom (EffectArray1dInput data = null)
+
+
+
+1D array with 15 elements.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using ChromaSDK.ChromaPackage;
+using ChromaSDK.Client;
+using ChromaSDK.ChromaPackage.Model;
+
+namespace Example
+{
+    public class PutMousepadCustomExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
+
+            try
+            {
+                EffectResponse result = apiInstance.PutMousepadCustom(data);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.PutMousepadCustom: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | [**EffectArray1dInput**](EffectArray1dInput.md)|  | [optional] 
+
+### Return type
+
+[**EffectResponse**](EffectResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a name="putmousepadnone"></a>
 # **PutMousepadNone**
 > EffectResponse PutMousepadNone ()
@@ -2251,7 +2995,7 @@ No authorization required
 
 <a name="putmousepadstatic"></a>
 # **PutMousepadStatic**
-> EffectResponse PutMousepadStatic (int? color = null)
+> EffectResponse PutMousepadStatic (int? color)
 
 
 
@@ -2273,7 +3017,7 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var color = 56;  // int? | Color value in BGR format (optional) 
+            var color = 56;  // int? | Color value in BGR format
 
             try
             {
@@ -2293,7 +3037,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **color** | **int?**| Color value in BGR format | [optional] 
+ **color** | **int?**| Color value in BGR format | 
 
 ### Return type
 

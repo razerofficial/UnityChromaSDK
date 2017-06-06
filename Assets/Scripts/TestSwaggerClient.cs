@@ -9,14 +9,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using ChromaApi = ChromaSDK.Api.DefaultApi;
-using ChromaCustomApi = CustomChromaSDK.Api.DefaultApi;
 using RazerApi = RazerSDK.Api.DefaultApi;
 using RazerDeleteApi = RazerSDKDelete.Api.DefaultApi;
-using CustomEffectType = CustomChromaSDK.CustomChromaPackage.Model.EffectType;
-using CustomEffectInput = CustomChromaSDK.CustomChromaPackage.Model.EffectInput;
-using CustomEffectInput1D = CustomChromaSDK.CustomChromaPackage.Model.EffectInput1D;
-using CustomEffectResponse = CustomChromaSDK.CustomChromaPackage.Model.EffectResponse;
-using CustomEffectResponseId = CustomChromaSDK.CustomChromaPackage.Model.EffectResponseId;
 using Random = System.Random;
 
 public class TestSwaggerClient : MonoBehaviour
@@ -70,11 +64,6 @@ public class TestSwaggerClient : MonoBehaviour
     private ChromaApi _mApiInstance;
 
     /// <summary>
-    /// Instance of the custom API
-    /// </summary>
-    private ChromaCustomApi _mApiCustomInstance;
-
-    /// <summary>
     /// Thread safe random object
     /// </summary>
     private static Random _sRandom = new System.Random(123);
@@ -100,12 +89,32 @@ public class TestSwaggerClient : MonoBehaviour
     delegate EffectResponse SetEffectMethod(EffectInput data);
 
     /// <summary>
-    /// Delegates method for setting custom effects
+    /// Delegate method for setting custom effects for one-dimensional arrays
     /// </summary>
-    delegate CustomEffectResponse PutCustomEffectMethod(CustomEffectInput data);
-    delegate CustomEffectResponse PutCustomEffectMethod1D(CustomEffectInput1D data);
-    delegate CustomEffectResponseId PostCustomEffectMethod(CustomEffectInput data);
-    delegate CustomEffectResponseId PostCustomEffectMethod1D(CustomEffectInput1D data);
+    /// <param name="colors"></param>
+    /// <returns></returns>
+    delegate EffectResponse PutCustomArray1dMethod(EffectArray1dInput data);
+
+    /// <summary>
+    /// Delegate method for setting custom effects for two-dimensional arrays
+    /// </summary>
+    /// <param name="colors"></param>
+    /// <returns></returns>
+    delegate EffectResponse PutCustomArray2dMethod(EffectArray2dInput data);
+
+    /// <summary>
+    /// Delegate method for setting custom effects for one-dimensional arrays
+    /// </summary>
+    /// <param name="colors"></param>
+    /// <returns></returns>
+    delegate EffectResponseId PostCustomArray1dMethod(EffectArray1dInput data);
+
+    /// <summary>
+    /// Delegate method for setting custom effects for two-dimensional arrays
+    /// </summary>
+    /// <param name="colors"></param>
+    /// <returns></returns>
+    delegate EffectResponseId PostCustomArray2dMethod(EffectArray2dInput data);
 
     /// <summary>
     /// Detect app shutdown
@@ -183,15 +192,14 @@ public class TestSwaggerClient : MonoBehaviour
     /// </summary>
     /// <param name="maxElements"></param>
     /// <returns></returns>
-    private static CustomEffectInput1D GetCustomEffectChroma(int maxElements)
+    private static EffectArray1dInput GetCustomEffectChroma(int maxElements)
     {
-        var elements = new List<int?>();
+        var elements = new EffectArray1dInput();
         for (int i = 0; i < maxElements; ++i)
         {
             elements.Add(_sRandom.Next(16777215));
         }
-        var input = new CustomEffectInput1D(CustomEffectType.CHROMA_CUSTOM, elements);
-        return input;
+        return elements;
     }
 
     /// <summary>
@@ -200,20 +208,19 @@ public class TestSwaggerClient : MonoBehaviour
     /// <param name="maxColumns"></param>
     /// <param name="maxRows"></param>
     /// <returns></returns>
-    private static CustomEffectInput GetCustomEffectChroma(int maxColumns, int maxRows)
+    private static EffectArray2dInput GetCustomEffectChroma(int maxColumns, int maxRows)
     {
-        var rows = new List<List<int?>>();
+        var rows = new EffectArray2dInput();
         for (int i = 0; i < maxRows; ++i)
         {
-            var row = new List<int?>();
+            var row = new List<int>();
             for (int j = 0; j < maxColumns; ++j)
             {
                 row.Add(_sRandom.Next(16777215));
             }
             rows.Add(row);
         }
-        var input = new CustomEffectInput(CustomEffectType.CHROMA_CUSTOM, rows);
-        return input;
+        return rows;
     }
 
     #endregion
@@ -263,7 +270,6 @@ public class TestSwaggerClient : MonoBehaviour
             // setup the api instances with the session uri
             _mApiRazerDeleteInstance = new RazerDeleteApi(result.Uri);
             _mApiInstance = new ChromaApi(result.Uri);
-            _mApiCustomInstance = new ChromaCustomApi(result.Uri);
 
             Debug.Log("Init complete.");
 
@@ -316,7 +322,6 @@ public class TestSwaggerClient : MonoBehaviour
             _mApiRazerInstance = null;
             _mApiRazerDeleteInstance = null;
             _mApiInstance = null;
-            _mApiCustomInstance = null;
 
             DeleteChromaSdkResponse result = instance.DeleteChromaSdk();
             Debug.Log(result);
@@ -435,72 +440,38 @@ public class TestSwaggerClient : MonoBehaviour
         return results;
     }
 
-    #region Put
+    /// <summary>
+    /// Container for custom method and data
+    /// </summary>
+    class PutAnimationData1D
+    {
+        public PutCustomArray1dMethod Method { get; set; }
+        public EffectArray1dInput Data { get; set; }
+        public PutAnimationData1D(PutCustomArray1dMethod method, EffectArray1dInput data)
+        {
+            Method = method;
+            Data = data;
+        }
+    }
 
     /// <summary>
-    /// Implicitly create a KeyValuePair item without all the explicit types
+    /// Container for custom method and data
     /// </summary>
-    /// <param name="method"></param>
-    /// <param name="data"></param>
-    /// <returns></returns>
-    private static KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D> CreatePutItem(PutCustomEffectMethod1D method, int elements)
+    class PutAnimationData2D
     {
-        return CreatePutItem(method, elements, CustomEffectType.CHROMA_CUSTOM);
+        public PutCustomArray2dMethod Method { get; set; }
+        public EffectArray2dInput Data { get; set; }
+        public PutAnimationData2D(PutCustomArray2dMethod method, EffectArray2dInput data)
+        {
+            Method = method;
+            Data = data;
+        }
     }
-    private static KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D> CreatePutItem(PutCustomEffectMethod1D method, int elements, CustomEffectType effectType)
-    {
-        var input = GetCustomEffectChroma(elements);
-        input.Effect = effectType;
-        return new KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D>(method, input);
-    }
-    private static KeyValuePair<PutCustomEffectMethod, CustomEffectInput> CreatePutItem(PutCustomEffectMethod method, int columns, int rows)
-    {
-        return CreatePutItem(method, columns, rows, CustomEffectType.CHROMA_CUSTOM);
-    }
-    private static KeyValuePair<PutCustomEffectMethod, CustomEffectInput> CreatePutItem(PutCustomEffectMethod method, int columns, int rows, CustomEffectType effectType)
-    {
-        var input = GetCustomEffectChroma(columns, rows);
-        input.Effect = effectType;
-        return new KeyValuePair<PutCustomEffectMethod, CustomEffectInput>(method, input);
-    }
-
-    #endregion
-
-    #region Post
-
-    /// <summary>
-    /// Implicitly create a KeyValuePair item without all the explicit types
-    /// </summary>
-    /// <param name="method"></param>
-    /// <param name="data"></param>
-    /// <returns></returns>
-    private static KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D> CreatePostItem(PostCustomEffectMethod1D method, int elements)
-    {
-        return CreatePostItem(method, elements, CustomEffectType.CHROMA_CUSTOM);
-    }
-    private static KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D> CreatePostItem(PostCustomEffectMethod1D method, int elements, CustomEffectType effectType)
-    {
-        var input = GetCustomEffectChroma(elements);
-        input.Effect = effectType;
-        return new KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D>(method, input);
-    }
-    private static KeyValuePair<PostCustomEffectMethod, CustomEffectInput> CreatePostItem(PostCustomEffectMethod method, int columns, int rows)
-    {
-        return CreatePostItem(method, columns, rows, CustomEffectType.CHROMA_CUSTOM);
-    }
-    private static KeyValuePair<PostCustomEffectMethod, CustomEffectInput> CreatePostItem(PostCustomEffectMethod method, int columns, int rows, CustomEffectType effectType)
-    {
-        var input = GetCustomEffectChroma(columns, rows);
-        input.Effect = effectType;
-        return new KeyValuePair<PostCustomEffectMethod, CustomEffectInput>(method, input);
-    }
-
-    #endregion
 
     /// <summary>
     /// Use the API to set the CHROMA_CUSTOM effect
     /// </summary>
-    List<CustomEffectResponse> SetKeyboardCustomEffect()
+    List<EffectResponse> SetKeyboardCustomEffect()
     {
         if (null == _mApiInstance)
         {
@@ -508,47 +479,75 @@ public class TestSwaggerClient : MonoBehaviour
             return null;
         }
 
-        var results = new List<CustomEffectResponse>();
+        var results = new List<EffectResponse>();
 
         #region 2D
-        var items = new List<KeyValuePair<PutCustomEffectMethod, CustomEffectInput>>();
-        items.Add(CreatePutItem(_mApiCustomInstance.PutKeyboard, 22, 6));
-        items.Add(CreatePutItem(_mApiCustomInstance.PutKeypad, 5, 4));
-        items.Add(CreatePutItem(_mApiCustomInstance.PutMouse, 7, 9, CustomEffectType.CHROMA_CUSTOM2));
-        foreach (KeyValuePair<PutCustomEffectMethod, CustomEffectInput> item in items)
+        var items2d = new List<PutAnimationData2D>();
+        items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeyboardCustom, GetCustomEffectChroma(22, 6)));
+        items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeypadCustom, GetCustomEffectChroma(5, 4)));
+        items2d.Add(new PutAnimationData2D(_mApiInstance.PutMouseCustom, GetCustomEffectChroma(7, 9)));
+        foreach (PutAnimationData2D item in items2d)
         {
             try
             {
-                CustomEffectResponse result = item.Key.Invoke(item.Value);
+                EffectResponse result = item.Method.Invoke(item.Data);
                 Debug.Log(result);
                 results.Add(result);
             }
             catch (Exception)
             {
-                Debug.LogErrorFormat("Failed to invoke: {0}", item.Key.Method);
+                Debug.LogErrorFormat("Failed to invoke: {0}", item.Method);
             }
         }
         #endregion
         #region 1D
-        var items1D = new List<KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D>>();
-        items1D.Add(CreatePutItem(_mApiCustomInstance.PutChromaLink, 5));
-        items1D.Add(CreatePutItem(_mApiCustomInstance.PutHeadset, 5));
-        items1D.Add(CreatePutItem(_mApiCustomInstance.PutMousepad, 15));
-        foreach (KeyValuePair<PutCustomEffectMethod1D, CustomEffectInput1D> item in items1D)
+        var items1d = new List<PutAnimationData1D>();
+        items1d.Add(new PutAnimationData1D(_mApiInstance.PutChromaLinkCustom, GetCustomEffectChroma(5)));
+        items1d.Add(new PutAnimationData1D(_mApiInstance.PutHeadsetCustom, GetCustomEffectChroma(5)));
+        items1d.Add(new PutAnimationData1D(_mApiInstance.PutMousepadCustom, GetCustomEffectChroma(15)));
+        foreach (PutAnimationData1D item in items1d)
         {
             try
             {
-                CustomEffectResponse result = item.Key.Invoke(item.Value);
+                EffectResponse result = item.Method.Invoke(item.Data);
                 Debug.Log(result);
                 results.Add(result);
             }
             catch (Exception)
             {
-                Debug.LogErrorFormat("Failed to invoke: {0}", item.Key.Method);
+                Debug.LogErrorFormat("Failed to invoke: {0}", item.Method);
             }
         }
         #endregion
         return results;
+    }
+
+    /// <summary>
+    /// Container for custom method and data
+    /// </summary>
+    class PostAnimationData1D
+    {
+        public PostCustomArray1dMethod Method { get; set; }
+        public EffectArray1dInput Data { get; set; }
+        public PostAnimationData1D(PostCustomArray1dMethod method, EffectArray1dInput data)
+        {
+            Method = method;
+            Data = data;
+        }
+    }
+
+    /// <summary>
+    /// Container for custom method and data
+    /// </summary>
+    class PostAnimationData2D
+    {
+        public PostCustomArray2dMethod Method { get; set; }
+        public EffectArray2dInput Data { get; set; }
+        public PostAnimationData2D(PostCustomArray2dMethod method, EffectArray2dInput data)
+        {
+            Method = method;
+            Data = data;
+        }
     }
 
     /// <summary>
@@ -581,40 +580,40 @@ public class TestSwaggerClient : MonoBehaviour
             List<string> effects = new List<string>();
 
             #region 2D
-            var items = new List<KeyValuePair<PostCustomEffectMethod, CustomEffectInput>>();
-            items.Add(CreatePostItem(_mApiCustomInstance.PostKeyboard, 22, 6));
-            items.Add(CreatePostItem(_mApiCustomInstance.PostKeypad, 5, 4));
-            items.Add(CreatePostItem(_mApiCustomInstance.PostMouse, 7, 9, CustomEffectType.CHROMA_CUSTOM2));
-            foreach (KeyValuePair<PostCustomEffectMethod, CustomEffectInput> item in items)
+            var items2d = new List<PostAnimationData2D>();
+            items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeyboardCustom, GetCustomEffectChroma(22, 6)));
+            items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeypadCustom, GetCustomEffectChroma(5, 4)));
+            items2d.Add(new PostAnimationData2D(_mApiInstance.PostMouseCustom, GetCustomEffectChroma(7, 9)));
+            foreach (PostAnimationData2D item in items2d)
             {
                 try
                 {
-                    CustomEffectResponseId result = item.Key.Invoke(item.Value);
+                    EffectResponseId result = item.Method.Invoke(item.Data);
                     Debug.Log(result);
                     effects.Add(result.Id);
                 }
                 catch (Exception)
                 {
-                    Debug.LogErrorFormat("Failed to invoke: {0}", item.Key.Method);
+                    Debug.LogErrorFormat("Failed to invoke: {0}", item.Method);
                 }
             }
             #endregion
             #region 1D
-            var items1D = new List<KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D>>();
-            items1D.Add(CreatePostItem(_mApiCustomInstance.PostChromaLink, 5));
-            items1D.Add(CreatePostItem(_mApiCustomInstance.PostHeadset, 5));
-            items1D.Add(CreatePostItem(_mApiCustomInstance.PostMousepad, 15));
-            foreach (KeyValuePair<PostCustomEffectMethod1D, CustomEffectInput1D> item in items1D)
+            var items1d = new List<PostAnimationData1D>();
+            items1d.Add(new PostAnimationData1D(_mApiInstance.PostChromaLinkCustom, GetCustomEffectChroma(5)));
+            items1d.Add(new PostAnimationData1D(_mApiInstance.PostHeadsetCustom, GetCustomEffectChroma(5)));
+            items1d.Add(new PostAnimationData1D(_mApiInstance.PostMousepadCustom, GetCustomEffectChroma(15)));
+            foreach (PostAnimationData1D item in items1d)
             {
                 try
                 {
-                    CustomEffectResponseId result = item.Key.Invoke(item.Value);
+                    EffectResponseId result = item.Method.Invoke(item.Data);
                     Debug.Log(result);
                     effects.Add(result.Id);
                 }
                 catch (Exception)
                 {
-                    Debug.LogErrorFormat("Failed to invoke: {0}", item.Key.Method);
+                    Debug.LogErrorFormat("Failed to invoke: {0}", item.Method);
                 }
             }
             #endregion

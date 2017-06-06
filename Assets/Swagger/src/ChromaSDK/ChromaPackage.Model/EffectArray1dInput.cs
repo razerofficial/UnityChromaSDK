@@ -20,29 +20,22 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace CustomChromaSDK.CustomChromaPackage.Model
+namespace ChromaSDK.ChromaPackage.Model
 {
     /// <summary>
-    /// EffectResponse
+    /// 1 dimensional array. Color values are in BGR format.
     /// </summary>
     [DataContract]
-    public partial class EffectResponse :  IEquatable<EffectResponse>
+    public partial class EffectArray1dInput : List<int?>,  IEquatable<EffectArray1dInput>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EffectResponse" /> class.
+        /// Initializes a new instance of the <see cref="EffectArray1dInput" /> class.
         /// </summary>
-        /// <param name="Result">Result.</param>
-        public EffectResponse(int? Result = default(int?))
+        [JsonConstructorAttribute]
+        public EffectArray1dInput()
         {
-            this.Result = Result;
         }
         
-        /// <summary>
-        /// Gets or Sets Result
-        /// </summary>
-        [DataMember(Name="result")]
-		[JsonProperty(PropertyName = "result")]
-        public int? Result { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -50,8 +43,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class EffectResponse {\n");
-            sb.Append("  Result: ").Append(Result).Append("\n");
+            sb.Append("class EffectArray1dInput {\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -60,7 +52,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public  new string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -73,26 +65,21 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as EffectResponse);
+            return this.Equals(obj as EffectArray1dInput);
         }
 
         /// <summary>
-        /// Returns true if EffectResponse instances are equal
+        /// Returns true if EffectArray1dInput instances are equal
         /// </summary>
-        /// <param name="other">Instance of EffectResponse to be compared</param>
+        /// <param name="other">Instance of EffectArray1dInput to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(EffectResponse other)
+        public bool Equals(EffectArray1dInput other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
                 return false;
 
-            return 
-                (
-                    this.Result == other.Result ||
-                    this.Result != null &&
-                    this.Result.Equals(other.Result)
-                );
+            return false;
         }
 
         /// <summary>
@@ -106,8 +93,6 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.Result != null)
-                    hash = hash * 59 + this.Result.GetHashCode();
                 return hash;
             }
         }

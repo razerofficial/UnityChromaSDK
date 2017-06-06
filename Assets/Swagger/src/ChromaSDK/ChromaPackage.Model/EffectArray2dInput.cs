@@ -20,37 +20,22 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace CustomChromaSDK.CustomChromaPackage.Model
+namespace ChromaSDK.ChromaPackage.Model
 {
     /// <summary>
-    /// EffectResponseItemId
+    /// 2 dimensional array. Color values are in BGR format.
     /// </summary>
     [DataContract]
-    public partial class EffectResponseItemId :  IEquatable<EffectResponseItemId>
+    public partial class EffectArray2dInput : List<List<int>>,  IEquatable<EffectArray2dInput>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EffectResponseItemId" /> class.
+        /// Initializes a new instance of the <see cref="EffectArray2dInput" /> class.
         /// </summary>
-        /// <param name="Id">Id.</param>
-        /// <param name="Result">Result.</param>
-        public EffectResponseItemId(string Id = default(string), int? Result = default(int?))
+        [JsonConstructorAttribute]
+        public EffectArray2dInput()
         {
-            this.Id = Id;
-            this.Result = Result;
         }
         
-        /// <summary>
-        /// Gets or Sets Id
-        /// </summary>
-        [DataMember(Name="id")]
-		[JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
-        /// <summary>
-        /// Gets or Sets Result
-        /// </summary>
-        [DataMember(Name="result")]
-		[JsonProperty(PropertyName = "result")]
-        public int? Result { get; set; }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -58,9 +43,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class EffectResponseItemId {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Result: ").Append(Result).Append("\n");
+            sb.Append("class EffectArray2dInput {\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -69,7 +52,7 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public  new string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -82,31 +65,21 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
         public override bool Equals(object obj)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
-            return this.Equals(obj as EffectResponseItemId);
+            return this.Equals(obj as EffectArray2dInput);
         }
 
         /// <summary>
-        /// Returns true if EffectResponseItemId instances are equal
+        /// Returns true if EffectArray2dInput instances are equal
         /// </summary>
-        /// <param name="other">Instance of EffectResponseItemId to be compared</param>
+        /// <param name="other">Instance of EffectArray2dInput to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(EffectResponseItemId other)
+        public bool Equals(EffectArray2dInput other)
         {
             // credit: http://stackoverflow.com/a/10454552/677735
             if (other == null)
                 return false;
 
-            return 
-                (
-                    this.Id == other.Id ||
-                    this.Id != null &&
-                    this.Id.Equals(other.Id)
-                ) && 
-                (
-                    this.Result == other.Result ||
-                    this.Result != null &&
-                    this.Result.Equals(other.Result)
-                );
+            return false;
         }
 
         /// <summary>
@@ -120,10 +93,6 @@ namespace CustomChromaSDK.CustomChromaPackage.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.Id != null)
-                    hash = hash * 59 + this.Id.GetHashCode();
-                if (this.Result != null)
-                    hash = hash * 59 + this.Result.GetHashCode();
                 return hash;
             }
         }
