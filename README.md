@@ -485,7 +485,7 @@ EffectResponse result = _mApiChromaInstance.PutMouseCustom(rows);
 
 **Mousepad**
 
-`Headset` uses a 1D array with 15 elements for `CUSTOM` effects.
+`Mousepad` uses a 1D array with 15 elements for `CUSTOM` effects.
 
 ```charp
 int maxElements = 15;
@@ -630,7 +630,7 @@ EffectResponseId result = _mApiChromaInstance.PostMouseCustom(rows);
 
 **Mousepad**
 
-`Headset` uses a 1D array with 15 elements for `CUSTOM` effects.
+`Mousepad` uses a 1D array with 15 elements for `CUSTOM` effects.
 
 ```charp
 int maxElements = 15;
