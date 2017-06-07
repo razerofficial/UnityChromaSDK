@@ -226,31 +226,31 @@ EffectResponseId result = _mApiChromaInstance.PostChromaLinkNone();
 **Headset**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostHeadsetNone();
+EffectResponseId result = _mApiChromaInstance.PostHeadsetNone();
 ```
 
 **Keyboard**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostKeyboardNone();
+EffectResponseId result = _mApiChromaInstance.PostKeyboardNone();
 ```
 
 **Keypad**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostKeypadNone();
+EffectResponseId result = _mApiChromaInstance.PostKeypadNone();
 ```
 
 **Mouse**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostMouseNone();
+EffectResponseId result = _mApiChromaInstance.PostMouseNone();
 ```
 
 **Mousepad**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostMousepadNone();
+EffectResponseId result = _mApiChromaInstance.PostMousepadNone();
 ```
 
 ### Colors
@@ -331,29 +331,29 @@ EffectResponseId result = _mApiChromaInstance.PostChromaLinkStatic(bgrInteger);
 **Headset**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostHeadsetStatic(bgrInteger);
+EffectResponseId result = _mApiChromaInstance.PostHeadsetStatic(bgrInteger);
 ```
 
 **Keyboard**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostKeyboardStatic(bgrInteger);
+EffectResponseId result = _mApiChromaInstance.PostKeyboardStatic(bgrInteger);
 ```
 
 **Keypad**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostKeypadStatic(bgrInteger);
+EffectResponseId result = _mApiChromaInstance.PostKeypadStatic(bgrInteger);
 ```
 
 **Mouse**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostMouseStatic(bgrInteger);
+EffectResponseId result = _mApiChromaInstance.PostMouseStatic(bgrInteger);
 ```
 
 **Mousepad**
 
 ```charp
-EffectResponse result = _mApiChromaInstance.PostMousepadStatic(bgrInteger);
+EffectResponseId result = _mApiChromaInstance.PostMousepadStatic(bgrInteger);
 ```
