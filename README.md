@@ -647,3 +647,131 @@ for (int i = 0; i < maxElements; ++i)
 // Set the custom effect
 EffectResponseId result = _mApiChromaInstance.PostMousepadCustom(elements);
 ```
+
+### `EffectType`
+
+Set the `EffectType` to set the device lighting effects to use one of the built-in effects.
+`PUT` and `POST` support `CHROMA_BREATHING`, `CHROMA_REACTIVE`, `CHROMA_SPECTRUMCYCLING`, and `CHROMA_WAVE` to set the lighting effect.
+**Note: Not all effect types are supported on all devices.**
+
+#### EffectTypes
+
+**CHROMA_BREATHING**
+
+`CHROMA_BREATHING` transitions between two colors.
+
+```csharp
+var effectInput = new EffectInput(EffectType.CHROMA_BREATHING);
+effectInput.Param = new EffectInputParam();
+effectInput.Param.Color1 = ChromaUtils.ToBGR(Color.red);
+effectInput.Param.Color2 = ChromaUtils.ToBGR(Color.green);
+effectInput.Param.Type = 1; //1 or 2
+```
+
+**CHROMA_REACTIVE**
+
+`CHROMA_REACTIVE` reacts to device presses to show a color for a duration. A duration of 1 is shorter than 3.
+
+```csharp
+var effectInput = new EffectInput(EffectType.CHROMA_REACTIVE);
+effectInput.Param = new EffectInputParam();
+effectInput.Param.Color = ChromaUtils.ToBGR(Color.red);
+effectInput.Param.Duration = 1; // 1, 2, or 3
+```
+
+**CHROMA_SPECTRUMCYCLING**
+
+`CHROMA_SPECTRUMCYCLING` is a built-in effect that cycles between spectrum colors.
+
+```charp
+var effectInput = new EffectInput(EffectType.CHROMA_SPECTRUMCYCLING);
+effectInput.Param = new EffectInputParam();
+```
+
+**CHROMA_WAVE**
+
+```csharp
+var effectInput = new EffectInput(EffectType.CHROMA_WAVE);
+effectInput.Param = new EffectInputParam();
+effectInput.Param.Direction = 1; //1 or 2
+```
+
+### `PUT` `EffectType`
+
+The following `PUT` endpoints use the `EffectInput` objects defined above.
+
+**ChromaLink**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutChromaLink(effectInput);
+```
+
+**Headset**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutHeadset(effectInput);
+```
+
+**Keyboard**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutKeyboard(effectInput);
+```
+
+**Keypad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutKeypad(effectInput);
+```
+
+**Mouse**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutMouse(effectInput);
+```
+
+**Mousepad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutMousepad(effectInput);
+```
+
+### `POST` `EffectType`
+
+The following `POST` endpoints use the `EffectInput` objects defined above to create an effect identifier.
+
+**ChromaLink**
+
+```charp
+EffectResponseId result = _mApiChromaInstance.PostChromaLink(effectInput);
+```
+
+**Headset**
+
+```charp
+EffectResponseId result = _mApiChromaInstance.PostHeadset(effectInput);
+```
+
+**Keyboard**
+
+```charp
+EffectResponseId result = _mApiChromaInstance.PostKeyboard(effectInput);
+```
+
+**Keypad**
+
+```charp
+EffectResponseId result = _mApiChromaInstance.PostKeypad(effectInput);
+```
+
+**Mouse**
+
+```charp
+EffectResponseId result = _mApiChromaInstance.PostMouse(effectInput);
+```
+
+**Mousepad**
+
+```charp
+EffectResponseId result = _mApiChromaInstance.PostMousepad(effectInput);
+```

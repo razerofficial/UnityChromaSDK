@@ -800,6 +800,114 @@ public class ChromaExample01 : MonoBehaviour
 
         GUILayout.EndHorizontal();
 
+        GUILayout.Label("Set a built-in effect on all devices");
+
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("Breathing 1", GUILayout.Height(height)))
+        {
+            // avoid blocking the UI thread
+            ChromaUtils.RunOnThread(() =>
+            {
+                var input = new EffectInput(EffectType.CHROMA_BREATHING);
+                input.Param = new EffectInputParam();
+                input.Param.Color1 = ChromaUtils.ToBGR(Color.red);
+                input.Param.Color2 = ChromaUtils.ToBGR(Color.green);
+                input.Param.Type = 1;
+                SetEffectOnAll(input);
+            });
+        }
+
+        if (GUILayout.Button("Breathing 2", GUILayout.Height(height)))
+        {
+            // avoid blocking the UI thread
+            ChromaUtils.RunOnThread(() =>
+            {
+                var input = new EffectInput(EffectType.CHROMA_BREATHING);
+                input.Param = new EffectInputParam();
+                input.Param.Color1 = ChromaUtils.ToBGR(Color.green);
+                input.Param.Color2 = ChromaUtils.ToBGR(Color.yellow);
+                input.Param.Type = 2;
+                SetEffectOnAll(input);
+            });
+        }
+
+        if (GUILayout.Button("Reactive 1", GUILayout.Height(height)))
+        {
+            // avoid blocking the UI thread
+            ChromaUtils.RunOnThread(() =>
+            {
+                var input = new EffectInput(EffectType.CHROMA_REACTIVE);
+                input.Param = new EffectInputParam();
+                input.Param.Color = ChromaUtils.ToBGR(Color.red);
+                input.Param.Duration = 1;
+                SetEffectOnAll(input);
+            });
+        }
+
+        if (GUILayout.Button("Reactive 2", GUILayout.Height(height)))
+        {
+            // avoid blocking the UI thread
+            ChromaUtils.RunOnThread(() =>
+            {
+                var input = new EffectInput(EffectType.CHROMA_REACTIVE);
+                input.Param = new EffectInputParam();
+                input.Param.Color = ChromaUtils.ToBGR(Color.green);
+                input.Param.Duration = 2;
+                SetEffectOnAll(input);
+            });
+        }
+
+        if (GUILayout.Button("Reactive 3", GUILayout.Height(height)))
+        {
+            // avoid blocking the UI thread
+            ChromaUtils.RunOnThread(() =>
+            {
+                var input = new EffectInput(EffectType.CHROMA_REACTIVE);
+                input.Param = new EffectInputParam();
+                input.Param.Color = ChromaUtils.ToBGR(Color.blue);
+                input.Param.Duration = 3;
+                SetEffectOnAll(input);
+            });
+        }
+
+        if (GUILayout.Button("Spectrum Cycling", GUILayout.Height(height)))
+        {
+            // avoid blocking the UI thread
+            ChromaUtils.RunOnThread(() =>
+            {
+                var input = new EffectInput(EffectType.CHROMA_SPECTRUMCYCLING);
+                input.Param = new EffectInputParam();
+                SetEffectOnAll(input);
+            });
+        }
+
+        if (GUILayout.Button("Wave 1", GUILayout.Height(height)))
+        {
+            // avoid blocking the UI thread
+            ChromaUtils.RunOnThread(() =>
+            {
+                var input = new EffectInput(EffectType.CHROMA_WAVE);
+                input.Param = new EffectInputParam();
+                input.Param.Direction = 1;
+                SetEffectOnAll(input);
+            });
+        }
+
+        if (GUILayout.Button("Wave 2", GUILayout.Height(height)))
+        {
+            // avoid blocking the UI thread
+            ChromaUtils.RunOnThread(() =>
+            {
+                var input = new EffectInput(EffectType.CHROMA_WAVE);
+                input.Param = new EffectInputParam();
+                input.Param.Direction = 2;
+                SetEffectOnAll(input);
+            });
+        }
+
+        GUILayout.EndHorizontal();
+
         GUILayout.Label("Set a different color to a specific device");
 
         GUILayout.BeginHorizontal();

@@ -32,9 +32,19 @@ namespace ChromaSDK.ChromaPackage.Model
         /// Initializes a new instance of the <see cref="EffectInputParam" /> class.
         /// </summary>
         /// <param name="Color">Color value in BGR format.</param>
-        public EffectInputParam(int? Color = default(int?))
+        /// <param name="Color1">Color 1 value in BGR format.</param>
+        /// <param name="Color2">Color 2 value in BGR format.</param>
+        /// <param name="Direction">Effect direction.</param>
+        /// <param name="Duration">Effect duration.</param>
+        /// <param name="Type">Effect type.</param>
+        public EffectInputParam(int? Color = default(int?), int? Color1 = default(int?), int? Color2 = default(int?), int? Direction = default(int?), int? Duration = default(int?), int? Type = default(int?))
         {
             this.Color = Color;
+            this.Color1 = Color1;
+            this.Color2 = Color2;
+            this.Direction = Direction;
+            this.Duration = Duration;
+            this.Type = Type;
         }
         
         /// <summary>
@@ -45,6 +55,41 @@ namespace ChromaSDK.ChromaPackage.Model
 		[JsonProperty(PropertyName = "color")]
         public int? Color { get; set; }
         /// <summary>
+        /// Color 1 value in BGR format
+        /// </summary>
+        /// <value>Color 1 value in BGR format</value>
+        [DataMember(Name="color1")]
+		[JsonProperty(PropertyName = "color1")]
+        public int? Color1 { get; set; }
+        /// <summary>
+        /// Color 2 value in BGR format
+        /// </summary>
+        /// <value>Color 2 value in BGR format</value>
+        [DataMember(Name="color2")]
+		[JsonProperty(PropertyName = "color2")]
+        public int? Color2 { get; set; }
+        /// <summary>
+        /// Effect direction
+        /// </summary>
+        /// <value>Effect direction</value>
+        [DataMember(Name="direction")]
+		[JsonProperty(PropertyName = "direction")]
+        public int? Direction { get; set; }
+        /// <summary>
+        /// Effect duration
+        /// </summary>
+        /// <value>Effect duration</value>
+        [DataMember(Name="duration")]
+		[JsonProperty(PropertyName = "duration")]
+        public int? Duration { get; set; }
+        /// <summary>
+        /// Effect type
+        /// </summary>
+        /// <value>Effect type</value>
+        [DataMember(Name="type")]
+		[JsonProperty(PropertyName = "type")]
+        public int? Type { get; set; }
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -53,6 +98,11 @@ namespace ChromaSDK.ChromaPackage.Model
             var sb = new StringBuilder();
             sb.Append("class EffectInputParam {\n");
             sb.Append("  Color: ").Append(Color).Append("\n");
+            sb.Append("  Color1: ").Append(Color1).Append("\n");
+            sb.Append("  Color2: ").Append(Color2).Append("\n");
+            sb.Append("  Direction: ").Append(Direction).Append("\n");
+            sb.Append("  Duration: ").Append(Duration).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -93,6 +143,31 @@ namespace ChromaSDK.ChromaPackage.Model
                     this.Color == other.Color ||
                     this.Color != null &&
                     this.Color.Equals(other.Color)
+                ) && 
+                (
+                    this.Color1 == other.Color1 ||
+                    this.Color1 != null &&
+                    this.Color1.Equals(other.Color1)
+                ) && 
+                (
+                    this.Color2 == other.Color2 ||
+                    this.Color2 != null &&
+                    this.Color2.Equals(other.Color2)
+                ) && 
+                (
+                    this.Direction == other.Direction ||
+                    this.Direction != null &&
+                    this.Direction.Equals(other.Direction)
+                ) && 
+                (
+                    this.Duration == other.Duration ||
+                    this.Duration != null &&
+                    this.Duration.Equals(other.Duration)
+                ) && 
+                (
+                    this.Type == other.Type ||
+                    this.Type != null &&
+                    this.Type.Equals(other.Type)
                 );
         }
 
@@ -109,6 +184,16 @@ namespace ChromaSDK.ChromaPackage.Model
                 // Suitable nullity checks etc, of course :)
                 if (this.Color != null)
                     hash = hash * 59 + this.Color.GetHashCode();
+                if (this.Color1 != null)
+                    hash = hash * 59 + this.Color1.GetHashCode();
+                if (this.Color2 != null)
+                    hash = hash * 59 + this.Color2.GetHashCode();
+                if (this.Direction != null)
+                    hash = hash * 59 + this.Direction.GetHashCode();
+                if (this.Duration != null)
+                    hash = hash * 59 + this.Duration.GetHashCode();
+                if (this.Type != null)
+                    hash = hash * 59 + this.Type.GetHashCode();
                 return hash;
             }
         }
