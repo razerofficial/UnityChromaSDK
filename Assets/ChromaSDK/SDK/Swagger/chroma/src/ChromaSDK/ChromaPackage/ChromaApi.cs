@@ -447,7 +447,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -482,7 +482,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -552,7 +552,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -587,7 +587,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -622,7 +622,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -692,7 +692,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -727,7 +727,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -762,7 +762,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -832,7 +832,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -867,7 +867,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -902,7 +902,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -972,7 +972,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1007,7 +1007,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1042,7 +1042,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1112,7 +1112,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1147,7 +1147,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1182,7 +1182,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1252,7 +1252,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1287,7 +1287,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1322,7 +1322,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1392,7 +1392,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1427,7 +1427,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1462,7 +1462,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1497,7 +1497,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1567,7 +1567,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1602,7 +1602,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1637,7 +1637,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1707,7 +1707,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1742,7 +1742,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1777,7 +1777,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1847,7 +1847,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1882,7 +1882,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1917,7 +1917,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -1987,7 +1987,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -2022,7 +2022,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -2057,7 +2057,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -2127,7 +2127,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(color); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };
@@ -2162,7 +2162,7 @@ namespace ChromaSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(data); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };

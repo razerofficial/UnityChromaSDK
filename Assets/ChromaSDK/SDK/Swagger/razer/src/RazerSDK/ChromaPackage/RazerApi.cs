@@ -91,7 +91,7 @@ namespace RazerSDK.Api
             String postBody = null;
     
                                                 postBody = ApiClient.Serialize(baseInput); // http body (model) parameter
-			UnityEngine.Debug.Log(postBody);
+			//UnityEngine.Debug.Log(postBody);
     
             // authentication setting, if any
             String[] authSettings = new String[] {  };

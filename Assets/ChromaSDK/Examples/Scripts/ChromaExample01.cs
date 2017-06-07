@@ -214,7 +214,7 @@ public class ChromaExample01 : MonoBehaviour
 
             Debug.Log("Initializing...");
             PostChromaSdkResponse result = _mApiRazerInstance.PostChromaSdk(input);
-            Debug.Log(result);
+            //Debug.Log(result);
 
             // setup the api instance with the session uri
             _mApiChromaInstance = new ChromaApi(result.Uri);
@@ -280,7 +280,7 @@ public class ChromaExample01 : MonoBehaviour
 
             // destroy the Chroma session
             DeleteChromaSdkResponse result = _mApiChromaInstance.DeleteChromaSdk();
-            Debug.Log(result);
+            //Debug.Log(result);
         }
         catch (Exception e)
         {
@@ -319,7 +319,7 @@ public class ChromaExample01 : MonoBehaviour
             try
             {
                 EffectResponse result = method.Invoke();
-                Debug.Log(result);
+                //Debug.Log(result);
                 results.Add(result);
             }
             catch (Exception)
@@ -357,7 +357,7 @@ public class ChromaExample01 : MonoBehaviour
             try
             {
                 EffectResponse result = method.Invoke(color);
-                Debug.Log(result);
+                //Debug.Log(result);
                 results.Add(result);
             }
             catch (Exception)
@@ -395,7 +395,7 @@ public class ChromaExample01 : MonoBehaviour
             try
             {
                 EffectResponse result = method.Invoke(input);
-                Debug.Log(result);
+                //Debug.Log(result);
                 results.Add(result);
             }
             catch (Exception)
@@ -458,7 +458,7 @@ public class ChromaExample01 : MonoBehaviour
             try
             {
                 EffectResponse result = item.Method.Invoke(item.Data);
-                Debug.Log(result);
+                //Debug.Log(result);
                 results.Add(result);
             }
             catch (Exception)
@@ -477,7 +477,7 @@ public class ChromaExample01 : MonoBehaviour
             try
             {
                 EffectResponse result = item.Method.Invoke(item.Data);
-                Debug.Log(result);
+                //Debug.Log(result);
                 results.Add(result);
             }
             catch (Exception)
@@ -556,7 +556,7 @@ public class ChromaExample01 : MonoBehaviour
                 try
                 {
                     EffectResponseId result = item.Method.Invoke(item.Data);
-                    Debug.Log(result);
+                    //Debug.Log(result);
                     effects.Add(result.Id);
                 }
                 catch (Exception)
@@ -575,7 +575,7 @@ public class ChromaExample01 : MonoBehaviour
                 try
                 {
                     EffectResponseId result = item.Method.Invoke(item.Data);
-                    Debug.Log(result);
+                    //Debug.Log(result);
                     effects.Add(result.Id);
                 }
                 catch (Exception)
@@ -629,7 +629,7 @@ public class ChromaExample01 : MonoBehaviour
                 {
                     var input = new EffectIdentifierInput(id, null);
                     EffectIdentifierResponse result = _mApiChromaInstance.RemoveEffect(input);
-                    Debug.Log(result);
+                    //Debug.Log(result);
                 }
                 catch (Exception e)
                 {
@@ -648,7 +648,7 @@ public class ChromaExample01 : MonoBehaviour
             {
                 var input = new EffectIdentifierInput(null, effects);
                 EffectIdentifierResponse result = _mApiChromaInstance.RemoveEffect(input);
-                Debug.Log(result);
+                //Debug.Log(result);
             }
             catch (Exception e)
             {
