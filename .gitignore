@@ -4,6 +4,7 @@ Temp/
 *.csproj
 *.sln
 *.unitypackage
+*.csproj.user
 /obj
 /bin
 /generate_csharp_client.cmd - Shortcut.lnk
