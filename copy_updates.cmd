@@ -1,5 +1,7 @@
 SET PATH=%PATH%;c:\cygwin64\bin
 
+CD "Assets\ChromaSDK\SDK\Swagger"
+
 SET VER=chromasdk_csharp
 rm -r -f "chroma"
 IF EXIST "chroma" PAUSE

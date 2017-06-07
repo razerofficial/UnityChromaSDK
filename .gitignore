@@ -6,7 +6,7 @@ Temp/
 *.unitypackage
 /obj
 /bin
-Assets/ChromaSDK/SDK/Swagger/generate_csharp_client.cmd - Shortcut.lnk
-Assets/ChromaSDK/SDK/Swagger/generate_csharp_client.cmd - Shortcut.lnk.meta
-Assets/ChromaSDK/SDK/Swagger/maven_clean_package.cmd - Shortcut.lnk
-Assets/ChromaSDK/SDK/Swagger/maven_clean_package.cmd - Shortcut.lnk.meta
+/generate_csharp_client.cmd - Shortcut.lnk
+/generate_csharp_client.cmd - Shortcut.lnk.meta
+/maven_clean_package.cmd - Shortcut.lnk
+/maven_clean_package.cmd - Shortcut.lnk.meta
