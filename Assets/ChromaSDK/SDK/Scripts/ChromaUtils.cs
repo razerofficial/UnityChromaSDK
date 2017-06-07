@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Threading;
+using UnityEngine;
 
 namespace ChromaSDK.ChromaPackage.Model
 {
@@ -29,6 +31,25 @@ namespace ChromaSDK.ChromaPackage.Model
             int green = (color & 0xFF00) >> 8;
             int blue = (color & 0xFF0000) >> 16;
             return new Color(red * invert, green * invert, blue * invert);
+        }
+
+        /// <summary>
+        /// Avoid blocking the Unity main thread, execute the action on a new thread
+        /// </summary>
+        /// <param name="action"></param>
+        public static void RunOnThread(Action action)
+        {
+            Thread thread = new Thread(new ThreadStart(() => {
+                try
+                {
+                    action.Invoke();
+                }
+                catch (Exception)
+                {
+                    Debug.LogError("Failed to invoke action!");
+                }
+            }));
+            thread.Start();
         }
     }
 }

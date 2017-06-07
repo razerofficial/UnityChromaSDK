@@ -124,25 +124,6 @@ public class ChromaExample01 : MonoBehaviour
         _mMainActions.Add(action);
     }
 
-    /// <summary>
-    /// Avoid blocking the UI thread
-    /// </summary>
-    /// <param name="action"></param>
-    void RunOnThread(Action action)
-    {
-        Thread thread = new Thread(new ThreadStart(() => {
-            try
-            {
-                action.Invoke();
-            }
-            catch (Exception)
-            {
-                Debug.LogError("Failed to invoke action!");
-            }
-        }));
-        thread.Start();
-    }
-
 #region Helpers
 
     /// <summary>
@@ -281,7 +262,7 @@ public class ChromaExample01 : MonoBehaviour
         // delay
         yield return new WaitForSeconds(2);
 
-        RunOnThread(() =>
+        ChromaUtils.RunOnThread(() =>
         {
             // start initialization
             PostChromaSdk();
@@ -747,7 +728,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Blue", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.blue));
             });
@@ -757,7 +738,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Green", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.green));
             });
@@ -767,7 +748,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Red", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.red));
             });
@@ -777,7 +758,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Orange", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 SetEffectStaticOnAll(ChromaUtils.ToBGR(new Color(1f, 0.5f, 0f)));
             });
@@ -787,7 +768,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Aqua", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 SetEffectStaticOnAll(ChromaUtils.ToBGR(new Color(0, 1f, 1f)));
             });
@@ -797,7 +778,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("White", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.white));
             });
@@ -808,7 +789,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Random", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 SetKeyboardCustomEffect();
             });
@@ -817,7 +798,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Clear", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 SetEffectNoneOnAll();
             });
@@ -833,7 +814,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Keyboard", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.blue));
                 _mApiInstance.PutKeyboard(input);
@@ -844,7 +825,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Headset", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.green));
                 _mApiInstance.PutHeadset(input);
@@ -855,7 +836,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Mouse", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.red));
                 _mApiInstance.PutMouse(input);
@@ -866,7 +847,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Mousepad", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(1f, 0.5f, 0f)));
                 _mApiInstance.PutMousepad(input);
@@ -877,7 +858,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Keypad", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(0f, 1f, 1f)));
                 _mApiInstance.PutKeypad(input);
@@ -888,7 +869,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("ChromaLink", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.white));
                 _mApiInstance.PutChromaLink(input);
@@ -906,7 +887,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Start", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 DoAnimation();
             });
@@ -924,7 +905,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Register Chroma Server", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 PostChromaSdk();
             });
@@ -933,7 +914,7 @@ public class ChromaExample01 : MonoBehaviour
         if (GUILayout.Button("Unregister Chroma Server", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
-            RunOnThread(() =>
+            ChromaUtils.RunOnThread(() =>
             {
                 DeleteChromaSdk();
             });
@@ -963,7 +944,7 @@ public class ChromaExample01 : MonoBehaviour
         _mWaitForExit = false;
 
         // avoid blocking the UI thread
-        RunOnThread(() =>
+        ChromaUtils.RunOnThread(() =>
         {
             DeleteChromaSdk();
         });
@@ -978,7 +959,7 @@ public class ChromaExample01 : MonoBehaviour
         _mWaitForExit = false;
 
         // avoid blocking the UI thread
-        RunOnThread(() =>
+        ChromaUtils.RunOnThread(() =>
         {
             DeleteChromaSdk();
         });
