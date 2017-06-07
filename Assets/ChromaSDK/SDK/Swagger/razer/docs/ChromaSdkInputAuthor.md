@@ -1,4 +1,4 @@
-# RazerSDK.RazerPackage.Model.ChromaSdkInputAuthor
+# RazerSDK.ChromaPackage.Model.ChromaSdkInputAuthor
 ## Properties
 
 Name | Type | Description | Notes

@@ -34,9 +34,9 @@ Run the following command to generate the DLL
 
 Then include the DLL (under the `bin` folder) in the C# project, and use the namespaces:
 ```csharp
-using RazerSDK.RazerPackage;
+using RazerSDK.ChromaPackage;
 using RazerSDK.Client;
-using RazerSDK.RazerPackage.Model;
+using RazerSDK.ChromaPackage.Model;
 ```
 <a name="packaging"></a>
 ## Packaging
@@ -57,9 +57,9 @@ Then, publish to a [local feed](https://docs.microsoft.com/en-us/nuget/hosting-p
 ```csharp
 using System;
 using System.Diagnostics;
-using RazerSDK.RazerPackage;
+using RazerSDK.ChromaPackage;
 using RazerSDK.Client;
-using RazerSDK.RazerPackage.Model;
+using RazerSDK.ChromaPackage.Model;
 
 namespace Example
 {
@@ -98,9 +98,9 @@ Class | Method | HTTP request | Description
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
- - [RazerPackage.Model.ChromaSdkInput](docs/ChromaSdkInput.md)
- - [RazerPackage.Model.ChromaSdkInputAuthor](docs/ChromaSdkInputAuthor.md)
- - [RazerPackage.Model.PostChromaSdkResponse](docs/PostChromaSdkResponse.md)
+ - [ChromaPackage.Model.ChromaSdkInput](docs/ChromaSdkInput.md)
+ - [ChromaPackage.Model.ChromaSdkInputAuthor](docs/ChromaSdkInputAuthor.md)
+ - [ChromaPackage.Model.PostChromaSdkResponse](docs/PostChromaSdkResponse.md)
 
 
 <a name="documentation-for-authorization"></a>

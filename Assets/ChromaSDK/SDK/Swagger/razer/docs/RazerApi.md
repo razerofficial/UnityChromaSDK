@@ -1,4 +1,4 @@
-# RazerSDK.RazerPackage.RazerApi
+# RazerSDK.ChromaPackage.RazerApi
 
 All URIs are relative to *http://localhost:54235/razer*
 
@@ -19,9 +19,9 @@ Initialize the Chroma SDK
 ```csharp
 using System;
 using System.Diagnostics;
-using RazerSDK.RazerPackage;
+using RazerSDK.ChromaPackage;
 using RazerSDK.Client;
-using RazerSDK.RazerPackage.Model;
+using RazerSDK.ChromaPackage.Model;
 
 namespace Example
 {

@@ -1,6 +1,5 @@
 ﻿using ChromaSDK.ChromaPackage.Model;
-using RazerSDK.RazerPackage.Model;
-using RazerSDKDelete.RazerDeletePackage.Model;
+using RazerSDK.ChromaPackage.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ using UnityEngine;
 
 using ChromaApi = ChromaSDK.Api.ChromaApi;
 using RazerApi = RazerSDK.Api.RazerApi;
-using RazerDeleteApi = RazerSDKDelete.Api.RazerDeleteApi;
 using Random = System.Random;
 
 public class ChromaExample01 : MonoBehaviour
@@ -23,11 +21,6 @@ public class ChromaExample01 : MonoBehaviour
     /// Instance of the RazerAPI
     /// </summary>
     private RazerApi _mApiRazerInstance;
-
-    /// <summary>
-    /// Instance of the RazerAPI for delete
-    /// </summary>
-    private RazerDeleteApi _mApiRazerDeleteInstance;
 
     /// <summary>
     /// Instance of the API
@@ -219,8 +212,7 @@ public class ChromaExample01 : MonoBehaviour
             PostChromaSdkResponse result = _mApiRazerInstance.PostChromaSdk(input);
             Debug.Log(result);
 
-            // setup the api instances with the session uri
-            _mApiRazerDeleteInstance = new RazerDeleteApi(result.Uri);
+            // setup the api instance with the session uri
             _mApiInstance = new ChromaApi(result.Uri);
 
             Debug.Log("Init complete.");
@@ -277,17 +269,16 @@ public class ChromaExample01 : MonoBehaviour
     {
         try
         {
-            if (null == _mApiRazerDeleteInstance)
+            if (null == _mApiInstance)
             {
                 return;
             }
 
-            // save a reference to the delete instance
-            RazerDeleteApi instance = _mApiRazerDeleteInstance;
+            // save a reference to the chroma instance
+            ChromaApi instance = _mApiInstance;
 
             // clear the references
             _mApiRazerInstance = null;
-            _mApiRazerDeleteInstance = null;
             _mApiInstance = null;
 
             DeleteChromaSdkResponse result = instance.DeleteChromaSdk();

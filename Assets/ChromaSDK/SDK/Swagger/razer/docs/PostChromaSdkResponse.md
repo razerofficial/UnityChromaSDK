@@ -1,4 +1,4 @@
-# RazerSDK.RazerPackage.Model.PostChromaSdkResponse
+# RazerSDK.ChromaPackage.Model.PostChromaSdkResponse
 ## Properties
 
 Name | Type | Description | Notes
