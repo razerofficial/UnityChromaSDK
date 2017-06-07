@@ -15,16 +15,6 @@ using Random = System.Random;
 public class ChromaExample01 : MonoBehaviour
 {
     /// <summary>
-    /// Colors
-    /// </summary>
-    const int COLOR_AQUA = 16776960;
-    const int COLOR_BLUE = 16711680;
-    const int COLOR_GREEN = 65280;
-    const int COLOR_RED = 255;
-    const int COLOR_ORANGE = 32767;
-    const int COLOR_WHITE = 16777215;
-
-    /// <summary>
     /// Meta references to ui controls
     /// </summary>
     private string _mTextHeartbeat;
@@ -759,7 +749,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                SetEffectStaticOnAll(COLOR_BLUE);
+                SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.blue));
             });
         }
 
@@ -769,7 +759,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                SetEffectStaticOnAll(COLOR_GREEN);
+                SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.green));
             });
         }
 
@@ -779,27 +769,27 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                SetEffectStaticOnAll(COLOR_RED);
+                SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.red));
             });
         }
 
-        GUI.backgroundColor = new Color(255, 127, 0);
+        GUI.backgroundColor = new Color(1f, 0.5f, 0f);
         if (GUILayout.Button("Orange", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                SetEffectStaticOnAll(COLOR_ORANGE);
+                SetEffectStaticOnAll(ChromaUtils.ToBGR(new Color(1f, 0.5f, 0f)));
             });
         }
 
-        GUI.backgroundColor = new Color(0, 255, 255);
+        GUI.backgroundColor = new Color(0f, 1f, 1f);
         if (GUILayout.Button("Aqua", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                SetEffectStaticOnAll(COLOR_AQUA);
+                SetEffectStaticOnAll(ChromaUtils.ToBGR(new Color(0, 1f, 1f)));
             });
         }
 
@@ -809,7 +799,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                SetEffectStaticOnAll(COLOR_WHITE);
+                SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.white));
             });
         }
 
@@ -845,7 +835,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_BLUE);
+                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.blue));
                 _mApiInstance.PutKeyboard(input);
             });
         }
@@ -856,7 +846,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_GREEN);
+                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.green));
                 _mApiInstance.PutHeadset(input);
             });
         }
@@ -867,29 +857,29 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_RED);
+                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.red));
                 _mApiInstance.PutMouse(input);
             });
         }
 
-        GUI.backgroundColor = new Color(255, 127, 0);
+        GUI.backgroundColor = new Color(1f, 0.5f, 0f);
         if (GUILayout.Button("Mousepad", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_ORANGE);
+                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(1f, 0.5f, 0f)));
                 _mApiInstance.PutMousepad(input);
             });
         }
 
-        GUI.backgroundColor = new Color(0, 255, 255);
+        GUI.backgroundColor = new Color(0f, 1f, 1f);
         if (GUILayout.Button("Keypad", GUILayout.Height(height)))
         {
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_AQUA);
+                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(0f, 1f, 1f)));
                 _mApiInstance.PutKeypad(input);
             });
         }
@@ -900,7 +890,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(COLOR_WHITE);
+                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.white));
                 _mApiInstance.PutChromaLink(input);
             });
         }
