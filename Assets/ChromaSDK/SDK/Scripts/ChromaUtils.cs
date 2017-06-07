@@ -24,10 +24,11 @@ namespace ChromaSDK.ChromaPackage.Model
         /// <returns></returns>
         public static Color ToRGB(int color)
         {
+            const float invert = 1f / 255f;
             int red = color & 0xFF;
             int green = (color & 0xFF00) >> 8;
-            int blue = (color & 0xFF000) >> 16;
-            return new Color(red * 255f, green * 255f, blue * 255f);
+            int blue = (color & 0xFF0000) >> 16;
+            return new Color(red * invert, green * invert, blue * invert);
         }
     }
 }
