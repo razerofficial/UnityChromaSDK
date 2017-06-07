@@ -1,60 +1,60 @@
-# ChromaSDK.ChromaPackage.DefaultApi
+# ChromaSDK.ChromaPackage.ChromaApi
 
 All URIs are relative to *http://localhost:54235/chromasdk*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Heartbeat**](DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
-[**PostChromaLink**](DefaultApi.md#postchromalink) | **POST** /chromalink | 
-[**PostChromaLinkCustom**](DefaultApi.md#postchromalinkcustom) | **POST** /chromalink/custom | 
-[**PostChromaLinkNone**](DefaultApi.md#postchromalinknone) | **POST** /chromalink/none | 
-[**PostChromaLinkStatic**](DefaultApi.md#postchromalinkstatic) | **POST** /chromalink/static | 
-[**PostHeadset**](DefaultApi.md#postheadset) | **POST** /headset | 
-[**PostHeadsetCustom**](DefaultApi.md#postheadsetcustom) | **POST** /headset/custom | 
-[**PostHeadsetNone**](DefaultApi.md#postheadsetnone) | **POST** /headset/none | 
-[**PostHeadsetStatic**](DefaultApi.md#postheadsetstatic) | **POST** /headset/static | 
-[**PostKeyboard**](DefaultApi.md#postkeyboard) | **POST** /keyboard | 
-[**PostKeyboardCustom**](DefaultApi.md#postkeyboardcustom) | **POST** /keyboard/custom | 
-[**PostKeyboardNone**](DefaultApi.md#postkeyboardnone) | **POST** /keyboard/none | 
-[**PostKeyboardStatic**](DefaultApi.md#postkeyboardstatic) | **POST** /keyboard/static | 
-[**PostKeypad**](DefaultApi.md#postkeypad) | **POST** /keypad | 
-[**PostKeypadCustom**](DefaultApi.md#postkeypadcustom) | **POST** /keypad/custom | 
-[**PostKeypadNone**](DefaultApi.md#postkeypadnone) | **POST** /keypad/none | 
-[**PostKeypadStatic**](DefaultApi.md#postkeypadstatic) | **POST** /keypad/static | 
-[**PostMouse**](DefaultApi.md#postmouse) | **POST** /mouse | 
-[**PostMouseCustom**](DefaultApi.md#postmousecustom) | **POST** /mouse/custom2 | 
-[**PostMouseNone**](DefaultApi.md#postmousenone) | **POST** /mouse/none | 
-[**PostMouseStatic**](DefaultApi.md#postmousestatic) | **POST** /mouse/static | 
-[**PostMousepad**](DefaultApi.md#postmousepad) | **POST** /mousepad | 
-[**PostMousepadCustom**](DefaultApi.md#postmousepadcustom) | **POST** /mousepad/custom | 
-[**PostMousepadNone**](DefaultApi.md#postmousepadnone) | **POST** /mousepad/none | 
-[**PostMousepadStatic**](DefaultApi.md#postmousepadstatic) | **POST** /mousepad/static | 
-[**PutChromaLink**](DefaultApi.md#putchromalink) | **PUT** /chromalink | 
-[**PutChromaLinkCustom**](DefaultApi.md#putchromalinkcustom) | **PUT** /chromalink/custom | 
-[**PutChromaLinkNone**](DefaultApi.md#putchromalinknone) | **PUT** /chromalink/none | 
-[**PutChromaLinkStatic**](DefaultApi.md#putchromalinkstatic) | **PUT** /chromalink/static | 
-[**PutEffect**](DefaultApi.md#puteffect) | **PUT** /effect | 
-[**PutHeadset**](DefaultApi.md#putheadset) | **PUT** /headset | 
-[**PutHeadsetCustom**](DefaultApi.md#putheadsetcustom) | **PUT** /headset/custom | 
-[**PutHeadsetNone**](DefaultApi.md#putheadsetnone) | **PUT** /headset/none | 
-[**PutHeadsetStatic**](DefaultApi.md#putheadsetstatic) | **PUT** /headset/static | 
-[**PutKeyboard**](DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
-[**PutKeyboardCustom**](DefaultApi.md#putkeyboardcustom) | **PUT** /keyboard/custom | 
-[**PutKeyboardNone**](DefaultApi.md#putkeyboardnone) | **PUT** /keyboard/none | 
-[**PutKeyboardStatic**](DefaultApi.md#putkeyboardstatic) | **PUT** /keyboard/static | 
-[**PutKeypad**](DefaultApi.md#putkeypad) | **PUT** /keypad | 
-[**PutKeypadCustom**](DefaultApi.md#putkeypadcustom) | **PUT** /keypad/custom | 
-[**PutKeypadNone**](DefaultApi.md#putkeypadnone) | **PUT** /keypad/none | 
-[**PutKeypadStatic**](DefaultApi.md#putkeypadstatic) | **PUT** /keypad/static | 
-[**PutMouse**](DefaultApi.md#putmouse) | **PUT** /mouse | 
-[**PutMouseCustom**](DefaultApi.md#putmousecustom) | **PUT** /mouse/custom2 | 
-[**PutMouseNone**](DefaultApi.md#putmousenone) | **PUT** /mouse/none | 
-[**PutMouseStatic**](DefaultApi.md#putmousestatic) | **PUT** /mouse/static | 
-[**PutMousepad**](DefaultApi.md#putmousepad) | **PUT** /mousepad | 
-[**PutMousepadCustom**](DefaultApi.md#putmousepadcustom) | **PUT** /mousepad/custom | 
-[**PutMousepadNone**](DefaultApi.md#putmousepadnone) | **PUT** /mousepad/none | 
-[**PutMousepadStatic**](DefaultApi.md#putmousepadstatic) | **PUT** /mousepad/static | 
-[**RemoveEffect**](DefaultApi.md#removeeffect) | **PUT** /effect/remove | 
+[**Heartbeat**](ChromaApi.md#heartbeat) | **PUT** /heartbeat | 
+[**PostChromaLink**](ChromaApi.md#postchromalink) | **POST** /chromalink | 
+[**PostChromaLinkCustom**](ChromaApi.md#postchromalinkcustom) | **POST** /chromalink/custom | 
+[**PostChromaLinkNone**](ChromaApi.md#postchromalinknone) | **POST** /chromalink/none | 
+[**PostChromaLinkStatic**](ChromaApi.md#postchromalinkstatic) | **POST** /chromalink/static | 
+[**PostHeadset**](ChromaApi.md#postheadset) | **POST** /headset | 
+[**PostHeadsetCustom**](ChromaApi.md#postheadsetcustom) | **POST** /headset/custom | 
+[**PostHeadsetNone**](ChromaApi.md#postheadsetnone) | **POST** /headset/none | 
+[**PostHeadsetStatic**](ChromaApi.md#postheadsetstatic) | **POST** /headset/static | 
+[**PostKeyboard**](ChromaApi.md#postkeyboard) | **POST** /keyboard | 
+[**PostKeyboardCustom**](ChromaApi.md#postkeyboardcustom) | **POST** /keyboard/custom | 
+[**PostKeyboardNone**](ChromaApi.md#postkeyboardnone) | **POST** /keyboard/none | 
+[**PostKeyboardStatic**](ChromaApi.md#postkeyboardstatic) | **POST** /keyboard/static | 
+[**PostKeypad**](ChromaApi.md#postkeypad) | **POST** /keypad | 
+[**PostKeypadCustom**](ChromaApi.md#postkeypadcustom) | **POST** /keypad/custom | 
+[**PostKeypadNone**](ChromaApi.md#postkeypadnone) | **POST** /keypad/none | 
+[**PostKeypadStatic**](ChromaApi.md#postkeypadstatic) | **POST** /keypad/static | 
+[**PostMouse**](ChromaApi.md#postmouse) | **POST** /mouse | 
+[**PostMouseCustom**](ChromaApi.md#postmousecustom) | **POST** /mouse/custom2 | 
+[**PostMouseNone**](ChromaApi.md#postmousenone) | **POST** /mouse/none | 
+[**PostMouseStatic**](ChromaApi.md#postmousestatic) | **POST** /mouse/static | 
+[**PostMousepad**](ChromaApi.md#postmousepad) | **POST** /mousepad | 
+[**PostMousepadCustom**](ChromaApi.md#postmousepadcustom) | **POST** /mousepad/custom | 
+[**PostMousepadNone**](ChromaApi.md#postmousepadnone) | **POST** /mousepad/none | 
+[**PostMousepadStatic**](ChromaApi.md#postmousepadstatic) | **POST** /mousepad/static | 
+[**PutChromaLink**](ChromaApi.md#putchromalink) | **PUT** /chromalink | 
+[**PutChromaLinkCustom**](ChromaApi.md#putchromalinkcustom) | **PUT** /chromalink/custom | 
+[**PutChromaLinkNone**](ChromaApi.md#putchromalinknone) | **PUT** /chromalink/none | 
+[**PutChromaLinkStatic**](ChromaApi.md#putchromalinkstatic) | **PUT** /chromalink/static | 
+[**PutEffect**](ChromaApi.md#puteffect) | **PUT** /effect | 
+[**PutHeadset**](ChromaApi.md#putheadset) | **PUT** /headset | 
+[**PutHeadsetCustom**](ChromaApi.md#putheadsetcustom) | **PUT** /headset/custom | 
+[**PutHeadsetNone**](ChromaApi.md#putheadsetnone) | **PUT** /headset/none | 
+[**PutHeadsetStatic**](ChromaApi.md#putheadsetstatic) | **PUT** /headset/static | 
+[**PutKeyboard**](ChromaApi.md#putkeyboard) | **PUT** /keyboard | 
+[**PutKeyboardCustom**](ChromaApi.md#putkeyboardcustom) | **PUT** /keyboard/custom | 
+[**PutKeyboardNone**](ChromaApi.md#putkeyboardnone) | **PUT** /keyboard/none | 
+[**PutKeyboardStatic**](ChromaApi.md#putkeyboardstatic) | **PUT** /keyboard/static | 
+[**PutKeypad**](ChromaApi.md#putkeypad) | **PUT** /keypad | 
+[**PutKeypadCustom**](ChromaApi.md#putkeypadcustom) | **PUT** /keypad/custom | 
+[**PutKeypadNone**](ChromaApi.md#putkeypadnone) | **PUT** /keypad/none | 
+[**PutKeypadStatic**](ChromaApi.md#putkeypadstatic) | **PUT** /keypad/static | 
+[**PutMouse**](ChromaApi.md#putmouse) | **PUT** /mouse | 
+[**PutMouseCustom**](ChromaApi.md#putmousecustom) | **PUT** /mouse/custom2 | 
+[**PutMouseNone**](ChromaApi.md#putmousenone) | **PUT** /mouse/none | 
+[**PutMouseStatic**](ChromaApi.md#putmousestatic) | **PUT** /mouse/static | 
+[**PutMousepad**](ChromaApi.md#putmousepad) | **PUT** /mousepad | 
+[**PutMousepadCustom**](ChromaApi.md#putmousepadcustom) | **PUT** /mousepad/custom | 
+[**PutMousepadNone**](ChromaApi.md#putmousepadnone) | **PUT** /mousepad/none | 
+[**PutMousepadStatic**](ChromaApi.md#putmousepadstatic) | **PUT** /mousepad/static | 
+[**RemoveEffect**](ChromaApi.md#removeeffect) | **PUT** /effect/remove | 
 
 
 <a name="heartbeat"></a>
@@ -80,7 +80,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -88,7 +88,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.Heartbeat: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.Heartbeat: " + e.Message );
             }
         }
     }
@@ -136,7 +136,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -146,7 +146,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostChromaLink: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostChromaLink: " + e.Message );
             }
         }
     }
@@ -197,7 +197,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
 
             try
@@ -207,7 +207,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostChromaLinkCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostChromaLinkCustom: " + e.Message );
             }
         }
     }
@@ -258,7 +258,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -267,7 +267,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostChromaLinkNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostChromaLinkNone: " + e.Message );
             }
         }
     }
@@ -315,7 +315,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -325,7 +325,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostChromaLinkStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostChromaLinkStatic: " + e.Message );
             }
         }
     }
@@ -376,7 +376,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -386,7 +386,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostHeadset: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostHeadset: " + e.Message );
             }
         }
     }
@@ -437,7 +437,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
 
             try
@@ -447,7 +447,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostHeadsetCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostHeadsetCustom: " + e.Message );
             }
         }
     }
@@ -498,7 +498,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -507,7 +507,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostHeadsetNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostHeadsetNone: " + e.Message );
             }
         }
     }
@@ -555,7 +555,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -565,7 +565,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostHeadsetStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostHeadsetStatic: " + e.Message );
             }
         }
     }
@@ -616,7 +616,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -626,7 +626,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeyboard: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostKeyboard: " + e.Message );
             }
         }
     }
@@ -677,7 +677,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
 
             try
@@ -687,7 +687,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeyboardCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostKeyboardCustom: " + e.Message );
             }
         }
     }
@@ -738,7 +738,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -747,7 +747,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeyboardNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostKeyboardNone: " + e.Message );
             }
         }
     }
@@ -795,7 +795,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -805,7 +805,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeyboardStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostKeyboardStatic: " + e.Message );
             }
         }
     }
@@ -856,7 +856,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -866,7 +866,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeypad: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostKeypad: " + e.Message );
             }
         }
     }
@@ -917,7 +917,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
 
             try
@@ -927,7 +927,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeypadCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostKeypadCustom: " + e.Message );
             }
         }
     }
@@ -978,7 +978,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -987,7 +987,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeypadNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostKeypadNone: " + e.Message );
             }
         }
     }
@@ -1035,7 +1035,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -1045,7 +1045,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostKeypadStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostKeypadStatic: " + e.Message );
             }
         }
     }
@@ -1096,7 +1096,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -1106,7 +1106,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostMouse: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostMouse: " + e.Message );
             }
         }
     }
@@ -1157,7 +1157,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
 
             try
@@ -1167,7 +1167,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostMouseCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostMouseCustom: " + e.Message );
             }
         }
     }
@@ -1218,7 +1218,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -1227,7 +1227,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostMouseNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostMouseNone: " + e.Message );
             }
         }
     }
@@ -1275,7 +1275,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -1285,7 +1285,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostMouseStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostMouseStatic: " + e.Message );
             }
         }
     }
@@ -1336,7 +1336,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -1346,7 +1346,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostMousepad: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostMousepad: " + e.Message );
             }
         }
     }
@@ -1397,7 +1397,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
 
             try
@@ -1407,7 +1407,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostMousepadCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostMousepadCustom: " + e.Message );
             }
         }
     }
@@ -1458,7 +1458,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -1467,7 +1467,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostMousepadNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostMousepadNone: " + e.Message );
             }
         }
     }
@@ -1515,7 +1515,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -1525,7 +1525,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PostMousepadStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PostMousepadStatic: " + e.Message );
             }
         }
     }
@@ -1576,7 +1576,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -1586,7 +1586,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutChromaLink: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutChromaLink: " + e.Message );
             }
         }
     }
@@ -1637,7 +1637,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
 
             try
@@ -1647,7 +1647,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutChromaLinkCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutChromaLinkCustom: " + e.Message );
             }
         }
     }
@@ -1698,7 +1698,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -1707,7 +1707,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutChromaLinkNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutChromaLinkNone: " + e.Message );
             }
         }
     }
@@ -1755,7 +1755,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -1765,7 +1765,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutChromaLinkStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutChromaLinkStatic: " + e.Message );
             }
         }
     }
@@ -1816,7 +1816,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectIdentifierInput(); // EffectIdentifierInput |  (optional) 
 
             try
@@ -1826,7 +1826,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutEffect: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutEffect: " + e.Message );
             }
         }
     }
@@ -1877,7 +1877,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -1887,7 +1887,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutHeadset: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutHeadset: " + e.Message );
             }
         }
     }
@@ -1938,7 +1938,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
 
             try
@@ -1948,7 +1948,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutHeadsetCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutHeadsetCustom: " + e.Message );
             }
         }
     }
@@ -1999,7 +1999,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -2008,7 +2008,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutHeadsetNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutHeadsetNone: " + e.Message );
             }
         }
     }
@@ -2056,7 +2056,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -2066,7 +2066,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutHeadsetStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutHeadsetStatic: " + e.Message );
             }
         }
     }
@@ -2117,7 +2117,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -2127,7 +2127,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutKeyboard: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutKeyboard: " + e.Message );
             }
         }
     }
@@ -2178,7 +2178,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
 
             try
@@ -2188,7 +2188,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutKeyboardCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutKeyboardCustom: " + e.Message );
             }
         }
     }
@@ -2239,7 +2239,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -2248,7 +2248,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutKeyboardNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutKeyboardNone: " + e.Message );
             }
         }
     }
@@ -2296,7 +2296,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -2306,7 +2306,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutKeyboardStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutKeyboardStatic: " + e.Message );
             }
         }
     }
@@ -2357,7 +2357,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -2367,7 +2367,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutKeypad: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutKeypad: " + e.Message );
             }
         }
     }
@@ -2418,7 +2418,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
 
             try
@@ -2428,7 +2428,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutKeypadCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutKeypadCustom: " + e.Message );
             }
         }
     }
@@ -2479,7 +2479,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -2488,7 +2488,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutKeypadNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutKeypadNone: " + e.Message );
             }
         }
     }
@@ -2536,7 +2536,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -2546,7 +2546,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutKeypadStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutKeypadStatic: " + e.Message );
             }
         }
     }
@@ -2597,7 +2597,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -2607,7 +2607,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutMouse: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutMouse: " + e.Message );
             }
         }
     }
@@ -2658,7 +2658,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray2dInput(); // EffectArray2dInput |  (optional) 
 
             try
@@ -2668,7 +2668,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutMouseCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutMouseCustom: " + e.Message );
             }
         }
     }
@@ -2719,7 +2719,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -2728,7 +2728,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutMouseNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutMouseNone: " + e.Message );
             }
         }
     }
@@ -2776,7 +2776,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -2786,7 +2786,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutMouseStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutMouseStatic: " + e.Message );
             }
         }
     }
@@ -2837,7 +2837,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectInput(); // EffectInput |  (optional) 
 
             try
@@ -2847,7 +2847,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutMousepad: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutMousepad: " + e.Message );
             }
         }
     }
@@ -2898,7 +2898,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectArray1dInput(); // EffectArray1dInput |  (optional) 
 
             try
@@ -2908,7 +2908,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutMousepadCustom: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutMousepadCustom: " + e.Message );
             }
         }
     }
@@ -2959,7 +2959,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -2968,7 +2968,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutMousepadNone: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutMousepadNone: " + e.Message );
             }
         }
     }
@@ -3016,7 +3016,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var color = 56;  // int? | Color value in BGR format
 
             try
@@ -3026,7 +3026,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.PutMousepadStatic: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.PutMousepadStatic: " + e.Message );
             }
         }
     }
@@ -3077,7 +3077,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
             var data = new EffectIdentifierInput(); // EffectIdentifierInput |  (optional) 
 
             try
@@ -3087,7 +3087,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.RemoveEffect: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.RemoveEffect: " + e.Message );
             }
         }
     }

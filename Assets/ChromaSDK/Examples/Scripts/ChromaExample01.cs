@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-using ChromaApi = ChromaSDK.Api.DefaultApi;
-using RazerApi = RazerSDK.Api.DefaultApi2;
-using RazerDeleteApi = RazerSDKDelete.Api.DefaultApi3;
+using ChromaApi = ChromaSDK.Api.ChromaApi;
+using RazerApi = RazerSDK.Api.RazerApi;
+using RazerDeleteApi = RazerSDKDelete.Api.RazerDeleteApi;
 using Random = System.Random;
 
 public class ChromaExample01 : MonoBehaviour

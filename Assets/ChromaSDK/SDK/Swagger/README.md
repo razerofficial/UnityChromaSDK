@@ -68,7 +68,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi();
+            var apiInstance = new ChromaApi();
 
             try
             {
@@ -76,7 +76,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.Heartbeat: " + e.Message );
+                Debug.Print("Exception when calling ChromaApi.Heartbeat: " + e.Message );
             }
         }
     }
@@ -90,57 +90,57 @@ All URIs are relative to *http://localhost:54235/chromasdk*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**Heartbeat**](docs/DefaultApi.md#heartbeat) | **PUT** /heartbeat | 
-*DefaultApi* | [**PostChromaLink**](docs/DefaultApi.md#postchromalink) | **POST** /chromalink | 
-*DefaultApi* | [**PostChromaLinkCustom**](docs/DefaultApi.md#postchromalinkcustom) | **POST** /chromalink/custom | 
-*DefaultApi* | [**PostChromaLinkNone**](docs/DefaultApi.md#postchromalinknone) | **POST** /chromalink/none | 
-*DefaultApi* | [**PostChromaLinkStatic**](docs/DefaultApi.md#postchromalinkstatic) | **POST** /chromalink/static | 
-*DefaultApi* | [**PostHeadset**](docs/DefaultApi.md#postheadset) | **POST** /headset | 
-*DefaultApi* | [**PostHeadsetCustom**](docs/DefaultApi.md#postheadsetcustom) | **POST** /headset/custom | 
-*DefaultApi* | [**PostHeadsetNone**](docs/DefaultApi.md#postheadsetnone) | **POST** /headset/none | 
-*DefaultApi* | [**PostHeadsetStatic**](docs/DefaultApi.md#postheadsetstatic) | **POST** /headset/static | 
-*DefaultApi* | [**PostKeyboard**](docs/DefaultApi.md#postkeyboard) | **POST** /keyboard | 
-*DefaultApi* | [**PostKeyboardCustom**](docs/DefaultApi.md#postkeyboardcustom) | **POST** /keyboard/custom | 
-*DefaultApi* | [**PostKeyboardNone**](docs/DefaultApi.md#postkeyboardnone) | **POST** /keyboard/none | 
-*DefaultApi* | [**PostKeyboardStatic**](docs/DefaultApi.md#postkeyboardstatic) | **POST** /keyboard/static | 
-*DefaultApi* | [**PostKeypad**](docs/DefaultApi.md#postkeypad) | **POST** /keypad | 
-*DefaultApi* | [**PostKeypadCustom**](docs/DefaultApi.md#postkeypadcustom) | **POST** /keypad/custom | 
-*DefaultApi* | [**PostKeypadNone**](docs/DefaultApi.md#postkeypadnone) | **POST** /keypad/none | 
-*DefaultApi* | [**PostKeypadStatic**](docs/DefaultApi.md#postkeypadstatic) | **POST** /keypad/static | 
-*DefaultApi* | [**PostMouse**](docs/DefaultApi.md#postmouse) | **POST** /mouse | 
-*DefaultApi* | [**PostMouseCustom**](docs/DefaultApi.md#postmousecustom) | **POST** /mouse/custom2 | 
-*DefaultApi* | [**PostMouseNone**](docs/DefaultApi.md#postmousenone) | **POST** /mouse/none | 
-*DefaultApi* | [**PostMouseStatic**](docs/DefaultApi.md#postmousestatic) | **POST** /mouse/static | 
-*DefaultApi* | [**PostMousepad**](docs/DefaultApi.md#postmousepad) | **POST** /mousepad | 
-*DefaultApi* | [**PostMousepadCustom**](docs/DefaultApi.md#postmousepadcustom) | **POST** /mousepad/custom | 
-*DefaultApi* | [**PostMousepadNone**](docs/DefaultApi.md#postmousepadnone) | **POST** /mousepad/none | 
-*DefaultApi* | [**PostMousepadStatic**](docs/DefaultApi.md#postmousepadstatic) | **POST** /mousepad/static | 
-*DefaultApi* | [**PutChromaLink**](docs/DefaultApi.md#putchromalink) | **PUT** /chromalink | 
-*DefaultApi* | [**PutChromaLinkCustom**](docs/DefaultApi.md#putchromalinkcustom) | **PUT** /chromalink/custom | 
-*DefaultApi* | [**PutChromaLinkNone**](docs/DefaultApi.md#putchromalinknone) | **PUT** /chromalink/none | 
-*DefaultApi* | [**PutChromaLinkStatic**](docs/DefaultApi.md#putchromalinkstatic) | **PUT** /chromalink/static | 
-*DefaultApi* | [**PutEffect**](docs/DefaultApi.md#puteffect) | **PUT** /effect | 
-*DefaultApi* | [**PutHeadset**](docs/DefaultApi.md#putheadset) | **PUT** /headset | 
-*DefaultApi* | [**PutHeadsetCustom**](docs/DefaultApi.md#putheadsetcustom) | **PUT** /headset/custom | 
-*DefaultApi* | [**PutHeadsetNone**](docs/DefaultApi.md#putheadsetnone) | **PUT** /headset/none | 
-*DefaultApi* | [**PutHeadsetStatic**](docs/DefaultApi.md#putheadsetstatic) | **PUT** /headset/static | 
-*DefaultApi* | [**PutKeyboard**](docs/DefaultApi.md#putkeyboard) | **PUT** /keyboard | 
-*DefaultApi* | [**PutKeyboardCustom**](docs/DefaultApi.md#putkeyboardcustom) | **PUT** /keyboard/custom | 
-*DefaultApi* | [**PutKeyboardNone**](docs/DefaultApi.md#putkeyboardnone) | **PUT** /keyboard/none | 
-*DefaultApi* | [**PutKeyboardStatic**](docs/DefaultApi.md#putkeyboardstatic) | **PUT** /keyboard/static | 
-*DefaultApi* | [**PutKeypad**](docs/DefaultApi.md#putkeypad) | **PUT** /keypad | 
-*DefaultApi* | [**PutKeypadCustom**](docs/DefaultApi.md#putkeypadcustom) | **PUT** /keypad/custom | 
-*DefaultApi* | [**PutKeypadNone**](docs/DefaultApi.md#putkeypadnone) | **PUT** /keypad/none | 
-*DefaultApi* | [**PutKeypadStatic**](docs/DefaultApi.md#putkeypadstatic) | **PUT** /keypad/static | 
-*DefaultApi* | [**PutMouse**](docs/DefaultApi.md#putmouse) | **PUT** /mouse | 
-*DefaultApi* | [**PutMouseCustom**](docs/DefaultApi.md#putmousecustom) | **PUT** /mouse/custom2 | 
-*DefaultApi* | [**PutMouseNone**](docs/DefaultApi.md#putmousenone) | **PUT** /mouse/none | 
-*DefaultApi* | [**PutMouseStatic**](docs/DefaultApi.md#putmousestatic) | **PUT** /mouse/static | 
-*DefaultApi* | [**PutMousepad**](docs/DefaultApi.md#putmousepad) | **PUT** /mousepad | 
-*DefaultApi* | [**PutMousepadCustom**](docs/DefaultApi.md#putmousepadcustom) | **PUT** /mousepad/custom | 
-*DefaultApi* | [**PutMousepadNone**](docs/DefaultApi.md#putmousepadnone) | **PUT** /mousepad/none | 
-*DefaultApi* | [**PutMousepadStatic**](docs/DefaultApi.md#putmousepadstatic) | **PUT** /mousepad/static | 
-*DefaultApi* | [**RemoveEffect**](docs/DefaultApi.md#removeeffect) | **PUT** /effect/remove | 
+*ChromaApi* | [**Heartbeat**](docs/ChromaApi.md#heartbeat) | **PUT** /heartbeat | 
+*ChromaApi* | [**PostChromaLink**](docs/ChromaApi.md#postchromalink) | **POST** /chromalink | 
+*ChromaApi* | [**PostChromaLinkCustom**](docs/ChromaApi.md#postchromalinkcustom) | **POST** /chromalink/custom | 
+*ChromaApi* | [**PostChromaLinkNone**](docs/ChromaApi.md#postchromalinknone) | **POST** /chromalink/none | 
+*ChromaApi* | [**PostChromaLinkStatic**](docs/ChromaApi.md#postchromalinkstatic) | **POST** /chromalink/static | 
+*ChromaApi* | [**PostHeadset**](docs/ChromaApi.md#postheadset) | **POST** /headset | 
+*ChromaApi* | [**PostHeadsetCustom**](docs/ChromaApi.md#postheadsetcustom) | **POST** /headset/custom | 
+*ChromaApi* | [**PostHeadsetNone**](docs/ChromaApi.md#postheadsetnone) | **POST** /headset/none | 
+*ChromaApi* | [**PostHeadsetStatic**](docs/ChromaApi.md#postheadsetstatic) | **POST** /headset/static | 
+*ChromaApi* | [**PostKeyboard**](docs/ChromaApi.md#postkeyboard) | **POST** /keyboard | 
+*ChromaApi* | [**PostKeyboardCustom**](docs/ChromaApi.md#postkeyboardcustom) | **POST** /keyboard/custom | 
+*ChromaApi* | [**PostKeyboardNone**](docs/ChromaApi.md#postkeyboardnone) | **POST** /keyboard/none | 
+*ChromaApi* | [**PostKeyboardStatic**](docs/ChromaApi.md#postkeyboardstatic) | **POST** /keyboard/static | 
+*ChromaApi* | [**PostKeypad**](docs/ChromaApi.md#postkeypad) | **POST** /keypad | 
+*ChromaApi* | [**PostKeypadCustom**](docs/ChromaApi.md#postkeypadcustom) | **POST** /keypad/custom | 
+*ChromaApi* | [**PostKeypadNone**](docs/ChromaApi.md#postkeypadnone) | **POST** /keypad/none | 
+*ChromaApi* | [**PostKeypadStatic**](docs/ChromaApi.md#postkeypadstatic) | **POST** /keypad/static | 
+*ChromaApi* | [**PostMouse**](docs/ChromaApi.md#postmouse) | **POST** /mouse | 
+*ChromaApi* | [**PostMouseCustom**](docs/ChromaApi.md#postmousecustom) | **POST** /mouse/custom2 | 
+*ChromaApi* | [**PostMouseNone**](docs/ChromaApi.md#postmousenone) | **POST** /mouse/none | 
+*ChromaApi* | [**PostMouseStatic**](docs/ChromaApi.md#postmousestatic) | **POST** /mouse/static | 
+*ChromaApi* | [**PostMousepad**](docs/ChromaApi.md#postmousepad) | **POST** /mousepad | 
+*ChromaApi* | [**PostMousepadCustom**](docs/ChromaApi.md#postmousepadcustom) | **POST** /mousepad/custom | 
+*ChromaApi* | [**PostMousepadNone**](docs/ChromaApi.md#postmousepadnone) | **POST** /mousepad/none | 
+*ChromaApi* | [**PostMousepadStatic**](docs/ChromaApi.md#postmousepadstatic) | **POST** /mousepad/static | 
+*ChromaApi* | [**PutChromaLink**](docs/ChromaApi.md#putchromalink) | **PUT** /chromalink | 
+*ChromaApi* | [**PutChromaLinkCustom**](docs/ChromaApi.md#putchromalinkcustom) | **PUT** /chromalink/custom | 
+*ChromaApi* | [**PutChromaLinkNone**](docs/ChromaApi.md#putchromalinknone) | **PUT** /chromalink/none | 
+*ChromaApi* | [**PutChromaLinkStatic**](docs/ChromaApi.md#putchromalinkstatic) | **PUT** /chromalink/static | 
+*ChromaApi* | [**PutEffect**](docs/ChromaApi.md#puteffect) | **PUT** /effect | 
+*ChromaApi* | [**PutHeadset**](docs/ChromaApi.md#putheadset) | **PUT** /headset | 
+*ChromaApi* | [**PutHeadsetCustom**](docs/ChromaApi.md#putheadsetcustom) | **PUT** /headset/custom | 
+*ChromaApi* | [**PutHeadsetNone**](docs/ChromaApi.md#putheadsetnone) | **PUT** /headset/none | 
+*ChromaApi* | [**PutHeadsetStatic**](docs/ChromaApi.md#putheadsetstatic) | **PUT** /headset/static | 
+*ChromaApi* | [**PutKeyboard**](docs/ChromaApi.md#putkeyboard) | **PUT** /keyboard | 
+*ChromaApi* | [**PutKeyboardCustom**](docs/ChromaApi.md#putkeyboardcustom) | **PUT** /keyboard/custom | 
+*ChromaApi* | [**PutKeyboardNone**](docs/ChromaApi.md#putkeyboardnone) | **PUT** /keyboard/none | 
+*ChromaApi* | [**PutKeyboardStatic**](docs/ChromaApi.md#putkeyboardstatic) | **PUT** /keyboard/static | 
+*ChromaApi* | [**PutKeypad**](docs/ChromaApi.md#putkeypad) | **PUT** /keypad | 
+*ChromaApi* | [**PutKeypadCustom**](docs/ChromaApi.md#putkeypadcustom) | **PUT** /keypad/custom | 
+*ChromaApi* | [**PutKeypadNone**](docs/ChromaApi.md#putkeypadnone) | **PUT** /keypad/none | 
+*ChromaApi* | [**PutKeypadStatic**](docs/ChromaApi.md#putkeypadstatic) | **PUT** /keypad/static | 
+*ChromaApi* | [**PutMouse**](docs/ChromaApi.md#putmouse) | **PUT** /mouse | 
+*ChromaApi* | [**PutMouseCustom**](docs/ChromaApi.md#putmousecustom) | **PUT** /mouse/custom2 | 
+*ChromaApi* | [**PutMouseNone**](docs/ChromaApi.md#putmousenone) | **PUT** /mouse/none | 
+*ChromaApi* | [**PutMouseStatic**](docs/ChromaApi.md#putmousestatic) | **PUT** /mouse/static | 
+*ChromaApi* | [**PutMousepad**](docs/ChromaApi.md#putmousepad) | **PUT** /mousepad | 
+*ChromaApi* | [**PutMousepadCustom**](docs/ChromaApi.md#putmousepadcustom) | **PUT** /mousepad/custom | 
+*ChromaApi* | [**PutMousepadNone**](docs/ChromaApi.md#putmousepadnone) | **PUT** /mousepad/none | 
+*ChromaApi* | [**PutMousepadStatic**](docs/ChromaApi.md#putmousepadstatic) | **PUT** /mousepad/static | 
+*ChromaApi* | [**RemoveEffect**](docs/ChromaApi.md#removeeffect) | **PUT** /effect/remove | 
 
 
 <a name="documentation-for-models"></a>

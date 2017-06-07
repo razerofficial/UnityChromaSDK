@@ -9,7 +9,7 @@ namespace RazerSDKDelete.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IDefaultApi3
+    public interface IRazerDeleteApi
     {
         /// <summary>
         ///  Uninitialize the Chroma SDK
@@ -21,14 +21,14 @@ namespace RazerSDKDelete.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public class DefaultApi3 : IDefaultApi3
+    public class RazerDeleteApi : IRazerDeleteApi
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultApi3"/> class.
+        /// Initializes a new instance of the <see cref="RazerDeleteApi"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public DefaultApi3(ApiClient apiClient = null)
+        public RazerDeleteApi(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient; 
@@ -37,10 +37,10 @@ namespace RazerSDKDelete.Api
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultApi3"/> class.
+        /// Initializes a new instance of the <see cref="RazerDeleteApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public DefaultApi3(String basePath)
+        public RazerDeleteApi(String basePath)
         {
             this.ApiClient = new ApiClient(basePath);
         }

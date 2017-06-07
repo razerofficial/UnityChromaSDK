@@ -68,7 +68,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi3();
+            var apiInstance = new RazerDeleteApi();
 
             try
             {
@@ -77,7 +77,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi3.DeleteChromaSdk: " + e.Message );
+                Debug.Print("Exception when calling RazerDeleteApi.DeleteChromaSdk: " + e.Message );
             }
         }
     }
@@ -91,7 +91,7 @@ All URIs are relative to *http://localhost:54235*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi3* | [**DeleteChromaSdk**](docs/DefaultApi3.md#deletechromasdk) | **DELETE** / | 
+*RazerDeleteApi* | [**DeleteChromaSdk**](docs/RazerDeleteApi.md#deletechromasdk) | **DELETE** / | 
 
 
 <a name="documentation-for-models"></a>

@@ -1,10 +1,10 @@
-# RazerSDKDelete.RazerDeletePackage.DefaultApi3
+# RazerSDKDelete.RazerDeletePackage.RazerDeleteApi
 
 All URIs are relative to *http://localhost:54235*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteChromaSdk**](DefaultApi3.md#deletechromasdk) | **DELETE** / | 
+[**DeleteChromaSdk**](RazerDeleteApi.md#deletechromasdk) | **DELETE** / | 
 
 
 <a name="deletechromasdk"></a>
@@ -30,7 +30,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi3();
+            var apiInstance = new RazerDeleteApi();
 
             try
             {
@@ -39,7 +39,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi3.DeleteChromaSdk: " + e.Message );
+                Debug.Print("Exception when calling RazerDeleteApi.DeleteChromaSdk: " + e.Message );
             }
         }
     }

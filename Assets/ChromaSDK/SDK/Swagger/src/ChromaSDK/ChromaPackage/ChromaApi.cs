@@ -9,7 +9,7 @@ namespace ChromaSDK.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IDefaultApi
+    public interface IChromaApi
     {
         /// <summary>
         ///  To turn off effect use CHROMA_NONE.
@@ -309,14 +309,14 @@ namespace ChromaSDK.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public class DefaultApi : IDefaultApi
+    public class ChromaApi : IChromaApi
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultApi"/> class.
+        /// Initializes a new instance of the <see cref="ChromaApi"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public DefaultApi(ApiClient apiClient = null)
+        public ChromaApi(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient; 
@@ -325,10 +325,10 @@ namespace ChromaSDK.Api
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultApi"/> class.
+        /// Initializes a new instance of the <see cref="ChromaApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public DefaultApi(String basePath)
+        public ChromaApi(String basePath)
         {
             this.ApiClient = new ApiClient(basePath);
         }

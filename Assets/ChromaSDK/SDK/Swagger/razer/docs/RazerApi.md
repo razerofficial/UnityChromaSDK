@@ -1,10 +1,10 @@
-# RazerSDK.RazerPackage.DefaultApi2
+# RazerSDK.RazerPackage.RazerApi
 
 All URIs are relative to *http://localhost:54235/razer*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostChromaSdk**](DefaultApi2.md#postchromasdk) | **POST** /chromasdk | 
+[**PostChromaSdk**](RazerApi.md#postchromasdk) | **POST** /chromasdk | 
 
 
 <a name="postchromasdk"></a>
@@ -30,7 +30,7 @@ namespace Example
         public void main()
         {
             
-            var apiInstance = new DefaultApi2();
+            var apiInstance = new RazerApi();
             var baseInput = new ChromaSdkInput(); // ChromaSdkInput |  (optional) 
 
             try
@@ -40,7 +40,7 @@ namespace Example
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi2.PostChromaSdk: " + e.Message );
+                Debug.Print("Exception when calling RazerApi.PostChromaSdk: " + e.Message );
             }
         }
     }

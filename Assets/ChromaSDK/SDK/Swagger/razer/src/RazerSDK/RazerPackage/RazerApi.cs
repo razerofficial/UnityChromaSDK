@@ -9,7 +9,7 @@ namespace RazerSDK.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IDefaultApi2
+    public interface IRazerApi
     {
         /// <summary>
         ///  Initialize the Chroma SDK
@@ -22,14 +22,14 @@ namespace RazerSDK.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public class DefaultApi2 : IDefaultApi2
+    public class RazerApi : IRazerApi
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultApi2"/> class.
+        /// Initializes a new instance of the <see cref="RazerApi"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public DefaultApi2(ApiClient apiClient = null)
+        public RazerApi(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient; 
@@ -38,10 +38,10 @@ namespace RazerSDK.Api
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultApi2"/> class.
+        /// Initializes a new instance of the <see cref="RazerApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public DefaultApi2(String basePath)
+        public RazerApi(String basePath)
         {
             this.ApiClient = new ApiClient(basePath);
         }
