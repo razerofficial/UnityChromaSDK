@@ -252,3 +252,108 @@ EffectResponse result = _mApiChromaInstance.PostMouseNone();
 ```charp
 EffectResponse result = _mApiChromaInstance.PostMousepadNone();
 ```
+
+### Colors
+
+The `Chroma` API takes colors in the `BGR` (blue-green-red) format as an integer. 
+Unity `Color` objects can be converted to `BGR` integers with `ToBGR`.
+ 
+```csharp
+// Create a Unity Color object
+Color color = Color.red;
+
+// Convert Unity Color object to BGR integer
+int bgrInteger = ChromaUtils.ToBGR(color);
+```
+
+`BGR` integers can be converted to Unity `Color` objects with `ToRGB`.
+
+```csharp
+// Create a BGR integer
+int bgrInteger = 255; //red
+
+// Convert BGR integer to Unity Color object
+Color color = ChromaUtils.ToRGB(bgrInteger);
+```
+
+### `PUT` `CHROMA_STATIC` Effect
+
+Set the `STATIC` effect to set the device lighting effects to use a static color.
+`PUT` with `CHROMA_STATIC` takes a `BGR` integer to set the static color.
+
+**ChromaLink**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutChromaLinkStatic(bgrInteger);
+```
+
+**Headset**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutHeadsetStatic(bgrInteger);
+```
+
+**Keyboard**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutKeyboardStatic(bgrInteger);
+```
+
+**Keypad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutKeypadStatic(bgrInteger);
+```
+
+**Mouse**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutMouseStatic(bgrInteger);
+```
+
+**Mousepad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutMousepadStatic(bgrInteger);
+```
+
+### `POST` `CHROMA_STATIC` Effect
+
+Create an effect identifier with the `CHROMA_STATIC` effect to set the device lighting effects to use a static color.
+`POST` with `CHROMA_STATIC` takes a `BGR` integer to set the static color.
+
+**ChromaLink**
+
+```charp
+EffectResponseId result = _mApiChromaInstance.PostChromaLinkStatic(bgrInteger);
+```
+
+**Headset**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostHeadsetStatic(bgrInteger);
+```
+
+**Keyboard**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostKeyboardStatic(bgrInteger);
+```
+
+**Keypad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostKeypadStatic(bgrInteger);
+```
+
+**Mouse**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostMouseStatic(bgrInteger);
+```
+
+**Mousepad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostMousepadStatic(bgrInteger);
+```
