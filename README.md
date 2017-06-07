@@ -145,7 +145,7 @@ In the `Chroma` API there are two kinds of methods.
 
 ### `PUT` Effect
 
-An effect is a string identifier. The `EffectIdentifierInput` constructor takes a single effect string or a list of effect strings.
+`PutEffect` activates an effect or effects. An effect is a string identifier. The `EffectIdentifierInput` constructor takes a single effect string or a list of effect strings.
 
 ```charp
 // use a string effect
@@ -173,7 +173,7 @@ var input = new EffectIdentifierInput(null, effects);
 EffectIdentifierResponse result = _mApiChromaInstance.RemoveEffect(input);
 ```
 
-### `PUT` CHROMA_NONE` Effect
+### `PUT` `CHROMA_NONE` Effect
 
 Set the `CHROMA_NONE` effect to clear the device lighting effects.
 
@@ -213,7 +213,7 @@ EffectResponse result = _mApiChromaInstance.PutMouseNone();
 EffectResponse result = _mApiChromaInstance.PutMousepadNone();
 ```
 
-### `POST` CHROMA_NONE` Effect
+### `POST` `CHROMA_NONE` Effect
 
 Create an effect identifier with the `CHROMA_NONE` effect to clear the device lighting effects.
 
