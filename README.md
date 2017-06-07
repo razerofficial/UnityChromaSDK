@@ -35,3 +35,104 @@ Import [UnityChromaSDK.unitypackage](https://github.com/tgraupmann/UnityChromaSw
 
 * The [RazerApi](Assets/ChromaSDK/SDK/Swagger/razer/README.md) endpoint creates the Chroma session.
 * The [ChromaApi](Assets/ChromaSDK/SDK/Swagger/chroma/README.md) endpoint controls Chroma lighting.
+
+<a name="examples"></a>
+## Examples
+
+Add the `Chroma` namespace.
+
+```charp
+// Access to Chroma data structures
+using ChromaSDK.ChromaPackage.Model;
+
+// Access to the Chroma API
+using ChromaSDK.Api;
+
+// Access to the Session data structures
+using RazerSDK.ChromaPackage.Model;
+
+// Access to the Session API
+using RazerSDK.Api;
+```
+
+Calls to the `Chroma` API should be done in a separate thread to avoid blocking the main thread and to avoid reducing the rendering frame rate.
+
+```charp
+ChromaUtils.RunOnThread(() =>
+{
+    // Make calls to the Chroma API in a separate thread to avoid blocking the main thread
+    Initialize();
+});
+```
+
+### `Chroma` Initialization
+
+Create an instance of the `RazerAPI` which will be used to create the `Chroma` session.
+ 
+```csharp
+ // use the Razer API to get the session
+_mApiRazerInstance = new RazerApi();
+```
+
+Populate the input to initialize the `Chroma` session.
+
+```csharp
+var input = new ChromaSdkInput();
+input.Title = "UnityPlugin";
+input.Description = "This is a REST interface Unity client";
+input.Author = new ChromaSdkInputAuthor();
+input.Author.Name = "Chroma Developer";
+input.Author.Contact = "www.razerzone.com";
+input.DeviceSupported = new List<string>
+{
+    "keyboard",
+    "mouse",
+    "headset",
+    "mousepad",
+    "keypad",
+    "chromalink",
+};
+input.Category = "application";
+```
+
+`PostChromaSdk` creates a `Chroma` session which is used to control the `Chroma` lighting.
+
+```csharp
+// create the Chroma session, the result contains the session and base uri for the Chroma API
+PostChromaSdkResponse result = _mApiRazerInstance.PostChromaSdk(input);
+```
+
+Use the response from creating the `Chroma` session to create an instance of the `Chroma` API.
+
+```charp
+// setup the api instance with the session uri
+_mApiChromaInstance = new ChromaApi(result.Uri);
+```
+
+### `Chroma` Heartbeat
+
+After the `Chroma` instance has been created, repeatedly call `Heartbeat` to keep the `Chroma` session alive.
+
+```csharp
+while (true)
+{
+    // The Chroma API uses a heartbeat every 1 second
+    _mApiChromaInstance.Heartbeat();
+
+    // Wait for a sec
+    Thread.Sleep(1000);
+}
+```
+
+### Destroy the `Chroma` session
+
+Destroy the `Chroma` session from `OnDisable` and `OnApplicationQuit` to return lighting control to the system.
+
+```csharp
+// destroy the Chroma session
+DeleteChromaSdkResponse result = _mApiChromaInstance.DeleteChromaSdk();
+
+// clear the references
+_mApiRazerInstance = null;
+_mApiChromaInstance = null;
+```

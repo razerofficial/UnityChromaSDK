@@ -1,13 +1,17 @@
-﻿using ChromaSDK.ChromaPackage.Model;
+﻿// Access to Chroma data structures
+using ChromaSDK.ChromaPackage.Model;
+// Access to the Chroma API
+using ChromaSDK.Api;
+// Access to the Session data structures
 using RazerSDK.ChromaPackage.Model;
+// Access to the Session API
+using RazerSDK.Api;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-using ChromaApi = ChromaSDK.Api.ChromaApi;
-using RazerApi = RazerSDK.Api.RazerApi;
 using Random = System.Random;
 
 public class ChromaExample01 : MonoBehaviour
@@ -25,7 +29,7 @@ public class ChromaExample01 : MonoBehaviour
     /// <summary>
     /// Instance of the API
     /// </summary>
-    private ChromaApi _mApiInstance;
+    private ChromaApi _mApiChromaInstance;
 
     /// <summary>
     /// Thread safe random object
@@ -192,8 +196,8 @@ public class ChromaExample01 : MonoBehaviour
             _mApiRazerInstance = new RazerApi();
 
             var input = new ChromaSdkInput();
-            input.Title = "Test";
-            input.Description = "This is a REST interface test application";
+            input.Title = "UnityPlugin";
+            input.Description = "This is a REST interface Unity client";
             input.Author = new ChromaSdkInputAuthor();
             input.Author.Name = "Chroma Developer";
             input.Author.Contact = "www.razerzone.com";
@@ -213,7 +217,7 @@ public class ChromaExample01 : MonoBehaviour
             Debug.Log(result);
 
             // setup the api instance with the session uri
-            _mApiInstance = new ChromaApi(result.Uri);
+            _mApiChromaInstance = new ChromaApi(result.Uri);
 
             Debug.Log("Init complete.");
 
@@ -269,24 +273,24 @@ public class ChromaExample01 : MonoBehaviour
     {
         try
         {
-            if (null == _mApiInstance)
+            if (null == _mApiChromaInstance)
             {
                 return;
             }
 
-            // save a reference to the chroma instance
-            ChromaApi instance = _mApiInstance;
-
-            // clear the references
-            _mApiRazerInstance = null;
-            _mApiInstance = null;
-
-            DeleteChromaSdkResponse result = instance.DeleteChromaSdk();
+            // destroy the Chroma session
+            DeleteChromaSdkResponse result = _mApiChromaInstance.DeleteChromaSdk();
             Debug.Log(result);
         }
         catch (Exception e)
         {
             Debug.LogError(string.Format("Exception when calling RazerApi.DeleteChromaSdk: {0}", e));
+        }
+        finally
+        {
+            // clear the references
+            _mApiRazerInstance = null;
+            _mApiChromaInstance = null;
         }
     }
 
@@ -296,7 +300,7 @@ public class ChromaExample01 : MonoBehaviour
     /// <returns></returns>
     List<EffectResponse> SetEffectNoneOnAll()
     {
-        if (null == _mApiInstance)
+        if (null == _mApiChromaInstance)
         {
             Debug.LogError("Need to register Chroma Server. The api instance is not set!");
             return null;
@@ -304,12 +308,12 @@ public class ChromaExample01 : MonoBehaviour
 
         var results = new List<EffectResponse>();
         var methods = new List<MethodEffectNone>();
-        methods.Add(_mApiInstance.PutChromaLinkNone);
-        methods.Add(_mApiInstance.PutHeadsetNone);
-        methods.Add(_mApiInstance.PutKeyboardNone);
-        methods.Add(_mApiInstance.PutKeypadNone);
-        methods.Add(_mApiInstance.PutMouseNone);
-        methods.Add(_mApiInstance.PutMousepadNone);
+        methods.Add(_mApiChromaInstance.PutChromaLinkNone);
+        methods.Add(_mApiChromaInstance.PutHeadsetNone);
+        methods.Add(_mApiChromaInstance.PutKeyboardNone);
+        methods.Add(_mApiChromaInstance.PutKeypadNone);
+        methods.Add(_mApiChromaInstance.PutMouseNone);
+        methods.Add(_mApiChromaInstance.PutMousepadNone);
         foreach (MethodEffectNone method in methods)
         {
             try
@@ -334,7 +338,7 @@ public class ChromaExample01 : MonoBehaviour
     /// <returns></returns>
     List<EffectResponse> SetEffectStaticOnAll(int color)
     {
-        if (null == _mApiInstance)
+        if (null == _mApiChromaInstance)
         {
             Debug.LogError("Need to register Chroma Server. The api instance is not set!");
             return null;
@@ -342,12 +346,12 @@ public class ChromaExample01 : MonoBehaviour
 
         var results = new List<EffectResponse>();
         var methods = new List<MethodEffectStatic>();
-        methods.Add(_mApiInstance.PutChromaLinkStatic);
-        methods.Add(_mApiInstance.PutHeadsetStatic);
-        methods.Add(_mApiInstance.PutKeyboardStatic);
-        methods.Add(_mApiInstance.PutKeypadStatic);
-        methods.Add(_mApiInstance.PutMouseStatic);
-        methods.Add(_mApiInstance.PutMousepadStatic);
+        methods.Add(_mApiChromaInstance.PutChromaLinkStatic);
+        methods.Add(_mApiChromaInstance.PutHeadsetStatic);
+        methods.Add(_mApiChromaInstance.PutKeyboardStatic);
+        methods.Add(_mApiChromaInstance.PutKeypadStatic);
+        methods.Add(_mApiChromaInstance.PutMouseStatic);
+        methods.Add(_mApiChromaInstance.PutMousepadStatic);
         foreach (MethodEffectStatic method in methods)
         {
             try
@@ -372,7 +376,7 @@ public class ChromaExample01 : MonoBehaviour
     /// <returns></returns>
     List<EffectResponse> SetEffectOnAll(EffectInput input)
     {
-        if (null == _mApiInstance)
+        if (null == _mApiChromaInstance)
         {
             Debug.LogError("Need to register Chroma Server. The api instance is not set!");
             return null;
@@ -380,12 +384,12 @@ public class ChromaExample01 : MonoBehaviour
 
         var results = new List<EffectResponse>();
         var methods = new List<MethodPutEffect>();
-        methods.Add(_mApiInstance.PutChromaLink);
-        methods.Add(_mApiInstance.PutHeadset);
-        methods.Add(_mApiInstance.PutKeyboard);
-        methods.Add(_mApiInstance.PutKeypad);
-        methods.Add(_mApiInstance.PutMouse);
-        methods.Add(_mApiInstance.PutMousepad);
+        methods.Add(_mApiChromaInstance.PutChromaLink);
+        methods.Add(_mApiChromaInstance.PutHeadset);
+        methods.Add(_mApiChromaInstance.PutKeyboard);
+        methods.Add(_mApiChromaInstance.PutKeypad);
+        methods.Add(_mApiChromaInstance.PutMouse);
+        methods.Add(_mApiChromaInstance.PutMousepad);
         foreach (MethodPutEffect method in methods)
         {
             try
@@ -436,7 +440,7 @@ public class ChromaExample01 : MonoBehaviour
     /// </summary>
     List<EffectResponse> SetKeyboardCustomEffect()
     {
-        if (null == _mApiInstance)
+        if (null == _mApiChromaInstance)
         {
             Debug.LogError("Need to register Chroma Server. The custom api instance is not set!");
             return null;
@@ -446,9 +450,9 @@ public class ChromaExample01 : MonoBehaviour
 
 #region 2D
         var items2d = new List<PutAnimationData2D>();
-        items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeyboardCustom, GetEffectChromaCustom(22, 6)));
-        items2d.Add(new PutAnimationData2D(_mApiInstance.PutKeypadCustom, GetEffectChromaCustom(5, 4)));
-        items2d.Add(new PutAnimationData2D(_mApiInstance.PutMouseCustom, GetEffectChromaCustom(7, 9)));
+        items2d.Add(new PutAnimationData2D(_mApiChromaInstance.PutKeyboardCustom, GetEffectChromaCustom(22, 6)));
+        items2d.Add(new PutAnimationData2D(_mApiChromaInstance.PutKeypadCustom, GetEffectChromaCustom(5, 4)));
+        items2d.Add(new PutAnimationData2D(_mApiChromaInstance.PutMouseCustom, GetEffectChromaCustom(7, 9)));
         foreach (PutAnimationData2D item in items2d)
         {
             try
@@ -465,9 +469,9 @@ public class ChromaExample01 : MonoBehaviour
 #endregion
 #region 1D
         var items1d = new List<PutAnimationData1D>();
-        items1d.Add(new PutAnimationData1D(_mApiInstance.PutChromaLinkCustom, GetEffectChromaCustom(5)));
-        items1d.Add(new PutAnimationData1D(_mApiInstance.PutHeadsetCustom, GetEffectChromaCustom(5)));
-        items1d.Add(new PutAnimationData1D(_mApiInstance.PutMousepadCustom, GetEffectChromaCustom(15)));
+        items1d.Add(new PutAnimationData1D(_mApiChromaInstance.PutChromaLinkCustom, GetEffectChromaCustom(5)));
+        items1d.Add(new PutAnimationData1D(_mApiChromaInstance.PutHeadsetCustom, GetEffectChromaCustom(5)));
+        items1d.Add(new PutAnimationData1D(_mApiChromaInstance.PutMousepadCustom, GetEffectChromaCustom(15)));
         foreach (PutAnimationData1D item in items1d)
         {
             try
@@ -523,7 +527,7 @@ public class ChromaExample01 : MonoBehaviour
             return;
         }
 
-        if (null == _mApiInstance)
+        if (null == _mApiChromaInstance)
         {
             Debug.LogError("Need to register Chroma Server. The custom api instance is not set!");
             return;
@@ -544,9 +548,9 @@ public class ChromaExample01 : MonoBehaviour
 
 #region 2D
             var items2d = new List<PostAnimationData2D>();
-            items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeyboardCustom, GetEffectChromaCustom(22, 6)));
-            items2d.Add(new PostAnimationData2D(_mApiInstance.PostKeypadCustom, GetEffectChromaCustom(5, 4)));
-            items2d.Add(new PostAnimationData2D(_mApiInstance.PostMouseCustom, GetEffectChromaCustom(7, 9)));
+            items2d.Add(new PostAnimationData2D(_mApiChromaInstance.PostKeyboardCustom, GetEffectChromaCustom(22, 6)));
+            items2d.Add(new PostAnimationData2D(_mApiChromaInstance.PostKeypadCustom, GetEffectChromaCustom(5, 4)));
+            items2d.Add(new PostAnimationData2D(_mApiChromaInstance.PostMouseCustom, GetEffectChromaCustom(7, 9)));
             foreach (PostAnimationData2D item in items2d)
             {
                 try
@@ -563,9 +567,9 @@ public class ChromaExample01 : MonoBehaviour
 #endregion
 #region 1D
             var items1d = new List<PostAnimationData1D>();
-            items1d.Add(new PostAnimationData1D(_mApiInstance.PostChromaLinkCustom, GetEffectChromaCustom(5)));
-            items1d.Add(new PostAnimationData1D(_mApiInstance.PostHeadsetCustom, GetEffectChromaCustom(5)));
-            items1d.Add(new PostAnimationData1D(_mApiInstance.PostMousepadCustom, GetEffectChromaCustom(15)));
+            items1d.Add(new PostAnimationData1D(_mApiChromaInstance.PostChromaLinkCustom, GetEffectChromaCustom(5)));
+            items1d.Add(new PostAnimationData1D(_mApiChromaInstance.PostHeadsetCustom, GetEffectChromaCustom(5)));
+            items1d.Add(new PostAnimationData1D(_mApiChromaInstance.PostMousepadCustom, GetEffectChromaCustom(15)));
             foreach (PostAnimationData1D item in items1d)
             {
                 try
@@ -591,14 +595,14 @@ public class ChromaExample01 : MonoBehaviour
         while (_mWaitForExit &&
             _mPlayAnimation &&
             frames.Count > 0 &&
-            null != _mApiInstance)
+            null != _mApiChromaInstance)
         {
             List<string> effects = frames[index];
 
             try
             {
                 var input = new EffectIdentifierInput(null, effects);
-                EffectIdentifierResponse result = _mApiInstance.PutEffect(input);
+                EffectIdentifierResponse result = _mApiChromaInstance.PutEffect(input);
             }
             catch (Exception e)
             {
@@ -624,7 +628,7 @@ public class ChromaExample01 : MonoBehaviour
                 try
                 {
                     var input = new EffectIdentifierInput(id, null);
-                    EffectIdentifierResponse result = _mApiInstance.RemoveEffect(input);
+                    EffectIdentifierResponse result = _mApiChromaInstance.RemoveEffect(input);
                     Debug.Log(result);
                 }
                 catch (Exception e)
@@ -643,7 +647,7 @@ public class ChromaExample01 : MonoBehaviour
             try
             {
                 var input = new EffectIdentifierInput(null, effects);
-                EffectIdentifierResponse result = _mApiInstance.RemoveEffect(input);
+                EffectIdentifierResponse result = _mApiChromaInstance.RemoveEffect(input);
                 Debug.Log(result);
             }
             catch (Exception e)
@@ -661,9 +665,9 @@ public class ChromaExample01 : MonoBehaviour
     /// </summary>
     void DoHeartbeat()
     {
-        if (null != _mApiInstance)
+        if (null != _mApiChromaInstance)
         {
-            Uri uri = new Uri(_mApiInstance.ApiClient.BasePath);
+            Uri uri = new Uri(_mApiChromaInstance.ApiClient.BasePath);
             
             RunOnMainThread(() =>
             {
@@ -671,13 +675,12 @@ public class ChromaExample01 : MonoBehaviour
             });
 
             while (_mWaitForExit &&
-                null != _mApiInstance)
+                null != _mApiChromaInstance)
             {
                 try
                 {
-                    // only one heartbeat is needed
-                    // since the custom api hits the same port
-                    _mApiInstance.Heartbeat();
+                    // The Chroma API uses a heartbeat every 1 second
+                    _mApiChromaInstance.Heartbeat();
                 }
                 catch (Exception)
                 {
@@ -808,7 +811,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.blue));
-                _mApiInstance.PutKeyboard(input);
+                _mApiChromaInstance.PutKeyboard(input);
             });
         }
 
@@ -819,7 +822,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.green));
-                _mApiInstance.PutHeadset(input);
+                _mApiChromaInstance.PutHeadset(input);
             });
         }
 
@@ -830,7 +833,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.red));
-                _mApiInstance.PutMouse(input);
+                _mApiChromaInstance.PutMouse(input);
             });
         }
 
@@ -841,7 +844,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(1f, 0.5f, 0f)));
-                _mApiInstance.PutMousepad(input);
+                _mApiChromaInstance.PutMousepad(input);
             });
         }
 
@@ -852,7 +855,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(0f, 1f, 1f)));
-                _mApiInstance.PutKeypad(input);
+                _mApiChromaInstance.PutKeypad(input);
             });
         }
 
@@ -863,7 +866,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.white));
-                _mApiInstance.PutChromaLink(input);
+                _mApiChromaInstance.PutChromaLink(input);
             });
         }
 
