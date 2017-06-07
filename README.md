@@ -357,3 +357,293 @@ EffectResponseId result = _mApiChromaInstance.PostMouseStatic(bgrInteger);
 ```charp
 EffectResponseId result = _mApiChromaInstance.PostMousepadStatic(bgrInteger);
 ```
+
+### `PUT` `CHROMA_CUSTOM` Effect
+
+Set the `CUSTOM` effect to set the device lighting effects to use multiple colors.
+Depending on the device `PUT` with `CHROMA_CUSTOM` takes a one-dimensional array or two-dimensional array of `BGR` integers to set colors on a grid.
+[Razer Chroma™ LED Profiles](http://developer.razerzone.com/works-with-chroma/razer-chroma-led-profiles/) has a guide to see the device grid layouts.
+
+**ChromaLink**
+
+`ChromaLink` uses a 1D array with 5 elements for `CUSTOM` effects.
+
+```charp
+int maxElements = 5;
+var elements = new EffectArray1dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+for (int i = 0; i < maxElements; ++i)
+{
+    elements.Add(_sRandom.Next(bgrWhite));
+}
+// Set the custom effect
+EffectResponse result = _mApiChromaInstance.PutChromaLinkCustom(elements);
+```
+
+**Headset**
+
+`Headset` uses a 1D array with 5 elements for `CUSTOM` effects.
+**Note: Not all Chroma headsets are compatible with `CUSTOM` effects where some devices will not apply the custom effect.**
+
+```charp
+int maxElements = 5;
+var elements = new EffectArray1dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+for (int i = 0; i < maxElements; ++i)
+{
+    elements.Add(_sRandom.Next(bgrWhite));
+}
+// Set the custom effect
+EffectResponse result = _mApiChromaInstance.PutHeadsetCustom(elements);
+```
+
+**Keyboard**
+
+`Keyboard` uses a 2D array with 6 rows of 22 columns for `CUSTOM` effects.
+
+```charp
+int maxRows = 6;
+int maxColumns = 22;
+var rows = new EffectArray2dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+    for (int i = 0; i < maxRows; ++i)
+    {
+        var row = new List<int>();
+        for (int j = 0; j < maxColumns; ++j)
+        {
+            row.Add(_sRandom.Next(bgrWhite));
+        }
+        rows.Add(row);
+    }
+// Set the custom effect
+EffectResponse result = _mApiChromaInstance.PutKeyboardCustom(rows);
+```
+
+**Keypad**
+
+`Keypad` uses a 2D array with 4 rows of 5 columns for `CUSTOM` effects.
+
+```charp
+int maxRows = 4;
+int maxColumns = 5;
+var rows = new EffectArray2dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+    for (int i = 0; i < maxRows; ++i)
+    {
+        var row = new List<int>();
+        for (int j = 0; j < maxColumns; ++j)
+        {
+            row.Add(_sRandom.Next(bgrWhite));
+        }
+        rows.Add(row);
+    }
+// Set the custom effect
+EffectResponse result = _mApiChromaInstance.PutKeypadCustom(rows);
+```
+
+**Mouse**
+
+`Mouse` uses a 2D array with 9 rows of 7 columns for `CUSTOM` effects.
+
+```charp
+int maxRows = 9;
+int maxColumns = 7;
+var rows = new EffectArray2dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+    for (int i = 0; i < maxRows; ++i)
+    {
+        var row = new List<int>();
+        for (int j = 0; j < maxColumns; ++j)
+        {
+            row.Add(_sRandom.Next(bgrWhite));
+        }
+        rows.Add(row);
+    }
+// Set the custom effect
+EffectResponse result = _mApiChromaInstance.PutMouseCustom(rows);
+```
+
+**Mousepad**
+
+`Headset` uses a 1D array with 15 elements for `CUSTOM` effects.
+
+```charp
+int maxElements = 15;
+var elements = new EffectArray1dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+for (int i = 0; i < maxElements; ++i)
+{
+    elements.Add(_sRandom.Next(bgrWhite));
+}
+// Set the custom effect
+EffectResponse result = _mApiChromaInstance.PutMousepadCustom(elements);
+```
+
+### `POST` `CHROMA_CUSTOM` Effect
+
+Create an effect identifier with the `CUSTOM` effect to set the device lighting effects to use multiple colors.
+Depending on the device `POST` with `CHROMA_CUSTOM` takes a one-dimensional array or two-dimensional array of `BGR` integers to set colors on a grid.
+[Razer Chroma™ LED Profiles](http://developer.razerzone.com/works-with-chroma/razer-chroma-led-profiles/) has a guide to see the device grid layouts.
+
+**ChromaLink**
+
+`ChromaLink` uses a 1D array with 5 elements for `CUSTOM` effects.
+
+```charp
+int maxElements = 5;
+var elements = new EffectArray1dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+for (int i = 0; i < maxElements; ++i)
+{
+    elements.Add(_sRandom.Next(bgrWhite));
+}
+// Set the custom effect
+EffectResponseId result = _mApiChromaInstance.PostChromaLinkCustom(elements);
+```
+
+**Headset**
+
+`Headset` uses a 1D array with 5 elements for `CUSTOM` effects.
+**Note: Not all Chroma headsets are compatible with `CUSTOM` effects where some devices will not apply the custom effect.**
+
+```charp
+int maxElements = 5;
+var elements = new EffectArray1dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+for (int i = 0; i < maxElements; ++i)
+{
+    elements.Add(_sRandom.Next(bgrWhite));
+}
+// Set the custom effect
+EffectResponseId result = _mApiChromaInstance.PostHeadsetCustom(elements);
+```
+
+**Keyboard**
+
+`Keyboard` uses a 2D array with 6 rows of 22 columns for `CUSTOM` effects.
+
+```charp
+int maxRows = 6;
+int maxColumns = 22;
+var rows = new EffectArray2dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+    for (int i = 0; i < maxRows; ++i)
+    {
+        var row = new List<int>();
+        for (int j = 0; j < maxColumns; ++j)
+        {
+            row.Add(_sRandom.Next(bgrWhite));
+        }
+        rows.Add(row);
+    }
+// Set the custom effect
+EffectResponseId result = _mApiChromaInstance.PostKeyboardCustom(rows);
+```
+
+**Keypad**
+
+`Keypad` uses a 2D array with 4 rows of 5 columns for `CUSTOM` effects.
+
+```charp
+int maxRows = 4;
+int maxColumns = 5;
+var rows = new EffectArray2dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+    for (int i = 0; i < maxRows; ++i)
+    {
+        var row = new List<int>();
+        for (int j = 0; j < maxColumns; ++j)
+        {
+            row.Add(_sRandom.Next(bgrWhite));
+        }
+        rows.Add(row);
+    }
+// Set the custom effect
+EffectResponseId result = _mApiChromaInstance.PostKeypadCustom(rows);
+```
+
+**Mouse**
+
+`Mouse` uses a 2D array with 9 rows of 7 columns for `CUSTOM` effects.
+
+```charp
+int maxRows = 9;
+int maxColumns = 7;
+var rows = new EffectArray2dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+    for (int i = 0; i < maxRows; ++i)
+    {
+        var row = new List<int>();
+        for (int j = 0; j < maxColumns; ++j)
+        {
+            row.Add(_sRandom.Next(bgrWhite));
+        }
+        rows.Add(row);
+    }
+// Set the custom effect
+EffectResponseId result = _mApiChromaInstance.PostMouseCustom(rows);
+```
+
+**Mousepad**
+
+`Headset` uses a 1D array with 15 elements for `CUSTOM` effects.
+
+```charp
+int maxElements = 15;
+var elements = new EffectArray1dInput();
+// Create a Unity Color object
+Color color = Color.white;
+// Convert Unity Color object to BGR integer
+int bgrWhite = ChromaUtils.ToBGR(color);
+// Fill the layout with random colors
+for (int i = 0; i < maxElements; ++i)
+{
+    elements.Add(_sRandom.Next(bgrWhite));
+}
+// Set the custom effect
+EffectResponseId result = _mApiChromaInstance.PostMousepadCustom(elements);
+```
