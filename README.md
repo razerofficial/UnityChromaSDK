@@ -136,3 +136,119 @@ DeleteChromaSdkResponse result = _mApiChromaInstance.DeleteChromaSdk();
 _mApiRazerInstance = null;
 _mApiChromaInstance = null;
 ```
+
+### `PUT` vs `POST`
+
+In the `Chroma` API there are two kinds of methods.
+`PUT` applies the lighting effect immediately.
+`POST` creates an `Effect` identifier that can be reused instead of applying the lighting effect. 
+
+### `PUT` Effect
+
+An effect is a string identifier. The `EffectIdentifierInput` constructor takes a single effect string or a list of effect strings.
+
+```charp
+// use a string effect
+var input = new EffectIdentifierInput(effect, null);
+
+// use a list of string effects
+var input = new EffectIdentifierInput(null, effects);
+
+// activate the effect or effects
+EffectIdentifierResponse result = _mApiChromaInstance.PutEffect(input);
+```
+
+### `REMOVE` Effect
+
+`RemoveEffect` takes the same `EffectIdentifierInput` as `PutEffect`. Effects can be deleted for a string effect or a list of string effects.
+
+```charp
+// use a string effect
+var input = new EffectIdentifierInput(effect, null);
+
+// use a list of string effects
+var input = new EffectIdentifierInput(null, effects);
+
+// Remove the effect or effects
+EffectIdentifierResponse result = _mApiChromaInstance.RemoveEffect(input);
+```
+
+### `PUT` CHROMA_NONE` Effect
+
+Set the `CHROMA_NONE` effect to clear the device lighting effects.
+
+**ChromaLink**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutChromaLinkNone();
+```
+
+**Headset**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutHeadsetNone();
+```
+
+**Keyboard**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutKeyboardNone();
+```
+
+**Keypad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutKeypadNone();
+```
+
+**Mouse**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutMouseNone();
+```
+
+**Mousepad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PutMousepadNone();
+```
+
+### `POST` CHROMA_NONE` Effect
+
+Create an effect identifier with the `CHROMA_NONE` effect to clear the device lighting effects.
+
+**ChromaLink**
+
+```charp
+EffectResponseId result = _mApiChromaInstance.PostChromaLinkNone();
+```
+
+**Headset**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostHeadsetNone();
+```
+
+**Keyboard**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostKeyboardNone();
+```
+
+**Keypad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostKeypadNone();
+```
+
+**Mouse**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostMouseNone();
+```
+
+**Mousepad**
+
+```charp
+EffectResponse result = _mApiChromaInstance.PostMousepadNone();
+```
