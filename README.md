@@ -67,11 +67,15 @@ Import [UnityChromaSDK.unitypackage](https://github.com/razerofficial/UnityChrom
 
 6 Open the example scene [Assets/ChromaSDK/Examples/Scenes/Example01.unity](Assets/ChromaSDK/Examples/Scenes/Example01.unity)
 
-7 Hit play
+7 Be sure to select `Run in background` in the player settings, so that `Chroma` still works when Unity doesn't have focus
+
+![image_6](images/image_6.png)
+
+8 Hit play
 
 ![image_5](images/image_5.png)
 
-8 Customize the example script [Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs](Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs)
+9 Customize the example script [Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs](Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs)
 
 ![image_1](images/image_1.png)
 
