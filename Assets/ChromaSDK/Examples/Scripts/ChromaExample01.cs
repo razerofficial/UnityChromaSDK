@@ -229,8 +229,12 @@ public class ChromaExample01 : MonoBehaviour
             Debug.LogError(string.Format("Exception when calling RazerApi.PostChromaSdk: {0}", e));
             _mApiRazerInstance = null;
 
-            // retry
-            StartCoroutine(Initialize());
+            // Coroutines can only start from the main thread
+            RunOnMainThread(() =>
+            {
+                // retry
+                StartCoroutine(Initialize());
+            });
         }
     }
 
