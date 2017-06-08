@@ -51,7 +51,7 @@ Import [UnityChromaSDK.unitypackage](https://github.com/razerofficial/UnityChrom
 
 1 Install [Unity3d](https://unity3d.com/)
 
-2 Open Unity and start with an existing project or open a new project.
+2 Open Unity and start with an existing project or open a new project
 
 ![image_2](images/image_2.png)
 
@@ -59,9 +59,19 @@ Import [UnityChromaSDK.unitypackage](https://github.com/razerofficial/UnityChrom
 
 4 Import the `UnityChromaSDK.unitypackage` using the `Assets->Import Package->Custom Package...` and select the downloaded file
 
-5 Open the example scene [Assets/ChromaSDK/Examples/Scenes/Example01.unity](Assets/ChromaSDK/Examples/Scenes/Example01.unity)
+![image_3](images/image_3.png)
 
-6 Customize the example script [Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs](Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs)
+5 Select all the files and click the `Import` button
+
+![image_4](images/image_4.png)
+
+6 Open the example scene [Assets/ChromaSDK/Examples/Scenes/Example01.unity](Assets/ChromaSDK/Examples/Scenes/Example01.unity)
+
+7 Hit play
+
+![image_5](images/image_5.png)
+
+8 Customize the example script [Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs](Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs)
 
 ![image_1](images/image_1.png)
 
