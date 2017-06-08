@@ -43,7 +43,7 @@ namespace ChromaSDK.ChromaPackage.Model
             // to ensure "Effect" is required (not null)
             if (Effect == null)
             {
-                throw new InvalidDataException("Effect is a required property for EffectInput and cannot be null");
+                throw new Exception("Effect is a required property for EffectInput and cannot be null");
             }
             else
             {

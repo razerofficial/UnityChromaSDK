@@ -43,7 +43,7 @@ namespace ChromaSDK.ChromaPackage.Model
             // to ensure "Result" is required (not null)
             if (Result == null)
             {
-                throw new InvalidDataException("Result is a required property for EffectResponseId and cannot be null");
+                throw new Exception("Result is a required property for EffectResponseId and cannot be null");
             }
             else
             {
