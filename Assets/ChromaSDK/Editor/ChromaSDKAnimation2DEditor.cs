@@ -1,10 +1,16 @@
 using ChromaSDK;
+using ChromaSDK.Api;
 using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(ChromaSDKAnimation2D))]
 public class ChromaSDKAnimation2DEditor : Editor
 {
+    /// <summary>
+    /// Instance of the API
+    /// </summary>
+    private ChromaApi _mApiChromaInstance = null;
+
     private float _mOverrideFrameTime = 0.1f;
 
     private Color _mColor = Color.red;
@@ -14,8 +20,6 @@ public class ChromaSDKAnimation2DEditor : Editor
     private Mouse.RZLED2 _mLed = Mouse.RZLED2.RZLED2_LOGO;
 
     private int _mCurrentFrame = 0;
-
-    private AnimationCurve _mCurve = new AnimationCurve();
 
     public override void OnInspectorGUI()
     {
@@ -90,22 +94,22 @@ public class ChromaSDKAnimation2DEditor : Editor
 
         if (GUILayout.Button("Play"))
         {
-
+            animation.Play(_mApiChromaInstance);
         }
 
         if (GUILayout.Button("Stop"))
         {
-
+            animation.Stop();
         }
 
         if (GUILayout.Button("Load"))
         {
-
+            animation.Load(_mApiChromaInstance);
         }
 
         if (GUILayout.Button("Unload"))
         {
-
+            animation.Unload(_mApiChromaInstance);
         }
 
         GUILayout.EndHorizontal();
@@ -199,6 +203,6 @@ public class ChromaSDKAnimation2DEditor : Editor
 
 
         // Custom Curve
-        _mCurve = EditorGUILayout.CurveField("Edit Curve:", _mCurve);
+        animation.Curve = EditorGUILayout.CurveField("Edit Curve:", animation.Curve);
     }
 }
