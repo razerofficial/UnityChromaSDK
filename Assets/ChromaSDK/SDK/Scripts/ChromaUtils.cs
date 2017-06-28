@@ -1,11 +1,141 @@
-﻿using System;
+﻿using ChromaSDK.Api;
+using ChromaSDK.ChromaPackage.Model;
+using System;
 using System.Threading;
 using UnityEngine;
 
-namespace ChromaSDK.ChromaPackage.Model
+namespace ChromaSDK
 {
     public static class ChromaUtils
     {
+        /// <summary>
+        /// Get the max column given the device
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns></returns>
+        public static int GetMaxColumn(ChromaDevice2DEnum device)
+        {
+            switch (device)
+            {
+                case ChromaDevice2DEnum.Keyboard:
+                    return Keyboard.MAX_COLUMN;
+                case ChromaDevice2DEnum.Keypad:
+                    return Keypad.MAX_COLUMN;
+                case ChromaDevice2DEnum.Mouse:
+                    return Mouse.MAX_COLUMN;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Get the max row given the device
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns></returns>
+        public static int GetMaxRow(ChromaDevice2DEnum device)
+        {
+            switch (device)
+            {
+                case ChromaDevice2DEnum.Keyboard:
+                    return Keyboard.MAX_ROW;
+                case ChromaDevice2DEnum.Keypad:
+                    return Keypad.MAX_ROW;
+                case ChromaDevice2DEnum.Mouse:
+                    return Mouse.MAX_ROW;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Get the max leds for the given device
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns></returns>
+        public static int GetMaxLeds(ChromaDevice1DEnum device)
+        {
+            switch (device)
+            {
+                case ChromaDevice1DEnum.ChromaLink:
+                    return ChromaLink.MAX_LEDS;
+                case ChromaDevice1DEnum.Headset:
+                    return Headset.MAX_LEDS;
+                case ChromaDevice1DEnum.Mousepad:
+                    return Mousepad.MAX_LEDS;
+            }
+            return 0;
+        }
+
+        public static EffectResponseId CreateEffectCustom2D(ChromaApi api, ChromaDevice2DEnum device, EffectArray2dInput input)
+        {
+            if (null == api)
+            {
+                Debug.LogError("CreateEffectCustom2D: Parameter api is null!");
+                return null;
+            }
+            if (null == input)
+            {
+                Debug.LogError("CreateEffectCustom2D: Parameter input is null!");
+                return null;
+            }
+            int maxRow = GetMaxRow(device);
+            int maxColumn = GetMaxColumn(device);
+            if (maxRow != input.Count ||
+                (input.Count > 0 &&
+                maxColumn != input[0].Count))
+            {
+                Debug.LogError(string.Format("CreateEffectCustom2D Array size mismatch row: %d==%d column: %d==%d!",
+                    maxRow,
+                    input.Count,
+                    maxColumn,
+                    input.Count > 0 ? input[0].Count : 0));
+            }
+
+            switch (device)
+            {
+                case ChromaDevice2DEnum.Keyboard:
+                    return api.PostKeyboardCustom(input);
+                case ChromaDevice2DEnum.Keypad:
+                    return api.PostKeypadCustom(input);
+                case ChromaDevice2DEnum.Mouse:
+                    return api.PostMouseCustom(input);
+            }
+            return null;
+        }
+
+        public static EffectIdentifierResponse SetEffect(ChromaApi api, string effectId)
+        {
+            if (null == api)
+            {
+                Debug.LogError("SetEffect: Parameter api is null!");
+                return null;
+            }
+            if (string.IsNullOrEmpty(effectId))
+            {
+                Debug.LogError("SetEffect: Parameter effectId cannot be null or empty!");
+                return null;
+            }
+
+            var input = new EffectIdentifierInput(effectId, null);
+            return api.PutEffect(input);
+        }
+
+        public static EffectIdentifierResponse RemoveEffect(ChromaApi api, string effectId)
+        {
+            if (null == api)
+            {
+                Debug.LogError("RemoveEffect: Parameter api is null!");
+                return null;
+            }
+            if (string.IsNullOrEmpty(effectId))
+            {
+                Debug.LogError("RemoveEffect: Parameter effectId cannot be null or empty!");
+                return null;
+            }
+
+            var input = new EffectIdentifierInput(effectId, null);
+            return api.RemoveEffect(input);
+        }
+
         /// <summary>
         /// Convert Unity Color to BGR int
         /// </summary>

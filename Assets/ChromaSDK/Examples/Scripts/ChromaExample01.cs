@@ -1,4 +1,6 @@
-﻿// Access to Chroma data structures
+﻿// Access to Types and Utils
+using ChromaSDK;
+// Access to Chroma data structures
 using ChromaSDK.ChromaPackage.Model;
 // Access to the Chroma API
 using ChromaSDK.Api;
