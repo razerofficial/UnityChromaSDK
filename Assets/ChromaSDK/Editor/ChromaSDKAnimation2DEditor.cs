@@ -151,7 +151,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                     GUI.backgroundColor = ChromaUtils.ToRGB(color);
                     if (GUILayout.Button(" ", GUILayout.Width(12)))
                     {
-
+                        OnColorClick(i, j);
                     }
                 }
 
@@ -362,7 +362,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
     {
         ChromaSDKAnimation2D animation = GetAnimation();
         if (_mCurrentFrame < 0 ||
-                _mCurrentFrame >= animation.Frames.Count)
+            _mCurrentFrame >= animation.Frames.Count)
         {
             _mCurrentFrame = 0;
         }
@@ -371,6 +371,17 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             --_mCurrentFrame;
         }
         animation.RefreshCurve();
+    }
+    
+    private void OnColorClick(int row, int column)
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (_mCurrentFrame < animation.Frames.Count)
+        {
+            int color = ChromaUtils.ToBGR(_mColor);
+            animation.Frames[_mCurrentFrame][row][column] = color;
+            Repaint();
+        }
     }
 
     private void OnClickNextButton()
