@@ -57,7 +57,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         if (GUILayout.Button("Override"))
         {
-
+            OnClickOverrideButton();
         }
 
         _mOverrideFrameTime = EditorGUILayout.FloatField("Override Frame Time", _mOverrideFrameTime);
@@ -194,8 +194,24 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             _mCurrentFrame + 1,
             null == animation.Frames ? 0 : animation.Frames.Count));
 
+        float duration = 0.0f;
+        if (_mCurrentFrame < animation.Frames.Count &&
+            _mCurrentFrame < animation.Curve.keys.Length)
+        {
+            if (_mCurrentFrame == 0)
+            {
+                duration = animation.Curve.keys[_mCurrentFrame].time;
+            }
+            else
+            {
+                duration =
+                    animation.Curve.keys[_mCurrentFrame].time -
+                    animation.Curve.keys[_mCurrentFrame - 1].time;
+            }
+        }
+
         EditorGUILayout.LabelField("Duration:", string.Format("{0} second(s)",
-            1.0f));
+            duration));
 
 
         GUILayout.BeginHorizontal();
@@ -240,6 +256,25 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 Repaint();
             }
         }
+    }
+
+    private void OnClickOverrideButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        float frameTime = _mOverrideFrameTime;
+        float time = 0.0f;
+        //clear old keys
+        while (animation.Curve.keys.Length > 0)
+        {
+            animation.Curve.RemoveKey(0);
+        }
+        //add keys on new interval
+        for (int i = 0; i < animation.Frames.Count; ++i)
+        {
+            time += frameTime;
+            animation.Curve.AddKey(time, 0f);
+        }
+        animation.RefreshCurve();
     }
 
     private void OnClickSetDevice()
@@ -460,6 +495,12 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         {
             // reset frame
             animation.Frames[0] = ChromaUtils.CreateColors2D(animation.Device);
+
+            // reset curve
+            while (animation.Curve.keys.Length > 0)
+            {
+                animation.Curve.RemoveKey(0);
+            }
         }
         else if (animation.Frames.Count > 0)
         {
