@@ -1,5 +1,9 @@
-﻿namespace ChromaSDK
+﻿using System;
+using UnityEngine;
+
+namespace ChromaSDK
 {
+    [Serializable]
     public enum ChromaDevice1DEnum
     {
         ChromaLink,
@@ -7,6 +11,7 @@
         Mousepad,
     }
 
+    [Serializable]
     public enum ChromaDevice2DEnum
     {
         Keyboard,

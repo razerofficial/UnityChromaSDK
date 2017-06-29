@@ -7,13 +7,106 @@ using UnityEngine;
 
 // Unity 3.X doesn't like namespaces
 [ExecuteInEditMode]
+[Serializable]
 public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
 {
-    public AnimationCurve Curve = new AnimationCurve();
+    /// <summary>
+    /// Only used to serialize to disk
+    /// </summary>
+    [Serializable]
+    public class Colors2D
+    {
+        [SerializeField]
+        public int[] Colors;
+    }
 
+    /// <summary>
+    /// Only used to serialize to disk
+    /// </summary>
+    [Serializable]
+    public class ColorFrame2D
+    {
+        [SerializeField]
+        public Colors2D[] Colors;
+    }
+
+    [SerializeField]
+    private float[] _mTimes = null;
+
+    [SerializeField]
     public ChromaDevice2DEnum Device = ChromaDevice2DEnum.Keyboard;
 
-    public List<EffectArray2dInput> Frames = new List<EffectArray2dInput>();
+    [SerializeField]
+    private ColorFrame2D[] _mFrames = null;
+
+    [SerializeField]
+    public AnimationCurve Curve = new AnimationCurve();
+
+    public List<EffectArray2dInput> Frames
+    {
+        // returns a copy
+        get
+        {
+            int maxRow = ChromaUtils.GetMaxRow(Device);
+            int maxColumn = ChromaUtils.GetMaxColumn(Device);
+            if (null == _mFrames ||
+                _mFrames.Length == 0 ||
+                null == _mFrames[0] ||
+                null == _mFrames[0].Colors ||
+                _mFrames[0].Colors.Length != maxRow ||
+                null == _mFrames[0].Colors[0].Colors ||
+                _mFrames[0].Colors[0].Colors.Length != maxColumn)
+            {
+                ClearFrames();
+            }
+
+            List<EffectArray2dInput> frames = new List<EffectArray2dInput>();
+            for (int index = 0; index < _mFrames.Length; ++index)
+            {
+                var sourceFrame = _mFrames[index];
+                var sourceRows = sourceFrame.Colors;
+                var rows = new EffectArray2dInput();
+                for (int i = 0; i < sourceRows.Length; ++i)
+                {
+                    var sourceRow = sourceRows[i].Colors;
+                    var row = new List<int>();
+                    for (int j = 0; j < sourceRow.Length; ++j)
+                    {
+                        int color = sourceRow[j];
+                        row.Add(color);
+                    }
+                    rows.Add(row);
+                }
+                frames.Add(rows);
+            }
+            return frames;
+        }
+        set
+        {
+            List<EffectArray2dInput> sourceFrames = value;
+            _mFrames = new ColorFrame2D[sourceFrames.Count];
+            for (int index = 0; index < sourceFrames.Count; ++index)
+            {
+                var sourceRows = sourceFrames[index];
+                var frame = new ColorFrame2D();
+                var rows = new Colors2D[sourceRows.Count];
+                for (int i = 0; i < sourceRows.Count; ++i)
+                {
+                    var sourceRow = sourceRows[i];
+                    rows[i] = new Colors2D();
+                    var row = new int[sourceRow.Count];
+                    for (int j = 0; j < sourceRow.Count; ++j)
+                    {
+                        int color = sourceRow[j];
+                        row[j] = color;
+                    }
+                    rows[i].Colors = row;
+                }
+                frame.Colors = rows;
+                _mFrames[index] = frame;
+            }
+        }
+    }
 
     public delegate void ChomaOnComplete2D(ChromaSDKAnimation2D animation);
 
@@ -32,6 +125,30 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     /// Instance of the API
     /// </summary>
     private ChromaApi _mApiChromaInstance = null;
+
+    /// <summary>
+    /// Set frames to the default state
+    /// </summary>
+    public void ClearFrames()
+    {
+        int maxRow = ChromaUtils.GetMaxRow(Device);
+        int maxColumn = ChromaUtils.GetMaxColumn(Device);
+        _mFrames = new ColorFrame2D[1];
+        var frame = new ColorFrame2D();
+        var rows = new Colors2D[maxRow];
+        for (int i = 0; i < maxRow; ++i)
+        {
+            rows[i] = new Colors2D();
+            var row = new int[maxColumn];
+            for (int j = 0; j < maxColumn; ++j)
+            {
+                row[j] = 0;
+            }
+            rows[i].Colors = row;
+        }
+        frame.Colors = rows;
+        _mFrames[0] = frame;
+    }
 
     /// <summary>
     /// Play the animation

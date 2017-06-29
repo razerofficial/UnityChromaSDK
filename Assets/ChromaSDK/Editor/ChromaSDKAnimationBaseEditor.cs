@@ -222,7 +222,13 @@ public class ChromaSDKAnimationBaseEditor : Editor
                 }
 
                 // Wait for a sec
-                Thread.Sleep(1000);
+                DateTime wait = DateTime.Now + TimeSpan.FromSeconds(1);
+                // avoid blocking exit
+                while (_mWaitForExit &&
+                    DateTime.Now < wait)
+                {
+                    Thread.Sleep(0);
+                }
             }
 
             Debug.Log(string.Format("Heartbeat {0} exited", uri.Port));
