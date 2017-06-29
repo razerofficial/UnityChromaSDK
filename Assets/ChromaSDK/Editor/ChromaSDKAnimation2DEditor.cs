@@ -10,6 +10,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
     private float _mOverrideFrameTime = 0.1f;
 
+    private ChromaDevice2DEnum _mDevice = ChromaDevice2DEnum.Keyboard;
+
     private Color _mColor = Color.red;
 
     private Keyboard.RZKEY _mKey = Keyboard.RZKEY.RZKEY_ESC;
@@ -61,7 +63,13 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         _mOverrideFrameTime = EditorGUILayout.FloatField("Override Frame Time", _mOverrideFrameTime);
 
         // Device
-        animation.Device = (ChromaDevice2DEnum)EditorGUILayout.EnumPopup("Device", animation.Device);
+        GUILayout.BeginHorizontal();
+        _mDevice = (ChromaDevice2DEnum)EditorGUILayout.EnumPopup("Device", _mDevice);
+        if (GUILayout.Button("Set", GUILayout.Width(100)))
+        {
+            OnClickSetDevice();
+        }
+        GUILayout.EndHorizontal();
 
         // Apply
         GUILayout.BeginHorizontal();
@@ -217,6 +225,17 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         // Custom Curve
         animation.Curve = EditorGUILayout.CurveField("Edit Curve:", animation.Curve);
+    }
+
+    private void OnClickSetDevice()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (animation.Device != _mDevice)
+        {
+            animation.Device = _mDevice;
+            animation.Frames.Clear();
+            OnClickAddButton();
+        }
     }
 
     private void OnClickClearButton()
