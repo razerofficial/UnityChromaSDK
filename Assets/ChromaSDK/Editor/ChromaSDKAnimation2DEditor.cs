@@ -191,7 +191,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         _mColor = EditorGUILayout.ColorField("Brush color", _mColor);
 
         EditorGUILayout.LabelField("Frame:", string.Format("{0} of {1}",
-            _mCurrentFrame,
+            _mCurrentFrame + 1,
             null == animation.Frames ? 0 : animation.Frames.Count));
 
         EditorGUILayout.LabelField("Duration:", string.Format("{0} second(s)",
@@ -225,6 +225,21 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         // Custom Curve
         animation.Curve = EditorGUILayout.CurveField("Edit Curve:", animation.Curve);
+
+        Event e = Event.current;
+        if (e.type == EventType.keyUp)
+        {
+            if (e.keyCode == KeyCode.LeftArrow)
+            {
+                OnClickPreviousButton();
+                Repaint();
+            }
+            else if (e.keyCode == KeyCode.RightArrow)
+            {
+                OnClickNextButton();
+                Repaint();
+            }
+        }
     }
 
     private void OnClickSetDevice()
