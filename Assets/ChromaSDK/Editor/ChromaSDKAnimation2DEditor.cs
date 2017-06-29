@@ -48,7 +48,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         if (GUILayout.Button("Import image"))
         {
-
+            //tion import unmanaged
         }
 
         if (GUILayout.Button("Import animation"))
@@ -166,28 +166,41 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         GUI.backgroundColor = oldBackgroundColor;
 
         // Key
-        GUILayout.BeginHorizontal();
-        _mKey = (Keyboard.RZKEY)EditorGUILayout.EnumPopup("Select a key", _mKey);
-        if (GUILayout.Button("Set key", GUILayout.Width(100)))
+        if (animation.Device == ChromaDevice2DEnum.Keyboard)
         {
-
+            GUILayout.BeginHorizontal();
+            _mKey = (Keyboard.RZKEY)EditorGUILayout.EnumPopup("Select a key", _mKey);
+            if (GUILayout.Button("Set key", GUILayout.Width(100)))
+            {
+                OnClickColor(
+                    ChromaUtils.GetHighByte((int)_mKey),
+                    ChromaUtils.GetLowByte((int)_mKey));
+            }
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Set logo"))
+            {
+                OnClickColor(
+                    ChromaUtils.GetHighByte((int)Keyboard.RZLED.RZLED_LOGO),
+                    ChromaUtils.GetLowByte((int)Keyboard.RZLED.RZLED_LOGO));
+            }
+            GUILayout.EndHorizontal();
         }
-        GUILayout.EndHorizontal();
-        GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Set logo"))
-        {
-
-        }
-        GUILayout.EndHorizontal();
 
         // Led
-        GUILayout.BeginHorizontal();
-        _mLed = (Mouse.RZLED2)EditorGUILayout.EnumPopup("Select an LED", _mLed);
-        if (GUILayout.Button("Set LED", GUILayout.Width(100)))
+        if (animation.Device == ChromaDevice2DEnum.Mouse)
         {
-
+            GUILayout.BeginHorizontal();
+            _mLed = (Mouse.RZLED2)EditorGUILayout.EnumPopup("Select an LED", _mLed);
+        
+            if (GUILayout.Button("Set LED", GUILayout.Width(100)))
+            {
+                OnClickColor(
+                    ChromaUtils.GetHighByte((int)_mLed),
+                    ChromaUtils.GetLowByte((int)_mLed));
+            }
+            GUILayout.EndHorizontal();
         }
-        GUILayout.EndHorizontal();
 
         // Set the color
 
@@ -248,7 +261,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         Event e = Event.current;
         if (e.type == EventType.keyUp)
         {
-            if (e.keyCode == KeyCode.LeftArrow)
+            if (e.keyCode == KeyCode.P)
+            {
+                OnClickPlayButton();
+            }
+            else if(e.keyCode == KeyCode.LeftArrow)
             {
                 OnClickPreviousButton();
                 Repaint();
@@ -256,6 +273,18 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             else if (e.keyCode == KeyCode.RightArrow)
             {
                 OnClickNextButton();
+                Repaint();
+            }
+            else if (e.keyCode == KeyCode.Plus ||
+                e.keyCode == KeyCode.KeypadPlus)
+            {
+                OnClickAddButton();
+                Repaint();
+            }
+            else if (e.keyCode == KeyCode.Minus ||
+                e.keyCode == KeyCode.KeypadMinus)
+            {
+                OnClickDeleteButton();
                 Repaint();
             }
         }

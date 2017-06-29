@@ -72,6 +72,16 @@ namespace ChromaSDK
             return 0;
         }
 
+        public static int GetLowByte(int mask)
+        {
+            return (int)(mask & 0xFF);
+        }
+
+        public static int GetHighByte(int mask)
+        {
+            return (int)(((mask & 0xFF00) >> 8) & 0xFF);
+        }
+
         public static EffectArray2dInput CreateColors2D(ChromaDevice2DEnum device)
         {
             int maxRows = GetMaxRow(device);
