@@ -92,6 +92,8 @@ public class ChromaSDKAnimationBaseEditor : Editor
 
     public void EditorUpdate()
     {
+        GetAnimation().Update();
+
         //Debug.LogFormat("EditorUpdate: {0}", _mPendingRoutines.Count);
 
         //Debug.LogFormat("OnGUI: IsCompiling: {0}", EditorApplication.isCompiling);

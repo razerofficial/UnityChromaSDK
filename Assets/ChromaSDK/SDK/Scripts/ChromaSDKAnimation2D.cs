@@ -1,6 +1,7 @@
 ﻿using ChromaSDK;
 using ChromaSDK.Api;
 using ChromaSDK.ChromaPackage.Model;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     private bool _mIsLoaded = false;
 
     private bool _mIsPlaying = false;
-    private float _mTime = 0f;
+    private DateTime _mTime = DateTime.Now;
     private int _mCurrentFrame = 0;
     private List<EffectResponseId> _mEffects = new List<EffectResponseId>();
 
@@ -50,7 +51,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
         // clear on play to avoid unsetting on a loop
         _mOnComplete = null;
 
-        _mTime = 0.0f;
+        _mTime = DateTime.Now; //reset
         _mIsPlaying = true;
         _mCurrentFrame = 0;
 
@@ -85,7 +86,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
 
         _mOnComplete = onComplete;
 
-        _mTime = 0.0f;
+        _mTime = DateTime.Now; //reset
         _mIsPlaying = true;
         _mCurrentFrame = 0;
 
@@ -108,7 +109,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     {
         Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
         _mIsPlaying = false;
-        _mTime = 0.0f;
+        _mTime = DateTime.Now; //reset
         _mCurrentFrame = 0;
     }
 
@@ -192,12 +193,11 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
         return 0.033f;
     }
 
-    private void Update()
+    public override void Update()
     {
-        float deltaTime = Time.deltaTime;
-        _mTime += deltaTime;
+        float time = (float)(DateTime.Now - _mTime).TotalSeconds;
         float nextTime = GetTime(_mCurrentFrame);
-        if (nextTime < _mTime)
+        if (nextTime < time)
         {
             ++_mCurrentFrame;
             if (_mCurrentFrame < _mEffects.Count)
@@ -217,7 +217,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
             {
                 //UE_LOG(LogTemp, Log, TEXT("UChromaSDKPluginAnimation2DObject::Tick Animation Complete."));
                 _mIsPlaying = false;
-                _mTime = 0.0f;
+                _mTime = DateTime.Now; //reset
                 _mCurrentFrame = 0;
 
                 // execute the complete event if set
