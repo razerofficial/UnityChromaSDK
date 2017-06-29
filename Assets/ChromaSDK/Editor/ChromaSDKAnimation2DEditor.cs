@@ -14,6 +14,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     private Color _mColor = Color.red;
 
+    private EffectArray2dInput _mColors = null;
+
     private Keyboard.RZKEY _mKey = Keyboard.RZKEY.RZKEY_ESC;
 
     private Mouse.RZLED2 _mLed = Mouse.RZLED2.RZLED2_LOGO;
@@ -356,6 +358,23 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < frames.Count)
         {
+            ChromaDevice2DEnum device = animation.Device;
+            int maxRow = ChromaUtils.GetMaxRow(device);
+            int maxColumn = ChromaUtils.GetMaxColumn(device);
+            var frame = frames[_mCurrentFrame];
+            _mColors = ChromaUtils.CreateColors2D(device);
+            if (frame.Count == maxRow &&
+                null != frame[0] &&
+                frame[0].Count == maxColumn)
+            {
+                for (int i = 0; i < maxRow; ++i)
+                {
+                    for (int j = 0; j < maxColumn; ++j)
+                    {
+                        _mColors[i][j] = frame[i][j];
+                    }
+                }
+            }
         }
     }
 
@@ -372,6 +391,23 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < frames.Count)
         {
+            ChromaDevice2DEnum device = animation.Device;
+            int maxRow = ChromaUtils.GetMaxRow(device);
+            int maxColumn = ChromaUtils.GetMaxColumn(device);
+            if (_mColors.Count == maxRow &&
+                null != _mColors[0] &&
+                _mColors[0].Count == maxColumn)
+            {
+                var frame = ChromaUtils.CreateColors2D(device);
+                for (int i = 0; i < maxRow; ++i)
+                {
+                    for (int j = 0; j < maxColumn; ++j)
+                    {
+                        frame[i][j] = _mColors[i][j];
+                    }
+                }
+                frames[_mCurrentFrame] = frame;
+            }
         }
         animation.Frames = frames;
     }
