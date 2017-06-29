@@ -1,5 +1,7 @@
 using ChromaSDK;
 using ChromaSDK.Api;
+using ChromaSDK.ChromaPackage.Model;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,6 +18,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     private int _mCurrentFrame = 0;
 
+    private ChromaSDKAnimation2D GetAnimation()
+    {
+        return (ChromaSDKAnimation2D)target;
+    }
+
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -23,7 +30,12 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         // backup original color
         Color oldBackgroundColor = GUI.backgroundColor;
 
-        ChromaSDKAnimation2D animation = (ChromaSDKAnimation2D)target;
+        ChromaSDKAnimation2D animation = GetAnimation();
+
+        if (animation.Frames.Count == 0)
+        {
+            OnClickAddButton();
+        }
 
         // Import
 
@@ -56,27 +68,27 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         if (GUILayout.Button("Clear"))
         {
-
+            OnClickClearButton();
         }
 
         if (GUILayout.Button("Fill"))
         {
-
+            OnClickFillButton();
         }
 
         if (GUILayout.Button("Random"))
         {
-
+            OnClickRandomButton();
         }
 
         if (GUILayout.Button("Copy"))
         {
-
+            OnClickCopyButton();
         }
 
         if (GUILayout.Button("Paste"))
         {
-
+            OnClickPasteButton();
         }
 
         GUILayout.EndHorizontal();
@@ -86,27 +98,27 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         if (GUILayout.Button("Preview"))
         {
-
+            OnClickPreviewButton();
         }
 
         if (GUILayout.Button("Play"))
         {
-            animation.Play(_mApiChromaInstance);
+            OnClickPlayButton();
         }
 
         if (GUILayout.Button("Stop"))
         {
-            animation.Stop();
+            OnClickStopButton();
         }
 
         if (GUILayout.Button("Load"))
         {
-            animation.Load(_mApiChromaInstance);
+            OnClickLoadButton();
         }
 
         if (GUILayout.Button("Unload"))
         {
-            animation.Unload(_mApiChromaInstance);
+            OnClickUnloadButton();
         }
 
         GUILayout.EndHorizontal();
@@ -117,22 +129,26 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         GUILayout.Label(string.Format("{0} x {1}", maxRow, maxColumn));
 
         // Preview
-
-        GUI.backgroundColor = Color.red;
-
-        for (int i = 0; i < maxRow; ++i)
+        if (_mCurrentFrame < animation.Frames.Count)
         {
-            GUILayout.BeginHorizontal();
-
-            for (int j = 0; j < maxColumn; ++j)
+            EffectArray2dInput frame = animation.Frames[_mCurrentFrame];
+            for (int i = 0; i < maxRow; ++i)
             {
-                if (GUILayout.Button(" ", GUILayout.Width(12)))
+                List<int> row = frame[i];
+                GUILayout.BeginHorizontal();
+
+                for (int j = 0; j < maxColumn; ++j)
                 {
+                    int color = row[j];
+                    GUI.backgroundColor = ChromaUtils.ToRGB(color);
+                    if (GUILayout.Button(" ", GUILayout.Width(12)))
+                    {
 
+                    }
                 }
-            }
 
-            GUILayout.EndHorizontal();
+                GUILayout.EndHorizontal();
+            }
         }
 
         // restore original color
@@ -188,7 +204,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         if (GUILayout.Button("Add"))
         {
-
+            OnClickAddButton();
         }
 
         if (GUILayout.Button("Delete"))
@@ -201,5 +217,132 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         // Custom Curve
         animation.Curve = EditorGUILayout.CurveField("Edit Curve:", animation.Curve);
+    }
+
+    private void OnClickClearButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < animation.Frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            List<EffectArray2dInput> frames = animation.Frames;
+            frames[_mCurrentFrame] = ChromaUtils.CreateColors2D(device);
+        }
+    }
+
+    private void OnClickFillButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < animation.Frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            List<EffectArray2dInput> frames = animation.Frames;
+            int maxRows = ChromaUtils.GetMaxRow(device);
+            int maxColumns = ChromaUtils.GetMaxColumn(device);
+            var rows = ChromaUtils.CreateColors2D(device);
+            for (int i = 0; i < maxRows; ++i)
+            {
+                var row = rows[i];
+                for (int j = 0; j < maxColumns; ++j)
+                {
+                    row[j] = ChromaUtils.ToBGR(_mColor);
+                }
+            }
+            frames[_mCurrentFrame] = rows;
+        }
+    }
+
+    private void OnClickCopyButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < animation.Frames.Count)
+        {
+        }
+    }
+
+    private void OnClickPasteButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < animation.Frames.Count)
+        {
+        }
+    }
+
+    private void OnClickRandomButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < animation.Frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            List<EffectArray2dInput> frames = animation.Frames;
+            frames[_mCurrentFrame] = ChromaUtils.CreateRandomColors2D(device);
+        }
+    }
+
+    private void OnClickPreviewButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < animation.Frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            List<EffectArray2dInput> frames = animation.Frames;
+            EffectArray2dInput colors = frames[_mCurrentFrame];
+            EffectResponseId effect = ChromaUtils.CreateEffectCustom2D(_mApiChromaInstance, device, colors);
+            if (effect.Result == 0)
+            {
+                ChromaUtils.SetEffect(_mApiChromaInstance, effect.Id);
+                ChromaUtils.RemoveEffect(_mApiChromaInstance, effect.Id);
+            }
+        }
+    }
+
+    private void OnClickPlayButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (!animation.IsLoaded())
+        {
+            animation.Load(_mApiChromaInstance);
+        }
+        animation.Play(_mApiChromaInstance);
+    }
+
+    private void OnClickStopButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (animation.IsPlaying())
+        {
+            animation.Stop();
+        }
+    }
+
+    private void OnClickLoadButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (!animation.IsLoaded())
+        {
+            animation.Load(_mApiChromaInstance);
+        }
+    }
+
+    private void OnClickUnloadButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (animation.IsLoaded())
+        {
+            animation.Unload(_mApiChromaInstance);
+        }
+    }
+
+    private void OnClickAddButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EffectArray2dInput frame = ChromaUtils.CreateColors2D(animation.Device);
+        animation.Frames.Add(frame);
     }
 }

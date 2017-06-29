@@ -1,13 +1,20 @@
 ﻿using ChromaSDK.Api;
 using ChromaSDK.ChromaPackage.Model;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using Random = System.Random;
 
 namespace ChromaSDK
 {
     public static class ChromaUtils
     {
+        /// <summary>
+        /// Thread safe random object
+        /// </summary>
+        private static Random _sRandom = new System.Random(123);
+
         /// <summary>
         /// Get the max column given the device
         /// </summary>
@@ -63,6 +70,40 @@ namespace ChromaSDK
                     return Mousepad.MAX_LEDS;
             }
             return 0;
+        }
+
+        public static EffectArray2dInput CreateColors2D(ChromaDevice2DEnum device)
+        {
+            int maxRows = GetMaxRow(device);
+            int maxColumns = GetMaxColumn(device);
+            var rows = new EffectArray2dInput();
+            for (int i = 0; i < maxRows; ++i)
+            {
+                var row = new List<int>();
+                for (int j = 0; j < maxColumns; ++j)
+                {
+                    row.Add(0);
+                }
+                rows.Add(row);
+            }
+            return rows;
+        }
+
+        public static EffectArray2dInput CreateRandomColors2D(ChromaDevice2DEnum device)
+        {
+            int maxRows = GetMaxRow(device);
+            int maxColumns = GetMaxColumn(device);
+            var rows = new EffectArray2dInput();
+            for (int i = 0; i < maxRows; ++i)
+            {
+                var row = new List<int>();
+                for (int j = 0; j < maxColumns; ++j)
+                {
+                    row.Add(_sRandom.Next(16777215));
+                }
+                rows.Add(row);
+            }
+            return rows;
         }
 
         public static EffectResponseId CreateEffectCustom2D(ChromaApi api, ChromaDevice2DEnum device, EffectArray2dInput input)
