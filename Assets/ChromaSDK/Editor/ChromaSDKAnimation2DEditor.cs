@@ -4,13 +4,8 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(ChromaSDKAnimation2D))]
-public class ChromaSDKAnimation2DEditor : Editor
+public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
-    /// <summary>
-    /// Instance of the API
-    /// </summary>
-    private ChromaApi _mApiChromaInstance = null;
-
     private float _mOverrideFrameTime = 0.1f;
 
     private Color _mColor = Color.red;
@@ -23,6 +18,8 @@ public class ChromaSDKAnimation2DEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        base.OnInspectorGUI();
+
         // backup original color
         Color oldBackgroundColor = GUI.backgroundColor;
 

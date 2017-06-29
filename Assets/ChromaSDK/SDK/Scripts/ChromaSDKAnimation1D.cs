@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Unity 3.X doesn't like namespaces
-public class ChromaSDKAnimation1D : MonoBehaviour
+[ExecuteInEditMode]
+public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
 {
     public AnimationCurve Curve = new AnimationCurve();
 

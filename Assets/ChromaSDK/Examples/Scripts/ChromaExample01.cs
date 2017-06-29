@@ -261,8 +261,12 @@ public class ChromaExample01 : MonoBehaviour
             SetHeartbeatText("Waiting to initialize ChromaSDK...");
         });
 
-        // delay
-        yield return new WaitForSeconds(2);
+        // delay, WaitForSeconds doesn't work in edit mode
+        DateTime wait = DateTime.Now + TimeSpan.FromSeconds(2);
+        while (DateTime.Now < wait)
+        {
+            yield return null;
+        }
 
         ChromaUtils.RunOnThread(() =>
         {
