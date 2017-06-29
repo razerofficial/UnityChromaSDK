@@ -196,14 +196,15 @@ public class ChromaSDKAnimationBaseEditor : Editor
     /// </summary>
     void DoHeartbeat()
     {
-        if (null != _mApiChromaInstance)
+        if (null == _mApiChromaInstance)
+        {
+            Debug.LogError("DoHeartbeat: ApiChromaInstance is null!");
+        }
+        else
         {
             Uri uri = new Uri(_mApiChromaInstance.ApiClient.BasePath);
 
-            RunOnMainThread(() =>
-            {
-                SetHeartbeatText(string.Format("Monitoring Heartbeat {0}...", uri.Port));
-            });
+            Debug.Log(string.Format("Monitoring Heartbeat {0}...", uri.Port));
 
             while (_mWaitForExit &&
                 null != _mApiChromaInstance)
@@ -222,10 +223,7 @@ public class ChromaSDKAnimationBaseEditor : Editor
                 Thread.Sleep(1000);
             }
 
-            RunOnMainThread(() =>
-            {
-                SetHeartbeatText(string.Format("Heartbeat {0} exited", uri.Port));
-            });
+            Debug.Log(string.Format("Heartbeat {0} exited", uri.Port));
 
         }
     }
@@ -236,6 +234,7 @@ public class ChromaSDKAnimationBaseEditor : Editor
     /// <returns></returns>
     void PostChromaSdk()
     {
+        Debug.Log("PostChromaSdk:");
         try
         {
             if (null != _mApiRazerInstance)
@@ -295,6 +294,8 @@ public class ChromaSDKAnimationBaseEditor : Editor
     /// <returns></returns>
     IEnumerator Initialize()
     {
+        Debug.Log("Initialize:");
+
         // wait to initialize in case recompile just shutdown
         RunOnMainThread(() =>
         {
