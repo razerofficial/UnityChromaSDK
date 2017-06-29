@@ -85,32 +85,32 @@ MonoBehaviour:
   Curve:
     serializedVersion: 2
     m_Curve:
+    - time: .200000003
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .400000006
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .600000024
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .800000012
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
     - time: 1
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 2
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 3
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 4
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 5
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 6
+    - time: 1.20000005
       value: 0
       inSlope: 0
       outSlope: 0
