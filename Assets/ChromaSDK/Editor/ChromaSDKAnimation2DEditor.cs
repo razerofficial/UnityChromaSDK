@@ -202,12 +202,12 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         if (GUILayout.Button("Previous"))
         {
-
+            OnClickPreviousButton();
         }
 
         if (GUILayout.Button("Next"))
         {
-
+            OnClickNextButton();
         }
 
         if (GUILayout.Button("Add"))
@@ -217,7 +217,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         if (GUILayout.Button("Delete"))
         {
-
+            OnClickDeleteButton();
         }
 
         GUILayout.EndHorizontal();
@@ -358,10 +358,91 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         }
     }
 
+    private void OnClickPreviousButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (_mCurrentFrame < 0 ||
+                _mCurrentFrame >= animation.Frames.Count)
+        {
+            _mCurrentFrame = 0;
+        }
+        if (_mCurrentFrame > 0)
+        {
+            --_mCurrentFrame;
+        }
+        animation.RefreshCurve();
+    }
+
+    private void OnClickNextButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (_mCurrentFrame < 0 ||
+            _mCurrentFrame >= animation.Frames.Count)
+        {
+            _mCurrentFrame = 0;
+        }
+        if ((_mCurrentFrame + 1) < animation.Frames.Count)
+        {
+            ++_mCurrentFrame;
+        }
+        animation.RefreshCurve();
+    }
+
     private void OnClickAddButton()
     {
         ChromaSDKAnimation2D animation = GetAnimation();
+
+        if (animation.IsLoaded())
+        {
+            animation.Unload(_mApiChromaInstance);
+        }
+        if (_mCurrentFrame < 0 ||
+            _mCurrentFrame >= animation.Frames.Count)
+        {
+            _mCurrentFrame = 0;
+        }
         EffectArray2dInput frame = ChromaUtils.CreateColors2D(animation.Device);
-        animation.Frames.Add(frame);
+        if (_mCurrentFrame == animation.Frames.Count ||
+            (_mCurrentFrame + 1) == animation.Frames.Count)
+        {
+            animation.Frames.Add(frame);
+            _mCurrentFrame = animation.Frames.Count - 1;
+        }
+        else
+        {
+            ++_mCurrentFrame;
+            animation.Frames.Insert(_mCurrentFrame, frame);
+
+        }
+        animation.RefreshCurve();
+    }
+
+    private void OnClickDeleteButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+
+        if (animation.IsLoaded())
+        {
+            animation.Unload(_mApiChromaInstance);
+        }
+        if (_mCurrentFrame < 0 ||
+            _mCurrentFrame >= animation.Frames.Count)
+        {
+            _mCurrentFrame = 0;
+        }
+        if (animation.Frames.Count == 1)
+        {
+            // reset frame
+            animation.Frames[0] = ChromaUtils.CreateColors2D(animation.Device);
+        }
+        else if (animation.Frames.Count > 0)
+        {
+            animation.Frames.RemoveAt(_mCurrentFrame);
+            if (_mCurrentFrame == animation.Frames.Count)
+            {
+                _mCurrentFrame = animation.Frames.Count - 1;
+            }
+        }
+        animation.RefreshCurve();
     }
 }

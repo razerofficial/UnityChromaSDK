@@ -228,4 +228,53 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
             }
         }
     }
+
+    public void RefreshCurve()
+    {
+        //copy times
+        List<float> times = new List<float>();
+        for (int i = 0; i < Curve.keys.Length; ++i)
+        {
+            Keyframe key = Curve.keys[i];
+            float time = key.time;
+            if (time <= 0.0f)
+            {
+                time = 0.033f;
+            }
+            times.Add(time);
+        }
+
+        // make sure curve data doesn't have any extra items
+        while (times.Count > Frames.Count)
+        {
+            int lastIndex = times.Count - 1;
+            times.RemoveAt(lastIndex);
+        }
+
+        // make sure curve data has the same number of items as frames
+        while (times.Count < Frames.Count)
+        {
+            if (times.Count == 0)
+            {
+                times.Add(1.0f);
+            }
+            else
+            {
+                int lastIndex = times.Count - 1;
+                float time = times[lastIndex] + 1.0f;
+                times.Add(time);
+            }
+        }
+
+        // reset array
+        while (Curve.keys.Length > 0)
+        {
+            Curve.RemoveKey(0);
+        }
+        for (int i = 0; i < times.Count; ++i)
+        {
+            float time = times[i];
+            Curve.AddKey(time, 0.0f);
+        }
+    }
 }
