@@ -1,13 +1,15 @@
 using ChromaSDK;
-using ChromaSDK.Api;
 using ChromaSDK.ChromaPackage.Model;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(ChromaSDKAnimation2D))]
 public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
+    private Texture2D _mTexture = null;
+
     private float _mOverrideFrameTime = 0.1f;
 
     private ChromaDevice2DEnum _mDevice = ChromaDevice2DEnum.Keyboard;
@@ -45,17 +47,39 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         // Import
 
         GUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Import image"))
+        _mTexture = (Texture2D)EditorGUILayout.ObjectField(_mTexture, typeof(Texture2D));
+        if (_mTexture)
         {
-            //tion import unmanaged
-        }
+            string imagePath = AssetDatabase.GetAssetPath(_mTexture);
+            switch (Path.GetExtension(imagePath).ToUpper())
+            {
+                case ".BMP":
+                case ".JPG":
+                case ".PNG":
+                    if (GUILayout.Button("Import image", GUILayout.Width(100)))
+                    {
+                    }
+                    break;
+                case ".GIF":
+                    if (GUILayout.Button("Import animation", GUILayout.Width(150)))
+                    {
 
-        if (GUILayout.Button("Import animation"))
+                    }
+                    break;
+                default:
+                    GUI.enabled = false;
+                    GUILayout.Button("Import", GUILayout.Width(100));
+                    GUI.enabled = true;
+                    break;
+
+            }
+        }
+        else
         {
-
+            GUI.enabled = false;
+            GUILayout.Button("Import", GUILayout.Width(100));
+            GUI.enabled = true;
         }
-
         GUILayout.EndHorizontal();
 
         if (GUILayout.Button("Override"))
