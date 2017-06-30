@@ -261,7 +261,23 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         Event e = Event.current;
         if (e.type == EventType.keyUp)
         {
-            if (e.keyCode == KeyCode.P)
+            if (e.keyCode == KeyCode.Delete)
+            {
+                OnClickClearButton();
+                Repaint();
+            }
+            else if (e.keyCode == KeyCode.C &&
+                e.modifiers == EventModifiers.Control)
+            {
+                OnClickCopyButton();
+            }
+            else if (e.keyCode == KeyCode.V &&
+                e.modifiers == EventModifiers.Control)
+            {
+                OnClickPasteButton();
+                Repaint();
+            }
+            else if (e.keyCode == KeyCode.P)
             {
                 OnClickPlayButton();
             }
