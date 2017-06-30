@@ -58,6 +58,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 case ".PNG":
                     if (GUILayout.Button("Import image", GUILayout.Width(100)))
                     {
+                        OnClickImportImageButton();
                     }
                     break;
                 case ".GIF":
@@ -330,6 +331,74 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         }
 
         base.OnInspectorGUI();
+    }
+
+    private void MakeReadable(Texture2D texture)
+    {
+        if (null == texture)
+        {
+            Debug.LogError("Texture is null!");
+            return;
+        }
+
+        string assetPath = AssetDatabase.GetAssetPath(texture);
+        var textureImporter = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+        if (textureImporter
+            /* && !textureImporter.isReadable*/)
+        {
+            textureImporter.anisoLevel = 0;
+            textureImporter.borderMipmap = false;
+            textureImporter.filterMode = FilterMode.Point;
+            textureImporter.mipmapEnabled = false;
+            textureImporter.isReadable = true;
+            // needs to be ARGB32, RGBA32, BGRA32, RGB24, Alpha8 or DXT
+            textureImporter.textureFormat = TextureImporterFormat.RGB24;
+            textureImporter.textureType = TextureImporterType.GUI;
+            textureImporter.wrapMode = TextureWrapMode.Clamp;
+
+            AssetDatabase.ImportAsset(assetPath);
+            AssetDatabase.Refresh();
+        }
+    }
+
+    private void OnClickImportImageButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EditorUtility.SetDirty(animation);
+        var frames = animation.Frames; //copy
+        if (animation.IsLoaded())
+        {
+            animation.Unload(_mApiChromaInstance);
+        }
+
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < animation.Frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            var colors = ChromaUtils.CreateColors2D(device);
+            if (null != _mTexture)
+            {
+                MakeReadable(_mTexture);
+                int height = _mTexture.height;
+                int width = _mTexture.width;
+                Color[] sourcePixels = _mTexture.GetPixels(0, 0, width, height);
+                for (int y = 0; y < colors.Count && y < height; y++)
+                {
+                    var row = colors[y];
+                    for (int x = 0; x < row.Count && x < width; x++)
+                    {
+                        int index = y * width + x;
+                        //Color sourceColor = sourcePixels[index];
+                        Color sourceColor = _mTexture.GetPixel(x, y);
+                        //Color sourceColor = _mTexture.GetPixels(x, y, 1, 1, 0)[0];
+                        int color = ChromaUtils.ToBGR(sourceColor);
+                        row[x] = color;
+                    }
+                }
+            }
+            frames[_mCurrentFrame] = colors;
+        }
+        animation.Frames = frames;
     }
 
     private void OnClickOverrideButton()
