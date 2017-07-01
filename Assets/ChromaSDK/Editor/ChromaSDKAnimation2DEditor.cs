@@ -261,8 +261,29 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             }
         }
 
-        EditorGUILayout.LabelField("Duration:", string.Format("{0} second(s)",
-            duration));
+        GUILayout.BeginHorizontal();
+        float newDuration = EditorGUILayout.FloatField("Duration:", duration);
+        if (duration != newDuration &&
+            newDuration > 0f)
+        {
+            if (_mCurrentFrame < frames.Count &&
+                _mCurrentFrame < animation.Curve.keys.Length)
+            {
+                float time;
+                if (_mCurrentFrame == 0)
+                {
+                    time = newDuration;
+                }
+                else
+                {
+                    time = animation.Curve.keys[_mCurrentFrame - 1].time + newDuration;
+                }
+                animation.Curve.RemoveKey(_mCurrentFrame);
+                animation.Curve.AddKey(time, 0f);
+            }
+        }
+        GUILayout.Label("seconds(s)");
+        GUILayout.EndHorizontal();
 
 
         GUILayout.BeginHorizontal();
