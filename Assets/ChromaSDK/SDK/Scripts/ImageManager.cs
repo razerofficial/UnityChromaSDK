@@ -62,30 +62,19 @@ namespace ChromaSDK
 
         public static void LoadImage(string path)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
             FileInfo fi = new FileInfo(path);
             if (fi.Exists)
             {
                 byte[] array = ASCIIEncoding.ASCII.GetBytes(fi.FullName);
-                //array[array.Length - 1] = 0;
                 IntPtr lpData = Marshal.AllocHGlobal(array.Length);
                 Marshal.Copy(array, 0, lpData, array.Length);
                 PluginLoadImage(lpData);
                 Marshal.FreeHGlobal(lpData);
             }
-        }
-
-        /// <summary>
-        /// Convert BGR int to Unity Color
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
-        public static Color ToRGB(int color)
-        {
-            const float invert = 1f / 255f;
-            int red = color & 0xFF;
-            int green = (color & 0xFF00) >> 8;
-            int blue = (color & 0xFF0000) >> 16;
-            return new Color(red * invert, green * invert, blue * invert);
         }
 
         static ImageManager()

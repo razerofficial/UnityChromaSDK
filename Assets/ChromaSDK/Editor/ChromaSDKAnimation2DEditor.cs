@@ -355,48 +355,42 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         if (null != _mTexture)
         {
             string path = AssetDatabase.GetAssetPath(_mTexture);
-            FileInfo fi = new FileInfo(path);
-            if (fi.Exists)
+            ImageManager.LoadImage(path);
+
+            int frameCount = ImageManager.PluginGetFrameCount();
+            Debug.Log(string.Format("FrameCount: {0}", frameCount));
+
+            ChromaDevice2DEnum device = animation.Device;
+            var colors = ChromaUtils.CreateColors2D(device);
+
+            for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex)
             {
-                Debug.Log(string.Format("Path: {0}", fi.FullName));
-
-                ImageManager.LoadImage(fi.FullName);
-
-                int frameCount = ImageManager.PluginGetFrameCount();
-                Debug.Log(string.Format("FrameCount: {0}", frameCount));
-
-                ChromaDevice2DEnum device = animation.Device;
-                var colors = ChromaUtils.CreateColors2D(device);
-
-                for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex)
+                if (frameIndex > 0)
                 {
-                    if (frameIndex > 0)
-                    {
-                        OnClickAddButton();
-                    }
-                    var frames = animation.Frames; //copy
-                    if (_mCurrentFrame >= 0 &&
-                        _mCurrentFrame < animation.Frames.Count)
-                    {
-                        //Debug.Log(string.Format("Frame count: {0}", frameCount));
-
-                        int height = ImageManager.PluginGetHeight();
-                        int width = ImageManager.PluginGetWidth();
-
-                        for (int y = 0; y < colors.Count && y < height; y++)
-                        {
-                            var row = colors[y];
-                            for (int x = 0; x < row.Count && x < width; x++)
-                            {
-                                int color = ImageManager.PluginGetPixel(frameIndex, x, y);
-                                row[x] = color;
-                            }
-                        }
-
-                        frames[_mCurrentFrame] = colors;
-                    }
-                    animation.Frames = frames;
+                    OnClickAddButton();
                 }
+                var frames = animation.Frames; //copy
+                if (_mCurrentFrame >= 0 &&
+                    _mCurrentFrame < animation.Frames.Count)
+                {
+                    //Debug.Log(string.Format("Frame count: {0}", frameCount));
+
+                    int height = ImageManager.PluginGetHeight();
+                    int width = ImageManager.PluginGetWidth();
+
+                    for (int y = 0; y < colors.Count && y < height; y++)
+                    {
+                        var row = colors[y];
+                        for (int x = 0; x < row.Count && x < width; x++)
+                        {
+                            int color = ImageManager.PluginGetPixel(frameIndex, x, y);
+                            row[x] = color;
+                        }
+                    }
+
+                    frames[_mCurrentFrame] = colors;
+                }
+                animation.Frames = frames;
             }
         }
     }
