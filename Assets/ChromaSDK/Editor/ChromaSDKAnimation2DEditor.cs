@@ -79,7 +79,6 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                     GUILayout.Button("Import", GUILayout.Width(100));
                     GUI.enabled = true;
                     break;
-
             }
         }
         else
@@ -178,8 +177,9 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         Texture2D oldTexture = GUI.skin.button.normal.background;
         if (null == _sTextureClear)
         {
-            _sTextureClear = new Texture2D(12, 12, TextureFormat.RGB24, false);
-            _sTextureClear.SetPixel(0, 0, Color.clear);
+            _sTextureClear = new Texture2D(1, 1, TextureFormat.RGB24, false);
+            _sTextureClear.SetPixel(0, 0, Color.white);
+            _sTextureClear.Apply();
         }
         if (_mCurrentFrame < frames.Count)
         {
