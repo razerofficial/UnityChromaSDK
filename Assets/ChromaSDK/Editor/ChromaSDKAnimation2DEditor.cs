@@ -8,6 +8,8 @@ using UnityEngine;
 [CustomEditor(typeof(ChromaSDKAnimation2D))]
 public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
+    private static Texture2D _sTextureClear = null;
+
     private Texture2D _mTexture = null;
 
     private float _mOverrideFrameTime = 0.1f;
@@ -165,6 +167,13 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         GUILayout.Label(string.Format("{0} x {1}", maxRow, maxColumn));
 
         // Preview
+        Texture2D oldTexture = GUI.skin.button.normal.background;
+        if (null == _sTextureClear)
+        {
+            _sTextureClear = new Texture2D(1, 1, TextureFormat.RGB24, false);
+            _sTextureClear.SetPixel(0, 0, Color.white);
+        }
+        GUI.skin.button.normal.background = _sTextureClear;
         if (_mCurrentFrame < frames.Count)
         {
             EffectArray2dInput frame = frames[_mCurrentFrame];
@@ -186,6 +195,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 GUILayout.EndHorizontal();
             }
         }
+        GUI.skin.button.normal.background = oldTexture;
 
         // restore original color
         GUI.backgroundColor = oldBackgroundColor;
