@@ -8,6 +8,8 @@ using UnityEngine;
 [CustomEditor(typeof(ChromaSDKAnimation2D))]
 public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
+    const string KEY_FOLDER_ANIMATIONS = "folder/animations";
+    const string KEY_FOLDER_IMAGES = "folder/images";
     const string CONTROL_DURATION = "control-duration";
     const string CONTROL_OVERRIDE = "control-override";
     readonly Color ORANGE = new Color(1f, 0.5f, 0f, 1f);
@@ -394,30 +396,30 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     private string GetImageFolder()
     {
-        return string.Empty;
+        if (EditorPrefs.HasKey(KEY_FOLDER_IMAGES))
+        {
+            return EditorPrefs.GetString(KEY_FOLDER_IMAGES);
+        }
+        return "Assets/ChromaSDK/Examples/Textures";
     }
 
     private string GetAnimationFolder()
     {
-        return string.Empty;
+        if (EditorPrefs.HasKey(KEY_FOLDER_ANIMATIONS))
+        {
+            return EditorPrefs.GetString(KEY_FOLDER_ANIMATIONS);
+        }
+        return "Assets/ChromaSDK/Examples/Textures";
     }
 
-    private string[] GetImageExtensions()
+    private string GetImageExtensions()
     {
-        string[] extensions =
-        {
-            "Image files", "bmp,jpg,png",
-        };
-        return extensions;
+        return "Image File;*.bmp;*.jpg;*.png";
     }
 
-    private string[] GetAnimationExtensions()
+    private string GetAnimationExtensions()
     {
-        string[] extensions =
-        {
-            "GIF Animations", "gif",
-        };
-        return extensions;
+        return "GIF Animation;*.gif";
     }
 
     private void LoadImage(string path)
@@ -436,7 +438,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             int frameCount = ImageManager.PluginGetFrameCount();
             if (frameCount == 0)
             {
-                Debug.LogError("Failed to read frames from image!");
+                Debug.LogError("Failed to read frames from image! Please try again!");
             }
 
             ChromaDevice2DEnum device = animation.Device;
@@ -476,13 +478,21 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     private void OnClickImportImageButton()
     {
-        string path = EditorUtility.OpenFilePanelWithFilters("Open Image", GetImageFolder(), GetImageExtensions());
+        string path = EditorUtility.OpenFilePanel("Open Image", GetImageFolder(), GetImageExtensions());
+        if (!string.IsNullOrEmpty(path))
+        {
+            EditorPrefs.SetString(KEY_FOLDER_IMAGES, Path.GetDirectoryName(path));
+        }
         LoadImage(path);
     }
 
     private void OnClickImportAnimationButton()
     {
-        string path = EditorUtility.OpenFilePanelWithFilters("Open Animation", GetAnimationFolder(), GetAnimationExtensions());
+        string path = EditorUtility.OpenFilePanel("Open Animation", GetAnimationFolder(), GetAnimationExtensions());
+        if (!string.IsNullOrEmpty(path))
+        {
+            EditorPrefs.SetString(KEY_FOLDER_ANIMATIONS, Path.GetDirectoryName(path));
+        }
         LoadImage(path);
     }
 
