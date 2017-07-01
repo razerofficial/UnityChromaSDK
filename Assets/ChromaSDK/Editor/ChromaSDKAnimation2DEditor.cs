@@ -15,8 +15,6 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     private static Texture2D _sTextureClear = null;
 
-    private Texture2D _mTexture = null;
-
     private float _mOverrideFrameTime = 0.1f;
 
     private ChromaDevice2DEnum _mDevice = ChromaDevice2DEnum.Keyboard;
@@ -54,38 +52,13 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         // Import
 
         GUILayout.BeginHorizontal();
-        _mTexture = (Texture2D)EditorGUILayout.ObjectField(_mTexture, typeof(Texture2D));
-        if (_mTexture)
+        if (GUILayout.Button("Import Image"))
         {
-            string imagePath = AssetDatabase.GetAssetPath(_mTexture);
-            switch (Path.GetExtension(imagePath).ToUpper())
-            {
-                case ".BMP":
-                case ".JPG":
-                case ".PNG":
-                    if (GUILayout.Button("Import image", GUILayout.Width(100)))
-                    {
-                        OnClickImportImageButton();
-                    }
-                    break;
-                case ".GIF":
-                    if (GUILayout.Button("Import animation", GUILayout.Width(150)))
-                    {
-                        OnClickImportImageButton();
-                    }
-                    break;
-                default:
-                    GUI.enabled = false;
-                    GUILayout.Button("Import", GUILayout.Width(100));
-                    GUI.enabled = true;
-                    break;
-            }
+            OnClickImportImageButton();
         }
-        else
+        if (GUILayout.Button("Import Animation"))
         {
-            GUI.enabled = false;
-            GUILayout.Button("Import", GUILayout.Width(100));
-            GUI.enabled = true;
+            OnClickImportAnimationButton();
         }
         GUILayout.EndHorizontal();
 
@@ -365,7 +338,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         // Custom Curve
         animation.Curve = EditorGUILayout.CurveField("Edit Curve:", animation.Curve);
 
-        Debug.Log(GUI.GetNameOfFocusedControl());
+        //Debug.Log(GUI.GetNameOfFocusedControl());
         if (string.IsNullOrEmpty(GUI.GetNameOfFocusedControl()))
         {
             Event e = Event.current;
@@ -419,7 +392,35 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         base.OnInspectorGUI();
     }
 
-    private void OnClickImportImageButton()
+    private string GetImageFolder()
+    {
+        return string.Empty;
+    }
+
+    private string GetAnimationFolder()
+    {
+        return string.Empty;
+    }
+
+    private string[] GetImageExtensions()
+    {
+        string[] extensions =
+        {
+            "Image files", "bmp,jpg,png",
+        };
+        return extensions;
+    }
+
+    private string[] GetAnimationExtensions()
+    {
+        string[] extensions =
+        {
+            "GIF Animations", "gif",
+        };
+        return extensions;
+    }
+
+    private void LoadImage(string path)
     {
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
@@ -428,9 +429,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             animation.Unload(_mApiChromaInstance);
         }
 
-        if (null != _mTexture)
+        if (!string.IsNullOrEmpty(path))
         {
-            string path = AssetDatabase.GetAssetPath(_mTexture);
             ImageManager.LoadImage(path);
 
             int frameCount = ImageManager.PluginGetFrameCount();
@@ -472,6 +472,18 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 animation.Frames = frames;
             }
         }
+    }
+
+    private void OnClickImportImageButton()
+    {
+        string path = EditorUtility.OpenFilePanelWithFilters("Open Image", GetImageFolder(), GetImageExtensions());
+        LoadImage(path);
+    }
+
+    private void OnClickImportAnimationButton()
+    {
+        string path = EditorUtility.OpenFilePanelWithFilters("Open Animation", GetAnimationFolder(), GetAnimationExtensions());
+        LoadImage(path);
     }
 
     private void OnClickOverrideButton()
