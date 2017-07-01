@@ -10,6 +10,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
     const string CONTROL_DURATION = "control-duration";
     const string CONTROL_OVERRIDE = "control-override";
+    readonly Color ORANGE = new Color(1f, 0.5f, 0f, 1f);
+    readonly Color PURPLE = new Color(1f, 0f, 1f, 1f);
 
     private static Texture2D _sTextureClear = null;
 
@@ -176,10 +178,10 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         Texture2D oldTexture = GUI.skin.button.normal.background;
         if (null == _sTextureClear)
         {
-            _sTextureClear = new Texture2D(1, 1, TextureFormat.RGB24, false);
+            _sTextureClear = new Texture2D(12, 12, TextureFormat.RGB24, false);
             _sTextureClear.SetPixel(0, 0, Color.white);
         }
-        GUI.skin.button.normal.background = _sTextureClear;
+        //GUI.skin.button.normal.background = _sTextureClear;
         if (_mCurrentFrame < frames.Count)
         {
             EffectArray2dInput frame = frames[_mCurrentFrame];
@@ -192,7 +194,12 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 {
                     int color = row[j];
                     GUI.backgroundColor = ChromaUtils.ToRGB(color);
-                    if (GUILayout.Button(" ", GUILayout.Width(12)))
+                    // use a box instead of button so it looks better
+                    GUILayout.Box("", GUILayout.Width(12));
+                    Rect rect = GUILayoutUtility.GetLastRect();
+                    GUI.backgroundColor = Color.clear;
+                    // use the box location to use a button to catch the click event
+                    if (GUI.Button(rect, ""))
                     {
                         OnClickColor(i, j);
                     }
@@ -201,6 +208,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 GUILayout.EndHorizontal();
             }
         }
+        GUI.SetNextControlName("");
         GUI.skin.button.normal.background = oldTexture;
 
         // restore original color
@@ -242,6 +250,36 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             }
             GUILayout.EndHorizontal();
         }
+
+        // preset colors
+
+        GUILayout.BeginHorizontal();
+        const float k = 0.8f;
+        Color[] palette =
+        {
+            Color.red, Color.red * k,
+            ORANGE, ORANGE * k,
+            Color.yellow, Color.yellow * k,
+            Color.green, Color.green * k,
+            Color.blue, Color.blue * k,
+            Color.cyan, Color.cyan * k,
+            PURPLE, PURPLE * k,
+            Color.white, Color.gray, Color.black,
+        };
+        //GUI.skin.button.normal.background = _sTextureClear;
+        foreach (Color color in palette)
+        {
+            Color newColor = color;
+            newColor.a = 1f;
+            GUI.backgroundColor = newColor;
+            if (GUILayout.Button(" ", GUILayout.Width(12)))
+            {
+                _mColor = newColor;
+            }
+        }
+        GUI.backgroundColor = oldBackgroundColor;
+        GUI.skin.button.normal.background = oldTexture;
+        GUILayout.EndHorizontal();
 
         // Set the color
 
@@ -322,7 +360,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         // Custom Curve
         animation.Curve = EditorGUILayout.CurveField("Edit Curve:", animation.Curve);
 
-        //Debug.Log(GUI.GetNameOfFocusedControl());
+        Debug.Log(GUI.GetNameOfFocusedControl());
         if (string.IsNullOrEmpty(GUI.GetNameOfFocusedControl()))
         {
             Event e = Event.current;

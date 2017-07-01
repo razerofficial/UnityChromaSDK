@@ -194,9 +194,9 @@ namespace ChromaSDK
         /// <returns></returns>
         public static int ToBGR(Color color)
         {
-            int red = (int)(Mathf.Clamp01(color.r)) * 255;
-            int green = (int)(Mathf.Clamp01(color.g) * 255) << 8;
-            int blue = (int)(Mathf.Clamp01(color.b) * 255) << 16;
+            int red = (int)(Mathf.Clamp01(color.r) * 255);
+            int green = (int)(Mathf.Clamp01(color.g * 255)) << 8;
+            int blue = (int)(Mathf.Clamp01(color.b * 255)) << 16;
             return blue | green | red;
         }
 
