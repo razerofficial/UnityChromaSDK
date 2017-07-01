@@ -8,6 +8,9 @@ using UnityEngine;
 [CustomEditor(typeof(ChromaSDKAnimation2D))]
 public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
+    const string CONTROL_DURATION = "control-duration";
+    const string CONTROL_OVERRIDE = "control-override";
+
     private static Texture2D _sTextureClear = null;
 
     private Texture2D _mTexture = null;
@@ -85,12 +88,15 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         }
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Override"))
+        GUILayout.BeginHorizontal();
+        GUI.SetNextControlName(CONTROL_OVERRIDE);
+        _mOverrideFrameTime = EditorGUILayout.FloatField("Override Time", _mOverrideFrameTime);
+        GUI.SetNextControlName(string.Empty);
+        if (GUILayout.Button("Override", GUILayout.Width(100)))
         {
             OnClickOverrideButton();
         }
-
-        _mOverrideFrameTime = EditorGUILayout.FloatField("Override Frame Time", _mOverrideFrameTime);
+        GUILayout.EndHorizontal();
 
         // Device
         GUILayout.BeginHorizontal();
@@ -213,7 +219,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             }
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Set logo"))
+            if (GUILayout.Button("Set RZLED_LOGO"))
             {
                 OnClickColor(
                     ChromaUtils.GetHighByte((int)Keyboard.RZLED.RZLED_LOGO),
@@ -261,6 +267,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             }
         }
 
+        GUI.SetNextControlName(CONTROL_DURATION);
         GUILayout.BeginHorizontal();
         float newDuration = EditorGUILayout.FloatField("Duration:", duration);
         if (duration != newDuration &&
@@ -284,6 +291,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         }
         GUILayout.Label("seconds(s)");
         GUILayout.EndHorizontal();
+        GUI.SetNextControlName(string.Empty);
 
 
         GUILayout.BeginHorizontal();
@@ -314,50 +322,54 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         // Custom Curve
         animation.Curve = EditorGUILayout.CurveField("Edit Curve:", animation.Curve);
 
-        Event e = Event.current;
-        if (e.type == EventType.keyUp)
+        //Debug.Log(GUI.GetNameOfFocusedControl());
+        if (string.IsNullOrEmpty(GUI.GetNameOfFocusedControl()))
         {
-            if (e.keyCode == KeyCode.Delete)
+            Event e = Event.current;
+            if (e.type == EventType.keyUp)
             {
-                OnClickClearButton();
-                Repaint();
-            }
-            else if (e.keyCode == KeyCode.C &&
-                e.modifiers == EventModifiers.Control)
-            {
-                OnClickCopyButton();
-            }
-            else if (e.keyCode == KeyCode.V &&
-                e.modifiers == EventModifiers.Control)
-            {
-                OnClickPasteButton();
-                Repaint();
-            }
-            else if (e.keyCode == KeyCode.P)
-            {
-                OnClickPlayButton();
-            }
-            else if(e.keyCode == KeyCode.LeftArrow)
-            {
-                OnClickPreviousButton();
-                Repaint();
-            }
-            else if (e.keyCode == KeyCode.RightArrow)
-            {
-                OnClickNextButton();
-                Repaint();
-            }
-            else if (e.keyCode == KeyCode.Plus ||
-                e.keyCode == KeyCode.KeypadPlus)
-            {
-                OnClickAddButton();
-                Repaint();
-            }
-            else if (e.keyCode == KeyCode.Minus ||
-                e.keyCode == KeyCode.KeypadMinus)
-            {
-                OnClickDeleteButton();
-                Repaint();
+                if (e.keyCode == KeyCode.Delete)
+                {
+                    OnClickClearButton();
+                    Repaint();
+                }
+                else if (e.keyCode == KeyCode.C &&
+                    e.modifiers == EventModifiers.Control)
+                {
+                    OnClickCopyButton();
+                }
+                else if (e.keyCode == KeyCode.V &&
+                    e.modifiers == EventModifiers.Control)
+                {
+                    OnClickPasteButton();
+                    Repaint();
+                }
+                else if (e.keyCode == KeyCode.P)
+                {
+                    OnClickPlayButton();
+                }
+                else if (e.keyCode == KeyCode.LeftArrow)
+                {
+                    OnClickPreviousButton();
+                    Repaint();
+                }
+                else if (e.keyCode == KeyCode.RightArrow)
+                {
+                    OnClickNextButton();
+                    Repaint();
+                }
+                else if (e.keyCode == KeyCode.Plus ||
+                    e.keyCode == KeyCode.KeypadPlus)
+                {
+                    OnClickAddButton();
+                    Repaint();
+                }
+                else if (e.keyCode == KeyCode.Minus ||
+                    e.keyCode == KeyCode.KeypadMinus)
+                {
+                    OnClickDeleteButton();
+                    Repaint();
+                }
             }
         }
 
@@ -379,7 +391,10 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             ImageManager.LoadImage(path);
 
             int frameCount = ImageManager.PluginGetFrameCount();
-            Debug.Log(string.Format("FrameCount: {0}", frameCount));
+            if (frameCount == 0)
+            {
+                Debug.LogError("Failed to read frames from image!");
+            }
 
             ChromaDevice2DEnum device = animation.Device;
             var colors = ChromaUtils.CreateColors2D(device);
