@@ -179,9 +179,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         if (null == _sTextureClear)
         {
             _sTextureClear = new Texture2D(12, 12, TextureFormat.RGB24, false);
-            _sTextureClear.SetPixel(0, 0, Color.white);
+            _sTextureClear.SetPixel(0, 0, Color.clear);
         }
-        //GUI.skin.button.normal.background = _sTextureClear;
         if (_mCurrentFrame < frames.Count)
         {
             EffectArray2dInput frame = frames[_mCurrentFrame];
@@ -197,19 +196,19 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                     // use a box instead of button so it looks better
                     GUILayout.Box("", GUILayout.Width(12));
                     Rect rect = GUILayoutUtility.GetLastRect();
-                    GUI.backgroundColor = Color.clear;
                     // use the box location to use a button to catch the click event
+                    GUI.skin.button.normal.background = _sTextureClear;
                     if (GUI.Button(rect, ""))
                     {
                         OnClickColor(i, j);
                     }
+                    GUI.skin.button.normal.background = oldTexture;
                 }
 
                 GUILayout.EndHorizontal();
             }
         }
         GUI.SetNextControlName("");
-        GUI.skin.button.normal.background = oldTexture;
 
         // restore original color
         GUI.backgroundColor = oldBackgroundColor;
@@ -254,7 +253,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         // preset colors
 
         GUILayout.BeginHorizontal();
-        const float k = 0.8f;
+        const float k = 0.5f;
         Color[] palette =
         {
             Color.red, Color.red * k,
@@ -266,20 +265,26 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             PURPLE, PURPLE * k,
             Color.white, Color.gray, Color.black,
         };
-        //GUI.skin.button.normal.background = _sTextureClear;
         foreach (Color color in palette)
         {
             Color newColor = color;
             newColor.a = 1f;
             GUI.backgroundColor = newColor;
-            if (GUILayout.Button(" ", GUILayout.Width(12)))
+            // use a box instead of button so it looks better
+            GUILayout.Box("", GUILayout.Width(12));
+            Rect rect = GUILayoutUtility.GetLastRect();
+            // use the box location to use a button to catch the click event
+            GUI.skin.button.normal.background = _sTextureClear;
+            if (GUI.Button(rect, ""))
             {
                 _mColor = newColor;
             }
+            GUI.skin.button.normal.background = oldTexture;
         }
-        GUI.backgroundColor = oldBackgroundColor;
-        GUI.skin.button.normal.background = oldTexture;
         GUILayout.EndHorizontal();
+
+        // restore original color
+        GUI.backgroundColor = oldBackgroundColor;
 
         // Set the color
 
