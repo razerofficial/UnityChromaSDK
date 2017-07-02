@@ -20,6 +20,33 @@ using UnityEngine;
 /// </summary>
 public class ChromaSDKAnimationBaseEditor : Editor
 {
+    protected const string KEY_FOLDER_ANIMATIONS = "folder/animations";
+    protected const string KEY_FOLDER_IMAGES = "folder/images";
+    protected const string CONTROL_DURATION = "control-duration";
+    protected const string CONTROL_OVERRIDE = "control-override";
+    protected readonly Color ORANGE = new Color(1f, 0.5f, 0f, 1f);
+    protected readonly Color PURPLE = new Color(1f, 0f, 1f, 1f);
+
+    protected static Texture2D _sTextureClear = null;
+
+    protected float _mOverrideFrameTime = 0.1f;
+
+    protected Color _mColor = Color.red;
+
+    protected int _mCurrentFrame = 0;
+
+    protected void SetupBlankTexture()
+    {
+        if (null == _sTextureClear)
+        {
+            _sTextureClear = new Texture2D(1, 1, TextureFormat.RGB24, false);
+            _sTextureClear.SetPixel(0, 0, Color.white);
+            _sTextureClear.Apply();
+        }
+    }
+
+    #region Move to a connection manager class
+
     /// <summary>
     /// Instance of the RazerAPI
     /// </summary>
@@ -179,11 +206,6 @@ public class ChromaSDKAnimationBaseEditor : Editor
             Action action = _mMainActions[0];
             _mMainActions.RemoveAt(0);
             action.Invoke();
-        }
-
-        if (null == _mApiChromaInstance)
-        {
-
         }
     }
 
@@ -352,4 +374,6 @@ public class ChromaSDKAnimationBaseEditor : Editor
             _mApiChromaInstance = null;
         }
     }
+
+    #endregion
 }

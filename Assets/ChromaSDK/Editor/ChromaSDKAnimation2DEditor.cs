@@ -8,28 +8,13 @@ using UnityEngine;
 [CustomEditor(typeof(ChromaSDKAnimation2D))]
 public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
-    const string KEY_FOLDER_ANIMATIONS = "folder/animations";
-    const string KEY_FOLDER_IMAGES = "folder/images";
-    const string CONTROL_DURATION = "control-duration";
-    const string CONTROL_OVERRIDE = "control-override";
-    readonly Color ORANGE = new Color(1f, 0.5f, 0f, 1f);
-    readonly Color PURPLE = new Color(1f, 0f, 1f, 1f);
-
-    private static Texture2D _sTextureClear = null;
-
-    private float _mOverrideFrameTime = 0.1f;
-
     private ChromaDevice2DEnum _mDevice = ChromaDevice2DEnum.Keyboard;
-
-    private Color _mColor = Color.red;
 
     private EffectArray2dInput _mColors = null;
 
     private Keyboard.RZKEY _mKey = Keyboard.RZKEY.RZKEY_ESC;
 
     private Mouse.RZLED2 _mLed = Mouse.RZLED2.RZLED2_LOGO;
-
-    private int _mCurrentFrame = 0;
 
     private ChromaSDKAnimation2D GetAnimation()
     {
@@ -150,12 +135,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         // Preview
         Texture2D oldTexture = GUI.skin.button.normal.background;
-        if (null == _sTextureClear)
-        {
-            _sTextureClear = new Texture2D(1, 1, TextureFormat.RGB24, false);
-            _sTextureClear.SetPixel(0, 0, Color.white);
-            _sTextureClear.Apply();
-        }
+        SetupBlankTexture();
         if (_mCurrentFrame < frames.Count)
         {
             EffectArray2dInput frame = frames[_mCurrentFrame];
@@ -187,6 +167,9 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         // restore original color
         GUI.backgroundColor = oldBackgroundColor;
+
+        // show separator
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
         // Key
         if (animation.Device == ChromaDevice2DEnum.Keyboard)
