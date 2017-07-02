@@ -14,20 +14,10 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     /// Only used to serialize to disk
     /// </summary>
     [Serializable]
-    public class Colors2D
-    {
-        [SerializeField]
-        public int[] Colors;
-    }
-
-    /// <summary>
-    /// Only used to serialize to disk
-    /// </summary>
-    [Serializable]
     public class ColorFrame2D
     {
         [SerializeField]
-        public Colors2D[] Colors;
+        public ColorArray[] Colors;
     }
 
     [SerializeField]
@@ -89,11 +79,11 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
             {
                 var sourceRows = sourceFrames[index];
                 var frame = new ColorFrame2D();
-                var rows = new Colors2D[sourceRows.Count];
+                var rows = new ColorArray[sourceRows.Count];
                 for (int i = 0; i < sourceRows.Count; ++i)
                 {
                     var sourceRow = sourceRows[i];
-                    rows[i] = new Colors2D();
+                    rows[i] = new ColorArray();
                     var row = new int[sourceRow.Count];
                     for (int j = 0; j < sourceRow.Count; ++j)
                     {
@@ -135,10 +125,10 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
         int maxColumn = ChromaUtils.GetMaxColumn(Device);
         _mFrames = new ColorFrame2D[1];
         var frame = new ColorFrame2D();
-        var rows = new Colors2D[maxRow];
+        var rows = new ColorArray[maxRow];
         for (int i = 0; i < maxRow; ++i)
         {
-            rows[i] = new Colors2D();
+            rows[i] = new ColorArray();
             var row = new int[maxColumn];
             for (int j = 0; j < maxColumn; ++j)
             {

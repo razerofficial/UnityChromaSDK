@@ -82,21 +82,43 @@ namespace ChromaSDK
             return (int)(((mask & 0xFF00) >> 8) & 0xFF);
         }
 
+        public static EffectArray1dInput CreateColors1D(ChromaDevice1DEnum device)
+        {
+            int maxLeds = GetMaxLeds(device);
+            var elements = new EffectArray1dInput();
+            for (int i = 0; i < maxLeds; ++i)
+            {
+                elements.Add(0);
+            }
+            return elements;
+        }
+
         public static EffectArray2dInput CreateColors2D(ChromaDevice2DEnum device)
         {
-            int maxRows = GetMaxRow(device);
-            int maxColumns = GetMaxColumn(device);
+            int maxRow = GetMaxRow(device);
+            int maxColumn = GetMaxColumn(device);
             var rows = new EffectArray2dInput();
-            for (int i = 0; i < maxRows; ++i)
+            for (int i = 0; i < maxRow; ++i)
             {
                 var row = new List<int>();
-                for (int j = 0; j < maxColumns; ++j)
+                for (int j = 0; j < maxColumn; ++j)
                 {
                     row.Add(0);
                 }
                 rows.Add(row);
             }
             return rows;
+        }
+
+        public static EffectArray1dInput CreateRandomColors1D(ChromaDevice1DEnum device)
+        {
+            int maxLeds = GetMaxLeds(device);
+            var elements = new EffectArray1dInput();
+            for (int i = 0; i < maxLeds; ++i)
+            {
+                elements.Add(_sRandom.Next(16777215));
+            }
+            return elements;
         }
 
         public static EffectArray2dInput CreateRandomColors2D(ChromaDevice2DEnum device)
@@ -114,6 +136,38 @@ namespace ChromaSDK
                 rows.Add(row);
             }
             return rows;
+        }
+
+        public static EffectResponseId CreateEffectCustom1D(ChromaApi api, ChromaDevice1DEnum device, EffectArray1dInput input)
+        {
+            if (null == api)
+            {
+                Debug.LogError("CreateEffectCustom1D: Parameter api is null!");
+                return null;
+            }
+            if (null == input)
+            {
+                Debug.LogError("CreateEffectCustom1D: Parameter input is null!");
+                return null;
+            }
+            int maxLeds = GetMaxLeds(device);
+            if (maxLeds != input.Count)
+            {
+                Debug.LogError(string.Format("CreateEffectCustom1D Array size mismatch element: %d==%d!",
+                    maxLeds,
+                    input.Count));
+            }
+
+            switch (device)
+            {
+                case ChromaDevice1DEnum.ChromaLink:
+                    return api.PostChromaLinkCustom(input);
+                case ChromaDevice1DEnum.Headset:
+                    return api.PostHeadsetCustom(input);
+                case ChromaDevice1DEnum.Mousepad:
+                    return api.PostMousepadCustom(input);
+            }
+            return null;
         }
 
         public static EffectResponseId CreateEffectCustom2D(ChromaApi api, ChromaDevice2DEnum device, EffectArray2dInput input)
