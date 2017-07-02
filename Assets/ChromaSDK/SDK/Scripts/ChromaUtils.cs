@@ -123,13 +123,13 @@ namespace ChromaSDK
 
         public static EffectArray2dInput CreateRandomColors2D(ChromaDevice2DEnum device)
         {
-            int maxRows = GetMaxRow(device);
-            int maxColumns = GetMaxColumn(device);
+            int maxRow = GetMaxRow(device);
+            int maxColumn = GetMaxColumn(device);
             var rows = new EffectArray2dInput();
-            for (int i = 0; i < maxRows; ++i)
+            for (int i = 0; i < maxRow; ++i)
             {
                 var row = new List<int>();
-                for (int j = 0; j < maxColumns; ++j)
+                for (int j = 0; j < maxColumn; ++j)
                 {
                     row.Add(_sRandom.Next(16777215));
                 }

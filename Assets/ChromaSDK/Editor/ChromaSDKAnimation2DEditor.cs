@@ -567,13 +567,13 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             _mCurrentFrame < frames.Count)
         {
             ChromaDevice2DEnum device = animation.Device;
-            int maxRows = ChromaUtils.GetMaxRow(device);
-            int maxColumns = ChromaUtils.GetMaxColumn(device);
+            int maxRow = ChromaUtils.GetMaxRow(device);
+            int maxColumn = ChromaUtils.GetMaxColumn(device);
             var rows = ChromaUtils.CreateColors2D(device);
-            for (int i = 0; i < maxRows; ++i)
+            for (int i = 0; i < maxRow; ++i)
             {
                 var row = rows[i];
-                for (int j = 0; j < maxColumns; ++j)
+                for (int j = 0; j < maxColumn; ++j)
                 {
                     row[j] = ChromaUtils.ToBGR(_mColor);
                 }

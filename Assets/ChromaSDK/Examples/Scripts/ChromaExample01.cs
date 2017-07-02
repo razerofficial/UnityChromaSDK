@@ -156,16 +156,16 @@ public class ChromaExample01 : MonoBehaviour
     /// <summary>
     /// Get Effect: CHROMA_CUSTOM 2D Array
     /// </summary>
-    /// <param name="maxColumns"></param>
-    /// <param name="maxRows"></param>
+    /// <param name="maxColumn"></param>
+    /// <param name="maxRow"></param>
     /// <returns></returns>
-    private static EffectArray2dInput GetEffectChromaCustom(int maxColumns, int maxRows)
+    private static EffectArray2dInput GetEffectChromaCustom(int maxColumn, int maxRow)
     {
         var rows = new EffectArray2dInput();
-        for (int i = 0; i < maxRows; ++i)
+        for (int i = 0; i < maxRow; ++i)
         {
             var row = new List<int>();
-            for (int j = 0; j < maxColumns; ++j)
+            for (int j = 0; j < maxColumn; ++j)
             {
                 row.Add(_sRandom.Next(16777215));
             }
