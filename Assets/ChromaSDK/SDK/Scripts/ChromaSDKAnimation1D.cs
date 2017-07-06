@@ -203,6 +203,8 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// </summary>
     public void Load()
     {
+        Debug.Log("Load:");
+
         if (_mIsLoaded)
         {
             Debug.LogError("Animation has already been loaded!");
@@ -233,7 +235,21 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// <returns></returns>
     public bool IsLoaded()
     {
+        //Debug.Log(string.Format("IsLoaded={0}", _mIsLoaded));
         return _mIsLoaded;
+    }
+
+    /// <summary>
+    /// Reset to the default state
+    /// </summary>
+    public void Reset()
+    {
+        _mOnComplete = null;
+        _mIsLoaded = false;
+        _mIsPlaying = false;
+        _mTime = DateTime.MinValue;
+        _mCurrentFrame = 0;
+        _mEffects.Clear();
     }
 
     /// <summary>

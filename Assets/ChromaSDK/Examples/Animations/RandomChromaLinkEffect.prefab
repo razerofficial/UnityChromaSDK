@@ -37,7 +37,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b62617a682d32ee44beb390159a7d2af, type: 1}
   m_Name: 
-  _mTimes: []
   Device: 0
   _mFrames:
   - Colors: ff000000ff000000000000000000000000000000
@@ -56,12 +55,7 @@ MonoBehaviour:
   Curve:
     serializedVersion: 2
     m_Curve:
-    - time: .200000003
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: .400000006
+    - time: .300000012
       value: 0
       inSlope: 0
       outSlope: 0
@@ -71,12 +65,7 @@ MonoBehaviour:
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: .800000012
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
+    - time: .900000036
       value: 0
       inSlope: 0
       outSlope: 0
@@ -86,37 +75,47 @@ MonoBehaviour:
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1.4000001
+    - time: 1.5
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1.60000014
+    - time: 1.79999995
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1.80000019
+    - time: 2.0999999
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 2.00000024
+    - time: 2.39999986
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 2.20000029
+    - time: 2.69999981
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 2.40000033
+    - time: 2.99999976
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 2.60000038
+    - time: 3.29999971
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 3.59999967
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 3.89999962
       value: 0
       inSlope: 0
       outSlope: 0

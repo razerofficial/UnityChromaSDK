@@ -402,11 +402,36 @@ namespace ChromaSDK
 
         #region API
 
+        private void UnloadAnimations()
+        {
+            Debug.Log(string.Format("UnloadAnimations: Connected={0}", Connected));
+
+            // unload 1D animations
+            ChromaSDKAnimation1D[] animations1D =
+                (ChromaSDKAnimation1D[])Object.FindObjectsOfType(typeof(ChromaSDKAnimation1D));
+            foreach (ChromaSDKAnimation1D animation in animations1D)
+            {
+                Debug.Log("Unload animation.");
+                animation.Reset();
+            }
+
+            ChromaSDKAnimation2D[] animations2D =
+                (ChromaSDKAnimation2D[])Object.FindObjectsOfType(typeof(ChromaSDKAnimation2D));
+            foreach (ChromaSDKAnimation2D animation in animations2D)
+            {
+                animation.Reset();
+            }
+        }
+
         /// <summary>
         /// Connect and start the heartbeat
         /// </summary>
         public void Connect()
         {
+            Debug.Log(string.Format("Connect: Connected={0}", Connected));
+
+            UnloadAnimations();
+
             _sWaitForExit = true;
             SafeStartCoroutine("Initialize", Initialize());
         }
@@ -416,26 +441,9 @@ namespace ChromaSDK
         /// </summary>
         public void Disconnect()
         {
-            // unload 1D animations
-            ChromaSDKAnimation1D[] animations1D = 
-                (ChromaSDKAnimation1D[])Object.FindObjectsOfType(typeof(ChromaSDKAnimation1D));
-            foreach (ChromaSDKAnimation1D animation in animations1D)
-            {
-                if (animation.IsLoaded())
-                {
-                    animation.Unload();
-                }
-            }
+            Debug.Log(string.Format("Disconnect: Connected={0}", Connected));
 
-            ChromaSDKAnimation2D[] animations2D =
-                (ChromaSDKAnimation2D[])Object.FindObjectsOfType(typeof(ChromaSDKAnimation2D));
-            foreach (ChromaSDKAnimation2D animation in animations2D)
-            {
-                if (animation.IsLoaded())
-                {
-                    animation.Unload();
-                }
-            }
+            UnloadAnimations();
 
             // stop heartbeat
             _sWaitForExit = false;

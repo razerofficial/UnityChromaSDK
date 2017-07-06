@@ -107,6 +107,9 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
         GUILayout.EndHorizontal();
 
+        bool connected = ChromaConnectionManager.Instance.Connected;
+
+        GUI.enabled = connected;
 
         GUILayout.BeginHorizontal();
 
@@ -125,13 +128,13 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             OnClickStopButton();
         }
 
-        GUI.enabled = !animation.IsLoaded();
+        GUI.enabled = connected && !animation.IsLoaded();
         if (GUILayout.Button("Load"))
         {
             OnClickLoadButton();
         }
 
-        GUI.enabled = animation.IsLoaded();
+        GUI.enabled = connected && animation.IsLoaded();
         if (GUILayout.Button("Unload"))
         {
             OnClickUnloadButton();
