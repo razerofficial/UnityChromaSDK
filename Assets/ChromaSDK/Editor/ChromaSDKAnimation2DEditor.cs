@@ -125,15 +125,19 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             OnClickStopButton();
         }
 
+        GUI.enabled = !animation.IsLoaded();
         if (GUILayout.Button("Load"))
         {
             OnClickLoadButton();
         }
 
+        GUI.enabled = animation.IsLoaded();
         if (GUILayout.Button("Unload"))
         {
             OnClickUnloadButton();
         }
+
+        GUI.enabled = true;
 
         GUILayout.EndHorizontal();
 

@@ -21,9 +21,6 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     }
 
     [SerializeField]
-    private float[] _mTimes = null;
-
-    [SerializeField]
     public ChromaDevice2DEnum Device = ChromaDevice2DEnum.Keyboard;
 
     [SerializeField]
@@ -165,12 +162,12 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
                 if (null == result ||
                     result.Result != 0)
                 {
-                    Debug.LogError("Play: Failed to set effect!");
+                    Debug.LogError("Failed to set effect!");
                 }
             }
             else
             {
-                Debug.LogError("Play: Failed to set effect!");
+                Debug.LogError("Failed to set effect!");
             }
         }
     }
@@ -199,9 +196,16 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
         {
             //Debug.Log("SetEffect.");
             EffectResponseId effect = _mEffects[_mCurrentFrame];
-            EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
-            if (null == result ||
-                result.Result != 0)
+            if (null != effect)
+            {
+                EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
+                if (null == result ||
+                    result.Result != 0)
+                {
+                    Debug.LogError("Failed to set effect!");
+                }
+            }
+            else
             {
                 Debug.LogError("Failed to set effect!");
             }
@@ -239,21 +243,24 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
             return;
         }
 
-        //Debug.Log(string.Format("Create {0} Frames.", Frames.Count));
-        for (int i = 0; i < Frames.Count; ++i)
+        if (ChromaConnectionManager.Instance.Connected)
         {
-            EffectArray2dInput frame = Frames[i];
-            //Debug.Log("Create Effect.");
-            EffectResponseId effect = ChromaUtils.CreateEffectCustom2D(Device, frame);
-            if (null == effect ||
-                effect.Result != 0)
+            //Debug.Log(string.Format("Create {0} Frames.", Frames.Count));
+            for (int i = 0; i < Frames.Count; ++i)
             {
-                Debug.LogError("Failed to create effect!");
+                EffectArray2dInput frame = Frames[i];
+                //Debug.Log("Create Effect.");
+                EffectResponseId effect = ChromaUtils.CreateEffectCustom2D(Device, frame);
+                if (null == effect ||
+                    effect.Result != 0)
+                {
+                    Debug.LogError("Failed to create effect!");
+                }
+                _mEffects.Add(effect);
             }
-            _mEffects.Add(effect);
-        }
 
-        _mIsLoaded = true;
+            _mIsLoaded = true;
+        }
     }
 
     /// <summary>
@@ -274,6 +281,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
         {
             // No need to unload if connection is lost
             _mIsLoaded = false;
+            _mEffects.Clear();
             return;
         }
 
@@ -286,8 +294,16 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
         for (int i = 0; i < _mEffects.Count; ++i)
         {
             EffectResponseId effect = _mEffects[i];
-            EffectIdentifierResponse result = ChromaUtils.RemoveEffect(effect.Id);
-            if (result.Result != 0)
+            if (null != effect)
+            {
+                Debug.Log("RemoveEffect.");
+                EffectIdentifierResponse result = ChromaUtils.RemoveEffect(effect.Id);
+                if (result.Result != 0)
+                {
+                    Debug.LogError("Failed to delete effect!");
+                }
+            }
+            else
             {
                 Debug.LogError("Failed to delete effect!");
             }
@@ -322,20 +338,23 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
             ++_mCurrentFrame;
             if (_mCurrentFrame < _mEffects.Count)
             {
-                //Debug.Log("SetEffect.");
-                EffectResponseId effect = _mEffects[_mCurrentFrame];
-                if (null != effect)
+                if (ChromaConnectionManager.Instance.Connected)
                 {
-                    EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
-                    if (null == result ||
-                        result.Result != 0)
+                    //Debug.Log("SetEffect.");
+                    EffectResponseId effect = _mEffects[_mCurrentFrame];
+                    if (null != effect)
+                    {
+                        EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
+                        if (null == result ||
+                            result.Result != 0)
+                        {
+                            Debug.LogError("Failed to set effect!");
+                        }
+                    }
+                    else
                     {
                         Debug.LogError("Failed to set effect!");
                     }
-                }
-                else
-                {
-                    Debug.LogError("Failed to set effect!");
                 }
             }
             else
