@@ -80,6 +80,11 @@ namespace ChromaSDK
         private static ChromaApi _sApiChromaInstance = null;
 
         /// <summary>
+        /// Attempt only one connection at a time
+        /// </summary>
+        private static bool _sConnecting = false;
+
+        /// <summary>
         /// Track the connected state
         /// </summary>
         private static bool _sConnected = false;
@@ -159,11 +164,7 @@ namespace ChromaSDK
 
         public void Awake()
         {
-            LogOnMainThread(string.Format("ChromaConnectionManager: Awake Connected={0}", Connected));
-            if (!Connected)
-            {
-                SafeStartCoroutine("Initialize", Initialize());
-            }
+            Connect();
         }
 
         /*
@@ -366,10 +367,12 @@ namespace ChromaSDK
 
                     //LogOnMainThread(string.Format("Monitoring Heartbeat {0}...", uri.Port));
                     _sConnected = true;
+                    _sConnecting = false;
                 }
 
-                //LogOnMainThread(string.Format("Heartbeat {0} exited", uri.Port));
+                LogOnMainThread(string.Format("Heartbeat {0} exited", uri.Port));
                 _sConnected = false;
+                _sConnecting = false;
 
             }
         }
@@ -444,12 +447,17 @@ namespace ChromaSDK
         /// </summary>
         public void Connect()
         {
-            Debug.Log(string.Format("Connect: Connected={0}", Connected));
-
             UnloadSceneAnimations();
 
-            _sWaitForExit = true;
-            SafeStartCoroutine("Initialize", Initialize());
+            if (!_sConnecting &&
+                !Connected)
+            {
+                Debug.Log(string.Format("Connect: Connected={0}", Connected));
+
+                _sWaitForExit = true;
+                _sConnecting = true;
+                SafeStartCoroutine("Initialize", Initialize());
+            }
         }
 
         /// <summary>
