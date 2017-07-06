@@ -19,77 +19,19 @@ using Random = System.Random;
 public class ChromaExample01 : MonoBehaviour
 {
     /// <summary>
-    /// Meta references to ui controls
+    /// 1D animation assets
     /// </summary>
-    private string _mTextHeartbeat;
+    public ChromaSDKAnimation1D[] _mAnimations1D = null;
 
     /// <summary>
-    /// Instance of the RazerAPI
+    /// 2D animation assets
     /// </summary>
-    private RazerApi _mApiRazerInstance;
+    public ChromaSDKAnimation2D[] _mAnimations2D = null;
 
     /// <summary>
-    /// Instance of the API
+    /// Show status label
     /// </summary>
-    private ChromaApi _mApiChromaInstance;
-
-    /// <summary>
-    /// Thread safe random object
-    /// </summary>
-    private static Random _sRandom = new System.Random(123);
-
-    /// <summary>
-    /// Delegate method for clearing effects
-    /// </summary>
-    /// <returns></returns>
-    delegate EffectResponse MethodEffectNone();
-
-    /// <summary>
-    /// Delegate method for setting static color effects
-    /// </summary>
-    /// <param name="data"></param>
-    /// <returns></returns>
-    delegate EffectResponse MethodEffectStatic(int? color);
-
-    /// <summary>
-    /// Delegate method for setting effects
-    /// </summary>
-    /// <param name="data"></param>
-    /// <returns></returns>
-    delegate EffectResponse MethodPutEffect(EffectInput data);
-
-    /// <summary>
-    /// Delegate method for setting custom effects for one-dimensional arrays
-    /// </summary>
-    /// <param name="colors"></param>
-    /// <returns></returns>
-    delegate EffectResponse MethodPutCustomArray1d(EffectArray1dInput data);
-
-    /// <summary>
-    /// Delegate method for setting custom effects for two-dimensional arrays
-    /// </summary>
-    /// <param name="colors"></param>
-    /// <returns></returns>
-    delegate EffectResponse MethodPutCustomArray2d(EffectArray2dInput data);
-
-    /// <summary>
-    /// Delegate method for setting custom effects for one-dimensional arrays
-    /// </summary>
-    /// <param name="colors"></param>
-    /// <returns></returns>
-    delegate EffectResponseId MethodPostCustomArray1d(EffectArray1dInput data);
-
-    /// <summary>
-    /// Delegate method for setting custom effects for two-dimensional arrays
-    /// </summary>
-    /// <param name="colors"></param>
-    /// <returns></returns>
-    delegate EffectResponseId MethodPostCustomArray2d(EffectArray2dInput data);
-
-    /// <summary>
-    /// Detect app shutdown
-    /// </summary>
-    private bool _mWaitForExit = true;
+    private string _mTextStatus;
 
     /// <summary>
     /// Keep animation playing
@@ -123,7 +65,24 @@ public class ChromaExample01 : MonoBehaviour
         _mMainActions.Add(action);
     }
 
-#region Helpers
+    #region Helpers
+
+    /// <summary>
+    /// Display result with label prefix
+    /// </summary>
+    /// <param name="label"></param>
+    /// <param name="result"></param>
+    private static void DisplayResult(string label, EffectResponse result)
+    {
+        if (null == result)
+        {
+            Debug.LogError(string.Format("{0} Result was null!", label));
+        }
+        else
+        {
+            Debug.Log(string.Format("{0} {1}", label, result));
+        }
+    }
 
     /// <summary>
     /// Get Effect: CHROMA_STATIC
@@ -138,585 +97,213 @@ public class ChromaExample01 : MonoBehaviour
         return input;
     }
 
-    /// <summary>
-    /// Get Effect: CHROMA_CUSTOM 1D Array
-    /// </summary>
-    /// <param name="maxElements"></param>
-    /// <returns></returns>
-    private static EffectArray1dInput GetEffectChromaCustom(int maxElements)
-    {
-        var elements = new EffectArray1dInput();
-        for (int i = 0; i < maxElements; ++i)
-        {
-            elements.Add(_sRandom.Next(16777215));
-        }
-        return elements;
-    }
-
-    /// <summary>
-    /// Get Effect: CHROMA_CUSTOM 2D Array
-    /// </summary>
-    /// <param name="maxColumn"></param>
-    /// <param name="maxRow"></param>
-    /// <returns></returns>
-    private static EffectArray2dInput GetEffectChromaCustom(int maxColumn, int maxRow)
-    {
-        var rows = new EffectArray2dInput();
-        for (int i = 0; i < maxRow; ++i)
-        {
-            var row = new List<int>();
-            for (int j = 0; j < maxColumn; ++j)
-            {
-                row.Add(_sRandom.Next(16777215));
-            }
-            rows.Add(row);
-        }
-        return rows;
-    }
-
 #endregion
-
-    /// <summary>
-    /// Initialize Chroma by hitting the REST server and set the API port
-    /// </summary>
-    /// <returns></returns>
-    void PostChromaSdk()
-    {
-        if (!_mWaitForExit)
-        {
-            return;
-        }
-
-        try
-        {
-            if (null != _mApiRazerInstance)
-            {
-                return;
-            }
-
-            // use the Razer API to get the session
-            _mApiRazerInstance = new RazerApi();
-
-            var input = new ChromaSdkInput();
-            input.Title = "UnityPlugin";
-            input.Description = "This is a REST interface Unity client";
-            input.Author = new ChromaSdkInputAuthor();
-            input.Author.Name = "Chroma Developer";
-            input.Author.Contact = "www.razerzone.com";
-            input.DeviceSupported = new List<string>
-            {
-                "keyboard",
-                "mouse",
-                "headset",
-                "mousepad",
-                "keypad",
-                "chromalink",
-            };
-            input.Category = "application";
-
-            Debug.Log("Initializing...");
-            PostChromaSdkResponse result = _mApiRazerInstance.PostChromaSdk(input);
-            //Debug.Log(result);
-
-            // setup the api instance with the session uri
-            _mApiChromaInstance = new ChromaApi(result.Uri);
-
-            Debug.Log("Init complete.");
-
-            // use heartbeat to keep the REST API alive
-            DoHeartbeat();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError(string.Format("Exception when calling RazerApi.PostChromaSdk: {0}", e));
-            _mApiRazerInstance = null;
-
-            // Coroutines can only start from the main thread
-            RunOnMainThread(() =>
-            {
-                // retry
-                StartCoroutine(Initialize());
-            });
-        }
-    }
-
-    /// <summary>
-    /// Set the heartbeat text
-    /// </summary>
-    /// <param name="text"></param>
-    void SetHeartbeatText(string text)
-    {
-        _mTextHeartbeat = text;
-    }
-
-    /// <summary>
-    /// Initialize after a delay
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator Initialize()
-    {
-        // wait to initialize in case recompile just shutdown
-        RunOnMainThread(() =>
-        {
-            SetHeartbeatText("Waiting to initialize ChromaSDK...");
-        });
-
-        // delay, WaitForSeconds doesn't work in edit mode
-        DateTime wait = DateTime.Now + TimeSpan.FromSeconds(2);
-        while (DateTime.Now < wait)
-        {
-            yield return null;
-        }
-
-        ChromaUtils.RunOnThread(() =>
-        {
-            // start initialization
-            PostChromaSdk();
-        });
-    }
-
-    /// <summary>
-    /// Uninitialize Chroma
-    /// </summary>
-    /// <returns></returns>
-    void DeleteChromaSdk()
-    {
-        try
-        {
-            if (null == _mApiChromaInstance)
-            {
-                return;
-            }
-
-            // destroy the Chroma session
-            DeleteChromaSdkResponse result = _mApiChromaInstance.DeleteChromaSdk();
-            //Debug.Log(result);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError(string.Format("Exception when calling RazerApi.DeleteChromaSdk: {0}", e));
-        }
-        finally
-        {
-            // clear the references
-            _mApiRazerInstance = null;
-            _mApiChromaInstance = null;
-        }
-    }
 
     /// <summary>
     /// Clear effect on all devices using PUT
     /// </summary>
-    /// <returns></returns>
-    List<EffectResponse> SetEffectNoneOnAll()
+    void SetEffectNoneOnAll()
     {
-        if (null == _mApiChromaInstance)
+        if (!ChromaConnectionManager.Instance.Connected)
         {
-            Debug.LogError("Need to register Chroma Server. The api instance is not set!");
-            return null;
+            Debug.LogError("Chroma client is not yet connected!");
+            return;
         }
 
-        var results = new List<EffectResponse>();
-        var methods = new List<MethodEffectNone>();
-        methods.Add(_mApiChromaInstance.PutChromaLinkNone);
-        methods.Add(_mApiChromaInstance.PutHeadsetNone);
-        methods.Add(_mApiChromaInstance.PutKeyboardNone);
-        methods.Add(_mApiChromaInstance.PutKeypadNone);
-        methods.Add(_mApiChromaInstance.PutMouseNone);
-        methods.Add(_mApiChromaInstance.PutMousepadNone);
-        foreach (MethodEffectNone method in methods)
-        {
-            try
-            {
-                EffectResponse result = method.Invoke();
-                //Debug.Log(result);
-                results.Add(result);
-            }
-            catch (Exception)
-            {
-                Debug.LogError(string.Format("Failed to set none effect: {0}", method.Method));
-            }
+        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
 
-        }
-        return results;
+        DisplayResult("PutChromaLinkNone:", chromaApi.PutChromaLinkNone());
+        DisplayResult("PutHeadsetNone:", chromaApi.PutHeadsetNone());
+        DisplayResult("PutKeyboardNone:", chromaApi.PutKeyboardNone());
+        DisplayResult("PutKeypadNone:", chromaApi.PutKeypadNone());
+        DisplayResult("PutMouseNone:", chromaApi.PutMouseNone());
+        DisplayResult("PutMousepadNone:", chromaApi.PutMousepadNone());
     }
 
     /// <summary>
     /// Set static effect on all devices using PUT
     /// </summary>
     /// <param name="color"></param>
-    /// <returns></returns>
-    List<EffectResponse> SetEffectStaticOnAll(int color)
+    void SetEffectStaticOnAll(int color)
     {
-        if (null == _mApiChromaInstance)
+        if (!ChromaConnectionManager.Instance.Connected)
         {
-            Debug.LogError("Need to register Chroma Server. The api instance is not set!");
-            return null;
+            Debug.LogError("Chroma client is not yet connected!");
+            return;
         }
 
-        var results = new List<EffectResponse>();
-        var methods = new List<MethodEffectStatic>();
-        methods.Add(_mApiChromaInstance.PutChromaLinkStatic);
-        methods.Add(_mApiChromaInstance.PutHeadsetStatic);
-        methods.Add(_mApiChromaInstance.PutKeyboardStatic);
-        methods.Add(_mApiChromaInstance.PutKeypadStatic);
-        methods.Add(_mApiChromaInstance.PutMouseStatic);
-        methods.Add(_mApiChromaInstance.PutMousepadStatic);
-        foreach (MethodEffectStatic method in methods)
-        {
-            try
-            {
-                EffectResponse result = method.Invoke(color);
-                //Debug.Log(result);
-                results.Add(result);
-            }
-            catch (Exception)
-            {
-                Debug.LogError(string.Format("Failed to set static effect: {0}", method.Method));
-            }
+        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
 
-        }
-        return results;
+        DisplayResult("PutChromaLinkStatic:", chromaApi.PutChromaLinkStatic(color));
+        DisplayResult("PutHeadsetStatic:", chromaApi.PutHeadsetStatic(color));
+        DisplayResult("PutKeyboardStatic:", chromaApi.PutKeyboardStatic(color));
+        DisplayResult("PutKeypadStatic:", chromaApi.PutKeypadStatic(color));
+        DisplayResult("PutMouseStatic:", chromaApi.PutMouseStatic(color));
+        DisplayResult("PutMousepadStatic:", chromaApi.PutMousepadStatic(color));
     }
 
     /// <summary>
     /// Set effect on all devices using PUT
     /// </summary>
     /// <param name="input"></param>
-    /// <returns></returns>
-    List<EffectResponse> SetEffectOnAll(EffectInput input)
+    void SetEffectOnAll(EffectInput input)
     {
-        if (null == _mApiChromaInstance)
+        if (!ChromaConnectionManager.Instance.Connected)
         {
-            Debug.LogError("Need to register Chroma Server. The api instance is not set!");
-            return null;
+            Debug.LogError("Chroma client is not yet connected!");
+            return;
         }
 
-        var results = new List<EffectResponse>();
-        var methods = new List<MethodPutEffect>();
-        methods.Add(_mApiChromaInstance.PutChromaLink);
-        methods.Add(_mApiChromaInstance.PutHeadset);
-        methods.Add(_mApiChromaInstance.PutKeyboard);
-        methods.Add(_mApiChromaInstance.PutKeypad);
-        methods.Add(_mApiChromaInstance.PutMouse);
-        methods.Add(_mApiChromaInstance.PutMousepad);
-        foreach (MethodPutEffect method in methods)
-        {
-            try
-            {
-                EffectResponse result = method.Invoke(input);
-                //Debug.Log(result);
-                results.Add(result);
-            }
-            catch (Exception)
-            {
-                Debug.LogError(string.Format("Failed to invoke: {0}", method.Method));
-            }
+        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
 
-        }
-        return results;
-    }
-
-    /// <summary>
-    /// Container for custom method and data with one-dimension using PUT
-    /// </summary>
-    class PutAnimationData1D
-    {
-        public MethodPutCustomArray1d Method { get; set; }
-        public EffectArray1dInput Data { get; set; }
-        public PutAnimationData1D(MethodPutCustomArray1d method, EffectArray1dInput data)
-        {
-            Method = method;
-            Data = data;
-        }
-    }
-
-    /// <summary>
-    /// Container for custom method and data with two-dimensions using PUT
-    /// </summary>
-    class PutAnimationData2D
-    {
-        public MethodPutCustomArray2d Method { get; set; }
-        public EffectArray2dInput Data { get; set; }
-        public PutAnimationData2D(MethodPutCustomArray2d method, EffectArray2dInput data)
-        {
-            Method = method;
-            Data = data;
-        }
+        DisplayResult("PutChromaLink:", chromaApi.PutChromaLink(input));
+        DisplayResult("PutHeadset:", chromaApi.PutHeadset(input));
+        DisplayResult("PutKeyboard:", chromaApi.PutKeyboard(input));
+        DisplayResult("PutKeypad:", chromaApi.PutKeypad(input));
+        DisplayResult("PutMouse:", chromaApi.PutMouse(input));
+        DisplayResult("PutMousepad:", chromaApi.PutMousepad(input));
     }
 
     /// <summary>
     /// Use the API to set the CHROMA_CUSTOM effect
     /// </summary>
-    List<EffectResponse> SetKeyboardCustomEffect()
+    void SetKeyboardCustomEffect()
     {
-        if (null == _mApiChromaInstance)
+        if (!ChromaConnectionManager.Instance.Connected)
         {
-            Debug.LogError("Need to register Chroma Server. The custom api instance is not set!");
-            return null;
+            Debug.LogError("Chroma client is not yet connected!");
+            return;
         }
 
-        var results = new List<EffectResponse>();
+        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
 
-#region 2D
-        var items2d = new List<PutAnimationData2D>();
-        items2d.Add(new PutAnimationData2D(_mApiChromaInstance.PutKeyboardCustom, GetEffectChromaCustom(22, 6)));
-        items2d.Add(new PutAnimationData2D(_mApiChromaInstance.PutKeypadCustom, GetEffectChromaCustom(5, 4)));
-        items2d.Add(new PutAnimationData2D(_mApiChromaInstance.PutMouseCustom, GetEffectChromaCustom(7, 9)));
-        foreach (PutAnimationData2D item in items2d)
-        {
-            try
-            {
-                EffectResponse result = item.Method.Invoke(item.Data);
-                //Debug.Log(result);
-                results.Add(result);
-            }
-            catch (Exception)
-            {
-                Debug.LogError(string.Format("Failed to invoke: {0}", item.Method));
-            }
-        }
-#endregion
-#region 1D
-        var items1d = new List<PutAnimationData1D>();
-        items1d.Add(new PutAnimationData1D(_mApiChromaInstance.PutChromaLinkCustom, GetEffectChromaCustom(5)));
-        items1d.Add(new PutAnimationData1D(_mApiChromaInstance.PutHeadsetCustom, GetEffectChromaCustom(5)));
-        items1d.Add(new PutAnimationData1D(_mApiChromaInstance.PutMousepadCustom, GetEffectChromaCustom(15)));
-        foreach (PutAnimationData1D item in items1d)
-        {
-            try
-            {
-                EffectResponse result = item.Method.Invoke(item.Data);
-                //Debug.Log(result);
-                results.Add(result);
-            }
-            catch (Exception)
-            {
-                Debug.LogError(string.Format("Failed to invoke: {0}", item.Method));
-            }
-        }
-#endregion
-        return results;
+        DisplayResult("PutChromaLinkCustom:", chromaApi.PutChromaLinkCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.ChromaLink)));
+        DisplayResult("PutHeadsetCustom:", chromaApi.PutHeadsetCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.Headset)));
+        DisplayResult("PutKeyboardCustom:", chromaApi.PutKeyboardCustom(ChromaUtils.CreateRandomColors2D(ChromaDevice2DEnum.Keyboard)));
+        DisplayResult("PutKeypadCustom:", chromaApi.PutKeypadCustom(ChromaUtils.CreateRandomColors2D(ChromaDevice2DEnum.Keypad)));
+        DisplayResult("PutMouseCustom:", chromaApi.PutMouseCustom(ChromaUtils.CreateRandomColors2D(ChromaDevice2DEnum.Mouse)));
+        DisplayResult("PutMousepadCustom:", chromaApi.PutMousepadCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.Mousepad)));
     }
 
     /// <summary>
-    /// Container for custom method and data with one-dimension using POST
+    /// Loop 1D animation using complete callback
     /// </summary>
-    class PostAnimationData1D
+    /// <param name="animation"></param>
+    void LoopAnimation1D(ChromaSDKAnimation1D animation)
     {
-        public MethodPostCustomArray1d Method { get; set; }
-        public EffectArray1dInput Data { get; set; }
-        public PostAnimationData1D(MethodPostCustomArray1d method, EffectArray1dInput data)
+        if (_mPlayAnimation)
         {
-            Method = method;
-            Data = data;
+            animation.PlayWithOnComplete(LoopAnimation1D);
         }
     }
 
     /// <summary>
-    /// Container for custom method and data with two-dimensions using POST
+    /// Loop 2D animation using complete callback
     /// </summary>
-    class PostAnimationData2D
+    /// <param name="animation"></param>
+    void LoopAnimation2D(ChromaSDKAnimation2D animation)
     {
-        public MethodPostCustomArray2d Method { get; set; }
-        public EffectArray2dInput Data { get; set; }
-        public PostAnimationData2D(MethodPostCustomArray2d method, EffectArray2dInput data)
+        if (_mPlayAnimation)
         {
-            Method = method;
-            Data = data;
+            animation.PlayWithOnComplete(LoopAnimation2D);
         }
     }
 
     /// <summary>
     /// Create and play an animation
     /// </summary>
-    void DoAnimation()
+    void DoAnimations()
     {
-        if (_mPlayAnimation)
+        if (!ChromaConnectionManager.Instance.Connected)
         {
+            Debug.LogError("Chroma client is not yet connected!");
             return;
         }
 
-        if (null == _mApiChromaInstance)
-        {
-            Debug.LogError("Need to register Chroma Server. The custom api instance is not set!");
-            return;
-        }
+        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
 
         _mPlayAnimation = true;
 
-        // build custom effects
+        // load 1D animations
 
-        //create 10 frames
-        List<List<string>> frames = new List<List<string>>();
-
-        const int FRAME_COUNT = 10;
-        for (int i = 0; i < FRAME_COUNT; ++i)
+        foreach (ChromaSDKAnimation1D animation in _mAnimations1D)
         {
-            // list of effect ids
-            List<string> effects = new List<string>();
-
-#region 2D
-            var items2d = new List<PostAnimationData2D>();
-            items2d.Add(new PostAnimationData2D(_mApiChromaInstance.PostKeyboardCustom, GetEffectChromaCustom(22, 6)));
-            items2d.Add(new PostAnimationData2D(_mApiChromaInstance.PostKeypadCustom, GetEffectChromaCustom(5, 4)));
-            items2d.Add(new PostAnimationData2D(_mApiChromaInstance.PostMouseCustom, GetEffectChromaCustom(7, 9)));
-            foreach (PostAnimationData2D item in items2d)
+            // unload in case animation was playing in editor
+            if (animation.IsLoaded())
             {
-                try
-                {
-                    EffectResponseId result = item.Method.Invoke(item.Data);
-                    //Debug.Log(result);
-                    effects.Add(result.Id);
-                }
-                catch (Exception)
-                {
-                    Debug.LogError(string.Format("Failed to invoke: {0}", item.Method));
-                }
+                animation.Unload();
             }
-#endregion
-#region 1D
-            var items1d = new List<PostAnimationData1D>();
-            items1d.Add(new PostAnimationData1D(_mApiChromaInstance.PostChromaLinkCustom, GetEffectChromaCustom(5)));
-            items1d.Add(new PostAnimationData1D(_mApiChromaInstance.PostHeadsetCustom, GetEffectChromaCustom(5)));
-            items1d.Add(new PostAnimationData1D(_mApiChromaInstance.PostMousepadCustom, GetEffectChromaCustom(15)));
-            foreach (PostAnimationData1D item in items1d)
-            {
-                try
-                {
-                    EffectResponseId result = item.Method.Invoke(item.Data);
-                    //Debug.Log(result);
-                    effects.Add(result.Id);
-                }
-                catch (Exception)
-                {
-                    Debug.LogError(string.Format("Failed to invoke: {0}", item.Method));
-                }
-            }
-#endregion
-
-            // add the frame
-            frames.Add(effects);
+            // load the animation
+            animation.Load();
         }
 
-        Debug.Log("Animation looping...");
+        // load 2D animations
 
-        int index = 0;
-        while (_mWaitForExit &&
-            _mPlayAnimation &&
-            frames.Count > 0 &&
-            null != _mApiChromaInstance)
+        foreach (ChromaSDKAnimation2D animation in _mAnimations2D)
         {
-            List<string> effects = frames[index];
-
-            try
+            // unload in case animation was playing in editor
+            if (animation.IsLoaded())
             {
-                var input = new EffectIdentifierInput(null, effects);
-                EffectIdentifierResponse result = _mApiChromaInstance.PutEffect(input);
+                animation.Unload();
             }
-            catch (Exception e)
-            {
-                Debug.LogError(string.Format("Failed to put effects: {0}", e));
-            }
+            // load the animation
+            animation.Load();
+        }        
 
-            index = (index + 1) % frames.Count;
+        Debug.Log("Play animations looping...");
 
-            // loop animation frames
-            Thread.Sleep(100);
+        foreach (ChromaSDKAnimation1D animation in _mAnimations1D)
+        {
+            LoopAnimation1D(animation);
         }
 
-        Debug.Log("Animation complete.");
-
-        // clean up effects single item, first frame
-        if (_mWaitForExit &&
-            frames.Count > 0)
+        foreach (ChromaSDKAnimation2D animation in _mAnimations2D)
         {
-            List<string> effects = frames[0];
-            frames.RemoveAt(0);
-            foreach (string id in effects)
-            {
-                try
-                {
-                    var input = new EffectIdentifierInput(id, null);
-                    EffectIdentifierResponse result = _mApiChromaInstance.RemoveEffect(input);
-                    //Debug.Log(result);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(string.Format("Failed to delete effect by id: {0}", e));
-                }
-            }
+            LoopAnimation2D(animation);
         }
-        
-        // clean up effects by array
-        while (_mWaitForExit &&
-            frames.Count > 0)
-        {
-            List<string> effects = frames[0];
-            frames.RemoveAt(0);
-            try
-            {
-                var input = new EffectIdentifierInput(null, effects);
-                EffectIdentifierResponse result = _mApiChromaInstance.RemoveEffect(input);
-                //Debug.Log(result);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(string.Format("Failed to delete effects: {0}", e));
-            }
-        }
-
-        Debug.Log("Animation cleaned.");
     }
 
-    /// <summary>
-    /// Use heartbeat to keep the REST API listening after initialization,
-    /// be sure to call from a thread and not the main thread
-    /// </summary>
-    void DoHeartbeat()
+    void StopAnimations()
     {
-        if (null != _mApiChromaInstance)
+        if (!ChromaConnectionManager.Instance.Connected)
         {
-            Uri uri = new Uri(_mApiChromaInstance.ApiClient.BasePath);
-            
-            RunOnMainThread(() =>
-            {
-                SetHeartbeatText(string.Format("Monitoring Heartbeat {0}...", uri.Port));
-            });
+            Debug.LogError("Chroma client is not yet connected!");
+            return;
+        }
 
-            while (_mWaitForExit &&
-                null != _mApiChromaInstance)
-            {
-                try
-                {
-                    // The Chroma API uses a heartbeat every 1 second
-                    _mApiChromaInstance.Heartbeat();
-                }
-                catch (Exception)
-                {
-                    Debug.LogError("Failed to check heartbeat!");
-                }
+        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
 
-                // Wait for a sec
-                Thread.Sleep(1000);
+        // unload 1D animations
+        foreach (ChromaSDKAnimation1D animation in _mAnimations1D)
+        {
+            if (animation.IsLoaded())
+            {
+                animation.Unload();
             }
+        }
 
-            RunOnMainThread(() =>
+        // unload 2D animations
+        foreach (ChromaSDKAnimation2D animation in _mAnimations2D)
+        {
+            if (animation.IsLoaded())
             {
-                SetHeartbeatText(string.Format("Heartbeat {0} exited", uri.Port));
-            });
-            
+                animation.Unload();
+            }
         }
     }
 
     // Display the UI in Unity GUI to be compatible with 3.X
     void OnGUI()
     {
+        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
+
+        _mTextStatus = ChromaConnectionManager.Instance.Connected ? "Connected" : "Not Connected";
+
         GUILayout.BeginHorizontal();
 
         GUILayout.Label("Unity Plugin - Chroma REST API");
         GUILayout.FlexibleSpace();
-        GUILayout.Label(_mTextHeartbeat);
+        GUILayout.Label(_mTextStatus);
 
         GUILayout.EndHorizontal();
 
@@ -929,7 +516,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.blue));
-                _mApiChromaInstance.PutKeyboard(input);
+                DisplayResult("PutKeyboard:", chromaApi.PutKeyboard(input));
             });
         }
 
@@ -940,7 +527,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.green));
-                _mApiChromaInstance.PutHeadset(input);
+                DisplayResult("PutHeadset:", chromaApi.PutHeadset(input));
             });
         }
 
@@ -951,7 +538,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.red));
-                _mApiChromaInstance.PutMouse(input);
+                DisplayResult("PutMouse:", chromaApi.PutMouse(input));
             });
         }
 
@@ -962,7 +549,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(1f, 0.5f, 0f)));
-                _mApiChromaInstance.PutMousepad(input);
+                DisplayResult("PutMousepad:", chromaApi.PutMousepad(input));
             });
         }
 
@@ -973,7 +560,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(0f, 1f, 1f)));
-                _mApiChromaInstance.PutKeypad(input);
+                DisplayResult("PutKeypad:", chromaApi.PutKeypad(input));
             });
         }
 
@@ -984,7 +571,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.white));
-                _mApiChromaInstance.PutChromaLink(input);
+                DisplayResult("PutChromaLink:", chromaApi.PutChromaLink(input));
             });
         }
 
@@ -1001,79 +588,21 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                DoAnimation();
+                DoAnimations();
             });
         }
 
         if (GUILayout.Button("End", GUILayout.Height(height)))
         {
             _mPlayAnimation = false;
-        }
 
-        GUILayout.EndHorizontal();
-
-        GUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Register Chroma Server", GUILayout.Height(height)))
-        {
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                PostChromaSdk();
-            });
-        }
-
-        if (GUILayout.Button("Unregister Chroma Server", GUILayout.Height(height)))
-        {
-            // avoid blocking the UI thread
-            ChromaUtils.RunOnThread(() =>
-            {
-                DeleteChromaSdk();
+                StopAnimations();
             });
         }
 
         GUILayout.EndHorizontal();
-    }
-
-    /// <summary>
-    /// OnEnable is invoked on play, or while playing after compile
-    /// </summary>
-    void OnEnable()
-    {
-        Debug.Log("OnEnable:");
-        _mWaitForExit = true;
-
-        // initialize
-        StartCoroutine(Initialize());
-    }
-
-    /// <summary>
-    /// Stop heartbeat on disable, on disable is called on stop, or if compiling
-    /// </summary>
-    private void OnDisable()
-    {
-        Debug.Log("OnDisable:");
-        _mWaitForExit = false;
-
-        // avoid blocking the UI thread
-        ChromaUtils.RunOnThread(() =>
-        {
-            DeleteChromaSdk();
-        });
-    }
-
-    /// <summary>
-    /// Stop heartbeat on exit and clear effect, on quit happens on stop
-    /// </summary>
-    private void OnApplicationQuit()
-    {
-        Debug.Log("OnApplicationQuit:");
-        _mWaitForExit = false;
-
-        // avoid blocking the UI thread
-        ChromaUtils.RunOnThread(() =>
-        {
-            DeleteChromaSdk();
-        });
     }
 }

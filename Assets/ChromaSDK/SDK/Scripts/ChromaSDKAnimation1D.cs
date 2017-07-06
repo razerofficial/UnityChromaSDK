@@ -103,7 +103,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// </summary>
     public void Play()
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+        Debug.Log("Play");
 
         if (!_mIsLoaded)
         {
@@ -144,7 +144,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// <param name="onComplete"></param>
     public void PlayWithOnComplete(ChomaOnComplete1D onComplete)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+        //Debug.Log("PlayWithOnComplete");
 
         if (!_mIsLoaded)
         {
@@ -183,7 +183,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// </summary>
     public void Stop()
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+        Debug.Log("Stop");
         _mIsPlaying = false;
         _mTime = DateTime.MinValue; //reset
         _mCurrentFrame = 0;
@@ -203,7 +203,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// </summary>
     public void Load()
     {
-        Debug.Log("Load:");
+        //Debug.Log("Load:");
 
         if (_mIsLoaded)
         {

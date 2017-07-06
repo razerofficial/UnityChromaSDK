@@ -111,6 +111,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff3a576bc047cef4486ff6ba764e6560, type: 1}
   m_Name: 
+  _mAnimations1D:
+  - {fileID: 11400000, guid: f44f8f943eaa423459fdb62e10c3ef15, type: 2}
+  - {fileID: 11400000, guid: 68f16ef9c9c083b40a4a7135686607c3, type: 2}
+  - {fileID: 11400000, guid: cb702c9db07d7dc49afaef6a73d8ed53, type: 2}
+  _mAnimations2D:
+  - {fileID: 11400000, guid: bee875f366dff424a87967d10ad9c27a, type: 2}
+  - {fileID: 11400000, guid: 9d62f223da0df1b4d82eb422332fb865, type: 2}
+  - {fileID: 11400000, guid: 3bee23aee42cfaa47a72c6fcc8231792, type: 2}
 --- !u!1 &1420537123
 GameObject:
   m_ObjectHideFlags: 0

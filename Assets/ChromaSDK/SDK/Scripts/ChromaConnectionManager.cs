@@ -12,14 +12,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 using Object = UnityEngine.Object;
 
 namespace ChromaSDK
 {
+#if UNITY_EDITOR
     [ExecuteInEditMode]
+#endif
     public class ChromaConnectionManager : MonoBehaviour, IUpdate
     {
         #region Singleton Setup
@@ -123,8 +127,15 @@ namespace ChromaSDK
         /// <param name="routine"></param>
         protected void SafeStartCoroutine(string routineName, IEnumerator routine)
         {
-            //LogOnMainThread(string.Format("SafeStartCoroutine: {0}", routineName));
-            _sPendingRoutines.Add(routine);
+            if (Application.isPlaying)
+            {
+                StartCoroutine(routine);
+            }
+            else
+            {
+                //LogOnMainThread(string.Format("SafeStartCoroutine: {0}", routineName));
+                _sPendingRoutines.Add(routine);
+            }
         }
 
         /// <summary>
@@ -148,8 +159,11 @@ namespace ChromaSDK
 
         public void Awake()
         {
-            //LogOnMainThread("ChromaConnectionManager: Awake");
-            Initialize();
+            LogOnMainThread(string.Format("ChromaConnectionManager: Awake Connected={0}", Connected));
+            if (!Connected)
+            {
+                SafeStartCoroutine("Initialize", Initialize());
+            }
         }
 
         /*
@@ -215,13 +229,8 @@ namespace ChromaSDK
         /// <returns></returns>
         IEnumerator Initialize()
         {
-            //LogOnMainThread("Initialize:");
-
             // wait to initialize in case recompile just shutdown
-            RunOnMainThread(() =>
-            {
-                LogOnMainThread("Waiting to initialize ChromaSDK...");
-            });
+            LogOnMainThread("Waiting to initialize ChromaSDK...");
 
             // delay, WaitForSeconds doesn't work in edit mode
             DateTime wait = DateTime.Now + TimeSpan.FromSeconds(2);

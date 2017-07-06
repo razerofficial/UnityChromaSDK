@@ -137,7 +137,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     /// </summary>
     public void Play()
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+        //Debug.Log("Play");
 
         if (!_mIsLoaded)
         {
@@ -176,9 +176,9 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     /// Play the animation and fire the OnComplete event
     /// </summary>
     /// <param name="onComplete"></param>
-    public void PlayWithOnComplete(ChromaApi chromaApi, ChomaOnComplete2D onComplete)
+    public void PlayWithOnComplete(ChomaOnComplete2D onComplete)
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+        //Debug.Log("PlayWithOnComplete");
 
         if (!_mIsLoaded)
         {
@@ -217,7 +217,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     /// </summary>
     public void Stop()
     {
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+        //Debug.Log("Stop");
         _mIsPlaying = false;
         _mTime = DateTime.MinValue; //reset
         _mCurrentFrame = 0;
@@ -250,7 +250,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     /// </summary>
     public void Load()
     {
-        Debug.Log("Load:");
+        //Debug.Log("Load:");
 
         if (_mIsLoaded)
         {
