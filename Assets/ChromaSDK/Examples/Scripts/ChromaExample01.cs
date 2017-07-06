@@ -29,6 +29,11 @@ public class ChromaExample01 : MonoBehaviour
     public ChromaSDKAnimation2D[] _mAnimations2D = null;
 
     /// <summary>
+    /// Connection manager maintains REST connection
+    /// </summary>
+    private ChromaConnectionManager _mConnectionManager = null;
+
+    /// <summary>
     /// Show status label
     /// </summary>
     private string _mTextStatus;
@@ -104,13 +109,13 @@ public class ChromaExample01 : MonoBehaviour
     /// </summary>
     void SetEffectNoneOnAll()
     {
-        if (!ChromaConnectionManager.Instance.Connected)
+        if (!_mConnectionManager.Connected)
         {
             Debug.LogError("Chroma client is not yet connected!");
             return;
         }
 
-        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
+        ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
         DisplayResult("PutChromaLinkNone:", chromaApi.PutChromaLinkNone());
         DisplayResult("PutHeadsetNone:", chromaApi.PutHeadsetNone());
@@ -126,13 +131,13 @@ public class ChromaExample01 : MonoBehaviour
     /// <param name="color"></param>
     void SetEffectStaticOnAll(int color)
     {
-        if (!ChromaConnectionManager.Instance.Connected)
+        if (!_mConnectionManager.Connected)
         {
             Debug.LogError("Chroma client is not yet connected!");
             return;
         }
 
-        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
+        ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
         DisplayResult("PutChromaLinkStatic:", chromaApi.PutChromaLinkStatic(color));
         DisplayResult("PutHeadsetStatic:", chromaApi.PutHeadsetStatic(color));
@@ -148,13 +153,13 @@ public class ChromaExample01 : MonoBehaviour
     /// <param name="input"></param>
     void SetEffectOnAll(EffectInput input)
     {
-        if (!ChromaConnectionManager.Instance.Connected)
+        if (!_mConnectionManager.Connected)
         {
             Debug.LogError("Chroma client is not yet connected!");
             return;
         }
 
-        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
+        ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
         DisplayResult("PutChromaLink:", chromaApi.PutChromaLink(input));
         DisplayResult("PutHeadset:", chromaApi.PutHeadset(input));
@@ -169,13 +174,13 @@ public class ChromaExample01 : MonoBehaviour
     /// </summary>
     void SetKeyboardCustomEffect()
     {
-        if (!ChromaConnectionManager.Instance.Connected)
+        if (!_mConnectionManager.Connected)
         {
             Debug.LogError("Chroma client is not yet connected!");
             return;
         }
 
-        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
+        ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
         DisplayResult("PutChromaLinkCustom:", chromaApi.PutChromaLinkCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.ChromaLink)));
         DisplayResult("PutHeadsetCustom:", chromaApi.PutHeadsetCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.Headset)));
@@ -214,13 +219,13 @@ public class ChromaExample01 : MonoBehaviour
     /// </summary>
     void DoAnimations()
     {
-        if (!ChromaConnectionManager.Instance.Connected)
+        if (!_mConnectionManager.Connected)
         {
             Debug.LogError("Chroma client is not yet connected!");
             return;
         }
 
-        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
+        ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
         _mPlayAnimation = true;
 
@@ -265,13 +270,13 @@ public class ChromaExample01 : MonoBehaviour
 
     void StopAnimations()
     {
-        if (!ChromaConnectionManager.Instance.Connected)
+        if (!_mConnectionManager.Connected)
         {
             Debug.LogError("Chroma client is not yet connected!");
             return;
         }
 
-        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
+        ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
         // unload 1D animations
         foreach (ChromaSDKAnimation1D animation in _mAnimations1D)
@@ -292,12 +297,26 @@ public class ChromaExample01 : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Get the connection manager on start
+    /// </summary>
+    private void Start()
+    {
+        _mConnectionManager = ChromaConnectionManager.Instance;
+    }
+
     // Display the UI in Unity GUI to be compatible with 3.X
     void OnGUI()
     {
-        ChromaApi chromaApi = ChromaConnectionManager.Instance.ApiChromaInstance;
+        if (null == _mConnectionManager)
+        {
+            GUILayout.Label("Waiting for start...");
+            return;
+        }
 
-        _mTextStatus = ChromaConnectionManager.Instance.Connected ? "Connected" : "Not Connected";
+        ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
+
+        _mTextStatus = _mConnectionManager.Connected ? "Connected" : "Not Connected";
 
         GUILayout.BeginHorizontal();
 
