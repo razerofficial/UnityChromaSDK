@@ -302,6 +302,18 @@ public class ChromaExample01 : MonoBehaviour
     private void Start()
     {
         _mConnectionManager = ChromaConnectionManager.Instance;
+
+        // instantiate 1D animations
+        for (int i = 0; i < _mAnimations1D.Length; ++i)
+        {
+            _mAnimations1D[i] = (ChromaSDKAnimation1D)Instantiate(_mAnimations1D[i]);
+        }
+
+        // instantiate 2D animations
+        for (int i = 0; i < _mAnimations2D.Length; ++i)
+        {
+            _mAnimations2D[i] = (ChromaSDKAnimation2D)Instantiate(_mAnimations2D[i]);
+        }
     }
 
     // Display the UI in Unity GUI to be compatible with 3.X
