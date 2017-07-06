@@ -110,12 +110,35 @@ public class ChromaSDKAnimationBaseEditor : Editor
         }
     }
 
+    private static void UnloadPrefabAnimations()
+    {
+        Debug.Log("UnloadPrefabAnimations:");
+
+        for (int i = 0; i < _sTargets.Count; ++i)
+        {
+            IUpdate updater = _sTargets[i];
+            if (null == updater)
+            {
+                continue;
+            }
+            else if (updater is ChromaSDKAnimation1D)
+            {
+                (updater as ChromaSDKAnimation1D).Unload();
+            }
+            else if (updater is ChromaSDKAnimation2D)
+            {
+                (updater as ChromaSDKAnimation2D).Unload();
+            }
+        }
+    }
+
     public static void EditorUpdate()
     {
         // stop editor updates if compiling and disconnect
         if (EditorApplication.isCompiling)
         {
             StopEditorUpdates();
+            UnloadPrefabAnimations();
             ChromaConnectionManager.Instance.Disconnect();
         }
         else

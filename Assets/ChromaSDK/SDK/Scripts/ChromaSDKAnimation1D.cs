@@ -257,13 +257,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// </summary>
     public void Unload()
     {
-        if (!ChromaConnectionManager.Instance.Connected)
-        {
-            // no need to unload if not connected
-            _mIsLoaded = false;
-            _mEffects.Clear();
-            return;
-        }
+        //Debug.Log("Unload:");
 
         if (!_mIsLoaded)
         {
@@ -276,6 +270,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
             EffectResponseId effect = _mEffects[i];
             if (null != effect)
             {
+                //Debug.Log("RemoveEffect.");
                 EffectIdentifierResponse result = ChromaUtils.RemoveEffect(effect.Id);
                 if (null == result ||
                     result.Result != 0)
