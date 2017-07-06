@@ -103,7 +103,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// </summary>
     public void Play()
     {
-        Debug.Log("Play");
+        //Debug.Log("Play");
 
         if (!_mIsLoaded)
         {

@@ -215,7 +215,7 @@ public class ChromaExample01 : MonoBehaviour
     }
 
     /// <summary>
-    /// Create and play an animation
+    /// Create and play an animation, run from the main thread
     /// </summary>
     void DoAnimations()
     {
@@ -225,11 +225,9 @@ public class ChromaExample01 : MonoBehaviour
             return;
         }
 
-        ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
-
         _mPlayAnimation = true;
 
-        // load 1D animations
+        //Debug.Log(string.Format("Load 1D animations Length={0}", _mAnimations1D.Length));
 
         foreach (ChromaSDKAnimation1D animation in _mAnimations1D)
         {
@@ -242,7 +240,7 @@ public class ChromaExample01 : MonoBehaviour
             animation.Load();
         }
 
-        // load 2D animations
+        //Debug.Log(string.Format("Load 2D animations Length={0}", _mAnimations2D.Length));
 
         foreach (ChromaSDKAnimation2D animation in _mAnimations2D)
         {
@@ -253,7 +251,7 @@ public class ChromaExample01 : MonoBehaviour
             }
             // load the animation
             animation.Load();
-        }        
+        }
 
         Debug.Log("Play animations looping...");
 
@@ -268,6 +266,9 @@ public class ChromaExample01 : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Stop the animations, run from the main thread
+    /// </summary>
     void StopAnimations()
     {
         if (!_mConnectionManager.Connected)
@@ -275,8 +276,6 @@ public class ChromaExample01 : MonoBehaviour
             Debug.LogError("Chroma client is not yet connected!");
             return;
         }
-
-        ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
         // unload 1D animations
         foreach (ChromaSDKAnimation1D animation in _mAnimations1D)
@@ -604,22 +603,16 @@ public class ChromaExample01 : MonoBehaviour
 
         if (GUILayout.Button("Start", GUILayout.Height(height)))
         {
-            // avoid blocking the UI thread
-            ChromaUtils.RunOnThread(() =>
-            {
-                DoAnimations();
-            });
+            // assets execute on the main thread
+            DoAnimations();
         }
 
         if (GUILayout.Button("End", GUILayout.Height(height)))
         {
             _mPlayAnimation = false;
 
-            // avoid blocking the UI thread
-            ChromaUtils.RunOnThread(() =>
-            {
-                StopAnimations();
-            });
+            // assets execute on the main thread
+            StopAnimations();
         }
 
         GUILayout.EndHorizontal();
