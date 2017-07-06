@@ -12,6 +12,8 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
 
     private EffectArray1dInput _mColors = null;
 
+    private ChromaSDKAnimation1D _mLastTarget = null;
+
     private ChromaSDKAnimation1D GetAnimation()
     {
         return (ChromaSDKAnimation1D)target;
@@ -25,6 +27,13 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         Color oldBackgroundColor = GUI.backgroundColor;
 
         ChromaSDKAnimation1D animation = GetAnimation();
+
+        if (_mLastTarget != animation)
+        {
+            _mLastTarget = animation;
+            _mDevice = animation.Device;
+        }
+
         var frames = animation.Frames; //copy
 
         if (frames.Count == 0)
@@ -358,14 +367,20 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         return "GIF Animation;*.gif";
     }
 
+    private void Unload()
+    {
+        ChromaSDKAnimation1D animation = GetAnimation();
+        if (animation.IsLoaded())
+        {
+            animation.Unload();
+        }
+    }
+
     private void LoadImage(string path)
     {
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (!string.IsNullOrEmpty(path))
         {
@@ -456,10 +471,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
     {
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (animation.Device != _mDevice)
         {
@@ -474,10 +486,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < animation.Frames.Count)
@@ -493,10 +502,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < frames.Count)
@@ -540,10 +546,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < frames.Count)
@@ -568,10 +571,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < frames.Count)
@@ -587,22 +587,22 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
-        if (_mCurrentFrame >= 0 &&
-            _mCurrentFrame < frames.Count)
+        if (ChromaConnectionManager.Instance.Connected)
         {
-            ChromaDevice1DEnum device = animation.Device;
-            EffectArray1dInput colors = frames[_mCurrentFrame];
-            EffectResponseId effect = ChromaUtils.CreateEffectCustom1D(_mApiChromaInstance, device, colors);
-            if (null != effect &&
-                effect.Result == 0)
+            if (_mCurrentFrame >= 0 &&
+                _mCurrentFrame < frames.Count)
             {
-                ChromaUtils.SetEffect(_mApiChromaInstance, effect.Id);
-                ChromaUtils.RemoveEffect(_mApiChromaInstance, effect.Id);
+                ChromaDevice1DEnum device = animation.Device;
+                EffectArray1dInput colors = frames[_mCurrentFrame];
+                EffectResponseId effect = ChromaUtils.CreateEffectCustom1D(device, colors);
+                if (null != effect &&
+                    effect.Result == 0)
+                {
+                    ChromaUtils.SetEffect(effect.Id);
+                    ChromaUtils.RemoveEffect(effect.Id);
+                }
             }
         }
     }
@@ -613,10 +613,10 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         EditorUtility.SetDirty(animation);
         if (!animation.IsLoaded())
         {
-            animation.Load(_mApiChromaInstance);
+            animation.Load();
         }
 
-        animation.Play(_mApiChromaInstance);
+        animation.Play();
     }
 
     private void OnClickStopButton()
@@ -633,22 +633,16 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
     {
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
-        animation.Load(_mApiChromaInstance);
+        animation.Load();
     }
 
     private void OnClickUnloadButton()
     {
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
     }
 
     private void OnClickPreviousButton()
@@ -673,10 +667,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame < frames.Count)
         {
@@ -709,10 +700,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame < 0 ||
             _mCurrentFrame >= frames.Count)
@@ -741,10 +729,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame < 0 ||
             _mCurrentFrame >= frames.Count)

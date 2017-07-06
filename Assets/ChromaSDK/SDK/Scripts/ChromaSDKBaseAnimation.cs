@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ChromaSDK;
+using System;
 using UnityEngine;
 
 // Unity 3.X doesn't like namespaces
-public class ChromaSDKBaseAnimation : MonoBehaviour
+public class ChromaSDKBaseAnimation : MonoBehaviour, IUpdate
 {
     /// <summary>
     /// Only used to serialize to disk
@@ -16,6 +17,8 @@ public class ChromaSDKBaseAnimation : MonoBehaviour
 
     public virtual void Update()
     {
-
+        if (ChromaConnectionManager.Instance.Connected)
+        {
+        }
     }
 }

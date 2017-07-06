@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 3
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: RandomMousepadEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b62617a682d32ee44beb390159a7d2af, type: 1}
+  m_Name: 
+  _mTimes: []
+  Device: 2
+  _mFrames:
+  - Colors: ff000000ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  - Colors: 000000007f0000007f0000007f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  - Colors: 0000000000000000ff7f0000ff7f0000ff7f0000ff7f0000000000000000000000000000000000000000000000000000000000000000000000000000
+  - Colors: 000000000000000000000000000000007f3f00007f3f00007f3f00007f3f00007f3f0000000000000000000000000000000000000000000000000000
+  - Colors: 0000000000000000000000000000000000000000ffeb0400ffeb0400ffeb0400ffeb0400ffeb04000000000000000000000000000000000000000000
+  - Colors: 00000000000000000000000000000000000000000000000000000000000000007f7502007f7502007f7502007f750200000000000000000000000000
+  - Colors: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff000000ff000000ff000000ff0000
+  - Colors: 00000000000000000000000000000000000000000000000000000000000000000000000000000000007f0000007f0000007f0000007f000000000000
+  - Colors: 0000000000000000000000000000000000000000000000000000ff000000ff000000ff000000ff000000ff000000ff00000000000000000000000000
+  - Colors: 0000000000000000000000000000000000007f0000007f0000007f0000007f0000000000000000000000000000000000000000000000000000000000
+  - Colors: 000000000000000000ffff0000ffff0000ffff0000ffff00000000000000000000000000000000000000000000000000000000000000000000000000
+  - Colors: 007f7f00007f7f00007f7f00007f7f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  - Colors: ff00ff00ff00ff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff00ff00ff00ff00
+  - Colors: 00000000000000007f007f007f007f007f007f007f007f000000000000000000000000007f007f007f007f007f007f007f007f000000000000000000
+  - Colors: 000000000000000000000000000000000000000000000000ffffff00ffffff00ffffff00000000000000000000000000000000000000000000000000
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - time: .300000012
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .600000024
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .900000036
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1.20000005
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1.79999995
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 2.0999999
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 2.39999986
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 2.69999981
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 2.99999976
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 3.29999971
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 3.59999967
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 3.89999962
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 4.19999981
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 4.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

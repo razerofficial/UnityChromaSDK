@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: RandomHeadsetEffect
+  m_Name: RandomChromaLinkEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,25 +38,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b62617a682d32ee44beb390159a7d2af, type: 1}
   m_Name: 
   _mTimes: []
-  Device: 1
+  Device: 0
   _mFrames:
-  - Colors: ff000000ff000000ff000000ff000000ff000000
-  - Colors: 7f0000007f0000007f0000007f0000007f000000
-  - Colors: ff7f0000ff7f0000ff7f0000ff7f0000ff7f0000
-  - Colors: 7f3f00007f3f00007f3f00007f3f00007f3f0000
-  - Colors: ffeb0400ffeb0400ffeb0400ffeb0400ffeb0400
-  - Colors: 7f7502007f7502007f7502007f7502007f750200
-  - Colors: 00ff000000ff000000ff000000ff000000ff0000
-  - Colors: 007f0000007f0000007f0000007f0000007f0000
-  - Colors: 0000ff000000ff000000ff000000ff000000ff00
-  - Colors: 00007f0000007f0000007f0000007f0000007f00
-  - Colors: 00ffff0000ffff0000ffff0000ffff0000ffff00
-  - Colors: 007f7f00007f7f00007f7f00007f7f00007f7f00
+  - Colors: ff000000ff000000000000000000000000000000
+  - Colors: 00000000ff7f0000ff7f00000000000000000000
+  - Colors: 0000000000000000ffeb0400ffeb0400ffeb0400
+  - Colors: 00000000000000000000000000ff000000ff0000
+  - Colors: 00000000000000000000ff000000ff000000ff00
   - Colors: ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00
+  - Colors: 00000000000000007f007f007f007f0000000000
+  - Colors: 00000000ffffff00ffffff000000000000000000
+  - Colors: ff00000000000000ff00000000000000ff000000
+  - Colors: 00000000ff7f000000000000ff7f000000000000
+  - Colors: 0000000000000000ffeb04000000000000000000
+  - Colors: 00ff00000000000000ff00000000000000ff0000
+  - Colors: 000000000000ff00000000000000ff0000000000
   Curve:
     serializedVersion: 2
     m_Curve:
-    - time: .5
+    - time: .200000003
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .400000006
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .600000024
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .800000012
       value: 0
       inSlope: 0
       outSlope: 0
@@ -66,57 +81,42 @@ MonoBehaviour:
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1.5
+    - time: 1.20000005
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 2
+    - time: 1.4000001
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 2.5
+    - time: 1.60000014
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 3
+    - time: 1.80000019
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 3.5
+    - time: 2.00000024
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 4
+    - time: 2.20000029
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 4.5
+    - time: 2.40000033
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 5
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 5.5
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 6
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 6.5
+    - time: 2.60000038
       value: 0
       inSlope: 0
       outSlope: 0

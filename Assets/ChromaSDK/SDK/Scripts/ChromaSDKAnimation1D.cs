@@ -85,11 +85,6 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     private List<EffectResponseId> _mEffects = new List<EffectResponseId>();
 
     /// <summary>
-    /// Instance of the API
-    /// </summary>
-    private ChromaApi _mApiChromaInstance = null;
-
-    /// <summary>
     /// Set frames to the default state
     /// </summary>
     public void ClearFrames()
@@ -109,11 +104,9 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// <summary>
     /// Play the animation
     /// </summary>
-    public void Play(ChromaApi chromaApi)
+    public void Play()
     {
         Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
-
-        _mApiChromaInstance = chromaApi;
 
         if (!_mIsLoaded)
         {
@@ -132,9 +125,16 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
         {
             Debug.Log("SetEffect.");
             EffectResponseId effect = _mEffects[_mCurrentFrame];
-            EffectIdentifierResponse result = ChromaUtils.SetEffect(_mApiChromaInstance, effect.Id);
-            if (null == result ||
-                result.Result != 0)
+            if (null != effect)
+            {
+                EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
+                if (null == result ||
+                    result.Result != 0)
+                {
+                    Debug.LogError("Play: Failed to set effect!");
+                }
+            }
+            else
             {
                 Debug.LogError("Play: Failed to set effect!");
             }
@@ -145,11 +145,9 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// Play the animation and fire the OnComplete event
     /// </summary>
     /// <param name="onComplete"></param>
-    public void PlayWithOnComplete(ChromaApi chromaApi, ChomaOnComplete1D onComplete)
+    public void PlayWithOnComplete(ChomaOnComplete1D onComplete)
     {
         Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
-
-        _mApiChromaInstance = chromaApi;
 
         if (!_mIsLoaded)
         {
@@ -167,7 +165,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
         {
             Debug.Log("SetEffect.");
             EffectResponseId effect = _mEffects[_mCurrentFrame];
-            EffectIdentifierResponse result = ChromaUtils.SetEffect(_mApiChromaInstance, effect.Id);
+            EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
             if (result.Result != 0)
             {
                 Debug.LogError("Failed to set effect!");
@@ -198,10 +196,8 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// <summary>
     /// Load the effects before playing
     /// </summary>
-    public void Load(ChromaApi chromaApi)
+    public void Load()
     {
-        _mApiChromaInstance = chromaApi;
-
         if (_mIsLoaded)
         {
             Debug.LogError("Animation has already been loaded!");
@@ -211,8 +207,9 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
         for (int i = 0; i < Frames.Count; ++i)
         {
             EffectArray1dInput frame = Frames[i];
-            EffectResponseId effect = ChromaUtils.CreateEffectCustom1D(_mApiChromaInstance, Device, frame);
-            if (effect.Result != 0)
+            EffectResponseId effect = ChromaUtils.CreateEffectCustom1D(Device, frame);
+            if (null == effect ||
+                effect.Result != 0)
             {
                 Debug.LogError("Failed to create effect!");
             }
@@ -234,9 +231,15 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// <summary>
     /// Unload the effects
     /// </summary>
-    public void Unload(ChromaApi chromaApi)
+    public void Unload()
     {
-        _mApiChromaInstance = chromaApi;
+        if (!ChromaConnectionManager.Instance.Connected)
+        {
+            // no need to unload if not connected
+            _mIsLoaded = false;
+            return;
+        }
+
         if (!_mIsLoaded)
         {
             Debug.LogError("Animation has already been unloaded!");
@@ -246,8 +249,9 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
         for (int i = 0; i < _mEffects.Count; ++i)
         {
             EffectResponseId effect = _mEffects[i];
-            EffectIdentifierResponse result = ChromaUtils.RemoveEffect(_mApiChromaInstance, effect.Id);
-            if (result.Result != 0)
+            EffectIdentifierResponse result = ChromaUtils.RemoveEffect(effect.Id);
+            if (null == result ||
+                result.Result != 0)
             {
                 Debug.LogError("Failed to delete effect!");
             }
@@ -268,6 +272,8 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
 
     public override void Update()
     {
+        base.Update();
+
         if (_mTime == DateTime.MinValue)
         {
             return;
@@ -280,15 +286,13 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
             ++_mCurrentFrame;
             if (_mCurrentFrame < _mEffects.Count)
             {
-                if (null != _mApiChromaInstance)
+                Debug.Log("SetEffect.");
+                EffectResponseId effect = _mEffects[_mCurrentFrame];
+                EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
+                if (null == result ||
+                    result.Result != 0)
                 {
-                    Debug.Log("SetEffect.");
-                    EffectResponseId effect = _mEffects[_mCurrentFrame];
-                    EffectIdentifierResponse result = ChromaUtils.SetEffect(_mApiChromaInstance, effect.Id);
-                    if (result.Result != 0)
-                    {
-                        Debug.LogError("Failed to set effect!");
-                    }
+                    Debug.LogError("Failed to set effect!");
                 }
             }
             else

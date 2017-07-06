@@ -16,6 +16,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     private Mouse.RZLED2 _mLed = Mouse.RZLED2.RZLED2_LOGO;
 
+    private ChromaSDKAnimation2D _mLastTarget = null;
+
     private ChromaSDKAnimation2D GetAnimation()
     {
         return (ChromaSDKAnimation2D)target;
@@ -29,6 +31,13 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         Color oldBackgroundColor = GUI.backgroundColor;
 
         ChromaSDKAnimation2D animation = GetAnimation();
+
+        if (_mLastTarget != animation)
+        {
+            _mLastTarget = animation;
+            _mDevice = animation.Device;
+        }
+
         var frames = animation.Frames; //copy
 
         if (frames.Count == 0)
@@ -139,12 +148,12 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         if (_mCurrentFrame < frames.Count)
         {
             EffectArray2dInput frame = frames[_mCurrentFrame];
-            for (int i = 0; i < maxRow; ++i)
+            for (int i = 0; i < maxRow && i < frame.Count; ++i)
             {
                 List<int> row = frame[i];
                 GUILayout.BeginHorizontal();
 
-                for (int j = 0; j < maxColumn; ++j)
+                for (int j = 0; j < maxColumn && j < row.Count; ++j)
                 {
                     int color = row[j];
                     GUI.backgroundColor = ChromaUtils.ToRGB(color);
@@ -405,14 +414,20 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         return "GIF Animation;*.gif";
     }
 
+    private void Unload()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        if (animation.IsLoaded())
+        {
+            animation.Unload();
+        }
+    }
+
     private void LoadImage(string path)
     {
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (!string.IsNullOrEmpty(path))
         {
@@ -504,10 +519,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
     {
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (animation.Device != _mDevice)
         {
@@ -522,10 +534,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < animation.Frames.Count)
@@ -541,10 +550,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < frames.Count)
@@ -599,10 +605,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < frames.Count)
@@ -633,10 +636,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < frames.Count)
@@ -652,22 +652,19 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame >= 0 &&
             _mCurrentFrame < frames.Count)
         {
             ChromaDevice2DEnum device = animation.Device;
             EffectArray2dInput colors = frames[_mCurrentFrame];
-            EffectResponseId effect = ChromaUtils.CreateEffectCustom2D(_mApiChromaInstance, device, colors);
+            EffectResponseId effect = ChromaUtils.CreateEffectCustom2D(device, colors);
             if (null != effect &&
                 effect.Result == 0)
             {
-                ChromaUtils.SetEffect(_mApiChromaInstance, effect.Id);
-                ChromaUtils.RemoveEffect(_mApiChromaInstance, effect.Id);
+                ChromaUtils.SetEffect(effect.Id);
+                ChromaUtils.RemoveEffect(effect.Id);
             }
         }
     }
@@ -678,10 +675,10 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         EditorUtility.SetDirty(animation);
         if (!animation.IsLoaded())
         {
-            animation.Load(_mApiChromaInstance);
+            animation.Load();
         }
 
-        animation.Play(_mApiChromaInstance);
+        animation.Play();
     }
 
     private void OnClickStopButton()
@@ -698,22 +695,16 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
     {
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
-        animation.Load(_mApiChromaInstance);
+        animation.Load();
     }
 
     private void OnClickUnloadButton()
     {
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
     }
 
     private void OnClickPreviousButton()
@@ -738,10 +729,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame < frames.Count)
         {
@@ -774,10 +762,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame < 0 ||
             _mCurrentFrame >= frames.Count)
@@ -806,10 +791,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
         var frames = animation.Frames; //copy
-        if (animation.IsLoaded())
-        {
-            animation.Unload(_mApiChromaInstance);
-        }
+        Unload();
 
         if (_mCurrentFrame < 0 ||
             _mCurrentFrame >= frames.Count)

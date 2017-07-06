@@ -138,7 +138,16 @@ namespace ChromaSDK
             return rows;
         }
 
-        public static EffectResponseId CreateEffectCustom1D(ChromaApi api, ChromaDevice1DEnum device, EffectArray1dInput input)
+        public static EffectResponseId CreateEffectCustom1D(ChromaDevice1DEnum device, EffectArray1dInput input)
+        {
+            if (ChromaConnectionManager.Instance.Connected)
+            {
+                ChromaApi api = ChromaConnectionManager.Instance.ApiChromaInstance;
+                return CreateEffectCustom1D(api, device, input);
+            }
+            return null;
+        }
+        private static EffectResponseId CreateEffectCustom1D(ChromaApi api, ChromaDevice1DEnum device, EffectArray1dInput input)
         {
             if (null == api)
             {
@@ -170,7 +179,16 @@ namespace ChromaSDK
             return null;
         }
 
-        public static EffectResponseId CreateEffectCustom2D(ChromaApi api, ChromaDevice2DEnum device, EffectArray2dInput input)
+        public static EffectResponseId CreateEffectCustom2D(ChromaDevice2DEnum device, EffectArray2dInput input)
+        {
+            if (ChromaConnectionManager.Instance.Connected)
+            {
+                ChromaApi api = ChromaConnectionManager.Instance.ApiChromaInstance;
+                return CreateEffectCustom2D(api, device, input);
+            }
+            return null;
+        }
+        private static EffectResponseId CreateEffectCustom2D(ChromaApi api, ChromaDevice2DEnum device, EffectArray2dInput input)
         {
             if (null == api)
             {
@@ -207,7 +225,16 @@ namespace ChromaSDK
             return null;
         }
 
-        public static EffectIdentifierResponse SetEffect(ChromaApi api, string effectId)
+        public static EffectIdentifierResponse SetEffect(string effectId)
+        {
+            if (ChromaConnectionManager.Instance.Connected)
+            {
+                ChromaApi api = ChromaConnectionManager.Instance.ApiChromaInstance;
+                return SetEffect(api, effectId);
+            }
+            return null;
+        }
+        private static EffectIdentifierResponse SetEffect(ChromaApi api, string effectId)
         {
             if (null == api)
             {
@@ -224,7 +251,16 @@ namespace ChromaSDK
             return api.PutEffect(input);
         }
 
-        public static EffectIdentifierResponse RemoveEffect(ChromaApi api, string effectId)
+        public static EffectIdentifierResponse RemoveEffect(string effectId)
+        {
+            if (ChromaConnectionManager.Instance.Connected)
+            {
+                ChromaApi api = ChromaConnectionManager.Instance.ApiChromaInstance;
+                return RemoveEffect(api, effectId);
+            }
+            return null;
+        }
+        private static EffectIdentifierResponse RemoveEffect(ChromaApi api, string effectId)
         {
             if (null == api)
             {
