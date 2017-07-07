@@ -418,7 +418,7 @@ namespace ChromaSDK
                     _sConnecting = false;
                 }
 
-                LogOnMainThread(string.Format("Heartbeat {0} exited", uri.Port));
+                //LogOnMainThread(string.Format("Heartbeat {0} exited", uri.Port));
                 _sConnected = false;
                 _sConnecting = false;
             }
@@ -512,7 +512,7 @@ namespace ChromaSDK
                 animation.Reset();
             }
 
-            Debug.Log("Animation unloaded.");
+            //Debug.Log("Animation unloaded.");
         }
 
 

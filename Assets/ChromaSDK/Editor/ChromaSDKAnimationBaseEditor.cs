@@ -1,17 +1,6 @@
 // Access to Types and Utils
 using ChromaSDK;
-// Access to Chroma data structures
-using ChromaSDK.ChromaPackage.Model;
-// Access to the Chroma API
-using ChromaSDK.Api;
-// Access to the Session data structures
-using RazerSDK.ChromaPackage.Model;
-// Access to the Session API
-using RazerSDK.Api;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
@@ -63,7 +52,7 @@ public class ChromaSDKAnimationBaseEditor : Editor
     {
         if (!_sHasEditorUpdates)
         {
-            Debug.Log("StartEditorUpdates:");
+            //Debug.Log("StartEditorUpdates:");
             _sHasEditorUpdates = true;
             EditorApplication.update += EditorUpdate;
             ChromaConnectionManager.Instance.Connect();
@@ -75,7 +64,7 @@ public class ChromaSDKAnimationBaseEditor : Editor
     {
         if (_sHasEditorUpdates)
         {
-            Debug.Log("StopEditorUpdates:");
+            //Debug.Log("StopEditorUpdates:");
             _sHasEditorUpdates = false;
             EditorApplication.update -= EditorUpdate;
         }
@@ -112,7 +101,7 @@ public class ChromaSDKAnimationBaseEditor : Editor
 
     private static void UnloadPrefabAnimations()
     {
-        Debug.Log("UnloadPrefabAnimations:");
+        //Debug.Log("UnloadPrefabAnimations:");
 
         for (int i = 0; i < _sTargets.Count; ++i)
         {
