@@ -109,6 +109,11 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     private List<EffectResponseId> _mEffects = new List<EffectResponseId>();
 
     /// <summary>
+    /// Pause the effects if the app loses focus
+    /// </summary>
+    private bool _mIsPaused = false;
+
+    /// <summary>
     /// Set frames to the default state
     /// </summary>
     public void ClearFrames()
@@ -154,20 +159,24 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
 
         if (_mCurrentFrame < _mEffects.Count)
         {
-            //Debug.Log("SetEffect.");
-            EffectResponseId effect = _mEffects[_mCurrentFrame];
-            if (null != effect)
+            if (!_mIsPaused &&
+                ChromaConnectionManager.Instance.Connected)
             {
-                EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
-                if (null == result ||
-                    result.Result != 0)
+                //Debug.Log("SetEffect.");
+                EffectResponseId effect = _mEffects[_mCurrentFrame];
+                if (null != effect)
+                {
+                    EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
+                    if (null == result ||
+                        result.Result != 0)
+                    {
+                        Debug.LogError("Failed to set effect!");
+                    }
+                }
+                else
                 {
                     Debug.LogError("Failed to set effect!");
                 }
-            }
-            else
-            {
-                Debug.LogError("Failed to set effect!");
             }
         }
     }
@@ -194,20 +203,24 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
 
         if (_mCurrentFrame < _mEffects.Count)
         {
-            //Debug.Log("SetEffect.");
-            EffectResponseId effect = _mEffects[_mCurrentFrame];
-            if (null != effect)
+            if (!_mIsPaused &&
+                ChromaConnectionManager.Instance.Connected)
             {
-                EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
-                if (null == result ||
-                    result.Result != 0)
+                //Debug.Log("SetEffect.");
+                EffectResponseId effect = _mEffects[_mCurrentFrame];
+                if (null != effect)
+                {
+                    EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
+                    if (null == result ||
+                        result.Result != 0)
+                    {
+                        Debug.LogError("Failed to set effect!");
+                    }
+                }
+                else
                 {
                     Debug.LogError("Failed to set effect!");
                 }
-            }
-            else
-            {
-                Debug.LogError("Failed to set effect!");
             }
         }
     }
@@ -332,6 +345,11 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
         return 0.033f;
     }
 
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        _mIsPaused = !hasFocus;
+    }
+
     public override void Update()
     {
         base.Update();
@@ -348,7 +366,8 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
             ++_mCurrentFrame;
             if (_mCurrentFrame < _mEffects.Count)
             {
-                if (ChromaConnectionManager.Instance.Connected)
+                if (!_mIsPaused &&
+                    ChromaConnectionManager.Instance.Connected)
                 {
                     //Debug.Log("SetEffect.");
                     EffectResponseId effect = _mEffects[_mCurrentFrame];
