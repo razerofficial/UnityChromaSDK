@@ -6,6 +6,7 @@
 * [Dependencies](#dependencies)
 * [Packaging](#packaging)
 * [Getting Started](#getting-started)
+* [Assets](#assets)
 * [Documentation for API Endpoints](#documentation-for-api-endpoints)
 * [Examples](#examples)
 * [Chroma Initialization](#chroma-initialization)
@@ -79,6 +80,37 @@ Import [UnityChromaSDK.unitypackage](https://github.com/razerofficial/UnityChrom
 
 ![image_1](images/image_1.png)
 
+<a name="assets"></a>
+## Assets
+
+In the `GameObject->ChromaSDK` menu to create `1D` and `2D` animations.
+
+![image_7](images/image_7.png)
+
+Once created, the gameobjects can be renamed and dragged to the `Object Hierarchy` to turn into prefab assets.
+
+![image_8](images/image_8.png)
+
+`1D` assets have a custom inspector that can be used to view, edit, and paint animation frames.
+ 
+![image_9](images/image_9.png)
+ 
+`2D` assets also have a custom inspector with the ability to paint specific keys (keyboard) and leds (mouse).
+ 
+![image_10](images/image_10.png)
+
+The custom inspectors sets the device type and allows the color animation frames to be edited.
+`1D` animations support `ChromaLink`, `Headset`, and `Mousepad` devices.
+`2D` animations support `Keyboard`, `Keypad`, and `Mouse` devices.
+The `device preview` shows a grid and clicking the elements will set the color from the color swatches.
+The `Curve` adjusts the timings for each animation frame.
+
+In the `Example01` scene, the `1D` and `2D` prefab assets are referenced.
+In order for the animations to play in `play-mode`, the prefabs need to be instantiated.
+This allows the monobehaviour update event to fire. 
+
+![image_11](images/image_11.png)
+ 
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
