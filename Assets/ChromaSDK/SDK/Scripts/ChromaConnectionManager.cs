@@ -384,7 +384,7 @@ namespace ChromaSDK
                 while (_sWaitForExit &&
                     null != _sApiChromaInstance)
                 {
-                    DateTime timeout = DateTime.Now + TimeSpan.FromSeconds(15);
+                    DateTime timeout = DateTime.Now + TimeSpan.FromSeconds(5);
                     try
                     {
                         // The Chroma API uses a heartbeat every 1 second
@@ -397,6 +397,7 @@ namespace ChromaSDK
                     }
                     if (timeout < DateTime.Now)
                     {
+                        Debug.LogError("Timeout detected!");
                         reconnect = true;
                     }
                     if (reconnect)

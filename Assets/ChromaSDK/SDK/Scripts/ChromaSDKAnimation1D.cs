@@ -310,9 +310,17 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
         return 0.033f;
     }
 
-    private void OnApplicationFocus(bool hasFocus)
+    private void OnApplicationPause(bool pause)
     {
-        _mIsPaused = !hasFocus;
+        //Debug.Log(string.Format("OnApplicationPause: {0}", pause));
+        if (Application.isPlaying)
+        {
+            _mIsPaused = pause;
+        }
+        else
+        {
+            _mIsPaused = false;
+        }
     }
 
     public override void Update()

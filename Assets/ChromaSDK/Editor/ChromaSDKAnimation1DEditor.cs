@@ -1,6 +1,5 @@
 using ChromaSDK;
 using ChromaSDK.ChromaPackage.Model;
-using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
