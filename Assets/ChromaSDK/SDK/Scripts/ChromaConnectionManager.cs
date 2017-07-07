@@ -526,7 +526,7 @@ namespace ChromaSDK
             if (!_sConnecting &&
                 !Connected)
             {
-                Debug.Log(string.Format("Connect: Connected={0}", Connected));
+                //Debug.Log(string.Format("Connect: Connected={0}", Connected));
 
                 ResetConnections();
                 _sWaitForExit = true;
