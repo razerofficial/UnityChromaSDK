@@ -18,6 +18,14 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     private ChromaSDKAnimation2D _mLastTarget = null;
 
+    [MenuItem("GameObject/ChromaSDK/Create 2D Animation", priority=2)]
+    private static void CreateAsset()
+    {
+        GameObject gameObject = new GameObject("ChromaEffect");
+        gameObject.AddComponent<ChromaSDKAnimation2D>();
+        Selection.activeGameObject = gameObject;
+    }
+
     private ChromaSDKAnimation2D GetAnimation()
     {
         return (ChromaSDKAnimation2D)target;

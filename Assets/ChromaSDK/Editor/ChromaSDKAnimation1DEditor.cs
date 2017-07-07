@@ -13,6 +13,14 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
 
     private ChromaSDKAnimation1D _mLastTarget = null;
 
+    [MenuItem("GameObject/ChromaSDK/Create 1D Animation", priority=1)]
+    private static void CreateAsset()
+    {
+        GameObject gameObject = new GameObject("ChromaEffect");
+        gameObject.AddComponent<ChromaSDKAnimation1D>();
+        Selection.activeGameObject = gameObject;
+    }
+
     private ChromaSDKAnimation1D GetAnimation()
     {
         return (ChromaSDKAnimation1D)target;
