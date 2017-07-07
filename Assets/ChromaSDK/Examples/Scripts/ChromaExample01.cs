@@ -4,17 +4,9 @@ using ChromaSDK;
 using ChromaSDK.ChromaPackage.Model;
 // Access to the Chroma API
 using ChromaSDK.Api;
-// Access to the Session data structures
-using RazerSDK.ChromaPackage.Model;
-// Access to the Session API
-using RazerSDK.Api;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
-
-using Random = System.Random;
 
 public class ChromaExample01 : MonoBehaviour
 {
