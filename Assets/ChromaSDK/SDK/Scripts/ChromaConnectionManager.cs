@@ -521,14 +521,13 @@ namespace ChromaSDK
         /// </summary>
         public void Connect()
         {
-            UnloadSceneAnimations();
-
             if (!_sConnecting &&
                 !Connected)
             {
                 //Debug.Log(string.Format("Connect: Connected={0}", Connected));
 
                 ResetConnections();
+                UnloadSceneAnimations();
                 _sWaitForExit = true;
                 _sConnecting = true;
                 SafeStartCoroutine("Initialize", Initialize());
