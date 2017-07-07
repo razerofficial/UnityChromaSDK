@@ -12,20 +12,27 @@ public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
             //show parent
             base.OnInspectorGUI();
 
-            EditorGUILayout.LabelField("Status:",
-                ChromaConnectionManager.Instance.Connected ? "Connected" : "Not Connected");
+            bool connecting = ChromaConnectionManager.Instance.Connecting;
+            bool connected = ChromaConnectionManager.Instance.Connected;
 
+            EditorGUILayout.LabelField("Status:",
+                connected ? "Connected" : connecting ? "Connecting..." : "Not Connected");
+
+            GUI.enabled = !connected && !connecting;
             if (GUILayout.Button("Connect"))
             {
                 ChromaConnectionManager.Instance.Connect();
                 Repaint();
             }
 
+            GUI.enabled = connected && !connecting;
             if (GUILayout.Button("Disconnect"))
             {
                 ChromaConnectionManager.Instance.Disconnect();
                 Repaint();
             }
+
+            GUI.enabled = true;
         }
     }
 }
