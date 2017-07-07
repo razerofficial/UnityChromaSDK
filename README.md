@@ -99,7 +99,7 @@ Once created, the gameobjects can be renamed and dragged to the `Object Hierarch
  
 ![image_10](images/image_10.png)
 
-The custom inspectors sets the device type and allows the color animation frames to be edited.
+The custom inspectors set the device type and allow the color animation frames to be edited.
 `1D` animations support `ChromaLink`, `Headset`, and `Mousepad` devices.
 `2D` animations support `Keyboard`, `Keypad`, and `Mouse` devices.
 The `device preview` shows a grid and clicking the elements will set the color from the color swatches.
