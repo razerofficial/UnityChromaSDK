@@ -77,7 +77,7 @@ public class ChromaExample01 : MonoBehaviour
     /// </summary>
     /// <param name="label"></param>
     /// <param name="result"></param>
-    private static void DisplayResult(string label, EffectResponse result)
+    private static void LogResult(string label, EffectResponse result)
     {
         if (null == result)
         {
@@ -117,12 +117,12 @@ public class ChromaExample01 : MonoBehaviour
 
         ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
-        DisplayResult("PutChromaLinkNone:", chromaApi.PutChromaLinkNone());
-        DisplayResult("PutHeadsetNone:", chromaApi.PutHeadsetNone());
-        DisplayResult("PutKeyboardNone:", chromaApi.PutKeyboardNone());
-        DisplayResult("PutKeypadNone:", chromaApi.PutKeypadNone());
-        DisplayResult("PutMouseNone:", chromaApi.PutMouseNone());
-        DisplayResult("PutMousepadNone:", chromaApi.PutMousepadNone());
+        LogResult("PutChromaLinkNone:", chromaApi.PutChromaLinkNone());
+        LogResult("PutHeadsetNone:", chromaApi.PutHeadsetNone());
+        LogResult("PutKeyboardNone:", chromaApi.PutKeyboardNone());
+        LogResult("PutKeypadNone:", chromaApi.PutKeypadNone());
+        LogResult("PutMouseNone:", chromaApi.PutMouseNone());
+        LogResult("PutMousepadNone:", chromaApi.PutMousepadNone());
     }
 
     /// <summary>
@@ -139,12 +139,12 @@ public class ChromaExample01 : MonoBehaviour
 
         ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
-        DisplayResult("PutChromaLinkStatic:", chromaApi.PutChromaLinkStatic(color));
-        DisplayResult("PutHeadsetStatic:", chromaApi.PutHeadsetStatic(color));
-        DisplayResult("PutKeyboardStatic:", chromaApi.PutKeyboardStatic(color));
-        DisplayResult("PutKeypadStatic:", chromaApi.PutKeypadStatic(color));
-        DisplayResult("PutMouseStatic:", chromaApi.PutMouseStatic(color));
-        DisplayResult("PutMousepadStatic:", chromaApi.PutMousepadStatic(color));
+        LogResult("PutChromaLinkStatic:", chromaApi.PutChromaLinkStatic(color));
+        LogResult("PutHeadsetStatic:", chromaApi.PutHeadsetStatic(color));
+        LogResult("PutKeyboardStatic:", chromaApi.PutKeyboardStatic(color));
+        LogResult("PutKeypadStatic:", chromaApi.PutKeypadStatic(color));
+        LogResult("PutMouseStatic:", chromaApi.PutMouseStatic(color));
+        LogResult("PutMousepadStatic:", chromaApi.PutMousepadStatic(color));
     }
 
     /// <summary>
@@ -161,12 +161,12 @@ public class ChromaExample01 : MonoBehaviour
 
         ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
-        DisplayResult("PutChromaLink:", chromaApi.PutChromaLink(input));
-        DisplayResult("PutHeadset:", chromaApi.PutHeadset(input));
-        DisplayResult("PutKeyboard:", chromaApi.PutKeyboard(input));
-        DisplayResult("PutKeypad:", chromaApi.PutKeypad(input));
-        DisplayResult("PutMouse:", chromaApi.PutMouse(input));
-        DisplayResult("PutMousepad:", chromaApi.PutMousepad(input));
+        LogResult("PutChromaLink:", chromaApi.PutChromaLink(input));
+        LogResult("PutHeadset:", chromaApi.PutHeadset(input));
+        LogResult("PutKeyboard:", chromaApi.PutKeyboard(input));
+        LogResult("PutKeypad:", chromaApi.PutKeypad(input));
+        LogResult("PutMouse:", chromaApi.PutMouse(input));
+        LogResult("PutMousepad:", chromaApi.PutMousepad(input));
     }
 
     /// <summary>
@@ -182,12 +182,12 @@ public class ChromaExample01 : MonoBehaviour
 
         ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
-        DisplayResult("PutChromaLinkCustom:", chromaApi.PutChromaLinkCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.ChromaLink)));
-        DisplayResult("PutHeadsetCustom:", chromaApi.PutHeadsetCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.Headset)));
-        DisplayResult("PutKeyboardCustom:", chromaApi.PutKeyboardCustom(ChromaUtils.CreateRandomColors2D(ChromaDevice2DEnum.Keyboard)));
-        DisplayResult("PutKeypadCustom:", chromaApi.PutKeypadCustom(ChromaUtils.CreateRandomColors2D(ChromaDevice2DEnum.Keypad)));
-        DisplayResult("PutMouseCustom:", chromaApi.PutMouseCustom(ChromaUtils.CreateRandomColors2D(ChromaDevice2DEnum.Mouse)));
-        DisplayResult("PutMousepadCustom:", chromaApi.PutMousepadCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.Mousepad)));
+        LogResult("PutChromaLinkCustom:", chromaApi.PutChromaLinkCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.ChromaLink)));
+        LogResult("PutHeadsetCustom:", chromaApi.PutHeadsetCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.Headset)));
+        LogResult("PutKeyboardCustom:", chromaApi.PutKeyboardCustom(ChromaUtils.CreateRandomColors2D(ChromaDevice2DEnum.Keyboard)));
+        LogResult("PutKeypadCustom:", chromaApi.PutKeypadCustom(ChromaUtils.CreateRandomColors2D(ChromaDevice2DEnum.Keypad)));
+        LogResult("PutMouseCustom:", chromaApi.PutMouseCustom(ChromaUtils.CreateRandomColors2D(ChromaDevice2DEnum.Mouse)));
+        LogResult("PutMousepadCustom:", chromaApi.PutMousepadCustom(ChromaUtils.CreateRandomColors1D(ChromaDevice1DEnum.Mousepad)));
     }
 
     /// <summary>
@@ -550,7 +550,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.blue));
-                DisplayResult("PutKeyboard:", chromaApi.PutKeyboard(input));
+                LogResult("PutKeyboard:", chromaApi.PutKeyboard(input));
             });
         }
 
@@ -561,7 +561,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.green));
-                DisplayResult("PutHeadset:", chromaApi.PutHeadset(input));
+                LogResult("PutHeadset:", chromaApi.PutHeadset(input));
             });
         }
 
@@ -572,7 +572,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.red));
-                DisplayResult("PutMouse:", chromaApi.PutMouse(input));
+                LogResult("PutMouse:", chromaApi.PutMouse(input));
             });
         }
 
@@ -583,7 +583,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(1f, 0.5f, 0f)));
-                DisplayResult("PutMousepad:", chromaApi.PutMousepad(input));
+                LogResult("PutMousepad:", chromaApi.PutMousepad(input));
             });
         }
 
@@ -594,7 +594,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(0f, 1f, 1f)));
-                DisplayResult("PutKeypad:", chromaApi.PutKeypad(input));
+                LogResult("PutKeypad:", chromaApi.PutKeypad(input));
             });
         }
 
@@ -605,7 +605,7 @@ public class ChromaExample01 : MonoBehaviour
             ChromaUtils.RunOnThread(() =>
             {
                 EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.white));
-                DisplayResult("PutChromaLink:", chromaApi.PutChromaLink(input));
+                LogResult("PutChromaLink:", chromaApi.PutChromaLink(input));
             });
         }
 
