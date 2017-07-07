@@ -106,6 +106,7 @@ The `device preview` shows a grid and clicking the elements will set the color f
 The `Curve` adjusts the timings for each animation frame.
 
 In the `Example01` scene, the `1D` and `2D` prefab assets are referenced.
+The [ChromaExample01.cs](Assets/ChromaSDK/Examples/Scripts/ChromaExample01.cs) script uses public `ChromaSDKAnimation1D[]` and `ChromaSDKAnimation2D[]` arrays as meta references to the prefabs. 
 In order for the animations to play in `play-mode`, the prefabs need to be instantiated.
 This allows the monobehaviour update event to fire. 
 
