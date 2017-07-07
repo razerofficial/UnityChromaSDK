@@ -84,7 +84,7 @@ GameObject:
   - 4: {fileID: 1221861726}
   - 114: {fileID: 1221861727}
   m_Layer: 0
-  m_Name: ChromeExample01
+  m_Name: ChromaExample01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,6 +119,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bee875f366dff424a87967d10ad9c27a, type: 2}
   - {fileID: 11400000, guid: 9d62f223da0df1b4d82eb422332fb865, type: 2}
   - {fileID: 11400000, guid: 3bee23aee42cfaa47a72c6fcc8231792, type: 2}
+--- !u!115 &1363228831
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 4
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_EditorGraphData: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: ChromaConnectionManager
+  m_Namespace: ChromaSDK
+  m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_IsEditorScript: 0
 --- !u!1 &1420537123
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,3 +214,40 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1420537123}
   m_Enabled: 1
+--- !u!1 &1693562808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 3
+  m_Component:
+  - 4: {fileID: 1693562809}
+  - 114: {fileID: 1693562810}
+  m_Layer: 0
+  m_Name: ChromaConnectionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1693562809
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1693562808}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &1693562810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1693562808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1363228831}
+  m_Name: 
