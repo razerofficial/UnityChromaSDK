@@ -333,19 +333,22 @@ namespace ChromaSDK
         /// </summary>
         void DoHeartbeat()
         {
+            bool reconnect = false;
+
             if (null == _sApiChromaInstance)
             {
                 LogErrorOnMainThread("DoHeartbeat: ApiChromaInstance is null!");
+                reconnect = true;
             }
             else
             {
                 Uri uri = new Uri(_sApiChromaInstance.ApiClient.BasePath);
 
                 //LogOnMainThread(string.Format("Monitoring Heartbeat {0}...", uri.Port));
-
                 while (_sWaitForExit &&
                     null != _sApiChromaInstance)
                 {
+                    DateTime timeout = DateTime.Now + TimeSpan.FromSeconds(15);
                     try
                     {
                         // The Chroma API uses a heartbeat every 1 second
@@ -354,6 +357,15 @@ namespace ChromaSDK
                     catch (Exception)
                     {
                         LogErrorOnMainThread("Failed to check heartbeat!");
+                        reconnect = true;
+                    }
+                    if (timeout < DateTime.Now)
+                    {
+                        reconnect = true;
+                    }
+                    if (reconnect)
+                    {
+                        break;
                     }
 
                     // Wait for a sec
@@ -373,7 +385,22 @@ namespace ChromaSDK
                 LogOnMainThread(string.Format("Heartbeat {0} exited", uri.Port));
                 _sConnected = false;
                 _sConnecting = false;
+            }
 
+            if (reconnect)
+            {
+                // Wait for a sec
+                DateTime wait = DateTime.Now + TimeSpan.FromSeconds(1);
+                // avoid blocking exit
+                while (_sWaitForExit &&
+                    DateTime.Now < wait)
+                {
+                    Thread.Sleep(0);
+                }
+                if (_sWaitForExit)
+                {
+                    Connect();
+                }
             }
         }
 
