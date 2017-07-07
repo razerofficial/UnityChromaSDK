@@ -341,7 +341,7 @@ namespace ChromaSDK
                 // use heartbeat to keep the REST API alive
                 DoHeartbeat();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //LogErrorOnMainThread(string.Format("Exception when calling RazerApi.PostChromaSdk: {0}", e));
                 _sApiRazerInstance = null;
@@ -378,8 +378,7 @@ namespace ChromaSDK
             }
             else
             {
-                Uri uri = new Uri(_sApiChromaInstance.ApiClient.BasePath);
-
+                //Uri uri = new Uri(_sApiChromaInstance.ApiClient.BasePath);
                 //LogOnMainThread(string.Format("Monitoring Heartbeat {0}...", uri.Port));
                 while (_sWaitForExit &&
                     null != _sApiChromaInstance)
@@ -469,10 +468,9 @@ namespace ChromaSDK
                 }
 
                 // destroy the Chroma session
-                DeleteChromaSdkResponse result = _sApiChromaInstance.DeleteChromaSdk();
-                //LogOnMainThread(result);
+                _sApiChromaInstance.DeleteChromaSdk();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // the instance will auto-close in 15 seconds
                 //LogErrorOnMainThread(string.Format("Exception when calling RazerApi.DeleteChromaSdk: {0}", e));

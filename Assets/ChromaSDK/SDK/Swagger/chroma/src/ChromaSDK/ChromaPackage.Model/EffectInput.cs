@@ -41,14 +41,7 @@ namespace ChromaSDK.ChromaPackage.Model
         public EffectInput(EffectType Effect = default(EffectType), EffectInputParam Param = default(EffectInputParam))
         {
             // to ensure "Effect" is required (not null)
-            if (Effect == null)
-            {
-                throw new Exception("Effect is a required property for EffectInput and cannot be null");
-            }
-            else
-            {
-                this.Effect = Effect;
-            }
+            this.Effect = Effect;
             this.Param = Param;
         }
         
@@ -112,7 +105,6 @@ namespace ChromaSDK.ChromaPackage.Model
             return 
                 (
                     this.Effect == other.Effect ||
-                    this.Effect != null &&
                     this.Effect.Equals(other.Effect)
                 ) && 
                 (
@@ -133,8 +125,7 @@ namespace ChromaSDK.ChromaPackage.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.Effect != null)
-                    hash = hash * 59 + this.Effect.GetHashCode();
+                hash = hash * 59 + this.Effect.GetHashCode();
                 if (this.Param != null)
                     hash = hash * 59 + this.Param.GetHashCode();
                 return hash;
