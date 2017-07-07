@@ -442,6 +442,16 @@ namespace ChromaSDK
 
         #endregion
 
+        /// <summary>
+        /// Reset the connections
+        /// </summary>
+        private void ResetConnections()
+        {
+            // clear the references
+            _sApiRazerInstance = null;
+            _sApiChromaInstance = null;
+        }
+
         #region Close the connection
 
         /// <summary>
@@ -468,9 +478,7 @@ namespace ChromaSDK
             }
             finally
             {
-                // clear the references
-                _sApiRazerInstance = null;
-                _sApiChromaInstance = null;
+                ResetConnections();
             }
         }
 
@@ -518,8 +526,9 @@ namespace ChromaSDK
             if (!_sConnecting &&
                 !Connected)
             {
-                //Debug.Log(string.Format("Connect: Connected={0}", Connected));
+                Debug.Log(string.Format("Connect: Connected={0}", Connected));
 
+                ResetConnections();
                 _sWaitForExit = true;
                 _sConnecting = true;
                 SafeStartCoroutine("Initialize", Initialize());
