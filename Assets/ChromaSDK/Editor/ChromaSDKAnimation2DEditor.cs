@@ -25,211 +25,213 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
-
-        // backup original color
-        Color oldBackgroundColor = GUI.backgroundColor;
-
-        ChromaSDKAnimation2D animation = GetAnimation();
-
-        if (_mLastTarget != animation)
+        if (EditorApplication.isCompiling)
         {
-            _mLastTarget = animation;
-            _mDevice = animation.Device;
-        }
+            base.OnInspectorGUI();
 
-        var frames = animation.Frames; //copy
+            // backup original color
+            Color oldBackgroundColor = GUI.backgroundColor;
 
-        if (frames.Count == 0)
-        {
-            OnClickAddButton();
-        }
+            ChromaSDKAnimation2D animation = GetAnimation();
 
-        // Import
-
-        GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Import Image"))
-        {
-            OnClickImportImageButton();
-        }
-        if (GUILayout.Button("Import Animation"))
-        {
-            OnClickImportAnimationButton();
-        }
-        GUILayout.EndHorizontal();
-
-        GUILayout.BeginHorizontal();
-        GUI.SetNextControlName(CONTROL_OVERRIDE);
-        _mOverrideFrameTime = EditorGUILayout.FloatField("Override Time", _mOverrideFrameTime);
-        GUI.SetNextControlName(string.Empty);
-        if (GUILayout.Button("Override", GUILayout.Width(100)))
-        {
-            OnClickOverrideButton();
-        }
-        GUILayout.EndHorizontal();
-
-        // Device
-        GUILayout.BeginHorizontal();
-        _mDevice = (ChromaDevice2DEnum)EditorGUILayout.EnumPopup("Device", _mDevice);
-        if (GUILayout.Button("Set", GUILayout.Width(100)))
-        {
-            OnClickSetDevice();
-        }
-        GUILayout.EndHorizontal();
-
-        // Apply
-        GUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Clear"))
-        {
-            OnClickClearButton();
-        }
-
-        if (GUILayout.Button("Fill"))
-        {
-            OnClickFillButton();
-        }
-
-        if (GUILayout.Button("Random"))
-        {
-            OnClickRandomButton();
-        }
-
-        if (GUILayout.Button("Copy"))
-        {
-            OnClickCopyButton();
-        }
-
-        if (GUILayout.Button("Paste"))
-        {
-            OnClickPasteButton();
-        }
-
-        GUILayout.EndHorizontal();
-
-        bool connected = ChromaConnectionManager.Instance.Connected;
-
-        GUI.enabled = connected;
-
-        GUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Preview"))
-        {
-            OnClickPreviewButton();
-        }
-
-        if (GUILayout.Button("Play"))
-        {
-            OnClickPlayButton();
-        }
-
-        if (GUILayout.Button("Stop"))
-        {
-            OnClickStopButton();
-        }
-
-        GUI.enabled = connected && !animation.IsLoaded();
-        if (GUILayout.Button("Load"))
-        {
-            OnClickLoadButton();
-        }
-
-        GUI.enabled = connected && animation.IsLoaded();
-        if (GUILayout.Button("Unload"))
-        {
-            OnClickUnloadButton();
-        }
-
-        GUI.enabled = true;
-
-        GUILayout.EndHorizontal();
-
-        int maxRow = ChromaUtils.GetMaxRow(animation.Device);
-        int maxColumn = ChromaUtils.GetMaxColumn(animation.Device);
-
-        GUILayout.Label(string.Format("{0} x {1}", maxRow, maxColumn));
-
-        // Preview
-        Texture2D oldTexture = GUI.skin.button.normal.background;
-        SetupBlankTexture();
-        if (_mCurrentFrame < frames.Count)
-        {
-            EffectArray2dInput frame = frames[_mCurrentFrame];
-            for (int i = 0; i < maxRow && i < frame.Count; ++i)
+            if (_mLastTarget != animation)
             {
-                List<int> row = frame[i];
-                GUILayout.BeginHorizontal();
+                _mLastTarget = animation;
+                _mDevice = animation.Device;
+            }
 
-                for (int j = 0; j < maxColumn && j < row.Count; ++j)
+            var frames = animation.Frames; //copy
+
+            if (frames.Count == 0)
+            {
+                OnClickAddButton();
+            }
+
+            // Import
+
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Import Image"))
+            {
+                OnClickImportImageButton();
+            }
+            if (GUILayout.Button("Import Animation"))
+            {
+                OnClickImportAnimationButton();
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUI.SetNextControlName(CONTROL_OVERRIDE);
+            _mOverrideFrameTime = EditorGUILayout.FloatField("Override Time", _mOverrideFrameTime);
+            GUI.SetNextControlName(string.Empty);
+            if (GUILayout.Button("Override", GUILayout.Width(100)))
+            {
+                OnClickOverrideButton();
+            }
+            GUILayout.EndHorizontal();
+
+            // Device
+            GUILayout.BeginHorizontal();
+            _mDevice = (ChromaDevice2DEnum)EditorGUILayout.EnumPopup("Device", _mDevice);
+            if (GUILayout.Button("Set", GUILayout.Width(100)))
+            {
+                OnClickSetDevice();
+            }
+            GUILayout.EndHorizontal();
+
+            // Apply
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Clear"))
+            {
+                OnClickClearButton();
+            }
+
+            if (GUILayout.Button("Fill"))
+            {
+                OnClickFillButton();
+            }
+
+            if (GUILayout.Button("Random"))
+            {
+                OnClickRandomButton();
+            }
+
+            if (GUILayout.Button("Copy"))
+            {
+                OnClickCopyButton();
+            }
+
+            if (GUILayout.Button("Paste"))
+            {
+                OnClickPasteButton();
+            }
+
+            GUILayout.EndHorizontal();
+
+            bool connected = ChromaConnectionManager.Instance.Connected;
+
+            GUI.enabled = connected;
+
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Preview"))
+            {
+                OnClickPreviewButton();
+            }
+
+            if (GUILayout.Button("Play"))
+            {
+                OnClickPlayButton();
+            }
+
+            if (GUILayout.Button("Stop"))
+            {
+                OnClickStopButton();
+            }
+
+            GUI.enabled = connected && !animation.IsLoaded();
+            if (GUILayout.Button("Load"))
+            {
+                OnClickLoadButton();
+            }
+
+            GUI.enabled = connected && animation.IsLoaded();
+            if (GUILayout.Button("Unload"))
+            {
+                OnClickUnloadButton();
+            }
+
+            GUI.enabled = true;
+
+            GUILayout.EndHorizontal();
+
+            int maxRow = ChromaUtils.GetMaxRow(animation.Device);
+            int maxColumn = ChromaUtils.GetMaxColumn(animation.Device);
+
+            GUILayout.Label(string.Format("{0} x {1}", maxRow, maxColumn));
+
+            // Preview
+            Texture2D oldTexture = GUI.skin.button.normal.background;
+            SetupBlankTexture();
+            if (_mCurrentFrame < frames.Count)
+            {
+                EffectArray2dInput frame = frames[_mCurrentFrame];
+                for (int i = 0; i < maxRow && i < frame.Count; ++i)
                 {
-                    int color = row[j];
-                    GUI.backgroundColor = ChromaUtils.ToRGB(color);
-                    // use a box instead of button so it looks better
-                    GUILayout.Box("", GUILayout.Width(12));
-                    Rect rect = GUILayoutUtility.GetLastRect();
-                    // use the box location to use a button to catch the click event
-                    GUI.skin.button.normal.background = _sTextureClear;
-                    if (GUI.Button(rect, ""))
-                    {
-                        OnClickColor(i, j);
-                    }
-                    GUI.skin.button.normal.background = oldTexture;
-                }
+                    List<int> row = frame[i];
+                    GUILayout.BeginHorizontal();
 
+                    for (int j = 0; j < maxColumn && j < row.Count; ++j)
+                    {
+                        int color = row[j];
+                        GUI.backgroundColor = ChromaUtils.ToRGB(color);
+                        // use a box instead of button so it looks better
+                        GUILayout.Box("", GUILayout.Width(12));
+                        Rect rect = GUILayoutUtility.GetLastRect();
+                        // use the box location to use a button to catch the click event
+                        GUI.skin.button.normal.background = _sTextureClear;
+                        if (GUI.Button(rect, ""))
+                        {
+                            OnClickColor(i, j);
+                        }
+                        GUI.skin.button.normal.background = oldTexture;
+                    }
+
+                    GUILayout.EndHorizontal();
+                }
+            }
+            GUI.SetNextControlName("");
+
+            // restore original color
+            GUI.backgroundColor = oldBackgroundColor;
+
+            // show separator
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+            // Key
+            if (animation.Device == ChromaDevice2DEnum.Keyboard)
+            {
+                GUILayout.BeginHorizontal();
+                _mKey = (Keyboard.RZKEY)EditorGUILayout.EnumPopup("Select a key", _mKey);
+                if (GUILayout.Button("Set key", GUILayout.Width(100)))
+                {
+                    OnClickColor(
+                        ChromaUtils.GetHighByte((int)_mKey),
+                        ChromaUtils.GetLowByte((int)_mKey));
+                }
+                GUILayout.EndHorizontal();
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Set RZLED_LOGO"))
+                {
+                    OnClickColor(
+                        ChromaUtils.GetHighByte((int)Keyboard.RZLED.RZLED_LOGO),
+                        ChromaUtils.GetLowByte((int)Keyboard.RZLED.RZLED_LOGO));
+                }
                 GUILayout.EndHorizontal();
             }
-        }
-        GUI.SetNextControlName("");
 
-        // restore original color
-        GUI.backgroundColor = oldBackgroundColor;
-
-        // show separator
-        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-
-        // Key
-        if (animation.Device == ChromaDevice2DEnum.Keyboard)
-        {
-            GUILayout.BeginHorizontal();
-            _mKey = (Keyboard.RZKEY)EditorGUILayout.EnumPopup("Select a key", _mKey);
-            if (GUILayout.Button("Set key", GUILayout.Width(100)))
+            // Led
+            if (animation.Device == ChromaDevice2DEnum.Mouse)
             {
-                OnClickColor(
-                    ChromaUtils.GetHighByte((int)_mKey),
-                    ChromaUtils.GetLowByte((int)_mKey));
+                GUILayout.BeginHorizontal();
+                _mLed = (Mouse.RZLED2)EditorGUILayout.EnumPopup("Select an LED", _mLed);
+
+                if (GUILayout.Button("Set LED", GUILayout.Width(100)))
+                {
+                    OnClickColor(
+                        ChromaUtils.GetHighByte((int)_mLed),
+                        ChromaUtils.GetLowByte((int)_mLed));
+                }
+                GUILayout.EndHorizontal();
             }
-            GUILayout.EndHorizontal();
+
+            // preset colors
+
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Set RZLED_LOGO"))
+            const float k = 0.5f;
+            Color[] palette =
             {
-                OnClickColor(
-                    ChromaUtils.GetHighByte((int)Keyboard.RZLED.RZLED_LOGO),
-                    ChromaUtils.GetLowByte((int)Keyboard.RZLED.RZLED_LOGO));
-            }
-            GUILayout.EndHorizontal();
-        }
-
-        // Led
-        if (animation.Device == ChromaDevice2DEnum.Mouse)
-        {
-            GUILayout.BeginHorizontal();
-            _mLed = (Mouse.RZLED2)EditorGUILayout.EnumPopup("Select an LED", _mLed);
-        
-            if (GUILayout.Button("Set LED", GUILayout.Width(100)))
-            {
-                OnClickColor(
-                    ChromaUtils.GetHighByte((int)_mLed),
-                    ChromaUtils.GetLowByte((int)_mLed));
-            }
-            GUILayout.EndHorizontal();
-        }
-
-        // preset colors
-
-        GUILayout.BeginHorizontal();
-        const float k = 0.5f;
-        Color[] palette =
-        {
             Color.red, Color.red * k,
             ORANGE, ORANGE * k,
             Color.yellow, Color.yellow * k,
@@ -239,158 +241,157 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             PURPLE, PURPLE * k,
             Color.white, Color.gray, Color.black,
         };
-        foreach (Color color in palette)
-        {
-            Color newColor = color;
-            newColor.a = 1f;
-            GUI.backgroundColor = newColor;
-            // use a box instead of button so it looks better
-            GUILayout.Box("", GUILayout.Width(12));
-            Rect rect = GUILayoutUtility.GetLastRect();
-            // use the box location to use a button to catch the click event
-            GUI.skin.button.normal.background = _sTextureClear;
-            if (GUI.Button(rect, ""))
+            foreach (Color color in palette)
             {
-                _mColor = newColor;
+                Color newColor = color;
+                newColor.a = 1f;
+                GUI.backgroundColor = newColor;
+                // use a box instead of button so it looks better
+                GUILayout.Box("", GUILayout.Width(12));
+                Rect rect = GUILayoutUtility.GetLastRect();
+                // use the box location to use a button to catch the click event
+                GUI.skin.button.normal.background = _sTextureClear;
+                if (GUI.Button(rect, ""))
+                {
+                    _mColor = newColor;
+                }
+                GUI.skin.button.normal.background = oldTexture;
             }
-            GUI.skin.button.normal.background = oldTexture;
-        }
-        GUILayout.EndHorizontal();
+            GUILayout.EndHorizontal();
 
-        // restore original color
-        GUI.backgroundColor = oldBackgroundColor;
+            // restore original color
+            GUI.backgroundColor = oldBackgroundColor;
 
-        // Set the color
+            // Set the color
 
-        _mColor = EditorGUILayout.ColorField("Brush color", _mColor);
+            _mColor = EditorGUILayout.ColorField("Brush color", _mColor);
 
-        EditorGUILayout.LabelField("Frame:", string.Format("{0} of {1}",
-            _mCurrentFrame + 1,
-            null == frames ? 0 : frames.Count));
+            EditorGUILayout.LabelField("Frame:", string.Format("{0} of {1}",
+                _mCurrentFrame + 1,
+                null == frames ? 0 : frames.Count));
 
-        float duration = 0.0f;
-        if (_mCurrentFrame < frames.Count &&
-            _mCurrentFrame < animation.Curve.keys.Length)
-        {
-            if (_mCurrentFrame == 0)
-            {
-                duration = animation.Curve.keys[_mCurrentFrame].time;
-            }
-            else
-            {
-                duration =
-                    animation.Curve.keys[_mCurrentFrame].time -
-                    animation.Curve.keys[_mCurrentFrame - 1].time;
-            }
-        }
-
-        GUI.SetNextControlName(CONTROL_DURATION);
-        GUILayout.BeginHorizontal();
-        float newDuration = EditorGUILayout.FloatField("Duration:", duration);
-        if (duration != newDuration &&
-            newDuration > 0f)
-        {
+            float duration = 0.0f;
             if (_mCurrentFrame < frames.Count &&
                 _mCurrentFrame < animation.Curve.keys.Length)
             {
-                float time;
                 if (_mCurrentFrame == 0)
                 {
-                    time = newDuration;
+                    duration = animation.Curve.keys[_mCurrentFrame].time;
                 }
                 else
                 {
-                    time = animation.Curve.keys[_mCurrentFrame - 1].time + newDuration;
+                    duration =
+                        animation.Curve.keys[_mCurrentFrame].time -
+                        animation.Curve.keys[_mCurrentFrame - 1].time;
                 }
-                animation.Curve.RemoveKey(_mCurrentFrame);
-                animation.Curve.AddKey(time, 0f);
             }
-        }
-        GUILayout.Label("seconds(s)");
-        GUILayout.EndHorizontal();
-        GUI.SetNextControlName(string.Empty);
 
-
-        GUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Previous"))
-        {
-            OnClickPreviousButton();
-        }
-
-        if (GUILayout.Button("Next"))
-        {
-            OnClickNextButton();
-        }
-
-        if (GUILayout.Button("Add"))
-        {
-            OnClickAddButton();
-        }
-
-        if (GUILayout.Button("Delete"))
-        {
-            OnClickDeleteButton();
-        }
-
-        GUILayout.EndHorizontal();
-
-
-        // Custom Curve
-        animation.Curve = EditorGUILayout.CurveField("Edit Curve:", animation.Curve);
-
-        //Debug.Log(GUI.GetNameOfFocusedControl());
-        if (string.IsNullOrEmpty(GUI.GetNameOfFocusedControl()))
-        {
-            Event e = Event.current;
-            if (e.type == EventType.keyUp)
+            GUI.SetNextControlName(CONTROL_DURATION);
+            GUILayout.BeginHorizontal();
+            float newDuration = EditorGUILayout.FloatField("Duration:", duration);
+            if (duration != newDuration &&
+                newDuration > 0f)
             {
-                if (e.keyCode == KeyCode.Delete)
+                if (_mCurrentFrame < frames.Count &&
+                    _mCurrentFrame < animation.Curve.keys.Length)
                 {
-                    OnClickClearButton();
-                    Repaint();
+                    float time;
+                    if (_mCurrentFrame == 0)
+                    {
+                        time = newDuration;
+                    }
+                    else
+                    {
+                        time = animation.Curve.keys[_mCurrentFrame - 1].time + newDuration;
+                    }
+                    animation.Curve.RemoveKey(_mCurrentFrame);
+                    animation.Curve.AddKey(time, 0f);
                 }
-                else if (e.keyCode == KeyCode.C &&
-                    e.modifiers == EventModifiers.Control)
+            }
+            GUILayout.Label("seconds(s)");
+            GUILayout.EndHorizontal();
+            GUI.SetNextControlName(string.Empty);
+
+
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Previous"))
+            {
+                OnClickPreviousButton();
+            }
+
+            if (GUILayout.Button("Next"))
+            {
+                OnClickNextButton();
+            }
+
+            if (GUILayout.Button("Add"))
+            {
+                OnClickAddButton();
+            }
+
+            if (GUILayout.Button("Delete"))
+            {
+                OnClickDeleteButton();
+            }
+
+            GUILayout.EndHorizontal();
+
+
+            // Custom Curve
+            animation.Curve = EditorGUILayout.CurveField("Edit Curve:", animation.Curve);
+
+            //Debug.Log(GUI.GetNameOfFocusedControl());
+            if (string.IsNullOrEmpty(GUI.GetNameOfFocusedControl()))
+            {
+                Event e = Event.current;
+                if (e.type == EventType.keyUp)
                 {
-                    OnClickCopyButton();
-                }
-                else if (e.keyCode == KeyCode.V &&
-                    e.modifiers == EventModifiers.Control)
-                {
-                    OnClickPasteButton();
-                    Repaint();
-                }
-                else if (e.keyCode == KeyCode.P)
-                {
-                    OnClickPlayButton();
-                }
-                else if (e.keyCode == KeyCode.LeftArrow)
-                {
-                    OnClickPreviousButton();
-                    Repaint();
-                }
-                else if (e.keyCode == KeyCode.RightArrow)
-                {
-                    OnClickNextButton();
-                    Repaint();
-                }
-                else if (e.keyCode == KeyCode.Plus ||
-                    e.keyCode == KeyCode.KeypadPlus)
-                {
-                    OnClickAddButton();
-                    Repaint();
-                }
-                else if (e.keyCode == KeyCode.Minus ||
-                    e.keyCode == KeyCode.KeypadMinus)
-                {
-                    OnClickDeleteButton();
-                    Repaint();
+                    if (e.keyCode == KeyCode.Delete)
+                    {
+                        OnClickClearButton();
+                        Repaint();
+                    }
+                    else if (e.keyCode == KeyCode.C &&
+                        e.modifiers == EventModifiers.Control)
+                    {
+                        OnClickCopyButton();
+                    }
+                    else if (e.keyCode == KeyCode.V &&
+                        e.modifiers == EventModifiers.Control)
+                    {
+                        OnClickPasteButton();
+                        Repaint();
+                    }
+                    else if (e.keyCode == KeyCode.P)
+                    {
+                        OnClickPlayButton();
+                    }
+                    else if (e.keyCode == KeyCode.LeftArrow)
+                    {
+                        OnClickPreviousButton();
+                        Repaint();
+                    }
+                    else if (e.keyCode == KeyCode.RightArrow)
+                    {
+                        OnClickNextButton();
+                        Repaint();
+                    }
+                    else if (e.keyCode == KeyCode.Plus ||
+                        e.keyCode == KeyCode.KeypadPlus)
+                    {
+                        OnClickAddButton();
+                        Repaint();
+                    }
+                    else if (e.keyCode == KeyCode.Minus ||
+                        e.keyCode == KeyCode.KeypadMinus)
+                    {
+                        OnClickDeleteButton();
+                        Repaint();
+                    }
                 }
             }
         }
-
-        base.OnInspectorGUI();
     }
 
     private string GetImageFolder()

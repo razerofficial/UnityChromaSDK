@@ -101,6 +101,17 @@ namespace ChromaSDK
         }
 
         /// <summary>
+        /// Is the API connecting
+        /// </summary>
+        public bool Connecting
+        {
+            get
+            {
+                return _sConnecting;
+            }
+        }
+
+        /// <summary>
         /// Is the API connected?
         /// </summary>
         public bool Connected
@@ -184,8 +195,29 @@ namespace ChromaSDK
         }
         */
 
+        /// <summary>
+        /// If compile is detected, disconnect once
+        /// </summary>
+        bool _mDetectedCompile = false;
+
         public void Update()
         {
+#if UNITY_EDITOR
+            if (EditorApplication.isCompiling)
+            {
+                if (!_mDetectedCompile)
+                {
+                    _mDetectedCompile = true;
+                    Disconnect();
+                }                
+                return;
+            }
+            else if (_mDetectedCompile)
+            {
+                _mDetectedCompile = false;
+                Connect();
+            }
+#endif
             //LogOnMainThread("ChromaConnectionManager: Update");
             if (_sMainActions.Count > 0)
             {
@@ -231,7 +263,7 @@ namespace ChromaSDK
         IEnumerator Initialize()
         {
             // wait to initialize in case recompile just shutdown
-            LogOnMainThread("Waiting to initialize ChromaSDK...");
+            //LogOnMainThread("Waiting to initialize ChromaSDK...");
 
             // delay, WaitForSeconds doesn't work in edit mode
             DateTime wait = DateTime.Now + TimeSpan.FromSeconds(2);
@@ -297,29 +329,33 @@ namespace ChromaSDK
                 };
                 input.Category = "application";
 
-                LogOnMainThread("Initializing...");
+                //LogOnMainThread("Initializing...");
                 PostChromaSdkResponse result = _sApiRazerInstance.PostChromaSdk(input);
                 //LogOnMainThread(result);
 
                 // setup the api instance with the session uri
                 _sApiChromaInstance = new ChromaApi(result.Uri);
 
-                LogOnMainThread("Init complete.");
+                //LogOnMainThread("Init complete.");
 
                 // use heartbeat to keep the REST API alive
                 DoHeartbeat();
             }
             catch (Exception e)
             {
-                LogErrorOnMainThread(string.Format("Exception when calling RazerApi.PostChromaSdk: {0}", e));
+                //LogErrorOnMainThread(string.Format("Exception when calling RazerApi.PostChromaSdk: {0}", e));
                 _sApiRazerInstance = null;
 
-                // Coroutines can only start from the main thread
-                RunOnMainThread(() =>
+                //attempt reconnect
+                if (_sWaitForExit)
                 {
-                    // retry
-                    SafeStartCoroutine("Initialize", Initialize());
-                });
+                    // Coroutines can only start from the main thread
+                    RunOnMainThread(() =>
+                    {
+                        // retry
+                        SafeStartCoroutine("Initialize", Initialize());
+                    });
+                }
             }
         }
 
@@ -427,7 +463,8 @@ namespace ChromaSDK
             }
             catch (Exception e)
             {
-                LogErrorOnMainThread(string.Format("Exception when calling RazerApi.DeleteChromaSdk: {0}", e));
+                // the instance will auto-close in 15 seconds
+                //LogErrorOnMainThread(string.Format("Exception when calling RazerApi.DeleteChromaSdk: {0}", e));
             }
             finally
             {
@@ -454,7 +491,7 @@ namespace ChromaSDK
             //Debug.Log(string.Format("UnloadAnimations: 1D animations={0}", animations1D.Length));
             foreach (ChromaSDKAnimation1D animation in animations1D)
             {
-                Debug.Log("Unload animation.");
+                //Debug.Log("Unload animation.");
                 animation.Reset();
             }
 
@@ -463,9 +500,11 @@ namespace ChromaSDK
             //Debug.Log(string.Format("UnloadAnimations: 2D animations={0}", animations2D.Length));
             foreach (ChromaSDKAnimation2D animation in animations2D)
             {
-                Debug.Log("Unload animation.");
+                //Debug.Log("Unload animation.");
                 animation.Reset();
             }
+
+            Debug.Log("Animation unloaded.");
         }
 
 
@@ -479,7 +518,7 @@ namespace ChromaSDK
             if (!_sConnecting &&
                 !Connected)
             {
-                Debug.Log(string.Format("Connect: Connected={0}", Connected));
+                //Debug.Log(string.Format("Connect: Connected={0}", Connected));
 
                 _sWaitForExit = true;
                 _sConnecting = true;

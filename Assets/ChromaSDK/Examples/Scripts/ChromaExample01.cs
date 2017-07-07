@@ -327,7 +327,7 @@ public class ChromaExample01 : MonoBehaviour
 
         ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
 
-        _mTextStatus = _mConnectionManager.Connected ? "Connected" : "Not Connected";
+        _mTextStatus = _mConnectionManager.Connected ? "Connected" : _mConnectionManager.Connecting ? "Connecting..." : "Not Connected";
 
         GUILayout.BeginHorizontal();
 
