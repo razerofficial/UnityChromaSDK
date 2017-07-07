@@ -83,7 +83,7 @@ Import [UnityChromaSDK.unitypackage](https://github.com/razerofficial/UnityChrom
 <a name="assets"></a>
 ## Assets
 
-In the `GameObject->ChromaSDK` menu to create `1D` and `2D` animations.
+Use the `GameObject->ChromaSDK` menu to create `1D` and `2D` animations.
 
 ![image_7](images/image_7.png)
 
