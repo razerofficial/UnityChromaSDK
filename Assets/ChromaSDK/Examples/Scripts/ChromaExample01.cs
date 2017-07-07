@@ -253,7 +253,7 @@ public class ChromaExample01 : MonoBehaviour
             animation.Load();
         }
 
-        Debug.Log("Play animations looping...");
+        //Debug.Log("Play animations looping...");
 
         foreach (ChromaSDKAnimation1D animation in _mAnimations1D)
         {
@@ -303,16 +303,20 @@ public class ChromaExample01 : MonoBehaviour
     {
         _mConnectionManager = ChromaConnectionManager.Instance;
 
-        // instantiate 1D animations
-        for (int i = 0; i < _mAnimations1D.Length; ++i)
+        // Make instances of animations in play mode for update events to work
+        if (Application.isPlaying)
         {
-            _mAnimations1D[i] = (ChromaSDKAnimation1D)Instantiate(_mAnimations1D[i]);
-        }
+            // instantiate 1D animations
+            for (int i = 0; i < _mAnimations1D.Length; ++i)
+            {
+                _mAnimations1D[i] = (ChromaSDKAnimation1D)Instantiate(_mAnimations1D[i]);
+            }
 
-        // instantiate 2D animations
-        for (int i = 0; i < _mAnimations2D.Length; ++i)
-        {
-            _mAnimations2D[i] = (ChromaSDKAnimation2D)Instantiate(_mAnimations2D[i]);
+            // instantiate 2D animations
+            for (int i = 0; i < _mAnimations2D.Length; ++i)
+            {
+                _mAnimations2D[i] = (ChromaSDKAnimation2D)Instantiate(_mAnimations2D[i]);
+            }
         }
     }
 

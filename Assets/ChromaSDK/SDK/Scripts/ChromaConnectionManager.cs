@@ -531,7 +531,7 @@ namespace ChromaSDK
         /// </summary>
         public void Disconnect()
         {
-            Debug.Log(string.Format("Disconnect: Connected={0}", Connected));
+            //Debug.Log(string.Format("Disconnect: Connected={0}", Connected));
 
             UnloadSceneAnimations();
 

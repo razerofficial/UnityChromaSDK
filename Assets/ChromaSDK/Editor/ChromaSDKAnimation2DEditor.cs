@@ -25,7 +25,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     public override void OnInspectorGUI()
     {
-        if (EditorApplication.isCompiling)
+        if (!EditorApplication.isCompiling)
         {
             base.OnInspectorGUI();
 

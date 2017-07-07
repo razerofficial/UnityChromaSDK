@@ -7,7 +7,7 @@ public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
 {
     public override void OnInspectorGUI()
     {
-        if (EditorApplication.isCompiling)
+        if (!EditorApplication.isCompiling)
         {
             //show parent
             base.OnInspectorGUI();
