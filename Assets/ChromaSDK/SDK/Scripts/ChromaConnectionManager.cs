@@ -22,6 +22,15 @@ namespace ChromaSDK
 #endif
     public class ChromaConnectionManager : MonoBehaviour, IUpdate
     {
+        #region Connection Setup
+
+        /// <summary>
+        /// The connection info
+        /// </summary>
+        public ChromaSdkInput _mInfo = null;
+
+        #endregion
+
         #region Singleton Setup
 
         /// <summary>
@@ -174,23 +183,6 @@ namespace ChromaSDK
             Connect();
         }
 
-        /*
-        public void OnEnable()
-        {
-            LogOnMainThread("ChromaConnectionManager: OnEnable");
-        }
-
-        public void OnDisable()
-        {
-            LogOnMainThread("ChromaConnectionManager: OnDisable");
-        }
-
-        public void OnApplicationQuit()
-        {
-            LogOnMainThread("ChromaConnectionManager: OnApplicationQuit");
-        }
-        */
-
         /// <summary>
         /// If compile is detected, disconnect once
         /// </summary>
@@ -291,6 +283,27 @@ namespace ChromaSDK
             });
         }
 
+        public void SetupDefaultInfo()
+        {
+            _mInfo = new ChromaSdkInput();
+
+            _mInfo.Title = "UnityPlugin";
+            _mInfo.Description = "REST client for Unity";
+            _mInfo.Author = new ChromaSdkInputAuthor();
+            _mInfo.Author.Name = "Chroma Developer";
+            _mInfo.Author.Contact = "www.razerzone.com";
+            _mInfo.DeviceSupported = new List<string>
+            {
+                "keyboard",
+                "mouse",
+                "headset",
+                "mousepad",
+                "keypad",
+                "chromalink",
+            };
+            _mInfo.Category = "application";
+        }
+
         /// <summary>
         /// Initialize Chroma by hitting the REST server and set the API port
         /// </summary>
@@ -308,25 +321,13 @@ namespace ChromaSDK
                 // use the Razer API to get the session
                 _sApiRazerInstance = new RazerApi();
 
-                var input = new ChromaSdkInput();
-                input.Title = "UnityPlugin";
-                input.Description = "This is a REST interface Unity client";
-                input.Author = new ChromaSdkInputAuthor();
-                input.Author.Name = "Chroma Developer";
-                input.Author.Contact = "www.razerzone.com";
-                input.DeviceSupported = new List<string>
+                if (null == _mInfo)
                 {
-                    "keyboard",
-                    "mouse",
-                    "headset",
-                    "mousepad",
-                    "keypad",
-                    "chromalink",
-                };
-                input.Category = "application";
+                    SetupDefaultInfo();
+                }
 
                 //LogOnMainThread("Initializing...");
-                PostChromaSdkResponse result = _sApiRazerInstance.PostChromaSdk(input);
+                PostChromaSdkResponse result = _sApiRazerInstance.PostChromaSdk(_mInfo);
                 //LogOnMainThread(result);
 
                 // setup the api instance with the session uri
