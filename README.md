@@ -7,6 +7,7 @@
 * [Packaging](#packaging)
 * [Getting Started](#getting-started)
 * [Assets](#assets)
+* [Plugins](#plugins)
 * [Documentation for API Endpoints](#documentation-for-api-endpoints)
 * [Examples](#examples)
 * [Chroma Initialization](#chroma-initialization)
@@ -111,7 +112,24 @@ In order for the animations to play in `play-mode`, the prefabs need to be insta
 This allows the monobehaviour update event to fire. 
 
 ![image_11](images/image_11.png)
- 
+
+<a name="plugins"></a>
+## Plugins
+
+The following plugins should be included in the game build to allow the REST client to function.
+
+`Assets/Plugins/Newtonsoft.Json.dll` - JSON encoding/decoding library for Unity 3.X/4.X/5.X
+
+`Assets/Plugins/RestSharp.dll` - REST client library for Unity 3.X/4.X/5.X
+
+The following plugins are editor only plugins and should be stripped from the final game build.
+
+`Assets/Plugins/UnityImageNativePlugin3.dll` - Windows native library handles BMP/GIF/JPG/PNG image imports for Unity 3.X
+
+`Assets/Plugins/x64/UnityImageNativePlugin.dll` - (64-bit) Windows native library handles BMP/GIF/JPG/PNG image imports for Unity 4.X/5.X
+
+`Assets/Plugins/x86/UnityImageNativePlugin.dll` - (32-bit) Windows native library handles BMP/GIF/JPG/PNG image imports for Unity 4.X/5.X
+
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
