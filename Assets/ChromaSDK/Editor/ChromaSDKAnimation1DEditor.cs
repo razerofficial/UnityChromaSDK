@@ -1,6 +1,8 @@
 using ChromaSDK;
 using ChromaSDK.ChromaPackage.Model;
+using System;
 using System.IO;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
@@ -400,6 +402,12 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         if (!string.IsNullOrEmpty(path))
         {
             ImageManager.LoadImage(path);
+
+            DateTime wait = DateTime.Now + TimeSpan.FromSeconds(1);
+            while (DateTime.Now < wait)
+            {
+                Thread.Sleep(0);
+            }
 
             int frameCount = ImageManager.PluginGetFrameCount();
             if (frameCount == 0)
