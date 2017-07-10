@@ -1,5 +1,4 @@
 ﻿using ChromaSDK;
-using ChromaSDK.Api;
 using ChromaSDK.ChromaPackage.Model;
 using System;
 using System.Collections.Generic;

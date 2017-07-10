@@ -86,11 +86,12 @@ public class ChromaExample01 : MonoBehaviour
     /// </summary>
     /// <param name="color"></param>
     /// <returns></returns>
-    private static EffectInput GetEffectChromaStatic(int color)
+    private static EffectInput GetEffectChromaStatic(Color color)
     {
         var input = new EffectInput();
         input.Effect = EffectType.CHROMA_STATIC;
-        input.Param = new EffectInputParam(color);
+        int bgrInt = ChromaUtils.ToBGR(color);
+        input.Param = new EffectInputParam(bgrInt);
         return input;
     }
 
@@ -121,7 +122,7 @@ public class ChromaExample01 : MonoBehaviour
     /// Set static effect on all devices using PUT
     /// </summary>
     /// <param name="color"></param>
-    void SetEffectStaticOnAll(int color)
+    void SetEffectStaticOnAll(Color color)
     {
         if (!_mConnectionManager.Connected)
         {
@@ -130,13 +131,14 @@ public class ChromaExample01 : MonoBehaviour
         }
 
         ChromaApi chromaApi = _mConnectionManager.ApiChromaInstance;
+        int bgrInt = ChromaUtils.ToBGR(color);
 
-        LogResult("PutChromaLinkStatic:", chromaApi.PutChromaLinkStatic(color));
-        LogResult("PutHeadsetStatic:", chromaApi.PutHeadsetStatic(color));
-        LogResult("PutKeyboardStatic:", chromaApi.PutKeyboardStatic(color));
-        LogResult("PutKeypadStatic:", chromaApi.PutKeypadStatic(color));
-        LogResult("PutMouseStatic:", chromaApi.PutMouseStatic(color));
-        LogResult("PutMousepadStatic:", chromaApi.PutMousepadStatic(color));
+        LogResult("PutChromaLinkStatic:", chromaApi.PutChromaLinkStatic(bgrInt));
+        LogResult("PutHeadsetStatic:", chromaApi.PutHeadsetStatic(bgrInt));
+        LogResult("PutKeyboardStatic:", chromaApi.PutKeyboardStatic(bgrInt));
+        LogResult("PutKeypadStatic:", chromaApi.PutKeypadStatic(bgrInt));
+        LogResult("PutMouseStatic:", chromaApi.PutMouseStatic(bgrInt));
+        LogResult("PutMousepadStatic:", chromaApi.PutMousepadStatic(bgrInt));
     }
 
     /// <summary>
@@ -352,7 +354,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.blue));
+                SetEffectStaticOnAll(Color.blue);
             });
         }
 
@@ -362,7 +364,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.green));
+                SetEffectStaticOnAll(Color.green);
             });
         }
 
@@ -372,7 +374,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.red));
+                SetEffectStaticOnAll(Color.red);
             });
         }
 
@@ -382,7 +384,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                SetEffectStaticOnAll(ChromaUtils.ToBGR(new Color(1f, 0.5f, 0f)));
+                SetEffectStaticOnAll(new Color(1f, 0.5f, 0f));
             });
         }
 
@@ -392,7 +394,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                SetEffectStaticOnAll(ChromaUtils.ToBGR(new Color(0, 1f, 1f)));
+                SetEffectStaticOnAll(new Color(0, 1f, 1f));
             });
         }
 
@@ -402,7 +404,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                SetEffectStaticOnAll(ChromaUtils.ToBGR(Color.white));
+                SetEffectStaticOnAll(Color.white);
             });
         }
 
@@ -546,7 +548,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.blue));
+                EffectInput input = GetEffectChromaStatic(Color.blue);
                 LogResult("PutKeyboard:", chromaApi.PutKeyboard(input));
             });
         }
@@ -557,7 +559,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.green));
+                EffectInput input = GetEffectChromaStatic(Color.green);
                 LogResult("PutHeadset:", chromaApi.PutHeadset(input));
             });
         }
@@ -568,7 +570,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.red));
+                EffectInput input = GetEffectChromaStatic(Color.red);
                 LogResult("PutMouse:", chromaApi.PutMouse(input));
             });
         }
@@ -579,7 +581,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(1f, 0.5f, 0f)));
+                EffectInput input = GetEffectChromaStatic(new Color(1f, 0.5f, 0f));
                 LogResult("PutMousepad:", chromaApi.PutMousepad(input));
             });
         }
@@ -590,7 +592,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(new Color(0f, 1f, 1f)));
+                EffectInput input = GetEffectChromaStatic(new Color(0f, 1f, 1f));
                 LogResult("PutKeypad:", chromaApi.PutKeypad(input));
             });
         }
@@ -601,7 +603,7 @@ public class ChromaExample01 : MonoBehaviour
             // avoid blocking the UI thread
             ChromaUtils.RunOnThread(() =>
             {
-                EffectInput input = GetEffectChromaStatic(ChromaUtils.ToBGR(Color.white));
+                EffectInput input = GetEffectChromaStatic(Color.white);
                 LogResult("PutChromaLink:", chromaApi.PutChromaLink(input));
             });
         }
