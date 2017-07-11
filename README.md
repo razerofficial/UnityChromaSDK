@@ -113,6 +113,12 @@ This allows the monobehaviour update event to fire.
 
 ![image_11](images/image_11.png)
 
+Animation assets rely on the `ChromaConnectionManager` to maintain the REST client connection.
+If the REST server connection is lost, the `ChromaConnectionManager` should reconnect.
+The `ChromaConnectionManager` also has a custom inspector where the `Chroma` details can be specified.
+
+![image_12](images/image_12.png)
+
 <a name="plugins"></a>
 ## Plugins
 
