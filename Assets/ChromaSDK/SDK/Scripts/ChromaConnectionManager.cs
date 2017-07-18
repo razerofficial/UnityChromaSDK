@@ -30,6 +30,7 @@ namespace ChromaSDK
         private const string RECONNECT_CHROMA_API_NULL = "Reconnect, ChromaAPI is null!";
         private const string RECONNECT_CHROMA_API_HEARTBEAT_FAILURE = "Reconnnect, Heartbeat failed!";
         private const string RECONNECT_CHROMA_API_HEARTBEAT_TIMEOUT = "Reconnnect, Heartbeat timeout!";
+        private const string RECONNECT_RAZER_API_TIMEOUT = "Reconnnect, Connect timeout!";
 
         /// <summary>
         /// The connection info
@@ -147,6 +148,11 @@ namespace ChromaSDK
             get
             {
                 return _sConnectionStatus;
+            }
+            private set
+            {
+                //Debug.Log(value);
+                _sConnectionStatus = value;
             }
         }
 
@@ -334,6 +340,7 @@ namespace ChromaSDK
         void PostChromaSdk()
         {
             //LogOnMainThread("PostChromaSdk:");
+            bool reconnect = false;
             try
             {
                 if (null != _sApiRazerInstance)
@@ -349,19 +356,63 @@ namespace ChromaSDK
                     SetupDefaultInfo();
                 }
 
-                //LogOnMainThread("Initializing...");
-                PostChromaSdkResponse result = _sApiRazerInstance.PostChromaSdk(_mInfo);
-                //LogOnMainThread(result);
+                PostChromaSdkResponse result = null;
+                DateTime timeout = DateTime.Now + TimeSpan.FromSeconds(5);
+                Thread thread = new Thread(new ThreadStart(() =>
+                {
+                    try
+                    {
+                        //LogOnMainThread("Initializing...");
+                        ConnectionStatus = CONNECTING;
+                        result = _sApiRazerInstance.PostChromaSdk(_mInfo);
+                    }
+                    catch (Exception)
+                    {
+                        reconnect = true;
+                    }
+                }));
+                thread.Start();
+                while (_sWaitForExit &&
+                    DateTime.Now < timeout &&
+                    thread.IsAlive)
+                {
+                    Thread.Sleep(0);
+                }
+                if (_sWaitForExit &&
+                    timeout < DateTime.Now &&
+                    thread.IsAlive)
+                {
+                    //Debug.LogError("Connect: Timeout detected!");
+                    thread.Abort();
+                    reconnect = true;
+                    ConnectionStatus = RECONNECT_RAZER_API_TIMEOUT;
+                    ThreadWaitForSecond();
+                }
 
-                // setup the api instance with the session uri
-                _sApiChromaInstance = new ChromaApi(result.Uri);
+                if (null != result)
+                {
+                    //LogOnMainThread(result);
 
-                //LogOnMainThread("Init complete.");
+                    // setup the api instance with the session uri
+                    _sApiChromaInstance = new ChromaApi(result.Uri);
 
-                // use heartbeat to keep the REST API alive
-                DoHeartbeat();
+                    //LogOnMainThread("Init complete.");
+
+                    // use heartbeat to keep the REST API alive
+                    DoHeartbeat();
+                }
+                else
+                {
+                    //Debug.LogError("Connect: Result is null!");
+                    reconnect = true;
+                }
             }
             catch (Exception)
+            {
+                reconnect = true;
+            }
+
+            if (reconnect)
             {
                 //LogErrorOnMainThread(string.Format("Exception when calling RazerApi.PostChromaSdk: {0}", e));
                 _sApiRazerInstance = null;
@@ -410,7 +461,7 @@ namespace ChromaSDK
             {
                 LogErrorOnMainThread("DoHeartbeat: ApiChromaInstance is null!");
                 reconnect = true;
-                _sConnectionStatus = RECONNECT_CHROMA_API_NULL;
+                ConnectionStatus = RECONNECT_CHROMA_API_NULL;
                 ThreadWaitForSecond();
             }
             else
@@ -423,21 +474,45 @@ namespace ChromaSDK
                     DateTime timeout = DateTime.Now + TimeSpan.FromSeconds(5);
                     try
                     {
-                        // The Chroma API uses a heartbeat every 1 second
-                        _sApiChromaInstance.Heartbeat();
+                        Thread thread = new Thread(new ThreadStart(() => {
+                            try
+                            {
+                                // The Chroma API uses a heartbeat every 1 second
+                                _sApiChromaInstance.Heartbeat();
+                            }
+                            catch (Exception /* ex */)
+                            {
+                                //Debug.LogError(string.Format("Failed to invoke action! {0}", ex));
+                            }
+                        }));
+                        thread.Start();
+                        while (_sWaitForExit &&
+                            DateTime.Now < timeout &&
+                            thread.IsAlive)
+                        {
+                            Thread.Sleep(0);
+                        }
+                        if (_sWaitForExit &&
+                            timeout < DateTime.Now &&
+                            thread.IsAlive)
+                        {
+                            //Debug.LogError("Heartbeat: Timeout detected!");
+                            thread.Abort();
+                            reconnect = true;
+                        }
                     }
                     catch (Exception)
                     {
                         LogErrorOnMainThread("Failed to check heartbeat!");
                         reconnect = true;
-                        _sConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_FAILURE;
+                        ConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_FAILURE;
                         ThreadWaitForSecond();
                     }
                     if (timeout < DateTime.Now)
                     {
                         Debug.LogError("Timeout detected!");
                         reconnect = true;
-                        _sConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_TIMEOUT;
+                        ConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_TIMEOUT;
                         ThreadWaitForSecond();
                     }
                     if (reconnect)
@@ -448,14 +523,14 @@ namespace ChromaSDK
                     //LogOnMainThread(string.Format("Monitoring Heartbeat {0}...", uri.Port));
                     _sConnected = true;
                     _sConnecting = false;
-                    _sConnectionStatus = CONNECTED;
+                    ConnectionStatus = CONNECTED;
                     ThreadWaitForSecond();
                 }
 
                 //LogOnMainThread(string.Format("Heartbeat {0} exited", uri.Port));
                 _sConnected = false;
                 _sConnecting = false;
-                _sConnectionStatus = NOT_CONNECTED;
+                ConnectionStatus = NOT_CONNECTED;
                 ThreadWaitForSecond();
             }
 
@@ -561,7 +636,7 @@ namespace ChromaSDK
                 UnloadSceneAnimations();
                 _sWaitForExit = true;
                 _sConnecting = true;
-                _sConnectionStatus = CONNECTING;
+                ConnectionStatus = CONNECTING;
                 SafeStartCoroutine("Initialize", Initialize());
             }
         }
