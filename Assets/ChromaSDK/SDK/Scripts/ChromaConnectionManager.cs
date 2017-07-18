@@ -464,7 +464,10 @@ namespace ChromaSDK
                 ThreadWaitForSecond();
                 if (_sWaitForExit)
                 {
-                    Connect();
+                    RunOnMainThread(() =>
+                    {
+                        Connect();
+                    });
                 }
             }
         }
