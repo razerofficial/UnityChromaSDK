@@ -384,6 +384,21 @@ namespace ChromaSDK
         #region Heartbeat
 
         /// <summary>
+        /// Wait for a second, from a thread
+        /// </summary>
+        void ThreadWaitForSecond()
+        {
+            // Wait for a sec
+            DateTime wait = DateTime.Now + TimeSpan.FromSeconds(1);
+            // avoid blocking exit
+            while (_sWaitForExit &&
+                DateTime.Now < wait)
+            {
+                Thread.Sleep(0);
+            }
+        }
+
+        /// <summary>
         /// Use heartbeat to keep the REST API listening after initialization,
         /// be sure to call from a thread and not the main thread
         /// </summary>
@@ -396,6 +411,7 @@ namespace ChromaSDK
                 LogErrorOnMainThread("DoHeartbeat: ApiChromaInstance is null!");
                 reconnect = true;
                 _sConnectionStatus = RECONNECT_CHROMA_API_NULL;
+                ThreadWaitForSecond();
             }
             else
             {
@@ -415,48 +431,37 @@ namespace ChromaSDK
                         LogErrorOnMainThread("Failed to check heartbeat!");
                         reconnect = true;
                         _sConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_FAILURE;
+                        ThreadWaitForSecond();
                     }
                     if (timeout < DateTime.Now)
                     {
                         Debug.LogError("Timeout detected!");
                         reconnect = true;
                         _sConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_TIMEOUT;
+                        ThreadWaitForSecond();
                     }
                     if (reconnect)
                     {
                         break;
-                    }
-                    // Wait for a sec
-                    DateTime wait = DateTime.Now + TimeSpan.FromSeconds(1);
-                    // avoid blocking exit
-                    while (_sWaitForExit &&
-                        DateTime.Now < wait)
-                    {
-                        Thread.Sleep(0);
                     }
 
                     //LogOnMainThread(string.Format("Monitoring Heartbeat {0}...", uri.Port));
                     _sConnected = true;
                     _sConnecting = false;
                     _sConnectionStatus = CONNECTED;
+                    ThreadWaitForSecond();
                 }
 
                 //LogOnMainThread(string.Format("Heartbeat {0} exited", uri.Port));
                 _sConnected = false;
                 _sConnecting = false;
                 _sConnectionStatus = NOT_CONNECTED;
+                ThreadWaitForSecond();
             }
 
             if (reconnect)
             {
-                // Wait for a sec
-                DateTime wait = DateTime.Now + TimeSpan.FromSeconds(1);
-                // avoid blocking exit
-                while (_sWaitForExit &&
-                    DateTime.Now < wait)
-                {
-                    Thread.Sleep(0);
-                }
+                ThreadWaitForSecond();
                 if (_sWaitForExit)
                 {
                     Connect();
