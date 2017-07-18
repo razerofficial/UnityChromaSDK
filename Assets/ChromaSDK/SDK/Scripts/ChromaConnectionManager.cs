@@ -24,6 +24,13 @@ namespace ChromaSDK
     {
         #region Connection Setup
 
+        private const string CONNECTED = "Connected";
+        private const string CONNECTING = "Connecting";
+        private const string NOT_CONNECTED = "Not Connected";
+        private const string RECONNECT_CHROMA_API_NULL = "Reconnect, ChromaAPI is null!";
+        private const string RECONNECT_CHROMA_API_HEARTBEAT_FAILURE = "Reconnnect, Heartbeat failed!";
+        private const string RECONNECT_CHROMA_API_HEARTBEAT_TIMEOUT = "Reconnnect, Heartbeat timeout!";
+
         /// <summary>
         /// The connection info
         /// </summary>
@@ -95,6 +102,11 @@ namespace ChromaSDK
         private static bool _sConnected = false;
 
         /// <summary>
+        /// The connection status
+        /// </summary>
+        private static string _sConnectionStatus = NOT_CONNECTED;
+
+        /// <summary>
         /// Accessor for Chroma Instance
         /// </summary>
         public ChromaApi ApiChromaInstance
@@ -124,6 +136,17 @@ namespace ChromaSDK
             get
             {
                 return _sConnected;
+            }
+        }
+
+        /// <summary>
+        /// Get the detailed connection status
+        /// </summary>
+        public string ConnectionStatus
+        {
+            get
+            {
+                return _sConnectionStatus;
             }
         }
 
@@ -372,6 +395,7 @@ namespace ChromaSDK
             {
                 LogErrorOnMainThread("DoHeartbeat: ApiChromaInstance is null!");
                 reconnect = true;
+                _sConnectionStatus = RECONNECT_CHROMA_API_NULL;
             }
             else
             {
@@ -390,17 +414,18 @@ namespace ChromaSDK
                     {
                         LogErrorOnMainThread("Failed to check heartbeat!");
                         reconnect = true;
+                        _sConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_FAILURE;
                     }
                     if (timeout < DateTime.Now)
                     {
                         Debug.LogError("Timeout detected!");
                         reconnect = true;
+                        _sConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_TIMEOUT;
                     }
                     if (reconnect)
                     {
                         break;
                     }
-
                     // Wait for a sec
                     DateTime wait = DateTime.Now + TimeSpan.FromSeconds(1);
                     // avoid blocking exit
@@ -413,11 +438,13 @@ namespace ChromaSDK
                     //LogOnMainThread(string.Format("Monitoring Heartbeat {0}...", uri.Port));
                     _sConnected = true;
                     _sConnecting = false;
+                    _sConnectionStatus = CONNECTED;
                 }
 
                 //LogOnMainThread(string.Format("Heartbeat {0} exited", uri.Port));
                 _sConnected = false;
                 _sConnecting = false;
+                _sConnectionStatus = NOT_CONNECTED;
             }
 
             if (reconnect)
@@ -526,6 +553,7 @@ namespace ChromaSDK
                 UnloadSceneAnimations();
                 _sWaitForExit = true;
                 _sConnecting = true;
+                _sConnectionStatus = CONNECTING;
                 SafeStartCoroutine("Initialize", Initialize());
             }
         }

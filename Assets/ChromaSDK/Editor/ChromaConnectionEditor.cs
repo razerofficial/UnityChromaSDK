@@ -57,11 +57,12 @@ public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
             }
             info.Title = EditorGUILayout.TextField("Title:", info.Title);
 
-            bool connecting = connectionManager.Connecting;
             bool connected = connectionManager.Connected;
+            bool connecting = connectionManager.Connecting;
 
-            EditorGUILayout.LabelField("Status:",
-                connected ? "Connected" : connecting ? "Connecting..." : "Not Connected");
+            EditorGUILayout.LabelField("Connected:", connected ? "true" : "false");
+            EditorGUILayout.LabelField("Connecting:", connecting ? "true" : "false");
+            EditorGUILayout.LabelField("Connection Status:", connectionManager.ConnectionStatus);
 
             GUI.enabled = !connected && !connecting;
             if (GUILayout.Button("Connect"))
