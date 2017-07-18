@@ -113,6 +113,15 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
     private bool _mIsPaused = false;
 
     /// <summary>
+    /// Get the list of effect ids
+    /// </summary>
+    /// <returns></returns>
+    public override List<EffectResponseId> GetEffects()
+    {
+        return _mEffects;
+    }
+
+    /// <summary>
     /// Set frames to the default state
     /// </summary>
     public void ClearFrames()
@@ -165,6 +174,12 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
                 EffectResponseId effect = _mEffects[_mCurrentFrame];
                 if (null != effect)
                 {
+                    ChromaUtils.SetEffect(effect.Id);
+                }
+                /*
+                //Silently fail
+                if (null != effect)
+                {
                     EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
                     if (null == result ||
                         result.Result != 0)
@@ -176,6 +191,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
                 {
                     Debug.LogError("Failed to set effect!");
                 }
+                */
             }
         }
     }
@@ -209,6 +225,12 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
                 EffectResponseId effect = _mEffects[_mCurrentFrame];
                 if (null != effect)
                 {
+                    ChromaUtils.SetEffect(effect.Id);
+                }
+                /*
+                //Silently fail
+                if (null != effect)
+                {
                     EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
                     if (null == result ||
                         result.Result != 0)
@@ -220,6 +242,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
                 {
                     Debug.LogError("Failed to set effect!");
                 }
+                */
             }
         }
     }
@@ -278,11 +301,14 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
                 EffectArray2dInput frame = Frames[i];
                 //Debug.Log("Create Effect.");
                 EffectResponseId effect = ChromaUtils.CreateEffectCustom2D(Device, frame);
+                /*
+                // app can check the effect list for null or non-zero result
                 if (null == effect ||
                     effect.Result != 0)
                 {
                     Debug.LogError("Failed to create effect!");
                 }
+                */
                 _mEffects.Add(effect);
             }
 
@@ -318,6 +344,12 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
             EffectResponseId effect = _mEffects[i];
             if (null != effect)
             {
+                ChromaUtils.RemoveEffect(effect.Id);
+            }
+            /*
+            //Silently fail
+            if (null != effect)
+            {
                 //Debug.Log("RemoveEffect.");
                 EffectIdentifierResponse result = ChromaUtils.RemoveEffect(effect.Id);
                 if (result.Result != 0)
@@ -329,6 +361,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
             {
                 Debug.LogError("Failed to delete effect!");
             }
+            */
         }
         _mEffects.Clear();
         _mIsLoaded = false;
@@ -380,6 +413,12 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
                     EffectResponseId effect = _mEffects[_mCurrentFrame];
                     if (null != effect)
                     {
+                        ChromaUtils.SetEffect(effect.Id);
+                    }
+                    /*
+                    //Silently fail
+                    if (null != effect)
+                    {
                         EffectIdentifierResponse result = ChromaUtils.SetEffect(effect.Id);
                         if (null == result ||
                             result.Result != 0)
@@ -391,6 +430,7 @@ public class ChromaSDKAnimation2D : ChromaSDKBaseAnimation
                     {
                         Debug.LogError("Failed to set effect!");
                     }
+                    */
                 }
             }
             else

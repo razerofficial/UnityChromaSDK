@@ -209,6 +209,34 @@ public class ChromaExample01 : MonoBehaviour
     }
 
     /// <summary>
+    /// Verify the animation loaded,
+    /// failure indicates the device was not connected
+    /// </summary>
+    /// <param name="animation"></param>
+    void ValidateAnimation(ChromaSDKBaseAnimation animation)
+    {
+        // validate animation loaded
+        List<EffectResponseId> effects = animation.GetEffects();
+        if (null == effects ||
+            effects.Count == 0)
+        {
+            Debug.LogError("Animation failed to create effects!");
+        }
+        else
+        {
+            for (int i = 0; i < effects.Count; ++i)
+            {
+                EffectResponseId effect = effects[i];
+                if (null == effect ||
+                    effect.Result != 0)
+                {
+                    Debug.LogError("Failed to create effect!");
+                }
+            }
+        }
+    }
+
+    /// <summary>
     /// Create and play an animation, run from the main thread
     /// </summary>
     void DoAnimations()
@@ -232,6 +260,9 @@ public class ChromaExample01 : MonoBehaviour
             }
             // load the animation
             animation.Load();
+
+            // validate the animation loaded
+            ValidateAnimation(animation);
         }
 
         //Debug.Log(string.Format("Load 2D animations Length={0}", _mAnimations2D.Length));
@@ -245,6 +276,9 @@ public class ChromaExample01 : MonoBehaviour
             }
             // load the animation
             animation.Load();
+
+            // validate the animation loaded
+            ValidateAnimation(animation);
         }
 
         //Debug.Log("Play animations looping...");

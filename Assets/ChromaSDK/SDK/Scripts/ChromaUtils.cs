@@ -167,14 +167,20 @@ namespace ChromaSDK
                     input.Count));
             }
 
-            switch (device)
+            try
             {
-                case ChromaDevice1DEnum.ChromaLink:
-                    return api.PostChromaLinkCustom(input);
-                case ChromaDevice1DEnum.Headset:
-                    return api.PostHeadsetCustom(input);
-                case ChromaDevice1DEnum.Mousepad:
-                    return api.PostMousepadCustom(input);
+                switch (device)
+                {
+                    case ChromaDevice1DEnum.ChromaLink:
+                        return api.PostChromaLinkCustom(input);
+                    case ChromaDevice1DEnum.Headset:
+                        return api.PostHeadsetCustom(input);
+                    case ChromaDevice1DEnum.Mousepad:
+                        return api.PostMousepadCustom(input);
+                }
+            }
+            catch (Exception)
+            {
             }
             return null;
         }
@@ -213,14 +219,20 @@ namespace ChromaSDK
                     input.Count > 0 ? input[0].Count : 0));
             }
 
-            switch (device)
+            try
             {
-                case ChromaDevice2DEnum.Keyboard:
-                    return api.PostKeyboardCustom(input);
-                case ChromaDevice2DEnum.Keypad:
-                    return api.PostKeypadCustom(input);
-                case ChromaDevice2DEnum.Mouse:
-                    return api.PostMouseCustom(input);
+                switch (device)
+                {
+                    case ChromaDevice2DEnum.Keyboard:
+                        return api.PostKeyboardCustom(input);
+                    case ChromaDevice2DEnum.Keypad:
+                        return api.PostKeypadCustom(input);
+                    case ChromaDevice2DEnum.Mouse:
+                        return api.PostMouseCustom(input);
+                }
+            }
+            catch (Exception)
+            {
             }
             return null;
         }
@@ -248,7 +260,14 @@ namespace ChromaSDK
             }
 
             var input = new EffectIdentifierInput(effectId, null);
-            return api.PutEffect(input);
+            try
+            {
+                return api.PutEffect(input);
+            }
+            catch (Exception)
+            {
+            }
+            return null;
         }
 
         public static EffectIdentifierResponse RemoveEffect(string effectId)
@@ -274,7 +293,14 @@ namespace ChromaSDK
             }
 
             var input = new EffectIdentifierInput(effectId, null);
-            return api.RemoveEffect(input);
+            try
+            {
+                return api.RemoveEffect(input);
+            }
+            catch (Exception)
+            {
+            }
+            return null;
         }
 
         /// <summary>
@@ -315,9 +341,9 @@ namespace ChromaSDK
                 {
                     action.Invoke();
                 }
-                catch (Exception)
+                catch (Exception /* ex */)
                 {
-                    Debug.LogError("Failed to invoke action!");
+                    //Debug.LogError(string.Format("Failed to invoke action! {0}", ex));
                 }
             }));
             thread.Start();
