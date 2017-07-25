@@ -10,6 +10,7 @@ using UnityEngine;
 [CustomEditor(typeof(ChromaSDKAnimation2D))]
 public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
+#if UNITY_EDITOR_WIN
     private ChromaDevice2DEnum _mDevice = ChromaDevice2DEnum.Keyboard;
 
     private EffectArray2dInput _mColors = null;
@@ -844,4 +845,5 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         animation.Frames = frames;
         animation.RefreshCurve();
     }
+#endif
 }

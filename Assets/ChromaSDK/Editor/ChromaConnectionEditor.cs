@@ -6,6 +6,7 @@ using UnityEngine;
 [CustomEditor(typeof(ChromaConnectionManager))]
 public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
 {
+#if UNITY_EDITOR_WIN
     const string VERSION = "1.0.0";
 
     readonly string[] DEVICES =
@@ -85,4 +86,5 @@ public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
             GUI.enabled = true;
         }
     }
+#endif
 }

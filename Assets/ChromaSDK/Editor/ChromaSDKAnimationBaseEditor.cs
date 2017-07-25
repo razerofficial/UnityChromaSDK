@@ -9,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public class ChromaSDKAnimationBaseEditor : Editor
 {
+#if UNITY_EDITOR_WIN
     protected const string KEY_FOLDER_ANIMATIONS = "folder/animations";
     protected const string KEY_FOLDER_IMAGES = "folder/images";
     protected const string CONTROL_DURATION = "control-duration";
@@ -170,4 +171,6 @@ public class ChromaSDKAnimationBaseEditor : Editor
     }
 
     #endregion
+	
+#endif
 }
