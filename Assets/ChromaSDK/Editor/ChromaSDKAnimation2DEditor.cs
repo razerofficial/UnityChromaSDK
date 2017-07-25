@@ -122,13 +122,49 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
             GUILayout.EndHorizontal();
 
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Contrast"))
+            {
+                OnClickContrastButton();
+            }
+            if (GUILayout.Button("Saturate"))
+            {
+                OnClickSaturateButton();
+            }
+            if (GUILayout.Button("Desaturate"))
+            {
+                OnClickDesaturateButton();
+            }
+            if (GUILayout.Button("Darken"))
+            {
+                OnClickDarkenButton();
+            }
+            if (GUILayout.Button("Shift Down"))
+            {
+                OnClickShiftButton(1, 0);
+            }
+            if (GUILayout.Button("Shift Left"))
+            {
+                OnClickShiftButton(0, -1);
+            }
+            if (GUILayout.Button("Shift Right"))
+            {
+                OnClickShiftButton(0, 1);
+            }
+            if (GUILayout.Button("Shift Up"))
+            {
+                OnClickShiftButton(-1, 0);
+            }
+            GUILayout.EndHorizontal();
+
             bool connected = ChromaConnectionManager.Instance.Connected;
 
             GUI.enabled = connected;
 
             GUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Preview"))
+            if (GUILayout.Button("Preview") ||
+                Event.current.shift)
             {
                 OnClickPreviewButton();
             }
@@ -191,6 +227,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                         GUILayout.Box("", GUILayout.Width(boxWidth));
                         Rect rect = GUILayoutUtility.GetLastRect();
                         // check for hovering box
+                        if (Event.current.control &&
+                            rect.Contains(Event.current.mousePosition))
+                        {
+                            _mColor = ChromaUtils.ToRGB(color);
+                        }
                         if (_mDevice == ChromaDevice2DEnum.Keyboard &&
                             !_sToggleLabels &&
                             rect.Contains(Event.current.mousePosition))
@@ -313,7 +354,10 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
             // Set the color
 
+            GUILayout.BeginHorizontal();
+            _mColor = EditorGUILayout.ColorField(_mColor, GUILayout.Width(40));
             _mColor = EditorGUILayout.ColorField("Brush color", _mColor);
+            GUILayout.EndHorizontal();
 
             EditorGUILayout.LabelField("Frame:", string.Format("{0} of {1}",
                 _mCurrentFrame + 1,
@@ -377,6 +421,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             if (GUILayout.Button("Add"))
             {
                 OnClickAddButton();
+            }
+
+            if (GUILayout.Button("Insert"))
+            {
+                OnClickInsertButton();
             }
 
             if (GUILayout.Button("Delete"))
@@ -772,6 +821,167 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         Unload();
     }
 
+    private void OnClickContrastButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EditorUtility.SetDirty(animation);
+        var frames = animation.Frames; //copy
+        Unload();
+
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            int maxRow = ChromaUtils.GetMaxRow(device);
+            int maxColumn = ChromaUtils.GetMaxColumn(device);
+            var frame = frames[_mCurrentFrame];
+            for (int i = 0; i < maxRow; ++i)
+            {
+                var row = frame[i];
+                for (int j = 0; j < maxColumn; ++j)
+                {
+                    Color color = ChromaUtils.ToRGB(row[j]);
+                    float avg = (color.r + color.g + color.b) / 3f;
+                    if (avg < 0.5f)
+                    {
+                        color.r *= 0.75f;
+                        color.g *= 0.75f;
+                        color.b *= 0.75f;
+                    }
+                    else if (avg > 0.5f)
+                    {
+                        color.r = Mathf.Min(1f, color.r * 1.25f);
+                        color.g = Mathf.Min(1f, color.g * 1.25f);
+                        color.b = Mathf.Min(1f, color.b * 1.25f);
+                    }
+                    row[j] = ChromaUtils.ToBGR(color);
+                }
+            }
+        }
+        animation.Frames = frames;
+    }
+
+    private void OnClickSaturateButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EditorUtility.SetDirty(animation);
+        var frames = animation.Frames; //copy
+        Unload();
+
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            int maxRow = ChromaUtils.GetMaxRow(device);
+            int maxColumn = ChromaUtils.GetMaxColumn(device);
+            var frame = frames[_mCurrentFrame];
+            for (int i = 0; i < maxRow; ++i)
+            {
+                var row = frame[i];
+                for (int j = 0; j < maxColumn; ++j)
+                {
+                    Color color = ChromaUtils.ToRGB(row[j]);
+                    color.r = Mathf.Lerp(color.r, color.r * _mColor.r, 0.25f);
+                    color.g = Mathf.Lerp(color.g, color.g * _mColor.g, 0.25f);
+                    color.b = Mathf.Lerp(color.b, color.b * _mColor.b, 0.25f);
+                    row[j] = ChromaUtils.ToBGR(color);
+                }
+            }
+        }
+        animation.Frames = frames;
+    }
+
+    private void OnClickDesaturateButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EditorUtility.SetDirty(animation);
+        var frames = animation.Frames; //copy
+        Unload();
+
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            int maxRow = ChromaUtils.GetMaxRow(device);
+            int maxColumn = ChromaUtils.GetMaxColumn(device);
+            var frame = frames[_mCurrentFrame];
+            for (int i = 0; i < maxRow; ++i)
+            {
+                var row = frame[i];
+                for (int j = 0; j < maxColumn; ++j)
+                {
+                    Color color = ChromaUtils.ToRGB(row[j]);
+                    float avg = (color.r + color.g + color.b) / 3f;
+                    color.r = color.g = color.b = avg;
+                    row[j] = ChromaUtils.ToBGR(color);
+                }
+            }
+        }
+        animation.Frames = frames;
+    }
+
+    private void OnClickDarkenButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EditorUtility.SetDirty(animation);
+        var frames = animation.Frames; //copy
+        Unload();
+
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            int maxRow = ChromaUtils.GetMaxRow(device);
+            int maxColumn = ChromaUtils.GetMaxColumn(device);
+            var frame = frames[_mCurrentFrame];
+            for (int i = 0; i < maxRow; ++i)
+            {
+                var row = frame[i];
+                for (int j = 0; j < maxColumn; ++j)
+                {
+                    Color color = ChromaUtils.ToRGB(row[j]);
+                    color.r *= 0.75f;
+                    color.g *= 0.75f;
+                    color.b *= 0.75f;
+                    row[j] = ChromaUtils.ToBGR(color);
+                }
+            }
+        }
+        animation.Frames = frames;
+    }
+
+    private void OnClickShiftButton(int y, int x)
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EditorUtility.SetDirty(animation);
+        var frames = animation.Frames; //copy
+        Unload();
+
+        if (_mCurrentFrame >= 0 &&
+            _mCurrentFrame < frames.Count)
+        {
+            ChromaDevice2DEnum device = animation.Device;
+            int maxRow = ChromaUtils.GetMaxRow(device);
+            int maxColumn = ChromaUtils.GetMaxColumn(device);
+            int offsetX = maxColumn - x;
+            int offsetY = maxRow - y;
+            var oldFrame = frames[_mCurrentFrame];
+            var newFrame = ChromaUtils.CreateColors2D(device);
+            for (int i = 0; i < maxRow; ++i)
+            {
+                var oldRow = oldFrame[(i + offsetY) % maxRow];
+                var newRow = newFrame[i];
+                for (int j = 0; j < maxColumn; ++j)
+                {
+                    int color = oldRow[(j + offsetX) % maxColumn];
+                    newRow[j] = color;
+                }
+            }
+            frames[_mCurrentFrame] = newFrame;
+        }
+        animation.Frames = frames;
+    }
+
     private void OnClickPreviousButton()
     {
         ChromaSDKAnimation2D animation = GetAnimation();
@@ -846,6 +1056,32 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             ++_mCurrentFrame;
             frames.Insert(_mCurrentFrame, frame);
 
+        }
+        animation.Frames = frames;
+        animation.RefreshCurve();
+    }
+
+    private void OnClickInsertButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EditorUtility.SetDirty(animation);
+        var frames = animation.Frames; //copy
+        Unload();
+
+        if (_mCurrentFrame < 0 ||
+            _mCurrentFrame >= frames.Count)
+        {
+            _mCurrentFrame = 0;
+        }
+        EffectArray2dInput frame = ChromaUtils.CreateColors2D(animation.Device);
+        if (frames.Count == 0)
+        {
+            frames.Add(frame);
+            _mCurrentFrame = frames.Count - 1;
+        }
+        else
+        {
+            frames.Insert(_mCurrentFrame, frame);
         }
         animation.Frames = frames;
         animation.RefreshCurve();
