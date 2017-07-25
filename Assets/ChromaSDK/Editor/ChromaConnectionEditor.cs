@@ -6,6 +6,8 @@ using UnityEngine;
 [CustomEditor(typeof(ChromaConnectionManager))]
 public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
 {
+    const string VERSION = "1.0.0";
+
     readonly string[] DEVICES =
     {
         "chromalink",
@@ -18,6 +20,8 @@ public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
 
     public override void OnInspectorGUI()
     {
+        EditorGUILayout.LabelField("Version", VERSION);
+
         if (!EditorApplication.isCompiling)
         {
             //show parent
