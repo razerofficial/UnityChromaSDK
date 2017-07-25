@@ -16,6 +16,12 @@ namespace ChromaSDK
         private static Random _sRandom = new System.Random(123);
 
         /// <summary>
+        /// Keyboard string mappings
+        /// </summary>
+        private static Dictionary<int, Dictionary<int, string>> _sKeyStrings =
+            new Dictionary<int, Dictionary<int, string>>();
+
+        /// <summary>
         /// Get the max column given the device
         /// </summary>
         /// <param name="device"></param>
@@ -80,6 +86,31 @@ namespace ChromaSDK
         public static int GetHighByte(int mask)
         {
             return (int)(((mask & 0xFF00) >> 8) & 0xFF);
+        }
+
+        public static string GetKeyString(int row, int column)
+        {
+            if (_sKeyStrings.Count == 0)
+            {
+                Type enumType = typeof(Keyboard.RZKEY);
+                foreach (string name in Enum.GetNames(enumType))
+                {
+                    Keyboard.RZKEY key = (Keyboard.RZKEY)Enum.Parse(enumType, name);
+                    int i = GetHighByte((int)key);
+                    int j = GetLowByte((int)key);
+                    if (!_sKeyStrings.ContainsKey(i))
+                    {
+                        _sKeyStrings[i] = new Dictionary<int, string>();
+                    }
+                    _sKeyStrings[i][j] = name.Replace("RZKEY_", string.Empty);
+                }
+            }
+            if (_sKeyStrings.ContainsKey(row) &&
+                _sKeyStrings[row].ContainsKey(column))
+            {
+                return _sKeyStrings[row][column];
+            }
+            return string.Empty;
         }
 
         public static EffectArray1dInput CreateColors1D(ChromaDevice1DEnum device)

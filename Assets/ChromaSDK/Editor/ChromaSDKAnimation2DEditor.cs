@@ -10,7 +10,7 @@ using UnityEngine;
 [CustomEditor(typeof(ChromaSDKAnimation2D))]
 public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 {
-#if UNITY_EDITOR_WIN
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
     private ChromaDevice2DEnum _mDevice = ChromaDevice2DEnum.Keyboard;
 
     private EffectArray2dInput _mColors = null;
@@ -20,6 +20,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
     private Mouse.RZLED2 _mLed = Mouse.RZLED2.RZLED2_LOGO;
 
     private ChromaSDKAnimation2D _mLastTarget = null;
+
+    private static bool _sToggleLabels = true;
 
     [MenuItem("GameObject/ChromaSDK/Create 2D Animation", priority=2)]
     private static void CreateAsset()
@@ -162,9 +164,17 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
             GUILayout.Label(string.Format("{0} x {1}", maxRow, maxColumn));
 
+            if (_mDevice == ChromaDevice2DEnum.Keyboard)
+            {
+                _sToggleLabels = EditorGUILayout.Toggle("Labels:", _sToggleLabels);
+            }
+
             // Preview
+            string tooltip = null;
+            Rect tooltipRect = new Rect(0,0,0,0);
             Texture2D oldTexture = GUI.skin.button.normal.background;
             SetupBlankTexture();
+            int boxWidth = Screen.width / maxColumn - 5;
             if (_mCurrentFrame < frames.Count)
             {
                 EffectArray2dInput frame = frames[_mCurrentFrame];
@@ -178,8 +188,16 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                         int color = row[j];
                         GUI.backgroundColor = ChromaUtils.ToRGB(color);
                         // use a box instead of button so it looks better
-                        GUILayout.Box("", GUILayout.Width(12));
+                        GUILayout.Box("", GUILayout.Width(boxWidth));
                         Rect rect = GUILayoutUtility.GetLastRect();
+                        // check for hovering box
+                        if (_mDevice == ChromaDevice2DEnum.Keyboard &&
+                            !_sToggleLabels &&
+                            rect.Contains(Event.current.mousePosition))
+                        {
+                            tooltip = ChromaUtils.GetKeyString(i, j);
+                            tooltipRect = rect;
+                        }
                         // use the box location to use a button to catch the click event
                         GUI.skin.button.normal.background = _sTextureClear;
                         if (GUI.Button(rect, ""))
@@ -187,12 +205,32 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                             OnClickColor(i, j);
                         }
                         GUI.skin.button.normal.background = oldTexture;
+
+                        if (_mDevice == ChromaDevice2DEnum.Keyboard &&
+                            _sToggleLabels)
+                        {
+                            string keyString = ChromaUtils.GetKeyString(i, j);
+                            GUI.Label(rect, keyString);
+                        }
                     }
 
                     GUILayout.EndHorizontal();
                 }
             }
             GUI.SetNextControlName("");
+
+            if (!string.IsNullOrEmpty(tooltip))
+            {
+                var labelStyle = GUI.skin.GetStyle("Label");
+                Vector2 size = labelStyle.CalcSize(new GUIContent(tooltip));
+                tooltipRect.y -= 20;
+                tooltipRect.width = size.x + 10;
+                tooltipRect.height = size.y + 10;
+                GUI.skin.box.normal.background = _sTextureClear;
+                GUI.Box(tooltipRect, " ");
+                labelStyle.alignment = TextAnchor.MiddleCenter;
+                GUI.Label(tooltipRect, tooltip);
+            }
 
             // restore original color
             GUI.backgroundColor = oldBackgroundColor;
@@ -403,6 +441,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 }
             }
         }
+
+        Repaint();
     }
 
     private string GetImageFolder()

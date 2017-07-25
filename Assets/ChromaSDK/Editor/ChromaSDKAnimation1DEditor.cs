@@ -9,7 +9,7 @@ using UnityEngine;
 [CustomEditor(typeof(ChromaSDKAnimation1D))]
 public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
 {
-#if UNITY_EDITOR_WIN
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
     private ChromaDevice1DEnum _mDevice = ChromaDevice1DEnum.ChromaLink;
 
     private EffectArray1dInput _mColors = null;
