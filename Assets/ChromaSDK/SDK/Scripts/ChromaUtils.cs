@@ -104,6 +104,18 @@ namespace ChromaSDK
                     }
                     _sKeyStrings[i][j] = name.Replace("RZKEY_", string.Empty);
                 }
+                enumType = typeof(Keyboard.RZLED);
+                foreach (string name in Enum.GetNames(enumType))
+                {
+                    Keyboard.RZLED key = (Keyboard.RZLED)Enum.Parse(enumType, name);
+                    int i = GetHighByte((int)key);
+                    int j = GetLowByte((int)key);
+                    if (!_sKeyStrings.ContainsKey(i))
+                    {
+                        _sKeyStrings[i] = new Dictionary<int, string>();
+                    }
+                    _sKeyStrings[i][j] = name.Replace("RZLED_", string.Empty);
+                }
             }
             if (_sKeyStrings.ContainsKey(row) &&
                 _sKeyStrings[row].ContainsKey(column))
