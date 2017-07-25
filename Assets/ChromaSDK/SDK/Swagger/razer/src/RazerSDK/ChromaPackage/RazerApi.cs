@@ -6,6 +6,8 @@ using RazerSDK.ChromaPackage.Model;
 
 namespace RazerSDK.Api
 {
+    using Type = System.Type;
+
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>

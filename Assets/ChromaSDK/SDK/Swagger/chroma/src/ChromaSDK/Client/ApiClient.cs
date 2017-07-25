@@ -12,6 +12,8 @@ using RestSharp.Extensions;
 
 namespace ChromaSDK.Client
 {
+    using Type = System.Type;
+
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.
     /// </summary>

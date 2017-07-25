@@ -6,6 +6,8 @@ using ChromaSDK.ChromaPackage.Model;
 
 namespace ChromaSDK.Api
 {
+    using Type = System.Type;
+
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
