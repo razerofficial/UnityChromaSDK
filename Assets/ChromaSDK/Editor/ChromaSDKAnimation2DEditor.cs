@@ -99,13 +99,13 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 OnClickUnloadButton();
             }
 
+            GUI.enabled = true;
+
             if (GUILayout.Button("Preview") ||
                 Event.current.shift)
             {
                 OnClickPreviewButton();
             }
-
-            GUI.enabled = true;
 
             GUILayout.EndHorizontal();
 
