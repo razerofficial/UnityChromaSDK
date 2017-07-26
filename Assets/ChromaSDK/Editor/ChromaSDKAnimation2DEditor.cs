@@ -60,9 +60,59 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 OnClickAddButton();
             }
 
+            // Device
+            GUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+            GUILayout.Label("Device:");
+            _mDevice = (ChromaDevice2DEnum)EditorGUILayout.EnumPopup(_mDevice, GUILayout.Width(150));
+            if (GUILayout.Button("Set", GUILayout.Width(100)))
+            {
+                OnClickSetDevice();
+            }
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            bool connected = ChromaConnectionManager.Instance.Connected;
+
+            GUI.enabled = connected;
+
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Play"))
+            {
+                OnClickPlayButton();
+            }
+
+            if (GUILayout.Button("Stop"))
+            {
+                OnClickStopButton();
+            }
+
+            GUI.enabled = connected && !animation.IsLoaded();
+            if (GUILayout.Button("Load"))
+            {
+                OnClickLoadButton();
+            }
+
+            GUI.enabled = connected && animation.IsLoaded();
+            if (GUILayout.Button("Unload"))
+            {
+                OnClickUnloadButton();
+            }
+
+            if (GUILayout.Button("Preview") ||
+                Event.current.shift)
+            {
+                OnClickPreviewButton();
+            }
+
+            GUI.enabled = true;
+
+            GUILayout.EndHorizontal();
+
             // Import
 
             GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
             if (GUILayout.Button("Import Image"))
             {
                 OnClickImportImageButton();
@@ -71,25 +121,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             {
                 OnClickImportAnimationButton();
             }
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            GUI.SetNextControlName(CONTROL_OVERRIDE);
-            _mOverrideFrameTime = EditorGUILayout.FloatField("Override Time", _mOverrideFrameTime);
-            GUI.SetNextControlName(string.Empty);
-            if (GUILayout.Button("Override", GUILayout.Width(100)))
+            if (GUILayout.Button("Reverse Animation"))
             {
-                OnClickOverrideButton();
+                OnClickReverseAnimationButton();
             }
-            GUILayout.EndHorizontal();
-
-            // Device
-            GUILayout.BeginHorizontal();
-            _mDevice = (ChromaDevice2DEnum)EditorGUILayout.EnumPopup("Device", _mDevice);
-            if (GUILayout.Button("Set", GUILayout.Width(100)))
-            {
-                OnClickSetDevice();
-            }
+            GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
 
             // Apply
@@ -139,6 +175,9 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             {
                 OnClickDarkenButton();
             }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
             if (GUILayout.Button("Shift Down"))
             {
                 OnClickShiftButton(1, 0);
@@ -157,43 +196,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             }
             GUILayout.EndHorizontal();
 
-            bool connected = ChromaConnectionManager.Instance.Connected;
-
-            GUI.enabled = connected;
-
-            GUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("Preview") ||
-                Event.current.shift)
-            {
-                OnClickPreviewButton();
-            }
-
-            if (GUILayout.Button("Play"))
-            {
-                OnClickPlayButton();
-            }
-
-            if (GUILayout.Button("Stop"))
-            {
-                OnClickStopButton();
-            }
-
-            GUI.enabled = connected && !animation.IsLoaded();
-            if (GUILayout.Button("Load"))
-            {
-                OnClickLoadButton();
-            }
-
-            GUI.enabled = connected && animation.IsLoaded();
-            if (GUILayout.Button("Unload"))
-            {
-                OnClickUnloadButton();
-            }
-
-            GUI.enabled = true;
-
-            GUILayout.EndHorizontal();
+            // grid info
 
             int maxRow = ChromaUtils.GetMaxRow(animation.Device);
             int maxColumn = ChromaUtils.GetMaxColumn(animation.Device);
@@ -267,7 +270,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                         GUILayout.Box("", GUILayout.Width(boxWidth));
                         Rect rect = GUILayoutUtility.GetLastRect();
                         // check for hovering box
-                        if (Event.current.control &&
+                        if (Event.current.alt &&
                             rect.Contains(Event.current.mousePosition))
                         {
                             _mColor = ChromaUtils.ToRGB(color);
@@ -408,6 +411,18 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             _mColor = EditorGUILayout.ColorField("Brush color", _mColor);
             GUILayout.EndHorizontal();
 
+            GUILayout.BeginHorizontal();
+            GUI.SetNextControlName(CONTROL_OVERRIDE);
+            GUILayout.Label("Override Time (ALL frames)");
+            _mOverrideFrameTime = EditorGUILayout.FloatField(_mOverrideFrameTime, GUILayout.Width(100));
+            GUI.SetNextControlName(string.Empty);
+            if (GUILayout.Button("Override", GUILayout.Width(100)))
+            {
+                OnClickOverrideButton();
+            }
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
             EditorGUILayout.LabelField("Frame:", string.Format("{0} of {1}",
                 _mCurrentFrame + 1,
                 null == frames ? 0 : frames.Count));
@@ -453,7 +468,6 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             GUILayout.Label("seconds(s)");
             GUILayout.EndHorizontal();
             GUI.SetNextControlName(string.Empty);
-
 
             GUILayout.BeginHorizontal();
 
@@ -534,6 +548,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                         e.keyCode == KeyCode.KeypadMinus)
                     {
                         OnClickDeleteButton();
+                        Repaint();
+                    }
+                    else if (e.keyCode == KeyCode.Space)
+                    {
+                        OnClickPlayButton();
                         Repaint();
                     }
                 }
@@ -655,6 +674,17 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             EditorPrefs.SetString(KEY_FOLDER_ANIMATIONS, Path.GetDirectoryName(path));
         }
         LoadImage(path);
+    }
+
+    private void OnClickReverseAnimationButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EditorUtility.SetDirty(animation);
+        var frames = animation.Frames; //copy
+        Unload();
+        frames.Reverse();
+        animation.Frames = frames;
+        animation.RefreshCurve();
     }
 
     private void OnClickOverrideButton()
@@ -985,9 +1015,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 for (int j = 0; j < maxColumn; ++j)
                 {
                     Color color = ChromaUtils.ToRGB(row[j]);
-                    color.r = Mathf.Lerp(color.r, color.r * _mColor.r, 0.25f);
-                    color.g = Mathf.Lerp(color.g, color.g * _mColor.g, 0.25f);
-                    color.b = Mathf.Lerp(color.b, color.b * _mColor.b, 0.25f);
+                    float max = Mathf.Max(Mathf.Max(color.r, color.g), color.b);
+                    color = Color.Lerp(Color.black, _mColor, max);
                     row[j] = ChromaUtils.ToBGR(color);
                 }
             }
@@ -1015,8 +1044,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                 for (int j = 0; j < maxColumn; ++j)
                 {
                     Color color = ChromaUtils.ToRGB(row[j]);
-                    float avg = (color.r + color.g + color.b) / 3f;
-                    color.r = color.g = color.b = avg;
+                    color.r = color.g = color.b = color.grayscale;
                     row[j] = ChromaUtils.ToBGR(color);
                 }
             }

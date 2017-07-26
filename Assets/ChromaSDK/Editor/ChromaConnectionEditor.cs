@@ -7,7 +7,7 @@ using UnityEngine;
 public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
 {
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-    const string VERSION = "1.0.5";
+    const string VERSION = "1.0.6";
 
     readonly string[] DEVICES =
     {
@@ -85,6 +85,8 @@ public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
 
             GUI.enabled = true;
         }
+
+        Repaint();
     }
 #endif
 }
