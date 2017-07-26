@@ -170,6 +170,11 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
     private static bool _sWaitForExit = true;
 
     /// <summary>
+    /// Keep track if connection is active
+    /// </summary>
+    private static bool _sConnectionIsActive = false;
+
+    /// <summary>
     /// Use for co-routine simulation
     /// </summary>
     private static List<IEnumerator> _sPendingRoutines = new List<IEnumerator>();
@@ -214,6 +219,11 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
     public void Awake()
     {
         Connect();
+    }
+
+    public void OnApplicationQuit()
+    {
+        Disconnect();
     }
 
     /// <summary>
@@ -288,16 +298,20 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
 
         // delay, WaitForSeconds doesn't work in edit mode
         DateTime wait = DateTime.Now + TimeSpan.FromSeconds(2);
-        while (DateTime.Now < wait)
+        while (_sWaitForExit &&
+            DateTime.Now < wait)
         {
             yield return null;
         }
 
-        ChromaUtils.RunOnThread(() =>
+        if (_sWaitForExit)
         {
+            ChromaUtils.RunOnThread(() =>
+            {
                 // start initialization
                 PostChromaSdk();
-        });
+            });
+        }
     }
 
     void LogOnMainThread(string text)
@@ -343,6 +357,8 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
     /// <returns></returns>
     void PostChromaSdk()
     {
+        _sConnectionIsActive = true;
+
         //LogOnMainThread("PostChromaSdk:");
         bool reconnect = false;
         try
@@ -449,22 +465,25 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
                 ThreadWaitForSecond();
             }
 
-            if (null != result)
+            if (_sWaitForExit)
             {
-                //LogOnMainThread(result);
+                if (null != result)
+                {
+                    //LogOnMainThread(result);
 
-                // setup the api instance with the session uri
-                _sApiChromaInstance = new ChromaApi(result.Uri);
+                    // setup the api instance with the session uri
+                    _sApiChromaInstance = new ChromaApi(result.Uri);
 
-                //LogOnMainThread("Init complete.");
+                    //LogOnMainThread("Init complete.");
 
-                // use heartbeat to keep the REST API alive
-                DoHeartbeat();
-            }
-            else
-            {
-                //Debug.LogError("Connect: Result is null!");
-                reconnect = true;
+                    // use heartbeat to keep the REST API alive
+                    DoHeartbeat();
+                }
+                else
+                {
+                    //Debug.LogError("Connect: Result is null!");
+                    reconnect = true;
+                }
             }
         }
         catch (Exception)
@@ -478,16 +497,18 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
             _sApiRazerInstance = null;
 
             //attempt reconnect
-            if (_sWaitForExit)
+            // Coroutines can only start from the main thread
+            RunOnMainThread(() =>
             {
-                // Coroutines can only start from the main thread
-                RunOnMainThread(() =>
+                if (_sWaitForExit)
                 {
                     // retry
                     SafeStartCoroutine("Initialize", Initialize());
-                });
-            }
+                }
+            });
         }
+
+        _sConnectionIsActive = false;
     }
 
     #endregion
@@ -602,7 +623,10 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
             {
                 RunOnMainThread(() =>
                 {
-                    Connect();
+                    if (_sWaitForExit)
+                    {
+                        Connect();
+                    }
                 });
             }
         }
@@ -713,6 +737,13 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
 
         // stop heartbeat
         _sWaitForExit = false;
+
+        if (!_sConnectionIsActive)
+        {
+            _sConnected = false;
+            _sConnecting = false;
+            ConnectionStatus = NOT_CONNECTED;
+        }
     }
 
     #endregion

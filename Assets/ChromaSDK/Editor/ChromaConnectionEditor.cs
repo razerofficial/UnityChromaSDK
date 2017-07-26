@@ -76,7 +76,7 @@ public class ChromaConnectionEditor : ChromaSDKAnimationBaseEditor
                 Repaint();
             }
 
-            GUI.enabled = connected && !connecting;
+            GUI.enabled = connected || connecting;
             if (GUILayout.Button("Disconnect"))
             {
                 connectionManager.Disconnect();
