@@ -32,6 +32,7 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
     private const string RECONNECT_RAZER_API_TIMEOUT = "Reconnnect, Connect timeout!";
     private const string RECONNECT_VERSION_IS_NULL = "Reconnect, Version is null!";
     private const string RECONNECT_VERSION_IS_UNKNOWN = "Reconnect, Version is unknown!";
+    private const string RECONNECT_SERVER_UNREACHABLE = "Reconnect, Server can't be reached! Is Synapse Installed?";
     private const string RECONNECT_SYNAPSE_OUTDATED = "Reconnect, Synapse is out of date!";
     private const string VERSION_CHECK = "Checking Version";
 
@@ -401,23 +402,33 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
                         {
                             ConnectionStatus = RECONNECT_SYNAPSE_OUTDATED;
                             reconnect = true;
-                            return;
                         }
                     }
                     else
                     {
                         ConnectionStatus = RECONNECT_VERSION_IS_UNKNOWN;
                         reconnect = true;
-                        return;
                     }
-
-                    //LogOnMainThread("Initializing...");
-                    ConnectionStatus = CONNECTING;
-                    result = _sApiRazerInstance.PostChromaSdk(_mInfo);
                 }
                 catch (Exception)
                 {
+                    ConnectionStatus = RECONNECT_SERVER_UNREACHABLE;
                     reconnect = true;
+                }
+
+                if (!reconnect)
+                {
+                    try
+                    {
+                        //LogOnMainThread("Initializing...");
+                        ConnectionStatus = CONNECTING;
+                        result = _sApiRazerInstance.PostChromaSdk(_mInfo);
+                    }
+                    catch (Exception)
+                    {
+                        ConnectionStatus = RECONNECT_SERVER_UNREACHABLE;
+                        reconnect = true;
+                    }
                 }
             }));
             thread.Start();
@@ -472,8 +483,8 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
                 // Coroutines can only start from the main thread
                 RunOnMainThread(() =>
                 {
-                        // retry
-                        SafeStartCoroutine("Initialize", Initialize());
+                    // retry
+                    SafeStartCoroutine("Initialize", Initialize());
                 });
             }
         }
