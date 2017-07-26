@@ -8,6 +8,8 @@ using Random = System.Random;
 
 namespace ChromaSDK
 {
+    using Type = System.Type;
+
     public static class ChromaUtils
     {
         /// <summary>
