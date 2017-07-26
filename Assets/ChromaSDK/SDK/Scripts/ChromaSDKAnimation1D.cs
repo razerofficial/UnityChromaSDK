@@ -121,7 +121,8 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
 
         if (!_mIsLoaded)
         {
-            Debug.LogError("Play Animation has not been loaded!");
+            Load();
+            //Debug.LogError("Play Animation has not been loaded!");
             return;
         }
 
@@ -173,7 +174,8 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
 
         if (!_mIsLoaded)
         {
-            Debug.LogError("Animation has not been loaded!");
+            Load();
+            //Debug.LogError("Animation has not been loaded!");
             return;
         }
 
@@ -243,7 +245,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
 
         if (_mIsLoaded)
         {
-            Debug.LogError("Animation has already been loaded!");
+            //Debug.LogError("Animation has already been loaded!");
             return;
         }
 
@@ -300,7 +302,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
 
         if (!_mIsLoaded)
         {
-            Debug.LogError("Animation has already been unloaded!");
+            //Debug.LogError("Animation has already been unloaded!");
             return;
         }
 

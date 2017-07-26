@@ -14,6 +14,11 @@ namespace RazerSDK.Api
     public interface IRazerApi
     {
         /// <summary>
+        ///  Check the REST version
+        /// </summary>
+        /// <returns>GetChromaSdkResponse</returns>
+        GetChromaSdkResponse GetChromaSdk ();
+        /// <summary>
         ///  Initialize the Chroma SDK
         /// </summary>
         /// <param name="baseInput"></param>
@@ -75,6 +80,38 @@ namespace RazerSDK.Api
         public ApiClient ApiClient {get; set;}
     
         /// <summary>
+        ///  Check the REST version
+        /// </summary>
+        /// <returns>GetChromaSdkResponse</returns>            
+        public GetChromaSdkResponse GetChromaSdk ()
+        {
+            
+    
+            var path = "/chromasdk";
+            path = path.Replace("{format}", "json");
+                
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+    
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling GetChromaSdk: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling GetChromaSdk: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (GetChromaSdkResponse) ApiClient.Deserialize(response.Content, typeof(GetChromaSdkResponse), response.Headers);
+        }
+    
+        /// <summary>
         ///  Initialize the Chroma SDK
         /// </summary>
         /// <param name="baseInput"></param> 
@@ -94,7 +131,7 @@ namespace RazerSDK.Api
     
                                                 postBody = ApiClient.Serialize(baseInput); // http body (model) parameter
 			//UnityEngine.Debug.Log(postBody);
-    
+                                                    
             // authentication setting, if any
             String[] authSettings = new String[] {  };
     

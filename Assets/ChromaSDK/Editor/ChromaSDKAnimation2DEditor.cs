@@ -779,7 +779,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             int maxRow = ChromaUtils.GetMaxRow(device);
             int maxColumn = ChromaUtils.GetMaxColumn(device);
             var rows = frames[_mCurrentFrame];
-            if (row < rows.Count)
+            if (row < rows.Count && row < maxRow)
             {
                 var colors = rows[row];
                 for (int j = 0; j < maxColumn; ++j)
@@ -809,7 +809,7 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             for (int i = 0; i < maxRow; ++i)
             {
                 var row = rows[i];
-                if (column < row.Count)
+                if (column < row.Count && column < maxColumn)
                 {
                     row[column] = ChromaUtils.ToBGR(_mColor);
                 }

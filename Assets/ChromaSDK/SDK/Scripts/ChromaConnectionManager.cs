@@ -30,6 +30,10 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
     private const string RECONNECT_CHROMA_API_HEARTBEAT_FAILURE = "Reconnnect, Heartbeat failed!";
     private const string RECONNECT_CHROMA_API_HEARTBEAT_TIMEOUT = "Reconnnect, Heartbeat timeout!";
     private const string RECONNECT_RAZER_API_TIMEOUT = "Reconnnect, Connect timeout!";
+    private const string RECONNECT_VERSION_IS_NULL = "Reconnect, Version is null!";
+    private const string RECONNECT_VERSION_IS_UNKNOWN = "Reconnect, Version is unknown!";
+    private const string RECONNECT_SYNAPSE_OUTDATED = "Reconnect, Synapse is out of date!";
+    private const string VERSION_CHECK = "Checking Version";
 
     /// <summary>
     /// The connection info
@@ -361,8 +365,54 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
             {
                 try
                 {
-                        //LogOnMainThread("Initializing...");
-                        ConnectionStatus = CONNECTING;
+                    ConnectionStatus = VERSION_CHECK;
+                    GetChromaSdkResponse getResult = _sApiRazerInstance.GetChromaSdk();
+
+                    if (null == getResult ||
+                        string.IsNullOrEmpty(getResult.Version))
+                    {
+                        ConnectionStatus = RECONNECT_VERSION_IS_NULL;
+                        reconnect = true;
+                        return;
+                    }
+
+                    string[] parts = getResult.Version.Split(".".ToCharArray());
+                    if (parts.Length != 3)
+                    {
+                        ConnectionStatus = RECONNECT_VERSION_IS_UNKNOWN;
+                        reconnect = true;
+                        return;
+                    }
+                    int[] version = new int[3];
+                    if (int.TryParse(parts[0], out version[0]) &&
+                        int.TryParse(parts[1], out version[1]) &&
+                        int.TryParse(parts[2], out version[2]))
+                    {
+                        if (version[0] >= 2 ||
+                            (version[0] == 2 &&
+                            version[1] >= 3) ||
+                            (version[0] == 2 &&
+                            version[1] == 3 &&
+                            version[2] >= 6))
+                        {
+                            //good!
+                        }
+                        else
+                        {
+                            ConnectionStatus = RECONNECT_SYNAPSE_OUTDATED;
+                            reconnect = true;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        ConnectionStatus = RECONNECT_VERSION_IS_UNKNOWN;
+                        reconnect = true;
+                        return;
+                    }
+
+                    //LogOnMainThread("Initializing...");
+                    ConnectionStatus = CONNECTING;
                     result = _sApiRazerInstance.PostChromaSdk(_mInfo);
                 }
                 catch (Exception)

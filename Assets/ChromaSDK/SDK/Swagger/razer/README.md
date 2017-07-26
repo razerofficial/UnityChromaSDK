@@ -93,6 +93,7 @@ All URIs are relative to *http://localhost:54235/razer*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *RazerApi* | [**PostChromaSdk**](docs/RazerApi.md#postchromasdk) | **POST** /chromasdk | 
+*RazerApi* | [**PutChromaSdk**](docs/RazerApi.md#putchromasdk) | **PUT** /chromasdk | 
 
 
 <a name="documentation-for-models"></a>
@@ -101,6 +102,7 @@ Class | Method | HTTP request | Description
  - [ChromaPackage.Model.ChromaSdkInput](docs/ChromaSdkInput.md)
  - [ChromaPackage.Model.ChromaSdkInputAuthor](docs/ChromaSdkInputAuthor.md)
  - [ChromaPackage.Model.PostChromaSdkResponse](docs/PostChromaSdkResponse.md)
+ - [ChromaPackage.Model.PutChromaSdkResponse](docs/PutChromaSdkResponse.md)
 
 
 <a name="documentation-for-authorization"></a>
