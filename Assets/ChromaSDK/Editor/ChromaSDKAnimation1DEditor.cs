@@ -612,7 +612,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
         animation.Frames = frames;
     }
 
-    private void OnClickPreviewButton()
+    protected override void OnClickPreviewButton()
     {
         ChromaSDKAnimation1D animation = GetAnimation();
         EditorUtility.SetDirty(animation);

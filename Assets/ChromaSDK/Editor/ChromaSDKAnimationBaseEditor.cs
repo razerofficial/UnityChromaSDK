@@ -39,6 +39,11 @@ public class ChromaSDKAnimationBaseEditor : Editor
         _sGoToLastFrame = true;
     }
 
+    protected virtual void OnClickPreviewButton()
+    {
+
+    }
+
     protected static void SetupBlankTexture()
     {
         if (null == _sTextureClear)
@@ -98,6 +103,7 @@ public class ChromaSDKAnimationBaseEditor : Editor
             {
                 _mCurrentFrame = GetFrameCount() - 1;
             }
+            OnClickPreviewButton();
         }
 
         // Add the target to a list of targets that will be updated
