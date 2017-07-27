@@ -27,7 +27,7 @@ public class ChromaSDKAnimationBaseEditor : Editor
 
     private static List<IUpdate> _sTargets = new List<IUpdate>();
 
-    protected void SetupBlankTexture()
+    protected static void SetupBlankTexture()
     {
         if (null == _sTextureClear)
         {
@@ -35,6 +35,12 @@ public class ChromaSDKAnimationBaseEditor : Editor
             _sTextureClear.SetPixel(0, 0, Color.white);
             _sTextureClear.Apply();
         }
+    }
+
+    public static Texture2D GetBlankTexture()
+    {
+        SetupBlankTexture();
+        return _sTextureClear;
     }
 
     #region Move to a connection manager class
