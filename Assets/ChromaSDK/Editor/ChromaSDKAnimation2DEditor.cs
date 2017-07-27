@@ -36,6 +36,12 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         return (ChromaSDKAnimation2D)target;
     }
 
+    protected override int GetFrameCount()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        return animation.Frames.Count;
+    }
+
     public override void OnInspectorGUI()
     {
         if (!EditorApplication.isCompiling)

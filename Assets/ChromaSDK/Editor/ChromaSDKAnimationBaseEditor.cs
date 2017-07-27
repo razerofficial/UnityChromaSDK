@@ -25,7 +25,19 @@ public class ChromaSDKAnimationBaseEditor : Editor
 
     protected int _mCurrentFrame = 0;
 
+    protected static bool _sGoToLastFrame = false;
+
     private static List<IUpdate> _sTargets = new List<IUpdate>();
+
+    protected virtual int GetFrameCount()
+    {
+        return 0;
+    }
+
+    public static void GoToLastFrame()
+    {
+        _sGoToLastFrame = true;
+    }
 
     protected static void SetupBlankTexture()
     {
@@ -79,6 +91,15 @@ public class ChromaSDKAnimationBaseEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        if (_sGoToLastFrame)
+        {
+            _sGoToLastFrame = false;
+            if (GetFrameCount() > 0)
+            {
+                _mCurrentFrame = GetFrameCount() - 1;
+            }
+        }
+
         // Add the target to a list of targets that will be updated
         IUpdate targetUpdater = (IUpdate)target;
         int i = 0;
