@@ -1,4 +1,7 @@
-﻿public interface IUpdate
+﻿namespace ChromaSDK
 {
-    void Update();
+    public interface IUpdate
+    {
+        void Update();
+    }
 }

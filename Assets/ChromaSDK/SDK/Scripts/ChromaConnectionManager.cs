@@ -16,6 +16,7 @@ using UnityEngine;
 
 using Object = UnityEngine.Object;
 
+// Unity 3.X doesn't like namespaces
 #if UNITY_EDITOR
 [ExecuteInEditMode]
 #endif
