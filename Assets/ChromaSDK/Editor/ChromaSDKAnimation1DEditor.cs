@@ -16,7 +16,7 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
 
     private ChromaSDKAnimation1D _mLastTarget = null;
 
-    [MenuItem("GameObject/ChromaSDK/Create 1D Animation", priority=1)]
+    [MenuItem("GameObject/ChromaSDK/Create 1D Animation", priority = 1)]
     private static void CreateAsset()
     {
         GameObject gameObject = new GameObject("ChromaEffect");
@@ -27,6 +27,11 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
     private ChromaSDKAnimation1D GetAnimation()
     {
         return (ChromaSDKAnimation1D)target;
+    }
+
+    protected override ChromaSDKBaseAnimation GetBaseAnimation()
+    {
+        return GetAnimation();
     }
 
     protected override int GetFrameCount()

@@ -27,6 +27,13 @@ public class ChromaSDKBaseAnimation : MonoBehaviour, IUpdate
     }
 
     /// <summary>
+    /// Used by the editor
+    /// </summary>
+    public virtual void RefreshCurve()
+    {
+    }
+
+    /// <summary>
     /// Update event to invoke in edit-mode
     /// </summary>
     public virtual void Update()

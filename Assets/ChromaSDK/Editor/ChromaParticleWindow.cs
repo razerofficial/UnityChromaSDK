@@ -56,7 +56,12 @@ class ChromaParticleWindow : EditorWindow
     private void OnEnable()
     {
         _mAnimation = (ChromaSDKBaseAnimation)LoadPath(KEY_ANIMATION, typeof(ChromaSDKBaseAnimation));
-        _mRenderCamera = (Camera)LoadPath(KEY_CAMERA, typeof(Camera));
+        Object obj = LoadPath(KEY_CAMERA, typeof(Camera));
+        if (obj &&
+            obj is Camera)
+        {
+            _mRenderCamera = (Camera)obj;
+        }
     }
 
     void SavePath(Object obj, string key)

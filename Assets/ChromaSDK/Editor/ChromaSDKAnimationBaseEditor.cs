@@ -33,15 +33,17 @@ public class ChromaSDKAnimationBaseEditor : Editor
     {
         return 0;
     }
+    protected virtual ChromaSDKBaseAnimation GetBaseAnimation()
+    {
+        return null;
+    }
+    protected virtual void OnClickPreviewButton()
+    {
+    }
 
     public static void GoToLastFrame()
     {
         _sGoToLastFrame = true;
-    }
-
-    protected virtual void OnClickPreviewButton()
-    {
-
     }
 
     protected static void SetupBlankTexture()
@@ -103,6 +105,7 @@ public class ChromaSDKAnimationBaseEditor : Editor
             {
                 _mCurrentFrame = GetFrameCount() - 1;
             }
+            GetBaseAnimation().RefreshCurve();
             OnClickPreviewButton();
         }
 

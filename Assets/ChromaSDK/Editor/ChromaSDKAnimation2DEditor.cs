@@ -36,6 +36,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         return (ChromaSDKAnimation2D)target;
     }
 
+    protected override ChromaSDKBaseAnimation GetBaseAnimation()
+    {
+        return GetAnimation();
+    }
+
     protected override int GetFrameCount()
     {
         ChromaSDKAnimation2D animation = GetAnimation();
@@ -500,6 +505,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             if (GUILayout.Button("Delete"))
             {
                 OnClickDeleteButton();
+            }
+
+            if (GUILayout.Button("Reset"))
+            {
+                OnClickResetButton();
             }
 
             GUILayout.EndHorizontal();
@@ -1282,6 +1292,45 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         var frames = animation.Frames; //copy
         Unload();
 
+        if (_mCurrentFrame < 0 ||
+            _mCurrentFrame >= frames.Count)
+        {
+            _mCurrentFrame = 0;
+        }
+        if (frames.Count == 1)
+        {
+            // reset frame
+            frames[0] = ChromaUtils.CreateColors2D(animation.Device);
+
+            // reset curve
+            while (animation.Curve.keys.Length > 0)
+            {
+                animation.Curve.RemoveKey(0);
+            }
+        }
+        else if (frames.Count > 0)
+        {
+            frames.RemoveAt(_mCurrentFrame);
+            if (_mCurrentFrame == frames.Count)
+            {
+                _mCurrentFrame = frames.Count - 1;
+            }
+        }
+        animation.Frames = frames;
+        animation.RefreshCurve();
+    }
+
+    private void OnClickResetButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        EditorUtility.SetDirty(animation);
+        var frames = animation.Frames; //copy
+        Unload();
+
+        while (frames.Count > 1)
+        {
+            frames.RemoveAt(0);
+        }
         if (_mCurrentFrame < 0 ||
             _mCurrentFrame >= frames.Count)
         {

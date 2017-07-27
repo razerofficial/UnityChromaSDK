@@ -416,7 +416,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
         }
     }
 
-    public void RefreshCurve()
+    public override void RefreshCurve()
     {
         //copy times
         List<float> times = new List<float>();
