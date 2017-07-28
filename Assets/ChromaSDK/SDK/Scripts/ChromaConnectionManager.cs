@@ -541,7 +541,7 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
 
         if (null == _sApiChromaInstance)
         {
-            LogErrorOnMainThread("DoHeartbeat: ApiChromaInstance is null!");
+            //LogErrorOnMainThread("DoHeartbeat: ApiChromaInstance is null!");
             reconnect = true;
             ConnectionStatus = RECONNECT_CHROMA_API_NULL;
             ThreadWaitForSecond();
@@ -586,14 +586,14 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
                 }
                 catch (Exception)
                 {
-                    LogErrorOnMainThread("Failed to check heartbeat!");
+                    //LogErrorOnMainThread("Failed to check heartbeat!");
                     reconnect = true;
                     ConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_FAILURE;
                     ThreadWaitForSecond();
                 }
                 if (timeout < DateTime.Now)
                 {
-                    Debug.LogError("Timeout detected!");
+                    //LogErrorOnMainThread("Timeout detected!");
                     reconnect = true;
                     ConnectionStatus = RECONNECT_CHROMA_API_HEARTBEAT_TIMEOUT;
                     ThreadWaitForSecond();

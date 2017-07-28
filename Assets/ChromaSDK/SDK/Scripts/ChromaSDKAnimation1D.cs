@@ -114,7 +114,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// <summary>
     /// Play the animation
     /// </summary>
-    public void Play()
+    public override void Play()
     {
         //Debug.Log("Play");
 
@@ -122,7 +122,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
         {
             Load();
             //Debug.LogError("Play Animation has not been loaded!");
-            return;
+            //return;
         }
 
         // clear on play to avoid unsetting on a loop
@@ -175,7 +175,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
         {
             Load();
             //Debug.LogError("Animation has not been loaded!");
-            return;
+            //return;
         }
 
         _mOnComplete = onComplete;
@@ -230,7 +230,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// Is the animation currently playing?
     /// </summary>
     /// <returns></returns>
-    public bool IsPlaying()
+    public override bool IsPlaying()
     {
         return _mIsPlaying;
     }
@@ -295,7 +295,7 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     /// <summary>
     /// Unload the effects
     /// </summary>
-    public void Unload()
+    public override void Unload()
     {
         //Debug.Log("Unload:");
 

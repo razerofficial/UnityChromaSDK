@@ -60,7 +60,7 @@ class ChromaParticleWindow : EditorWindow
         if (obj &&
             obj is Camera)
         {
-            _mRenderCamera = (Camera)obj;
+            _mRenderCamera = (Camera)obj; 
         }
     }
 
@@ -162,10 +162,22 @@ class ChromaParticleWindow : EditorWindow
         if (_mRenderCamera &&
             _mAnimation)
         {
+            GUI.enabled = !_mAnimation.IsPlaying();
             if (GUILayout.Button("Capture Frame"))
             {
                 CaptureFrame();
             }
+            GUI.enabled = true;
+        }
+
+        if (_mAnimation)
+        {
+            GUI.enabled = ChromaConnectionManager.Instance.Connected;
+            if (GUILayout.Button("Play"))
+            {
+                _mAnimation.Play();
+            }
+            GUI.enabled = true;
         }
 
         Rect rect = GUILayoutUtility.GetLastRect();
