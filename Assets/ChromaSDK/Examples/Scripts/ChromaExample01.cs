@@ -47,7 +47,7 @@ public class ChromaExample01 : MonoBehaviour
     {
         if (!ChromaUtils.IsPlatformSupported())
         {
-            gameObject.SetActiveRecursively(false);
+            ChromaUtils.SetActive(gameObject, false);
             return;
         }
     }

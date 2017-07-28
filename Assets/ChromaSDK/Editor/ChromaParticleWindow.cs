@@ -12,6 +12,7 @@ using Type = System.Type;
 
 class ChromaParticleWindow : EditorWindow
 {
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
     private const string KEY_ANIMATION = "ChromaSDKAnimationPath";
     private const string KEY_CAMERA = "ChromaSDKCameraPath";
     private const string KEY_PARTICLE = "ChromaSDKParticleSystemPath";
@@ -430,4 +431,5 @@ class ChromaParticleWindow : EditorWindow
 
         Repaint();
     }
+#endif
 }

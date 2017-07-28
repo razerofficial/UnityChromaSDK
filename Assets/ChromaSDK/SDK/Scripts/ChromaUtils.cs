@@ -40,6 +40,20 @@ namespace ChromaSDK
         }
 
         /// <summary>
+        /// Backwards compatible version of SetActive
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <param name="flag"></param>
+        public static void SetActive(GameObject gameObject, bool flag)
+        {
+#if UNITY_3 || UNITY_3_0 || UNITY_3_1 || UNITY_3_2 || UNITY_3_3 || UNITY_3_4 || UNITY_3_5
+            gameObject.SetActiveRecursively(flag);
+#else
+            gameObject.SetActive(flag);
+#endif
+        }
+
+        /// <summary>
         /// Get the max column given the device
         /// </summary>
         /// <param name="device"></param>

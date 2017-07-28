@@ -229,7 +229,7 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
     {
         if (!ChromaUtils.IsPlatformSupported())
         {
-            gameObject.SetActiveRecursively(false);
+            ChromaUtils.SetActive(gameObject, false);
             return;
         }
         DontDestroyOnLoad(gameObject);
@@ -301,9 +301,9 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
         }
     }
 
-    #endregion
+#endregion
 
-    #region Initialization
+#region Initialization
 
     /// <summary>
     /// Initialize after a delay
@@ -529,9 +529,9 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
         _sConnectionIsActive = false;
     }
 
-    #endregion
+#endregion
 
-    #region Heartbeat
+#region Heartbeat
 
     /// <summary>
     /// Wait for a second, from a thread
@@ -650,7 +650,7 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
         }
     }
 
-    #endregion
+#endregion
 
     /// <summary>
     /// Reset the connections
@@ -662,7 +662,7 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
         _sApiChromaInstance = null;
     }
 
-    #region Close the connection
+#region Close the connection
 
     /// <summary>
     /// Uninitialize Chroma
@@ -691,9 +691,9 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
         }
     }
 
-    #endregion
+#endregion
 
-    #region API
+#region API
 
     /// <summary>
     /// Unload animations in the scene
@@ -764,5 +764,5 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
         }
     }
 
-    #endregion
+#endregion
 }
