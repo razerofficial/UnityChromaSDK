@@ -261,6 +261,13 @@ class ChromaParticleWindow : EditorWindow
         }
     }
 
+    private bool IsAnimationSelected()
+    {
+        return (null != _mAnimation &&
+            (_mAnimation == Selection.activeObject ||
+            _mAnimation == Selection.activeGameObject));
+    }
+
     private void OnGUI()
     {
         if (_mCapturing)
@@ -337,7 +344,7 @@ class ChromaParticleWindow : EditorWindow
             {
                 _mAnimation.Play();
             }
-            GUI.enabled = !_mAnimation.IsPlaying();
+            GUI.enabled = IsAnimationSelected() && !_mAnimation.IsPlaying();
             if (GUILayout.Button("First"))
             {
                 ChromaSDKAnimationBaseEditor.GoToFirstFrame();
@@ -350,6 +357,7 @@ class ChromaParticleWindow : EditorWindow
             {
                 DeleteFrame();
             }
+            GUI.enabled = !_mAnimation.IsPlaying();
             if (GUILayout.Button("Reset"))
             {
                 ResetAnimation();
