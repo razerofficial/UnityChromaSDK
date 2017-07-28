@@ -171,6 +171,44 @@ class ChromaParticleWindow : EditorWindow
         }
     }
 
+    private void DeleteFrame()
+    {
+        if (_mAnimation)
+        {
+            if (_mAnimation is ChromaSDKAnimation1D)
+            {
+                ChromaSDKAnimation1D animation = _mAnimation as ChromaSDKAnimation1D;
+                List<EffectArray1dInput> frames = animation.Frames;
+                if (frames.Count > 1)
+                {
+                    frames.RemoveAt(0);
+                }
+                else
+                {
+                    frames[0] = ChromaUtils.CreateColors1D(animation.Device);
+                }
+                animation.Frames = frames;
+                animation.RefreshCurve();
+            }
+            else if (_mAnimation is ChromaSDKAnimation2D)
+            {
+                ChromaSDKAnimation2D animation = _mAnimation as ChromaSDKAnimation2D;
+                List<EffectArray2dInput> frames = animation.Frames;
+                if (frames.Count > 1)
+                {
+                    frames.RemoveAt(0);
+                }
+                else
+                {
+                    frames[0] = ChromaUtils.CreateColors2D(animation.Device);
+                }
+                animation.Frames = frames;
+                animation.RefreshCurve();
+            }
+            ChromaSDKAnimationBaseEditor.GoToFirstFrame();
+        }
+    }
+
     private void ResetAnimation()
     {
         if (_mAnimation)
@@ -275,6 +313,10 @@ class ChromaParticleWindow : EditorWindow
             if (GUILayout.Button("Last"))
             {
                 ChromaSDKAnimationBaseEditor.GoToLastFrame();
+            }
+            if (GUILayout.Button("Delete"))
+            {
+                DeleteFrame();
             }
             if (GUILayout.Button("Reset"))
             {
