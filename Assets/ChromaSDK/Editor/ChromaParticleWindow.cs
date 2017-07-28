@@ -1,4 +1,6 @@
-﻿using ChromaSDK;
+﻿//#define SHOW_TEMP_TEXTURE
+
+using ChromaSDK;
 using ChromaSDK.ChromaPackage.Model;
 using Eric5h5;
 using System.Collections.Generic;
@@ -105,7 +107,7 @@ class ChromaParticleWindow : EditorWindow
         GUI.Box(rect, "");
         GUI.backgroundColor = oldColor;
         GUI.skin.box.normal.background = oldTexture;
-        GUI.DrawTexture(rect, _mRenderTexture);
+        GUI.DrawTexture(rect, _mRenderTexture, ScaleMode.ScaleAndCrop, false);
     }
 
     private void CaptureFrame()
@@ -142,7 +144,9 @@ class ChromaParticleWindow : EditorWindow
                         ++index;
                     }
                 }
+#if !SHOW_TEMP_TEXTURE
                 DestroyImmediate(_mTempTexture);
+#endif
                 //frames[0] = frame;
                 frames.Add(frame);
                 animation.Frames = frames;
@@ -153,7 +157,9 @@ class ChromaParticleWindow : EditorWindow
 
     private void OnGUI()
     {
-        //_mTempTexture = (Texture2D)EditorGUILayout.ObjectField("TempTexture", _mTempTexture, typeof(Texture2D), true);
+#if SHOW_TEMP_TEXTURE
+        _mTempTexture = (Texture2D)EditorGUILayout.ObjectField("TempTexture", _mTempTexture, typeof(Texture2D), true);
+#endif
 
         _mAnimation = (ChromaSDKBaseAnimation)EditorGUILayout.ObjectField("Animation", _mAnimation, typeof(ChromaSDKBaseAnimation), true);
 
@@ -185,7 +191,7 @@ class ChromaParticleWindow : EditorWindow
         {
             if (null == _mRenderTexture)
             {
-                _mRenderTexture = new RenderTexture(RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE, 24, RenderTextureFormat.RGB565);
+                _mRenderTexture = new RenderTexture(RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE, 24, RenderTextureFormat.ARGB32);
                 _mRenderCamera.targetTexture = _mRenderTexture;
             }
             _mRenderCamera.Render();
