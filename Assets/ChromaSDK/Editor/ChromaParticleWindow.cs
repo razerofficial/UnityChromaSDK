@@ -131,7 +131,42 @@ class ChromaParticleWindow : EditorWindow
     {
         if (_mAnimation && _mRenderTexture && _mRenderCamera)
         {
-            if (_mAnimation is ChromaSDKAnimation2D)
+            if (_mAnimation is ChromaSDKAnimation1D)
+            {
+                ChromaSDKAnimation1D animation = (ChromaSDKAnimation1D)_mAnimation;
+                animation.Unload();
+                int maxLeds = ChromaUtils.GetMaxLeds(animation.Device);
+
+                _mTempTexture = new Texture2D(RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE, TextureFormat.RGB24, false);
+                RenderTexture.active = _mRenderTexture;
+                _mRenderCamera.Render();
+                DisplayRenderTexture(0, maxLeds, 1);
+                _mTempTexture.ReadPixels(new Rect(0, 0, _mTempTexture.width, _mTempTexture.height), 0, 0, false);
+                _mTempTexture.Apply();
+                TextureScale.Bilinear(_mTempTexture, maxLeds, 1);
+                _mTempTexture.Apply();
+                RenderTexture.active = null;
+                Color[] pixels = _mTempTexture.GetPixels();
+                List<EffectArray1dInput> frames = animation.Frames;
+                EffectArray1dInput frame = ChromaUtils.CreateColors1D(animation.Device);
+                int index = 0;
+                if (frame.Count > 0)
+                {
+                    for (int i = 0; i < maxLeds; ++i)
+                    {
+                        Color color = pixels[index];
+                        frame[i] = ChromaUtils.ToBGR(color);
+                        ++index;
+                    }
+                }
+#if !SHOW_TEMP_TEXTURE
+                DestroyImmediate(_mTempTexture);
+#endif
+                frames.Add(frame);
+                animation.Frames = frames;
+                ChromaSDKAnimationBaseEditor.GoToLastFrame();
+            }
+            else if (_mAnimation is ChromaSDKAnimation2D)
             {
                 ChromaSDKAnimation2D animation = (ChromaSDKAnimation2D)_mAnimation;
                 animation.Unload();
@@ -164,7 +199,6 @@ class ChromaParticleWindow : EditorWindow
 #if !SHOW_TEMP_TEXTURE
                 DestroyImmediate(_mTempTexture);
 #endif
-                //frames[0] = frame;
                 frames.Add(frame);
                 animation.Frames = frames;
                 ChromaSDKAnimationBaseEditor.GoToLastFrame();
@@ -237,6 +271,20 @@ class ChromaParticleWindow : EditorWindow
             if (_mAnimation is ChromaSDKAnimation1D)
             {
                 ChromaSDKAnimation1D animation = _mAnimation as ChromaSDKAnimation1D;
+                var frames = animation.Frames; //copy
+                float frameTime = _mInterval;
+                float time = 0.0f;
+                //clear old keys
+                while (animation.Curve.keys.Length > 0)
+                {
+                    animation.Curve.RemoveKey(0);
+                }
+                //add keys on new interval
+                for (int i = 0; i < frames.Count; ++i)
+                {
+                    time += frameTime;
+                    animation.Curve.AddKey(time, 0f);
+                }
                 animation.RefreshCurve();
             }
             else if (_mAnimation is ChromaSDKAnimation2D)
@@ -367,11 +415,14 @@ class ChromaParticleWindow : EditorWindow
         }
         GUILayout.EndHorizontal();
 
+        GUILayout.BeginHorizontal(GUILayout.Width(position.width));
         float interval = EditorGUILayout.FloatField("Capture Interval", _mInterval);
         if (interval >= 0.1f)
         {
             _mInterval = interval;
         }
+        GUILayout.Label(string.Format("{0} frames", _mAnimation.GetFrameCount()));
+        GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal(GUILayout.Width(position.width));
         GUILayout.Label("Capture:");

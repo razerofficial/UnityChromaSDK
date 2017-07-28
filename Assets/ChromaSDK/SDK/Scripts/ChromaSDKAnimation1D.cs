@@ -95,6 +95,19 @@ public class ChromaSDKAnimation1D : ChromaSDKBaseAnimation
     }
 
     /// <summary>
+    /// Get the number of frames
+    /// </summary>
+    /// <returns></returns>
+    public override int GetFrameCount()
+    {
+        if (null == _mFrames)
+        {
+            return 0;
+        }
+        return _mFrames.Length;
+    }
+
+    /// <summary>
     /// Set frames to the default state
     /// </summary>
     public void ClearFrames()

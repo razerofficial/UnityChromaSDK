@@ -27,6 +27,15 @@ public class ChromaSDKBaseAnimation : MonoBehaviour, IUpdate
     }
 
     /// <summary>
+    /// Get the number of frames
+    /// </summary>
+    /// <returns></returns>
+    public virtual int GetFrameCount()
+    {
+        return 0;
+    }
+
+    /// <summary>
     /// Used by the editor
     /// </summary>
     public virtual void RefreshCurve()
