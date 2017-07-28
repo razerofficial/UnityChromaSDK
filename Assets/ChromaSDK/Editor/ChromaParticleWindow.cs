@@ -6,12 +6,15 @@ using Eric5h5;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using DateTime = System.DateTime;
+using TimeSpan = System.TimeSpan;
 using Type = System.Type;
 
 class ChromaParticleWindow : EditorWindow
 {
     private const string KEY_ANIMATION = "ChromaSDKAnimationPath";
     private const string KEY_CAMERA = "ChromaSDKCameraPath";
+    private const string KEY_PARTICLE = "ChromaSDKParticleSystemPath";
 
     private const int RENDER_TEXTURE_SIZE = 256;
 
@@ -19,6 +22,10 @@ class ChromaParticleWindow : EditorWindow
     private Camera _mRenderCamera = null;
     private RenderTexture _mRenderTexture = null;
     private Texture2D _mTempTexture = null;
+    private float _mInterval = 0.1f;
+    private ParticleSystem _mParticleSystem = null;
+    private bool _mCapturing = false;
+    private DateTime _mTimerCapture = DateTime.MinValue;
 
     [MenuItem("Window/ChromaSDK/Open Chroma Particle Window")]
     private static void OpenPanel()
@@ -58,11 +65,19 @@ class ChromaParticleWindow : EditorWindow
     private void OnEnable()
     {
         _mAnimation = (ChromaSDKBaseAnimation)LoadPath(KEY_ANIMATION, typeof(ChromaSDKBaseAnimation));
+
         Object obj = LoadPath(KEY_CAMERA, typeof(Camera));
         if (obj &&
             obj is Camera)
         {
             _mRenderCamera = (Camera)obj; 
+        }
+
+        obj = LoadPath(KEY_PARTICLE, typeof(ParticleSystem));
+        if (obj &&
+            obj is ParticleSystem)
+        {
+            _mParticleSystem = (ParticleSystem)obj;
         }
     }
 
@@ -86,6 +101,7 @@ class ChromaParticleWindow : EditorWindow
     {
         SavePath(_mAnimation, KEY_ANIMATION);
         SavePath(_mRenderCamera, KEY_CAMERA);
+        SavePath(_mParticleSystem, KEY_PARTICLE);
     }
 
     private void DisplayRenderTexture(int y, int width, int height)
@@ -112,7 +128,7 @@ class ChromaParticleWindow : EditorWindow
 
     private void CaptureFrame()
     {
-        if (_mAnimation)
+        if (_mAnimation && _mRenderTexture && _mRenderCamera)
         {
             if (_mAnimation is ChromaSDKAnimation2D)
             {
@@ -155,8 +171,49 @@ class ChromaParticleWindow : EditorWindow
         }
     }
 
+    private void ResetAnimation()
+    {
+        if (_mAnimation)
+        {
+            if (_mAnimation is ChromaSDKAnimation1D)
+            {
+                ChromaSDKAnimation1D animation = _mAnimation as ChromaSDKAnimation1D;
+                animation.ClearFrames();
+                animation.RefreshCurve();
+            }
+            else if (_mAnimation is ChromaSDKAnimation2D)
+            {
+                ChromaSDKAnimation2D animation = _mAnimation as ChromaSDKAnimation2D;
+                animation.ClearFrames();
+                animation.RefreshCurve();
+            }
+            ChromaSDKAnimationBaseEditor.GoToFirstFrame();
+        }
+    }
+
     private void OnGUI()
     {
+        if (_mCapturing)
+        {
+            if (_mTimerCapture < DateTime.Now)
+            {
+                _mTimerCapture = DateTime.Now + TimeSpan.FromSeconds(_mInterval);
+                CaptureFrame();
+            }
+        }
+
+        GameObject activeGameObject = Selection.activeGameObject;
+        Object activeObject = Selection.activeObject;
+
+        if (activeGameObject)
+        {
+            ParticleSystem particleSystem = activeGameObject.GetComponent<ParticleSystem>();
+            if (particleSystem)
+            {
+                _mParticleSystem = particleSystem;
+            }
+        }
+
 #if SHOW_TEMP_TEXTURE
         _mTempTexture = (Texture2D)EditorGUILayout.ObjectField("TempTexture", _mTempTexture, typeof(Texture2D), true);
 #endif
@@ -165,17 +222,44 @@ class ChromaParticleWindow : EditorWindow
 
         _mRenderCamera = (Camera)EditorGUILayout.ObjectField("RenderCamera", _mRenderCamera, typeof(Camera), true);
 
-        if (_mRenderCamera &&
-            _mAnimation)
+        GUILayout.BeginHorizontal(GUILayout.Width(position.width));
+        GUILayout.Label("Select:");
+        GUI.enabled = null != _mAnimation;
+        if (GUILayout.Button("Animation"))
         {
-            GUI.enabled = !_mAnimation.IsPlaying();
-            if (GUILayout.Button("Capture Frame"))
-            {
-                CaptureFrame();
-            }
-            GUI.enabled = true;
+            Selection.activeGameObject = null;
+            Selection.activeObject = _mAnimation;
         }
+        GUI.enabled = null != _mRenderCamera;
+        if (GUILayout.Button("Camera"))
+        {
+            Selection.activeObject = null;
+            Selection.activeGameObject = _mRenderCamera.gameObject;
+        }
+        GUI.enabled = null != _mParticleSystem;
+        if (GUILayout.Button("ParticleSystem"))
+        {
+            Selection.activeGameObject = null;
+            Selection.activeObject = _mParticleSystem;
+        }
+        GUI.enabled = true;
+        GUILayout.EndHorizontal();
 
+        GUILayout.BeginHorizontal(GUILayout.Width(position.width));
+        GUILayout.Label("Camera:");
+        GUI.enabled = null != _mRenderCamera;
+        if (GUILayout.Button("Align With View"))
+        {
+            Selection.activeGameObject = _mRenderCamera.gameObject;
+            EditorApplication.ExecuteMenuItem("GameObject/Align With View");
+            Selection.activeObject = activeObject;
+            Selection.activeGameObject = activeGameObject;
+        }
+        GUI.enabled = true;
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal(GUILayout.Width(position.width));
+        GUILayout.Label("Animation:");
         if (_mAnimation)
         {
             GUI.enabled = ChromaConnectionManager.Instance.Connected;
@@ -183,8 +267,38 @@ class ChromaParticleWindow : EditorWindow
             {
                 _mAnimation.Play();
             }
+            GUI.enabled = !_mAnimation.IsPlaying();
+            if (GUILayout.Button("First"))
+            {
+                ChromaSDKAnimationBaseEditor.GoToFirstFrame();
+            }
+            if (GUILayout.Button("Last"))
+            {
+                ChromaSDKAnimationBaseEditor.GoToLastFrame();
+            }
+            if (GUILayout.Button("Reset"))
+            {
+                ResetAnimation();
+            }
             GUI.enabled = true;
         }
+        GUILayout.EndHorizontal();
+
+        _mInterval = EditorGUILayout.FloatField("Capture Interval", _mInterval);
+
+        GUILayout.BeginHorizontal(GUILayout.Width(position.width));
+        GUILayout.Label("Capture:");
+        GUI.enabled = null != _mRenderCamera && null != _mAnimation && !_mAnimation.IsPlaying();
+        if (GUILayout.Button("1 Frame"))
+        {
+            CaptureFrame();
+        }
+        if (GUILayout.Button(_mCapturing ? "Stop" : "Start"))
+        {
+            _mCapturing = !_mCapturing;
+        }
+        GUI.enabled = true;
+        GUILayout.EndHorizontal();
 
         Rect rect = GUILayoutUtility.GetLastRect();
         if (_mRenderCamera)

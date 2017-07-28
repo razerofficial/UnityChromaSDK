@@ -25,6 +25,7 @@ public class ChromaSDKAnimationBaseEditor : Editor
 
     protected int _mCurrentFrame = 0;
 
+    protected static bool _sGoToFirstFrame = false;
     protected static bool _sGoToLastFrame = false;
 
     private static List<IUpdate> _sTargets = new List<IUpdate>();
@@ -41,6 +42,10 @@ public class ChromaSDKAnimationBaseEditor : Editor
     {
     }
 
+    public static void GoToFirstFrame()
+    {
+        _sGoToFirstFrame = true;
+    }
     public static void GoToLastFrame()
     {
         _sGoToLastFrame = true;
@@ -98,14 +103,29 @@ public class ChromaSDKAnimationBaseEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        if (_sGoToLastFrame)
+        bool doPreview = false;
+        if (_sGoToFirstFrame)
+        {
+            _sGoToFirstFrame = false;
+            _mCurrentFrame = 0;
+        }
+        else if (_sGoToLastFrame)
         {
             _sGoToLastFrame = false;
             if (GetFrameCount() > 0)
             {
                 _mCurrentFrame = GetFrameCount() - 1;
             }
-            GetBaseAnimation().RefreshCurve();
+            doPreview = true;
+        }
+
+        if (doPreview)
+        {
+            ChromaSDKBaseAnimation animation = GetBaseAnimation();
+            if (animation)
+            {
+                animation.RefreshCurve();
+            }
             OnClickPreviewButton();
         }
 

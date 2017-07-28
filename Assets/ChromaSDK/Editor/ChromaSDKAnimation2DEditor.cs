@@ -480,7 +480,12 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             GUILayout.EndHorizontal();
             GUI.SetNextControlName(string.Empty);
 
-            GUILayout.BeginHorizontal();
+            GUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+
+            if (GUILayout.Button("First"))
+            {
+                OnClickFirstButton();
+            }
 
             if (GUILayout.Button("Previous"))
             {
@@ -491,6 +496,15 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
             {
                 OnClickNextButton();
             }
+
+            if (GUILayout.Button("Last"))
+            {
+                OnClickLastButton();
+            }
+
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
 
             if (GUILayout.Button("Add"))
             {
@@ -1130,6 +1144,13 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         animation.Frames = frames;
     }
 
+    private void OnClickFirstButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        _mCurrentFrame = 0;
+        animation.RefreshCurve();
+    }
+
     private void OnClickPreviousButton()
     {
         ChromaSDKAnimation2D animation = GetAnimation();
@@ -1146,7 +1167,18 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         }
         animation.RefreshCurve();
     }
-    
+
+    private void OnClickLastButton()
+    {
+        ChromaSDKAnimation2D animation = GetAnimation();
+        _mCurrentFrame = 0;
+        if (animation.Frames.Count > 0)
+        {
+            _mCurrentFrame = animation.Frames.Count - 1;
+        }
+        animation.RefreshCurve();
+    }
+
     private void OnClickColor(int row, int column)
     {
         ChromaSDKAnimation2D animation = GetAnimation();
@@ -1324,38 +1356,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
     {
         ChromaSDKAnimation2D animation = GetAnimation();
         EditorUtility.SetDirty(animation);
-        var frames = animation.Frames; //copy
         Unload();
 
-        while (frames.Count > 1)
-        {
-            frames.RemoveAt(0);
-        }
-        if (_mCurrentFrame < 0 ||
-            _mCurrentFrame >= frames.Count)
-        {
-            _mCurrentFrame = 0;
-        }
-        if (frames.Count == 1)
-        {
-            // reset frame
-            frames[0] = ChromaUtils.CreateColors2D(animation.Device);
+        _mCurrentFrame = 0;
 
-            // reset curve
-            while (animation.Curve.keys.Length > 0)
-            {
-                animation.Curve.RemoveKey(0);
-            }
-        }
-        else if (frames.Count > 0)
-        {
-            frames.RemoveAt(_mCurrentFrame);
-            if (_mCurrentFrame == frames.Count)
-            {
-                _mCurrentFrame = frames.Count - 1;
-            }
-        }
-        animation.Frames = frames;
+        animation.ClearFrames();
         animation.RefreshCurve();
     }
 #endif
