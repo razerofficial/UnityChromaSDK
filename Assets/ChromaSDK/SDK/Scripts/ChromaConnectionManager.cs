@@ -63,6 +63,14 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
     {
         get
         {
+            switch (Application.platform)
+            {
+                case RuntimePlatform.WindowsEditor:
+                case RuntimePlatform.WindowsPlayer:
+                    break;
+                default:
+                    return null;
+            }
             if (null == _sInstance)
             {
                 GameObject go = GameObject.Find(INSTANCE_NAME);
@@ -219,12 +227,21 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
 
     public void Awake()
     {
+        if (!ChromaUtils.IsPlatformSupported())
+        {
+            gameObject.SetActiveRecursively(false);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
         Connect();
     }
 
     public void OnApplicationQuit()
     {
-        Disconnect();
+        if (ChromaUtils.IsPlatformSupported())
+        {
+            Disconnect();
+        }
     }
 
     /// <summary>

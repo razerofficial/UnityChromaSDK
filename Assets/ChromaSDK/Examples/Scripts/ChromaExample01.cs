@@ -41,6 +41,18 @@ public class ChromaExample01 : MonoBehaviour
     private List<Action> _mMainActions = new List<Action>();
 
     /// <summary>
+    /// Deactivate on non-windows platforms
+    /// </summary>
+    public void Awake()
+    {
+        if (!ChromaUtils.IsPlatformSupported())
+        {
+            gameObject.SetActiveRecursively(false);
+            return;
+        }
+    }
+
+    /// <summary>
     /// UI interaction needs to execute on the main thread
     /// </summary>
     private void FixedUpdate()

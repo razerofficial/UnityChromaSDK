@@ -24,6 +24,22 @@ namespace ChromaSDK
             new Dictionary<int, Dictionary<int, string>>();
 
         /// <summary>
+        /// Is the current application platform supported?
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsPlatformSupported()
+        {
+            switch (Application.platform)
+            {
+                case RuntimePlatform.WindowsEditor:
+                case RuntimePlatform.WindowsPlayer:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
         /// Get the max column given the device
         /// </summary>
         /// <param name="device"></param>
