@@ -232,7 +232,10 @@ public class ChromaConnectionManager : MonoBehaviour, IUpdate
             ChromaUtils.SetActive(gameObject, false);
             return;
         }
-        DontDestroyOnLoad(gameObject);
+        if (Application.isPlaying)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
         Connect();
     }
 
