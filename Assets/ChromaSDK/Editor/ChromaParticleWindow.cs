@@ -229,6 +229,38 @@ class ChromaParticleWindow : EditorWindow
         }
     }
 
+    private void AutoOverrideTime()
+    {
+        if (_mAnimation)
+        {
+            if (_mAnimation is ChromaSDKAnimation1D)
+            {
+                ChromaSDKAnimation1D animation = _mAnimation as ChromaSDKAnimation1D;
+                animation.RefreshCurve();
+            }
+            else if (_mAnimation is ChromaSDKAnimation2D)
+            {
+                ChromaSDKAnimation2D animation = _mAnimation as ChromaSDKAnimation2D;
+
+                var frames = animation.Frames; //copy
+                float frameTime = _mInterval;
+                float time = 0.0f;
+                //clear old keys
+                while (animation.Curve.keys.Length > 0)
+                {
+                    animation.Curve.RemoveKey(0);
+                }
+                //add keys on new interval
+                for (int i = 0; i < frames.Count; ++i)
+                {
+                    time += frameTime;
+                    animation.Curve.AddKey(time, 0f);
+                }
+                animation.RefreshCurve();
+            }
+        }
+    }
+
     private void OnGUI()
     {
         if (_mCapturing)
@@ -326,7 +358,11 @@ class ChromaParticleWindow : EditorWindow
         }
         GUILayout.EndHorizontal();
 
-        _mInterval = EditorGUILayout.FloatField("Capture Interval", _mInterval);
+        float interval = EditorGUILayout.FloatField("Capture Interval", _mInterval);
+        if (interval >= 0.1f)
+        {
+            _mInterval = interval;
+        }
 
         GUILayout.BeginHorizontal(GUILayout.Width(position.width));
         GUILayout.Label("Capture:");
@@ -338,6 +374,10 @@ class ChromaParticleWindow : EditorWindow
         if (GUILayout.Button(_mCapturing ? "Stop" : "Start"))
         {
             _mCapturing = !_mCapturing;
+            if (!_mCapturing)
+            {
+                AutoOverrideTime();
+            }
         }
         GUI.enabled = true;
         GUILayout.EndHorizontal();
