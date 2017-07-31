@@ -13,6 +13,11 @@ namespace ChromaSDK
     public static class ChromaUtils
     {
         /// <summary>
+        /// SDK Version
+        /// </summary>
+        public const string VERSION = "1.0.9";
+
+        /// <summary>
         /// Thread safe random object
         /// </summary>
         private static Random _sRandom = new System.Random(123);

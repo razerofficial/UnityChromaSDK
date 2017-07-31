@@ -11,11 +11,14 @@ public class ChromaSDKAnimationBaseEditor : Editor
 {
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
     protected const string KEY_FOLDER_ANIMATIONS = "folder/animations";
+    protected const string KEY_FOLDER_CHROMA = "folder/chroma";
     protected const string KEY_FOLDER_IMAGES = "folder/images";
     protected const string CONTROL_DURATION = "control-duration";
     protected const string CONTROL_OVERRIDE = "control-override";
     protected readonly Color ORANGE = new Color(1f, 0.5f, 0f, 1f);
     protected readonly Color PURPLE = new Color(1f, 0f, 1f, 1f);
+    protected const int LAYOUT_PADDING = 5;
+    protected const int ANIMATION_VERSION = 1;
 
     protected static Texture2D _sTextureClear = null;
 
@@ -29,6 +32,43 @@ public class ChromaSDKAnimationBaseEditor : Editor
     protected static bool _sGoToLastFrame = false;
 
     private static List<IUpdate> _sTargets = new List<IUpdate>();
+
+    protected string GetAnimationFolder()
+    {
+        if (EditorPrefs.HasKey(KEY_FOLDER_ANIMATIONS))
+        {
+            return EditorPrefs.GetString(KEY_FOLDER_ANIMATIONS);
+        }
+        return "Assets/ChromaSDK/Examples/Textures";
+    }
+    protected string GetChromaFolder()
+    {
+        if (EditorPrefs.HasKey(KEY_FOLDER_CHROMA))
+        {
+            return EditorPrefs.GetString(KEY_FOLDER_CHROMA);
+        }
+        return "Assets/ChromaSDK/Examples/Textures";
+    }
+    protected string GetImageFolder()
+    {
+        if (EditorPrefs.HasKey(KEY_FOLDER_IMAGES))
+        {
+            return EditorPrefs.GetString(KEY_FOLDER_IMAGES);
+        }
+        return "Assets/ChromaSDK/Examples/Textures";
+    }
+    protected string GetAnimationExtensions()
+    {
+        return "GIF Animation;*.gif";
+    }
+    protected string GetChromaExtensions()
+    {
+        return "Chroma Animation;*.chroma";
+    }
+    protected string GetImageExtensions()
+    {
+        return "Image File;*.bmp;*.jpg;*.png";
+    }
 
     protected virtual int GetFrameCount()
     {

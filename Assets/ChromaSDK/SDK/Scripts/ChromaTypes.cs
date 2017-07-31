@@ -4,9 +4,16 @@ using UnityEngine;
 namespace ChromaSDK
 {
     [Serializable]
+    public enum ChromaDeviceTypeEnum
+    {
+        Type_1D = 0,
+        Type_2D,
+    }
+
+    [Serializable]
     public enum ChromaDevice1DEnum
     {
-        ChromaLink,
+        ChromaLink = 0,
         Headset,
         Mousepad,
     }
@@ -14,7 +21,7 @@ namespace ChromaSDK
     [Serializable]
     public enum ChromaDevice2DEnum
     {
-        Keyboard,
+        Keyboard = 0,
         Keypad,
         Mouse,
     }
