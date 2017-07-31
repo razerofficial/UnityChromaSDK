@@ -530,11 +530,28 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
                             return;
                         }
 
-                        //type
+                        //device type
                         if (br.ReadByte() != (byte)ChromaDeviceTypeEnum.Type_1D)
                         {
                             Debug.LogError("Unexpected device type!");
                             return;
+                        }
+
+                        //device
+                        switch ((ChromaDevice1DEnum)br.ReadByte())
+                        {
+                            case ChromaDevice1DEnum.ChromaLink:
+                                animation.Device = ChromaDevice1DEnum.ChromaLink;
+                                break;
+                            case ChromaDevice1DEnum.Headset:
+                                animation.Device = ChromaDevice1DEnum.Headset;
+                                break;
+                            case ChromaDevice1DEnum.Mousepad:
+                                animation.Device = ChromaDevice1DEnum.Mousepad;
+                                break;
+                            default:
+                                Debug.LogError("Unexpected device!");
+                                return;
                         }
 
                         List<EffectArray1dInput> frames = new List<EffectArray1dInput>();
@@ -593,8 +610,11 @@ public class ChromaSDKAnimation1DEditor : ChromaSDKAnimationBaseEditor
                         //version
                         bw.Write((int)ANIMATION_VERSION);
 
-                        //type
+                        //device type
                         bw.Write((byte)ChromaDeviceTypeEnum.Type_1D);
+
+                        //device
+                        bw.Write((byte)animation.Device);
 
                         List<EffectArray1dInput> frames = animation.Frames;
 
