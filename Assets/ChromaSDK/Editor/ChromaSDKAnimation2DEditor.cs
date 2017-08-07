@@ -620,12 +620,6 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
         {
             ImageManager.LoadImage(path);
 
-            DateTime wait = DateTime.Now + TimeSpan.FromSeconds(1);
-            while (DateTime.Now < wait)
-            {
-                Thread.Sleep(0);
-            }
-
             int frameCount = ImageManager.PluginGetFrameCount();
             if (frameCount == 0)
             {

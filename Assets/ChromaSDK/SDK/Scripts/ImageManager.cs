@@ -69,7 +69,7 @@ namespace ChromaSDK
             FileInfo fi = new FileInfo(path);
             if (fi.Exists)
             {
-                byte[] array = ASCIIEncoding.ASCII.GetBytes(fi.FullName);
+                byte[] array = ASCIIEncoding.ASCII.GetBytes(fi.FullName + "\0");
                 IntPtr lpData = Marshal.AllocHGlobal(array.Length);
                 Marshal.Copy(array, 0, lpData, array.Length);
                 PluginLoadImage(lpData);
