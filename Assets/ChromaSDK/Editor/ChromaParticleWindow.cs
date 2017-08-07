@@ -421,7 +421,12 @@ class ChromaParticleWindow : EditorWindow
         {
             _mInterval = interval;
         }
-        GUILayout.Label(string.Format("{0} frames", _mAnimation.GetFrameCount()));
+        int frameCount = 0;
+        if (_mAnimation)
+        {
+            frameCount = _mAnimation.GetFrameCount();
+        }
+        GUILayout.Label(string.Format("{0} frames", frameCount));
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal(GUILayout.Width(position.width));
