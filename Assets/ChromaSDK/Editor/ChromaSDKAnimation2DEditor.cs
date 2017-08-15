@@ -23,6 +23,8 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
     private static bool _sToggleLabels = true;
 
+    private static Color _sLabelColor = Color.white;
+
     [MenuItem("GameObject/ChromaSDK/Create 2D Animation", priority=2)]
     private static void CreateAsset()
     {
@@ -225,7 +227,11 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
 
             if (_mDevice == ChromaDevice2DEnum.Keyboard)
             {
+                GUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
                 _sToggleLabels = EditorGUILayout.Toggle("Labels:", _sToggleLabels);
+                _sLabelColor = EditorGUILayout.ColorField("Label Color:", _sLabelColor);
+                GUILayout.FlexibleSpace();
+                GUILayout.EndHorizontal();
             }
 
             // Preview
@@ -314,7 +320,10 @@ public class ChromaSDKAnimation2DEditor : ChromaSDKAnimationBaseEditor
                             _sToggleLabels)
                         {
                             string keyString = ChromaUtils.GetKeyString(i, j);
+                            Color oldColor = GUI.skin.label.normal.textColor;
+                            GUI.skin.label.normal.textColor = _sLabelColor;
                             GUI.Label(rect, keyString);
+                            GUI.skin.label.normal.textColor = oldColor;
                         }
                     }
 
