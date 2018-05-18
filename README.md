@@ -1,4 +1,10 @@
-# ChromaSDK - the Unity C# library for the Chroma Rest API
+# UnityChromaSDK - the Unity C# library for the Chroma Rest API
+
+---
+
+**Note: UnityChromaSDK is the older plugin and you probably want [UnityNativeChromaSDK](https://github.com/RazerOfficial/UnityNativeChromaSDK) instead.**
+
+---
 
 **Table of Contents**
 
